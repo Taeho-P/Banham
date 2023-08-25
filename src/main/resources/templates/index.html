@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>마커</title>
+    <link rel="stylesheet" href="/css/map.css">
+</head>
+<body>
+<div id="mapwrap">
+    <div id="map" style="width:100%;height:500px;"></div>
+    <div class="category">
+        <ul>
+            <li id="travelMenu" class="" onclick="changeMarker('travel')">
+                <span class="ico_comm ico_travel"></span>
+                여행
+            <li id="hotelMenu" class="" onclick="changeMarker('hotel')">
+                <span class="ico_comm ico_hotel"></span>
+                숙박
+            </li>
+            <li id="foodMenu" class="" onclick="changeMarker('food')">
+                <span class="ico_comm ico_food"></span>
+                음식점
+            </li>
+            <li id="shoppingMenu" class="" onclick="changeMarker('shopping')">
+                <span class="ico_comm ico_shopping"></span>
+                쇼핑
+            </li>
+            <li id="medicalMenu" class="" onclick="changeMarker('medical')">
+                <span class="ico_comm ico_medical"></span>
+                의료
+            </li>
+            <li id="serviceMenu" class="" onclick="changeMarker('service')">
+                <span class="ico_comm ico_service"></span>
+                서비스
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<!--maker modal start-->
+<div class="modal" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h7><strong>업체정보</strong></h7>
+                <button class="close_button" data-dismiss="modal">닫기</button>
+            </div>
+            <div class="modal-body">
+                <div class="info">
+                    <dl>
+                        <dt id="category_name"></dt>
+                        <dd><strong id="place_name"></strong></dd>
+                    </dl>
+                    <dl>
+                        <dt>이름 :</dt>
+                        <dd id="place_phone"></dd>
+                    </dl>
+                    <dl>
+                        <dt>주소 :</dt>
+                        <dd id="place_addr"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>
+<!--maker modal end-->
+<script th:inline="javascript">
+
+
+    /* 해야할일
+    json data parse해서 DB에 넣기
+    DBdata랑 json data 비교대조해서 첨삭코드 만들기 @스케쥴 어노테이션 참고해서 구현해볼것 */
+
+    let mapContainer = document.getElementById('map'); // 지도를 표시할 div
+    let lat = 37.498095; // 기본 위도(강남역)
+    let lon = 127.027610; // 기본 경도(강남역)
+    let mapOption; // 맵 옵션 (위도/경도 세팅, 확대레벨 세팅)
+    let map; // 띄워줄 맵 객체
+    let serviceList = [[${serviceList}]]; //서비스
+    let foodList = [[${foodList}]], // 음식점
+        travelList = [[${travelList}]], // 여행
+        shoppingList = [[${shoppingList}]], // 쇼핑
+        medicalList = [[${medicalList}]], //의료
+        hotelList = [[${hotelList}]]; // 숙박
+    let serviceMarker = [],
+        foodMarker = [],
+        travelMarker = [],
+        shoppingMarker = [],
+        medicalMarker = [],
+        hotelMarker = [];
+    let clusterer = new kakao.maps.MarkerClusterer({
+        map: map,
+        averageCenter: true,
+        minLevel: 5
+    });
+    let imageSize = new kakao.maps.Size(22, 26);
+    let imageOptions = {
+        spriteOrigin: new kakao.maps.Point(10, 0),
+        spriteSize: new kakao.maps.Size(36, 98)
+    };
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
+            mapOption = {
+                center: new kakao.maps.LatLng(lat, lon),
+                level: 2
+            };
+            map = new kakao.maps.Map(mapContainer, mapOption);
+            map.setMaxLevel(8);
+        }, error);
+    } else {
+        mapOption = {
+            center: new kakao.maps.LatLng(lat, lon),
+            level: 2
+        };
+        map = new kakao.maps.Map(mapContainer, mapOption);
+        map.setMaxLevel(8);
+    }
+
+    function error() {
+        mapOption = {
+            center: new kakao.maps.LatLng(lat, lon),
+            level: 2
+        };
+        map = new kakao.maps.Map(mapContainer, mapOption);
+        map.setMaxLevel(9);
+    }
+
+
+    let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+    function createMarkerImage(src, size, options) {
+        let markerImage = new kakao.maps.MarkerImage(src, size, options);
+        return markerImage;
+    }
+
+    // // 초기화 및 데이터 로딩 후 실행할 함수
+    // function initialize() {
+    //     // 초기화할 데이터 카테고리를 배열로 정의
+    //     const categories = ['service', 'food', 'travel', 'medical', 'hotel', 'shopping'];
+    //
+    //     // 각 카테고리에 해당하는 데이터를 비동기적으로 로딩하고 마커 생성
+    //     categories.forEach(category => {
+    //         createrMarker(category);
+    //     });
+    // }
+    //
+    // // 페이지 로딩 완료 시 초기화 함수 실행
+    // window.addEventListener('load', initialize);
+
+    function createMarker(position, image) {
+        let marker = new kakao.maps.Marker({
+            position: position,
+            image: image,
+            imageSize: imageSize
+        });
+        return marker;
+    }
+
+    function createMarkersByCategory(category, dataList, markerArray) {
+        let marker;
+        for (let i = 0; i < dataList.length; i++) {
+            let data = dataList[i];
+            let title = data.title;
+            let location = data.addr1;
+            let latlng = new kakao.maps.LatLng(data.latitude, data.longitude);
+            marker = createMarker(latlng, createMarkerImage(imageSrc, imageSize));
+
+            kakao.maps.event.addListener(marker, 'click', function () {
+                const modal = document.getElementById("modal");
+                let placeTitle = title;
+                let placeAddr = location;
+
+                document.getElementById("place_phone").innerText = placeTitle;
+                document.getElementById("place_addr").innerText = placeAddr;
+                modal.style.display = "block";
+            });
+            markerArray.push(marker);
+        }
+
+    }
+
+    function changeMarker(type) {
+        let serviceMenu = document.getElementById('serviceMenu');
+        let foodMenu = document.getElementById('foodMenu');
+        let travelMenu = document.getElementById('travelMenu');
+        let medicalMenu = document.getElementById('medicalMenu');
+        let hotelMenu = document.getElementById('hotelMenu');
+        let shoppingMenu = document.getElementById('shoppingMenu');
+        // 다른 카테고리 메뉴 변수 더 만들어서 저장하기
+
+        // 선택한 카테고리 메뉴를 강조 표시하고 다른 카테고리 메뉴를 초기화
+        if (type === 'service') {
+            serviceMenu.className = 'menu_selected';
+            foodMenu.className = '';
+            travelMenu.className = '';
+            medicalMenu.className = '';
+            hotelMenu.className = '';
+            shoppingMenu.className = '';
+        } else if (type === 'food') {
+            foodMenu.className = 'menu_selected';
+            serviceMenu.className = '';
+            travelMenu.className = '';
+            medicalMenu.className = '';
+            hotelMenu.className = '';
+            shoppingMenu.className = '';
+        } else if (type === 'shopping') {
+            shoppingMenu.className = 'menu_selected';
+            foodMenu.className = '';
+            travelMenu.className = '';
+            medicalMenu.className = '';
+            hotelMenu.className = '';
+            travelMenu.className = '';
+        } else if (type === 'hotel') {
+            hotelMenu.className = 'menu_selected';
+            foodMenu.className = '';
+            travelMenu.className = '';
+            medicalMenu.className = '';
+            shoppingMenu.className = '';
+            serviceMenu.className = '';
+        } else if (type === 'travel') {
+            travelMenu.className = 'menu_selected';
+            foodMenu.className = '';
+            serviceMenu.className = '';
+            medicalMenu.className = '';
+            hotelMenu.className = '';
+            shoppingMenu.className = '';
+        } else if (type === 'medical') {
+            medicalMenu.className = 'menu_selected';
+            foodMenu.className = '';
+            travelMenu.className = '';
+            medicalMenu.className = 'menu_selected';
+            hotelMenu.className = '';
+            shoppingMenu.className = '';
+            serviceMenu.className = '';
+        }
+
+        // 선택한 카테고리에 해당하는 마커만 표시
+        setMarkersByCategory(type);
+    }
+
+    function createrMarker(category) {
+        if (category === 'service') {
+            createMarkersByCategory(category, serviceList, serviceMarker);
+        }
+        if (category === 'food') {
+            createMarkersByCategory(category, foodList, foodMarker);
+        }
+        if (category === 'travel') {
+            createMarkersByCategory(category, travelList, travelMarker);
+        }
+        if (category === 'medical') {
+            createMarkersByCategory(category, medicalList, medicalMarker);
+        }
+        if (category === 'hotel') {
+            createMarkersByCategory(category, hotelList, hotelMarker);
+        }
+        if (category === 'shopping') {
+            createMarkersByCategory(category, shoppingList, shoppingMarker);
+        }
+        // 선택된 카테고리에 해당하는 마커만 생성하고 표시
+    }
+
+    function setMarkersByCategory(category) {
+        createrMarker(category);
+        // 각 카테고리에 해당하는 마커들만 표시하도록 설정
+        if (category === 'service') {
+            for (let i = 0; i < serviceMarker.length; i++) {
+                serviceMarker[i].setMap(map);
+            }
+
+        } else {
+            for (let i = 0; i < serviceMarker.length; i++) {
+                serviceMarker[i].setMap(null);
+            }
+        }
+
+        if (category === 'food') {
+            for (let i = 0; i < foodMarker.length; i++) {
+                foodMarker[i].setMap(map);
+            }
+        } else {
+            for (let i = 0; i < foodMarker.length; i++) {
+                foodMarker[i].setMap(null);
+            }
+        }
+
+        if (category === 'travel') {
+            for (let i = 0; i < travelMarker.length; i++) {
+                travelMarker[i].setMap(map);
+            }
+        } else {
+            for (let i = 0; i < travelMarker.length; i++) {
+                travelMarker[i].setMap(null);
+            }
+        }
+
+        if (category === 'shopping') {
+            for (let i = 0; i < shoppingMarker.length; i++) {
+                shoppingMarker[i].setMap(map);
+            }
+        } else {
+            for (let i = 0; i < shoppingMarker.length; i++) {
+                shoppingMarker[i].setMap(null);
+            }
+        }
+
+        if (category === 'medical') {
+            for (let i = 0; i < medicalMarker.length; i++) {
+                medicalMarker[i].setMap(map);
+            }
+        } else {
+            for (let i = 0; i < medicalMarker.length; i++) {
+                medicalMarker[i].setMap(null);
+            }
+        }
+
+        if (category === 'hotel') {
+            for (let i = 0; i < hotelMarker.length; i++) {
+                hotelMarker[i].setMap(map);
+            }
+        } else {
+            for (let i = 0; i < hotelMarker.length; i++) {
+                hotelMarker[i].setMap(null);
+            }
+        }
+        cluster(category);
+    }
+
+    function clearCluster() {
+        clusterer.clear(); // 클러스터러에서 마커 제거
+    }
+
+    function cluster(category) {
+        clearCluster();
+        let markersToAdd;
+        if (category === 'service') {
+            markersToAdd = serviceMarker;
+        } else if (category === 'food') {
+            markersToAdd = foodMarker;
+        } else if (category === 'travel') {
+            markersToAdd = travelMarker;
+        } else if (category === 'medical') {
+            markersToAdd = medicalMarker;
+        } else if (category === 'hotel') {
+            markersToAdd = hotelMarker;
+        } else if (category === 'shopping') {
+            markersToAdd = shoppingMarker;
+        }
+
+        if (markersToAdd) {
+            clusterer.addMarkers(markersToAdd);
+            clusterer.setMap(map);
+        }
+    }
+
+    //modal창 제어하기
+    const closeButton = document.getElementsByClassName("close_button")[0];
+    closeButton.addEventListener("click", closeModal);
+
+    function closeModal() {
+        const modal = document.getElementById("modal");
+        modal.style.display = "none";
+    }
+    // 모달 닫기 버튼 클릭 시 closeModal 함수 호출
+</script>
+
+</body>
+</html>
