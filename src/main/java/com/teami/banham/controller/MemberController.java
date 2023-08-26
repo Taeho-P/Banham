@@ -11,30 +11,31 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor //final 필드에 대한 생성자 자동 생성 (lombok)
+@RequestMapping("/member/*")
 public class MemberController {
     //생성자 주입 (@RequiredArgsConstructor 를 통해 final필드에 대한 생성자 생성
     private final MemberService memberService;
     private final RegisterMail registerMail;
 
     //회원가입 페이지 출력 요청
-    @GetMapping("member/signUp")
+    @GetMapping("/signUp")
     public String signUpForm() {
         return "SignUp"; //SignUp.html 호출
     }
 
     //넘어온 정보들로 회원가입 진행
-    @PostMapping("/member/signUp")
+    @PostMapping("/signUp")
     public String signUp(@ModelAttribute MemberDTO memberDTO) {
         //@ModelAttribute를 통해 memberDTO클래스에 자동으로 값을 넣은채로 join메소드 실행
         System.out.println("MemberController.join");
         System.out.println("memberDTO = " + memberDTO);
 
         memberService.join(memberDTO);
-        return "index";
+        return "redirect:/";
     }
 
     //ID 중복 체크
-    @PostMapping("/member/id_check")
+    @PostMapping("/id_check")
     public @ResponseBody String id_check(@RequestParam("memberId") String memberId) {
         System.out.println("id = " + memberId);
         String checkResult = memberService.idCheck(memberId);
@@ -42,7 +43,7 @@ public class MemberController {
     }
 
     //닉네임 중복 체크
-    @PostMapping("/member/nick_check")
+    @PostMapping("/nick_check")
     public @ResponseBody String nick_check(@RequestParam("memberNick") String memberNick) {
         System.out.println("nickname = " + memberNick);
         String checkResult = memberService.nickCheck(memberNick);
@@ -51,7 +52,7 @@ public class MemberController {
     }
 
     //이메일 중복 체크
-    @PostMapping("/member/mail_check")
+    @PostMapping("/mail_check")
     public @ResponseBody String mail_check(@RequestParam("memberMail") String memberMail) {
         System.out.println("mail = " + memberMail);
         String checkResult = memberService.mailCheck(memberMail);
@@ -60,7 +61,7 @@ public class MemberController {
     }
 
     // 이메일 인증
-    @PostMapping("/member/join/mailConfirm")
+    @PostMapping("/join/mailConfirm")
     @ResponseBody
     String mailConfirm(@RequestParam("email") String email) throws Exception {
 
@@ -70,20 +71,20 @@ public class MemberController {
     }
 
     //로그인 페이지 출력 요청
-    @GetMapping("/member/login")
+    @GetMapping("/login")
     public String loginForm() {
         return "Login"; // templates폴더 내의 Login.html을 찾아감
     }
 
     
     //넘겨받은 정보로 로그인 처리
-    @PostMapping("/member/login")
+    @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
         MemberDTO loginResult = memberService.login(memberDTO);
         if(loginResult != null) {
             //로그인 성공
             session.setAttribute("memberDTO", loginResult);
-            return "index";
+            return "redirect:/";
         } else {
             //로그인 실패
             return "Login";
