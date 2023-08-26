@@ -1,0 +1,108 @@
+#modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close_button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close_button:hover,
+.close_button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#mapwrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.category, .category * {
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+
+.category {
+    position: absolute;
+    overflow: hidden;
+    top: 10px;
+    left: 10px;
+    width: 300px;
+    height: 50px;
+    z-index: 10;
+    border: 1px solid black;
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.category .menu_selected {
+    background: #fca120;
+    color: #fff;
+    border-left: 1px solid #915B2F;
+    border-right: 1px solid #915B2F;
+    margin: 0 -1px;
+}
+
+.category li {
+    list-style: none;
+    float: left;
+    width: 50px;
+    height: 45px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.category .ico_comm {
+    display: block;
+    margin: 0 auto 2px;
+    width: 22px;
+    height: 26px;
+    background: url('https://lh3.googleusercontent.com/fife/AKsag4ND3R3Yw5VrfWkvApzXPWoGMF2rwoOIcPCch9534XeoWU9_3_ONEGuNxFHBl5nwf4PBitMPjWkDapILOaaoFqnHCDi7OOHTlJVv0RYjUFjVYcEx4HZMT8E7agK5b_qQi5r3CQpOjNKNbzTifmvainbRBPOMFoAhgJm0H97ZVFrNrktQ0xCx_yMk04DJA9ZleUsz3K5-7kJp39DEN_Zy-KPO_gDk6ErgJQ1Qi5LkUInfdYTp8gGWzLtTq9hXB4MAVrYehXsebuNnJzn64Eno1Wh_JpA8EcEM33iQf_JDb5DFxMQlmOSy15w8BQ2kpEGocQRjv3jkweny3h2ZFLIakwHmTsi3CmSXF8Xgt_AfmWxaEZ5faQcxo4MbIo1IoNQPkYcWcbyrQnOog8jTHCT3KqZujoRvt0i9TOv-VFUm1lxpqlV1w7i6P0M8MrbsK_lj3MP0Rzrgzy18ceW5BfJLsiI9Lh-nXtntBctWUqbilKDzqUwoppLSPM8gEauWFhgaQaD_pFIs-UZ0jeMIZHqXXbkJQCDGtZxKeh2elfzgijrgdQANymyv2nVUuW5swuFGdzjZDpPHSu4zPvFN_jEypBDQjpK5NkSmG8Eu5PmW4qO4xo0AR6NGNBpTw-dlcTuaqFyNtx-kZyTMyONeouaA1P4OB-xcfV770w2VaoJCn6Dv2e2-vEfssrpcvPdvwDcoK7TvPd__g0IX7njkcUYgpUZWD-IQMWlwPu7zXsChIY_YUqW2oMNtGarto4c6DLneyNZlYMJoEYK_jolA2S47ns2rn1ZKB-SrJuhMzGa370j2e4QumCtLRocjYd__Es--iScViSMMdOOeGA7iDkncQwAJv8XJ6qsBEuHbn2n1ImHGJUcuCzBCUzMNollHgzYOFH9GphsqON9UngTHpKRfSbpXpQHi-ndzKcSmT981h4Cc0yPTkTGG61ybGdNZ9wVkTUnfnxPfUOF5KR_2agg_wNhQ8sNqyeXd0yqt34ilew2MyfngzM0wW6seh3-eWoUP3IwmJjPJmyiI8CadFP5x914uorv8ZfV2B6uQxpncMzKJ41FbFHCLDD8wKjaWgzttWi7mykj_X9_oKfhIvLhWqZtc62leFbu_CaZi2Pk_7Fs-659S6v20ISfw0fg35tRGOJ7cVTS8ZLxOlURQBZUjP1HJrZXIzCuLFtfEn1GNCrGbDuoiPP5Hc2Efp5AVnsVH1KDDskTSJVoCfrZHzqcS9EZfS8VR-6ox3VIHZjYeRGtQ7VnOX7Gco1JMUGpLrbzvgSSr9_j6MeyYAq0sPpV1lbMRA_nFMQt5Hk3wxI2GgdtexoTekWRgrchtTC-WEOET75GE99591SOuHs59uPx11kiNIgNyjltQ27jnUG_jyb2obwfyXbnqUsmyCJGf9IKhZVQBAkCRjJOdc-uizzmb-UAG_E9Mkdh7TS9BaP1QzOT4NSC7_hhae9Ib_cuDObRg6Uiw9pwiyn3aCjOo7MMa4EDHXrzOZLOMTGznGbLZtQvIvDKADxzhXWDikaknRtPOwg0iBve2=w1354-h911') no-repeat;
+}
+
+.category .ico_travel {
+    background-position: -10px 0;
+}
+
+.category .ico_hotel {
+    background-position: -10px -36px;
+}
+
+.category .ico_food {
+    background-position: -10px -72px;
+}
+
+.category .ico_shopping {
+    background-position: -10px -108px;
+}
+
+.category .ico_medical {
+    background-position: -10px -144px;
+}
+
+.category .ico_service {
+    background-position: -10px -180px;
+}
