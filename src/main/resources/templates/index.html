@@ -55,7 +55,7 @@
                     <a href="index.html" class="nav-link">홈</a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link dropdown-toggle" href="index.html" id="homedrop" role="button"
+                    <a class="nav-link dropdown-toggle homedrop" href="index.html"  role="button"
                        data-bs-toggle="dropdown">
                         커뮤니티
                     </a>
@@ -69,12 +69,12 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link" href="Adopt.html" id="pagedropdown" role="button" data-bs-toggle="dropdown">
+                    <a class="nav-link pagedropdown" href="Adopt.html" role="button" data-bs-toggle="dropdown">
                         입양
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link" href="MissingBoard.html" id="pagedropdown" role="button"
+                    <a class="nav-link pagedropdown" href="MissingBoard.html"  role="button"
                        data-bs-toggle="dropdown">
                         실종
                     </a>
@@ -107,7 +107,7 @@
 <!-- Navbar End -->
 
 <!-- start kakaomap api service -->
-<section class="mt-6 section service bg-light" id="collection">
+<section class="mt-6 section service bg-light collection" >
     <!-- start container -->
     <div class="container">
         <div class="row ">
@@ -152,7 +152,7 @@
 </section>
 <!-- end kakaomap api service -->
 <!-- start weather service -->
-<section class="mt-1 section service bg-light" id="collection">
+<section class="mt-1 section service bg-light collection" >
     <!-- start container -->
     <div class="container">
         <div class="row">
@@ -270,11 +270,11 @@
 
             <div class="col-lg-6">
                 <div class="home-content home-heading">
-                    <h2 class="fw-bold">#사지말고 입양 해주세요 <span class="text-primary"> </h2>
+                    <h2 class="fw-bold">#사지말고 입양 해주세요 <span class="text-primary"> </span></h2>
                     <p class="text-muted my-4"> 따뜻한 보금자리를 기다리는 동물들에게 새로운 가족이 되어주세요.</p>
                     <button class="btn btn-dark">더보기</button>
                 </div>
-                <div class="client-slider" id="clients-slider">
+                <div class="client-slider clients-slider">
                     <div class="item">
                         <div class="card position-relative overflow-hidden m-2 m-lg-0">
                             <img src="../static/images/img-1.png" alt="logo-img" class="img-fluid">
@@ -329,7 +329,7 @@
 
             <div class="col-lg-6">
                 <div class="home-content home-heading">
-                    <h2 class="fw-bold">#실종 전단지 <span class="text-primary"> </h2>
+                    <h2 class="fw-bold">#실종 전단지 <span class="text-primary"></span> </h2>
                     <p class="text-muted my-4">
                         동물을 빨리 찾을 수 있도록 분실관련 정보를 공유하는 공간입니다</p>
                     <button class="btn btn-dark">더보기</button>
@@ -459,15 +459,17 @@
                 <div class="text-center">
                     <p class="my-4 text-muted">©
                         <script>document.write(new Date().getFullYear())</script> teami <i
-                                class="mdi mdi-heart text-danger"></i> by <a href="https://github.com/Taeho-P/Banham"
-                                                                             target="_blank" class="text-reset">BanHam</a>.
+                                class="mdi mdi-heart text-danger"></i> by
+                        <a href="https://github.com/Taeho-P/Banham"  target="_blank" class="text-reset">BanHam</a>.
                     </p>
-
+                </div>
+            </div>
+        </div>
   
 
   
 
-
+    </div>
 <!--maker modal start-->
 <div class="modal" id="modal">
     <div class="modal-dialog">
@@ -495,8 +497,9 @@
             </div>
         </div>
     </div>
-
+</div>
 </section>
+
 <div id="scrolltop">
     <button class="btn btn-primary"><span class="icon"><i class="fas fa-angle-up fa-2x"></i></span></button>
 </div>
