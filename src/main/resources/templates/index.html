@@ -32,7 +32,116 @@
   <!-- Map Css -->
   <link rel="stylesheet" href="/css/map.css">
 
+<!--weather css-->
+    <style>
+        .weather{
+            width: 1200px;
+            height: 180px;
+            /*background-image: url('https://i.ibb.co/TrFsRs8/Group-3.png');*/
+            /*background-image: url('https://i.ibb.co/rd3NHwW/Group-4.png');*/
+            background-image: url('https://i.ibb.co/wzfdhzG/back.png');
+            /*background-attachment: fixed;*/
+            background-repeat: no-repeat;
 
+            /*display: flex;*/
+            /*justify-content: space-between;*/
+            /*justify-content: space-around;*/
+            font-family: "G마켓 산스 TTF Light";
+            /*margin-top: 30px;*/
+            /*padding: 20px -10px 20px 20px ;*/
+
+            position: relative;
+
+        }
+        .divLoc{
+            text-align:  left;
+            position: absolute;
+            top:20px;
+            left:30px;
+
+        }
+        #loc2{
+            font-size: 20px;
+        }
+        #loc{
+            font-size: 15px;
+        }
+
+        #weatherTemp{
+            font-family: "G마켓 산스 TTF Medium";
+            text-align: center;
+            font-size: 40px;
+
+            position: absolute;
+            top:90px;
+            left:30px;
+        }
+
+
+        #weatherIcon{
+            position: absolute;
+            left:265px;
+            top:10px;
+        }
+        #weatherMain{
+            position: absolute;
+            left:300px;
+            top:110px;
+        }
+
+        #pollIcon{
+            position: absolute;
+            top:30px;
+            left:480px;
+            opacity: 0.7;
+        }
+
+        #pollution{
+            position: absolute;
+            top:110px;
+            left:460px;
+        }
+
+
+        #chart{
+            position: absolute;
+            right: 20px;
+            top: 10px;
+
+            width: 480px;
+            height: 150px;
+            background-color: ghostwhite;
+            opacity: 0.3;
+            overflow:hidden;
+        }
+        #curve_chart{
+            position: absolute;
+            top : -20px;
+
+            width : 500px;
+            height: 170px;
+
+        }
+
+        #temperature-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .custom-marker {
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+
+    </style>
 
 </head>
 
@@ -158,8 +267,36 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <div class="mt-5">
-                    오늘의 날씨
+                <div class="weather">
+
+                    <div class="divLoc">
+                        <div id ="loc2"></div>
+                        <div id="loc"></div>
+                    </div>
+
+                    <div id="weatherTemp"></div>
+
+
+                    <div id="now">
+                        <img id="weatherIcon">
+                        <div id="weatherMain"></div>
+                    </div>
+
+                    <img id="pollIcon">
+                    <div id="pollution" >
+                        <span>미세먼지 : </span>
+                        <span id="weatherPol"></span>
+                    </div>
+
+                    <div id = "chart">
+                        <div id = curve_chart >
+
+                        </div>
+                        <div id="temperature-markers"></div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>
@@ -956,6 +1093,231 @@
         modal.style.display = "none";
     }
     // 모달 닫기 버튼 클릭 시 closeModal 함수 호출
+</script>
+
+
+<!--날씨-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+
+
+
+
+
+    const getCurrentLocation = () => {
+        // 현재 위치 가져오기
+        navigator.geolocation.getCurrentPosition((position) => {
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
+            console.log("현재 위치", lat, lon);
+            getWeather(lat,lon);
+            getPollution(lat,lon);
+            getLoc(lat,lon);
+            getForecast(lat, lon);
+
+        });
+    };
+
+    getCurrentLocation();
+
+
+
+
+    async function getLoc(lat, lon) {
+        const apiKey = '8e2aafc9141104413adfd78425609d10'; // 실제 API 키로 변경
+
+        try {
+            const response = await fetch(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${lon}&y=${lat}`, {
+                headers: {
+                    'Authorization': `KakaoAK ${apiKey}`
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+
+            // 추출된 region_3depth_name 값 출력
+            const regionName1 = data.documents[0].region_1depth_name;
+            const regionName2 = data.documents[0].region_3depth_name;
+
+            console.log("Region Name1:", regionName1);
+            console.log("Region Name2:", regionName2);
+            loc.innerHTML = `${regionName1}`;
+            loc2.innerHTML = `${regionName2}`;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function getForecast(lat, lon) {
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=10&lang=kr&appid=e27648845eed31c67a61863e536ae668&units=metric`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const timefull =data.list[2].dt_txt;
+                console.log(timefull);
+
+                let time = (Number)(timefull.charAt(11)+timefull.charAt(12));
+                console.log(time);
+
+                const timelist = [];
+                for( let i=0;i<6;i++){
+                    timelist.push(time+"시");
+                    time+=3;
+                    if(time==24){
+                        time=0;
+                    }
+
+                }
+
+
+
+                const tempValues = [];
+                let j =0;
+                for (let i = 2; i < 8; i++) {
+                    const tempValue = data.list[i].main.temp;
+
+                    tempValues.push(tempValue);
+                    console.log(tempValues[j++]);
+
+                }
+                drawChart(timelist,tempValues);
+            })
+    }
+
+    //날씨온도차트
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart(timelist, tempValues) {
+        var data = google.visualization.arrayToDataTable([
+            ['시간', '온도'],
+            [timelist[0],  tempValues[0]],
+            [timelist[1],  tempValues[1]],
+            [timelist[2],  tempValues[2]],
+            [timelist[3],  tempValues[3]],
+            [timelist[4],  tempValues[4]],
+            [timelist[5],  tempValues[5]]
+        ]);
+
+
+
+        const options = {
+            curveType: 'function',
+            legend: 'none',
+            colors: ['black'],
+            vAxis: {
+                minValue: Math.floor(Math.min(...tempValues)) - 2,
+                maxValue: Math.ceil(Math.max(...tempValues)) + 2
+            },
+            series: {
+                0: {
+                    pointsVisible: false
+                }
+            }
+        };
+
+
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+    }
+
+    /* function getWeather(lat, lon) {
+       fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=e27648845eed31c67a61863e536ae668&units=metric`)
+           .then(res => res.json())
+           .then(data => {
+               console.log(data);
+               const temp = data.main.temp;
+               const weathers = data.weather[data.weather.length -1];
+
+               // weatherIcon.src = `https://openweathermap.org/img/wn/${weathers.icon}@2x.png`;
+               weatherTemp.innerHTML = `${temp}&#176;`;
+               weatherMain.innerHTML = `${weathers.main}`;
+           })
+   }*/
+
+    function getWeather(lat, lon) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=e27648845eed31c67a61863e536ae668&units=metric`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+
+                if (data.weather && data.weather.length > 0) {
+                    const temp = data.main.temp;
+                    const weathers = data.weather[data.weather.length - 1];
+
+                    weatherIcon.src = `https://openweathermap.org/img/wn/${weathers.icon}@2x.png`;
+
+                    weatherTemp.innerHTML = `${temp}&#176;`;
+                    weatherMain.innerHTML = `${weathers.main}`;
+                } else {
+                    console.error('날씨 데이터를 사용할 수 없습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('날씨 데이터를 불러오는 중 오류 발생:', error);
+            });
+    }
+
+
+    let strPoll;
+    const styPoll = document.querySelector('#weatherPoll');
+    function getPollution(lat, lon) {
+        fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=e27648845eed31c67a61863e536ae668&units=metric`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const pollution = data.list[0].main.aqi;
+                console.log("미세먼지 단계: "+ pollution);
+                switch(Number(pollution)){
+                    case 1: strPoll= " 좋음 ";
+
+                        console.log(strPoll);
+                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(133, 193, 223, 0.8)';
+                        pollIcon.src = 'https://i.ibb.co/cYVKW63/Smiling.png';
+                        break;
+
+                    case 2: strPoll= " 보통 ";
+                        console.log(strPoll);
+                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(187, 221, 114, 0.8)';
+                        pollIcon.src = 'https://i.ibb.co/R32zYGf/Happy.png';
+                        break;
+
+                    case 3: strPoll= " 보통 ";
+                        console.log(strPoll);
+                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(133, 221, 114, 0.8)';
+                        pollIcon.src = 'https://i.ibb.co/sRZBSg9/Neutral.png';
+                        break;
+
+                    case 4: strPoll= " 나쁨 ";
+                        console.log(strPoll);
+                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(221, 114, 135, 0.8)';
+                        pollIcon.src = 'https://i.ibb.co/dBPD0Nh/Sad.png';
+                        break;
+
+                    case 5: strPoll= " 아주 나쁨 ";
+                        console.log(strPoll);
+                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(221, 114, 135, 0.8)';
+                        pollIcon.src = 'https://i.ibb.co/xDtPM8y/Disgusting.png';
+                        break;
+
+                    default: strPoll="테스트";
+                        console.log(strPoll);
+                        break;
+                }
+                weatherPol.innerHTML = ` ${strPoll} `;
+            })
+    }
+    // useEffect(() => {
+    //   getCurrentLocation();
+    // }, []);
+
 </script>
 
 </div>
