@@ -90,5 +90,41 @@ public class MemberService {
         }
     }
 
+    //수정된 정보가 담긴 DTO로 회원정보 수정 요청 (08.31 추가)
+    public void update(MemberDTO memberDTO) {
+        memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
+        //.save 매소드는 DB내에 일치하는 ID가 없으면 INSERT 쿼리를 날리고 동일한 ID가 존재하면 UPDATE 쿼리를 날림
+    }
 
+    //넘어온 이메일정보로 가입된 계정의 아이디를 찾아줌 (08.31 추가)
+    public String findId(String mail) {
+        Optional<MemberEntity> findMemberEntity = memberRepository.findByMemberMail(mail);
+        String findId = findMemberEntity.get().getMemberId();
+        //
+        return findId;
+    }
+
+
+    //아이디와 이메일 두가지가 일치하는 계정정보를 찾아주는 메소드 (08.31 추가)
+    public MemberDTO findID_Mail(String id, String mail) {
+        Optional<MemberEntity> findMemberEntity = memberRepository.findByMemberIdAndMemberMail(id, mail);
+        if(findMemberEntity.isPresent()) {
+            MemberDTO dto = MemberDTO.toMemberDTO(findMemberEntity.get());
+            return dto;
+        } else {
+            return null;
+        }
+    }
+
+    //아이디를 통해 일치하는 계정정보 꺼내오는 메소드 (08.31 추가)
+    public MemberDTO findByMemberId(String id) {
+        Optional<MemberEntity> byId = memberRepository.findByMemberId(id);
+        if (byId.isPresent()) {
+            System.out.println("조회결과있음");
+            MemberDTO memberDTO = MemberDTO.toMemberDTO(byId.get());
+            return memberDTO;
+        } else {
+            return null;
+        }
+    }
 }
