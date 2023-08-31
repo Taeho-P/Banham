@@ -2,7 +2,12 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>SignUp</title>
+    <title>반함 회원가입</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=""/>
+    <meta content="Pichforest" name="author"/>
 
     <link rel="shortcut icon" href="images/favicon.ico">
 
@@ -15,10 +20,6 @@
     <!-- Unicon Css -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
-    <!-- Swiper Css -->
-    <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css" />
-    <link rel="stylesheet" href="/css/swiper.min.css" type="text/css" />
-
     <!-- Custom Css -->
     <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
 
@@ -27,17 +28,19 @@
 
 </head>
 <body>
-
-
+<header>
+    <div th:replace="/header :: header"></div>
+</header>
+<!--end Navbar-->
 
 <!-- Start SignUp-->
 <!-- start section -->
 <section class="home section position-relative overflow-hidden"
-         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat;">
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover;top: 85px;">
     <!-- start container -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="d-flex justify-content-center col-lg-11">
                 <div class="inner-heading">
                     <h1 class="fw-bold">회원가입</h1>
                     <p class="fw-semibold">반려동물과 함께 행복해지는 첫걸음. 반함에 어서오세요
@@ -46,7 +49,7 @@
             </div>
         </div>
 
-        <div class="mt-4 col-lg-12">
+        <div class="d-flex justify-content-center col-lg-12">
             <form class="info-box">
                 <div class="row">
                     <!-- name속성 : 서버로 전송할때 변수 이름의 역할 -->
@@ -129,14 +132,14 @@
                     </form>
                     <hr class="my-4">
 
-                    <p class="text-muted">회원가입하라구 </p>
+<!--                    <p class="text-muted">회원가입하면 다양한 혜택이 있습니다 </p>-->
 
 
 
 
 
                     <!-- 회원가입 (submit) 버튼 -->
-                    <div class="submit-button">
+                    <div class="submit-button text-center">
                         <button class="btn btn-primary" type="submit" value="회원가입" >회원가입하기</button>
                     </div>
                 </div>
@@ -145,6 +148,11 @@
     </div>
     <!-- end container -->
 </section>
+<!-- start footer -->
+<footer>
+    <div th:replace="/footer :: footer"></div>
+</footer>
+<!-- end footer-->
 <!-- end SignUp-->
 
         <!--Bootstrap Js-->
