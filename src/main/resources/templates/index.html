@@ -6,37 +6,36 @@
     <title>반함 Banham</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content=" " />
-    <meta name="keywords" content="" />
-    <meta content="Pichforest" name="author" />
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=""/>
+    <meta content="Pichforest" name="author"/>
 
     <link rel="shortcut icon" href="images/favicon.ico">
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style"/>
 
     <!-- Material Icon Css -->
-    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css"/>
 
     <!-- Unicon Css -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
 
     <!-- Custom Css -->
-    <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css"/>
 
     <!-- Swiper Css -->
-    <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css" />
-    <link rel="stylesheet" href="/css/swiper.min.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/swiper.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 
 
-  
-  <!-- Map Css -->
-  <link rel="stylesheet" href="/css/map.css">
+    <!-- Map Css -->
+    <link rel="stylesheet" href="/css/map.css">
 
-<!--weather css-->
+    <!--weather css-->
     <style>
-        .weather{
+        .weather {
             width: 1200px;
             height: 180px;
             /*background-image: url('https://i.ibb.co/TrFsRs8/Group-3.png');*/
@@ -55,57 +54,61 @@
             position: relative;
 
         }
-        .divLoc{
-            text-align:  left;
+
+        .divLoc {
+            text-align: left;
             position: absolute;
-            top:20px;
-            left:30px;
+            top: 20px;
+            left: 30px;
 
         }
-        #loc2{
+
+        #loc2 {
             font-size: 20px;
         }
-        #loc{
+
+        #loc {
             font-size: 15px;
         }
 
-        #weatherTemp{
+        #weatherTemp {
             font-family: "G마켓 산스 TTF Medium";
             text-align: center;
             font-size: 40px;
 
             position: absolute;
-            top:90px;
-            left:30px;
+            top: 90px;
+            left: 30px;
         }
 
 
-        #weatherIcon{
+        #weatherIcon {
             position: absolute;
-            left:265px;
-            top:10px;
-        }
-        #weatherMain{
-            position: absolute;
-            left:300px;
-            top:110px;
+            left: 265px;
+            top: 10px;
         }
 
-        #pollIcon{
+        #weatherMain {
             position: absolute;
-            top:30px;
-            left:480px;
+            left: 300px;
+            top: 110px;
+        }
+
+        #pollIcon {
+            position: absolute;
+            top: 30px;
+            left: 480px;
             opacity: 0.7;
         }
 
-        #pollution{
+        #pollution {
             position: absolute;
-            top:110px;
-            left:460px;
+            top: 110px;
+            left: 460px;
         }
 
 
-        #chart{
+        #chart {
             position: absolute;
             right: 20px;
             top: 10px;
@@ -114,13 +117,14 @@
             height: 150px;
             background-color: ghostwhite;
             opacity: 0.3;
-            overflow:hidden;
+            overflow: hidden;
         }
-        #curve_chart{
-            position: absolute;
-            top : -20px;
 
-            width : 500px;
+        #curve_chart {
+            position: absolute;
+            top: -20px;
+
+            width: 500px;
             height: 170px;
 
         }
@@ -133,6 +137,7 @@
             height: 100%;
             pointer-events: none;
         }
+
         .custom-marker {
             position: absolute;
             font-size: 12px;
@@ -165,7 +170,7 @@
                     <a href="index.html" class="nav-link">홈</a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link dropdown-toggle homedrop" href="index.html"  role="button"
+                    <a class="nav-link dropdown-toggle homedrop" href="index.html" role="button"
                        data-bs-toggle="dropdown">
                         커뮤니티
                     </a>
@@ -184,13 +189,13 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link pagedropdown" href="MissingBoard.html"  role="button"
+                    <a class="nav-link pagedropdown" href="MissingBoard.html" role="button"
                        data-bs-toggle="dropdown">
                         실종
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link dropdown-toggle homedrop" href="Notice.html"  role="button"
+                    <a class="nav-link dropdown-toggle homedrop" href="Notice.html" role="button"
                        data-bs-toggle="dropdown">
                         공지사항
                     </a>
@@ -202,7 +207,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link dropdown-toggle homedrop" href="MyPage.html"  role="button"
+                    <a class="nav-link dropdown-toggle homedrop" href="MyPage.html" role="button"
                        data-bs-toggle="dropdown">
 
                         <img src="/images/all_menu_user_no_img.png" style="width: 30px;">
@@ -230,43 +235,43 @@
 <!-- Navbar End -->
 
 <!-- start kakaomap api service -->
-<section class="mt-7 section service bg-light collection post-content" >
+<section class="mt-7 section service collection post-content">
     <!-- start container -->
     <div class="container">
         <div class="row ">
             <div class="col-lg-12">
 
-               <div id="mapwrap">
-    <div id="map" style="width:100%;height:500px;"></div>
-    <div class="category">
-        <ul>
-            <li id="travelMenu" class="" onclick="changeMarker('travel')">
-                <span class="ico_comm ico_travel"></span>
-                여행
-            <li id="hotelMenu" class="" onclick="changeMarker('hotel')">
-                <span class="ico_comm ico_hotel"></span>
-                숙박
-            </li>
-            <li id="foodMenu" class="" onclick="changeMarker('food')">
-                <span class="ico_comm ico_food"></span>
-                음식점
-            </li>
-            <li id="shoppingMenu" class="" onclick="changeMarker('shopping')">
-                <span class="ico_comm ico_shopping"></span>
-                쇼핑
-            </li>
-            <li id="medicalMenu" class="" onclick="changeMarker('medical')">
-                <span class="ico_comm ico_medical"></span>
-                의료
-            </li>
-            <li id="serviceMenu" class="" onclick="changeMarker('service')">
-                <span class="ico_comm ico_service"></span>
-                서비스
-            </li>
+                <div id="mapwrap">
+                    <div id="map" style="width:100%;height:500px;"></div>
+                    <div class="category">
+                        <ul>
+                            <li id="travelMenu" class="" onclick="changeMarker('travel')">
+                                <span class="ico_comm ico_travel"></span>
+                                여행
+                            <li id="hotelMenu" class="" onclick="changeMarker('hotel')">
+                                <span class="ico_comm ico_hotel"></span>
+                                숙박
+                            </li>
+                            <li id="foodMenu" class="" onclick="changeMarker('food')">
+                                <span class="ico_comm ico_food"></span>
+                                음식점
+                            </li>
+                            <li id="shoppingMenu" class="" onclick="changeMarker('shopping')">
+                                <span class="ico_comm ico_shopping"></span>
+                                쇼핑
+                            </li>
+                            <li id="medicalMenu" class="" onclick="changeMarker('medical')">
+                                <span class="ico_comm ico_medical"></span>
+                                의료
+                            </li>
+                            <li id="serviceMenu" class="" onclick="changeMarker('service')">
+                                <span class="ico_comm ico_service"></span>
+                                서비스
+                            </li>
 
-        </ul>
-    </div>
-</div>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -275,16 +280,19 @@
 </section>
 <!-- end kakaomap api service -->
 <!-- start weather service -->
-<section class="mt-1 section service bg-light collection" >
+<section class="mt-1 section service collection">
     <!-- start container -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-
+                <div class="col-lg-6">
+                    <h2 class="fw-bold">오늘의 날씨</h2>
+                    <p class="text-muted">오늘의 날씨 알아맞춰보세용</p>
+                </div>
                 <div class="weather">
 
                     <div class="divLoc">
-                        <div id ="loc2"></div>
+                        <div id="loc2"></div>
                         <div id="loc"></div>
                     </div>
 
@@ -297,20 +305,17 @@
                     </div>
 
                     <img id="pollIcon">
-                    <div id="pollution" >
+                    <div id="pollution">
                         <span>미세먼지 : </span>
                         <span id="weatherPol"></span>
                     </div>
 
-                    <div id = "chart">
-                        <div id = curve_chart >
+                    <div id="chart">
+                        <div id=curve_chart>
 
                         </div>
                         <div id="temperature-markers"></div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -346,7 +351,8 @@
                         <h5 class="fw-bold">강아지가 멍멍</h5>
                         <p class="text-muted">강아지가 멍멍멍</p>
                         <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기</button>
+                            구경하러가기
+                        </button>
                     </div>
                 </div>
             </div>
@@ -365,7 +371,8 @@
                         <h5 class="fw-bold">강아지가 야옹</h5>
                         <p class="text-muted">강아지가 야옹</p>
                         <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기</button>
+                            구경하러가기
+                        </button>
                     </div>
                 </div>
             </div>
@@ -383,7 +390,8 @@
                         <h5 class="fw-bold">강아지가 멍멍</h5>
                         <p class="text-muted">강아지가 멍멍멍</p>
                         <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기</button>
+                            구경하러가기
+                        </button>
                     </div>
                 </div>
             </div>
@@ -401,7 +409,8 @@
                         <h5 class="fw-bold">고양이가 멍멍</h5>
                         <p class="text-muted">고양이가 멍멍멍</p>
                         <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기</button>
+                            구경하러가기
+                        </button>
                     </div>
                 </div>
             </div>
@@ -433,7 +442,8 @@
                                 <p class="mb-2">귀여운 발바닥이 매력적</p>
                                 <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -445,7 +455,8 @@
                                 <p class="mb-2">귀여운 발바닥이 매력적</p>
                                 <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -457,7 +468,8 @@
                                 <p class="mb-2">귀여운 발바닥이 매력적</p>
                                 <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -469,7 +481,8 @@
                                 <p class="mb-2">귀여운 발바닥이 매력적</p>
                                 <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -480,7 +493,7 @@
 
             <div class="col-lg-6">
                 <div class="home-content home-heading">
-                    <h2 class="fw-bold">#실종 전단지 <span class="text-primary"></span> </h2>
+                    <h2 class="fw-bold">#실종 전단지 <span class="text-primary"></span></h2>
                     <p class="text-muted my-4">
                         동물을 빨리 찾을 수 있도록 분실관련 정보를 공유하는 공간입니다</p>
                     <button class="btn btn-dark">더보기</button>
@@ -493,7 +506,8 @@
                                 <p class="mb-2">경기도 남양주시</p>
                                 <h5 class="fw-bold">복돌이를 찾아주세요</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -505,7 +519,8 @@
                                 <p class="mb-2">귀여운 발바닥이 매력적</p>
                                 <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -517,7 +532,8 @@
                                 <p class="mb-2">귀여운 발바닥이 매력적</p>
                                 <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -529,7 +545,8 @@
                                 <p class="mb-2">귀여운 발바닥이 매력적</p>
                                 <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
-                                    확인하기</button>
+                                    확인하기
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -539,7 +556,6 @@
             </div>
 
 
-
         </div>
     </div>
     <!-- end container -->
@@ -547,35 +563,22 @@
 <!-- end home -->
 
 
-
 <!-- start notice -->
 <section class="mt-5 service bg-gray" id="collection">
     <!-- start container -->
-    <div class="container">
+    <div class="container notice">
         <div class="row ">
-            <div class="col-lg-12 notice">
-                <div class="notice-line">
-                    <div class="bg-left"></div>
-                    <div class="inner">
-                        <div class="inner__left">
-                            <h2>공지사항</h2>
-                            <div class="swiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <a href="javascript:void(0)">공지사항1</a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="javascript:void(0)">공지사항2</a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="javascript:void(0)">공지사항3</a>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <a href="javascript:void(0)">공지사항4</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-lg-12 ">
+                <div class="rollingbanner">
+                    <div class="title">공지사항</div>
+                    <div class="wrap">
+                        <ul>
+                            <li><a href="#">[공지사항] 반함 현대백화점 오프라인 팝업스토어 오픈! </a></li>
+                            <li class="next"><a href="#">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></li>
+                            <li class="current"><a href="#">[공지사항] 9월 21일 홈페이지 점검 안내</a></li>
+                            <li><a href="#">[이벤트] 반려동물과 함께 추억남기기 이벤트</a></li>
+                            <li class="prev"><a href="#">[이벤트] 내새끼 자랑 Best 당첨자 안내</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -585,94 +588,94 @@
     <!-- end container -->
 </section>
 <!-- end notice -->
+
 <!-- start footer -->
 <section class="footer ">
     <div class="footer-bg">
         <div class="container">
-        <div class="top-footer">
+            <div class="top-footer">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="footer-info mt-4">
+                            <a class="logo f-30 text-dark fw-bold" href="index.html">
+                                <img src="/images/banham_logo.png" class="logo-dark" alt="" height="40">
+                            </a>
+                            <p class="f-18 mt-4 text-muted">
+                                반려동물과 함께.<br> 반함 커뮤니티 활동모임 입니다. <br>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="mt-4 pl-0 pl-lg-4">
+                            <h5 class="f-18 fw-bold">SNS</h5>
+                            <ul class="list-inline social-icons-list pt-3">
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="mdi mdi-facebook"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="mdi mdi-twitter"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="mdi mdi-linkedin"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"><i class="mdi mdi-google-plus"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr>
+
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="footer-info mt-4">
-                        <a class="logo f-30 text-dark fw-bold" href="index.html">
-                            <img src="/images/banham_logo.png" class="logo-dark" alt="" height="40">
-                        </a>
-                        <p class="f-18 mt-4 text-muted">
-                            반려동물과 함께.<br> 반함 커뮤니티 활동모임 입니다. <br>
+                <div class="col-12">
+                    <div class="text-center">
+                        <p class="my-4 text-muted">©
+                            <script>document.write(new Date().getFullYear())</script>
+                            teami <i
+                                    class="mdi mdi-heart text-danger"></i> by
+                            <a href="https://github.com/Taeho-P/Banham" target="_blank" class="text-reset">BanHam</a>.
                         </p>
                     </div>
                 </div>
+            </div>
 
 
-                <div class="col-lg-6">
-                    <div class="mt-4 pl-0 pl-lg-4">
-                        <h5 class="f-18 fw-bold">SNS</h5>
-                        <ul class="list-inline social-icons-list pt-3">
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-facebook"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-linkedin"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-google-plus"></i></a>
-                            </li>
-                        </ul>
+        </div>
+    </div>
+    <!--maker modal start-->
+    <div class="modal" id="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h7><strong>업체정보</strong></h7>
+                    <button class="close_button" data-dismiss="modal">닫기</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info">
+                        <dl>
+                            <dt id="category_name"></dt>
+                            <dd><strong id="place_name"></strong></dd>
+                        </dl>
+                        <dl>
+                            <dt>이름 :</dt>
+                            <dd id="place_phone"></dd>
+                        </dl>
+                        <dl>
+                            <dt>주소 :</dt>
+                            <dd id="place_addr"></dd>
+                        </dl>
+
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <hr>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="text-center">
-                    <p class="my-4 text-muted">©
-                        <script>document.write(new Date().getFullYear())</script> teami <i
-                                class="mdi mdi-heart text-danger"></i> by
-                        <a href="https://github.com/Taeho-P/Banham"  target="_blank" class="text-reset">BanHam</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-  
-
-  
-
     </div>
-    </div>
-<!--maker modal start-->
-<div class="modal" id="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h7><strong>업체정보</strong></h7>
-                <button class="close_button" data-dismiss="modal">닫기</button>
-            </div>
-            <div class="modal-body">
-                <div class="info">
-                    <dl>
-                        <dt id="category_name"></dt>
-                        <dd><strong id="place_name"></strong></dd>
-                    </dl>
-                    <dl>
-                        <dt>이름 :</dt>
-                        <dd id="place_phone"></dd>
-                    </dl>
-                    <dl>
-                        <dt>주소 :</dt>
-                        <dd id="place_addr"></dd>
-                    </dl>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </section>
 
 <div id="scrolltop">
@@ -694,6 +697,8 @@
 
 <!-- App Js -->
 <script src="/js/app.js"></script>
+
+
 
 <script>
     var slider = tns({
@@ -822,7 +827,6 @@
             }
         },
     };
-
 
 
 </script>
@@ -1130,6 +1134,7 @@
         const modal = document.getElementById("modal");
         modal.style.display = "none";
     }
+
     // 모달 닫기 버튼 클릭 시 closeModal 함수 호출
 </script>
 
@@ -1140,26 +1145,21 @@
 <script>
 
 
-
-
-
     const getCurrentLocation = () => {
         // 현재 위치 가져오기
         navigator.geolocation.getCurrentPosition((position) => {
             lat = position.coords.latitude;
             lon = position.coords.longitude;
             console.log("현재 위치", lat, lon);
-            getWeather(lat,lon);
-            getPollution(lat,lon);
-            getLoc(lat,lon);
+            getWeather(lat, lon);
+            getPollution(lat, lon);
+            getLoc(lat, lon);
             getForecast(lat, lon);
 
         });
     };
 
     getCurrentLocation();
-
-
 
 
     async function getLoc(lat, lon) {
@@ -1196,26 +1196,25 @@
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                const timefull =data.list[2].dt_txt;
+                const timefull = data.list[2].dt_txt;
                 console.log(timefull);
 
-                let time = (Number)(timefull.charAt(11)+timefull.charAt(12));
+                let time = (Number)(timefull.charAt(11) + timefull.charAt(12));
                 console.log(time);
 
                 const timelist = [];
-                for( let i=0;i<6;i++){
-                    timelist.push(time+"시");
-                    time+=3;
-                    if(time==24){
-                        time=0;
+                for (let i = 0; i < 6; i++) {
+                    timelist.push(time + "시");
+                    time += 3;
+                    if (time == 24) {
+                        time = 0;
                     }
 
                 }
 
 
-
                 const tempValues = [];
-                let j =0;
+                let j = 0;
                 for (let i = 2; i < 8; i++) {
                     const tempValue = data.list[i].main.temp;
 
@@ -1223,25 +1222,24 @@
                     console.log(tempValues[j++]);
 
                 }
-                drawChart(timelist,tempValues);
+                drawChart(timelist, tempValues);
             })
     }
 
     //날씨온도차트
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart(timelist, tempValues) {
         var data = google.visualization.arrayToDataTable([
             ['시간', '온도'],
-            [timelist[0],  tempValues[0]],
-            [timelist[1],  tempValues[1]],
-            [timelist[2],  tempValues[2]],
-            [timelist[3],  tempValues[3]],
-            [timelist[4],  tempValues[4]],
-            [timelist[5],  tempValues[5]]
+            [timelist[0], tempValues[0]],
+            [timelist[1], tempValues[1]],
+            [timelist[2], tempValues[2]],
+            [timelist[3], tempValues[3]],
+            [timelist[4], tempValues[4]],
+            [timelist[5], tempValues[5]]
         ]);
-
 
 
         const options = {
@@ -1258,7 +1256,6 @@
                 }
             }
         };
-
 
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -1306,61 +1303,69 @@
 
     let strPoll;
     const styPoll = document.querySelector('#weatherPoll');
+
     function getPollution(lat, lon) {
         fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=e27648845eed31c67a61863e536ae668&units=metric`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 const pollution = data.list[0].main.aqi;
-                console.log("미세먼지 단계: "+ pollution);
-                switch(Number(pollution)){
-                    case 1: strPoll= " 좋음 ";
+                console.log("미세먼지 단계: " + pollution);
+                switch (Number(pollution)) {
+                    case 1:
+                        strPoll = " 좋음 ";
 
                         console.log(strPoll);
-                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(133, 193, 223, 0.8)';
+                        document.getElementById("weatherPol").style.backgroundColor = 'rgba(133, 193, 223, 0.8)';
                         pollIcon.src = 'https://i.ibb.co/cYVKW63/Smiling.png';
                         break;
 
-                    case 2: strPoll= " 보통 ";
+                    case 2:
+                        strPoll = " 보통 ";
                         console.log(strPoll);
-                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(187, 221, 114, 0.8)';
+                        document.getElementById("weatherPol").style.backgroundColor = 'rgba(187, 221, 114, 0.8)';
                         pollIcon.src = 'https://i.ibb.co/R32zYGf/Happy.png';
                         break;
 
-                    case 3: strPoll= " 보통 ";
+                    case 3:
+                        strPoll = " 보통 ";
                         console.log(strPoll);
-                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(133, 221, 114, 0.8)';
+                        document.getElementById("weatherPol").style.backgroundColor = 'rgba(133, 221, 114, 0.8)';
                         pollIcon.src = 'https://i.ibb.co/sRZBSg9/Neutral.png';
                         break;
 
-                    case 4: strPoll= " 나쁨 ";
+                    case 4:
+                        strPoll = " 나쁨 ";
                         console.log(strPoll);
-                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(221, 114, 135, 0.8)';
+                        document.getElementById("weatherPol").style.backgroundColor = 'rgba(221, 114, 135, 0.8)';
                         pollIcon.src = 'https://i.ibb.co/dBPD0Nh/Sad.png';
                         break;
 
-                    case 5: strPoll= " 아주 나쁨 ";
+                    case 5:
+                        strPoll = " 아주 나쁨 ";
                         console.log(strPoll);
-                        document.getElementById("weatherPol").style.backgroundColor= 'rgba(221, 114, 135, 0.8)';
+                        document.getElementById("weatherPol").style.backgroundColor = 'rgba(221, 114, 135, 0.8)';
                         pollIcon.src = 'https://i.ibb.co/xDtPM8y/Disgusting.png';
                         break;
 
-                    default: strPoll="테스트";
+                    default:
+                        strPoll = "테스트";
                         console.log(strPoll);
                         break;
                 }
                 weatherPol.innerHTML = ` ${strPoll} `;
             })
     }
+
     // useEffect(() => {
     //   getCurrentLocation();
     // }, []);
 
 </script>
 
+
+
 </div>
-
-
 
 
 </body>
