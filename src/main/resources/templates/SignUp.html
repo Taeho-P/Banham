@@ -50,7 +50,7 @@
         </div>
 
         <div class="d-flex justify-content-center col-lg-12">
-            <form class="info-box">
+            <div class="info-box">
                 <div class="row">
                     <!-- name속성 : 서버로 전송할때 변수 이름의 역할 -->
                     <form action="/member/signUp" method="post" onsubmit="return joinCheck(this);">
@@ -62,7 +62,7 @@
 
                                     <label for="memberId" class="form-label fw-semibold">아이디<span class="color1">*</span> : </label>
                                     <input type="text" class="form-control" id="memberId" name="memberId"
-                                           placeholder="아이디를 입력해주세요." onblur="idCheck()" required>
+                                           placeholder="아이디를 입력해주세요." onblur="idCheck()" >
                                     <p id="id_check_result"></p>
 
                                 </div>
@@ -74,12 +74,12 @@
                                     <div>
                                     <label for="memberPass" class="form-label fw-semibold">비밀번호 : </label>
                                     <input type="password" id="memberPass" name="memberPass" onblur="passCheck1()" class="form-control"
-                                           placeholder="비밀번호를 입력해주세요" required>
+                                           placeholder="비밀번호를 입력해주세요" >
                                     </div>
                                     <div class="mt-2">
                                         <label for="passCheck" class="form-label fw-semibold">비밀번호확인 : </label>
                                         <input type="password" id="passCheck" name="passCheck" onblur="passCheck1()" class="form-control"
-                                               placeholder="비밀번호를 한번더 입력해주세요" required>
+                                               placeholder="비밀번호를 한번더 입력해주세요" >
                                         <p id="pass_check_result"></p>
                                     </div>
 
@@ -93,7 +93,7 @@
                                     <div>
                                         <label for="memberNick" class="form-label fw-semibold">닉네임 : </label>
                                         <input type="text" id="memberNick" name="memberNick" onblur="nickCheck()" class="form-control"
-                                               placeholder="사용할 닉네임을 입력해주세요" required>
+                                               placeholder="사용할 닉네임을 입력해주세요" >
                                         <p id="nick_check_result"></p>
                                     </div>
 
@@ -106,8 +106,8 @@
                                     <div>
                                         <label for="memberMail" class="form-label fw-semibold">이메일 : </label>
                                         <input type="text" id="memberMail" name="memberMail" onblur="mailCheck()" class="form-control"
-                                               placeholder="사용할 이메일을 입력해주세요" required>
-                                        <button type="submit" class="btn btn-sm btn-blue mt-3" id="btnConfirm" disabled="disabled" onclick="mailConfirm1()">메일 인증</button>
+                                               placeholder="사용할 이메일을 입력해주세요" >
+                                        <button type="button" class="btn btn-sm btn-blue mt-3" id="btnConfirm" disabled="disabled" onclick="mailConfirm1()">메일 인증</button>
                                         <p id="mail_check_result"></p>
                                     </div>
 
@@ -120,7 +120,7 @@
                                     <div>
                                         <label for="mailConfirm" class="form-label fw-semibold">인증 문자 : </label>
                                         <input type="text" id="mailConfirm" name="mailConfirm" onblur="confirmCheck()" class="form-control"
-                                               placeholder="사용할 이메일을 입력해주세요" required>
+                                               placeholder="인증 코드를 입력해주세요.">
                                         <p id="confirm_check_result"></p>
                                     </div>
 
@@ -129,21 +129,18 @@
 
                         </div>
                     </div>
+                        <!-- 회원가입 (submit) 버튼 -->
+                        <div class="submit-button text-center">
+                            <button class="btn btn-primary w-100" type="submit" value="회원가입" >회원가입하기</button>
+                        </div>
                     </form>
                     <hr class="my-4">
 
 <!--                    <p class="text-muted">회원가입하면 다양한 혜택이 있습니다 </p>-->
 
 
-
-
-
-                    <!-- 회원가입 (submit) 버튼 -->
-                    <div class="submit-button text-center">
-                        <button class="btn btn-primary w-100" type="submit" value="회원가입" >회원가입하기</button>
-                    </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     <!-- end container -->
@@ -452,6 +449,7 @@
         if(confirm_checked == "잘못된 인증코드입니다. 전송된 이메일을 확인해주세요.") {
             alert("잘못된 인증코드입니다. 전송된 이메일을 확인해주세요.");
             return false;
+
         } else {
             sessionStorage.removeItem("ePw");
             alert("회원가입을 축하합니다!");
