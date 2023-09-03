@@ -22,8 +22,11 @@
     <!-- Unicon Css -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
 
+
+
     <!-- Custom Css -->
     <link rel="stylesheet" href="/css/style.min.css" type="text/css"/>
+
 
     <!-- Swiper Css -->
     <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css"/>
@@ -155,6 +158,9 @@
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 
+<!--Navbar Start-->
+
+
 <!-- Start Navbar-->
 
 <header>
@@ -162,7 +168,9 @@
 </header>
 <!--end Navbar-->
 <!-- start kakaomap api service -->
+
 <section class="mt-7 section service collection post-content">
+
     <!-- start container -->
     <div class="container">
         <div class="row ">
@@ -207,7 +215,9 @@
 </section>
 <!-- end kakaomap api service -->
 <!-- start weather service -->
+
 <section class="mt-1 section service collection">
+
     <!-- start container -->
     <div class="container">
         <div class="row">
@@ -243,6 +253,7 @@
                         </div>
                         <div id="temperature-markers"></div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -275,12 +286,14 @@
                       </div> -->
                     </div>
                     <div class="mt-5 text-center">
+
                         <div class="slider-overtext">
                         <h5 class="fw-bold slider-overtext ">아침산책이 넘좋아요</h5>
                         <p class="text-muted slider-overtext">날씨도 선선해져서 산책이 넘 좋아지네요 알콩이도 기분좋아보여요💕💕</p>
                         </div>
                             <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기
+
+                          구경하러가기
                         </button>
                     </div>
                 </div>
@@ -626,7 +639,6 @@
 </section>
 <!-- end adopt -->
 
-
 <!-- start notice -->
 <section class="mt-5 service bg-gray" id="collection">
     <!-- start container -->
@@ -658,7 +670,6 @@
 <div th:replace="/footer :: footer"></div>
 </footer>
 <!-- end footer-->
-
 
 <!--Bootstrap Js-->
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -839,7 +850,13 @@
 
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>
+
+<!--날씨-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!--maker modal end-->
+
 <!--kakao maker modal end-->
+
 <script th:inline="javascript">
 
 
@@ -885,6 +902,15 @@
             };
             map = new kakao.maps.Map(mapContainer, mapOption);
             map.setMaxLevel(8);
+            // 현재 위치 가져오기
+
+            console.log("현재 위치", lat, lon);
+            getWeather(lat, lon);
+            getPollution(lat, lon);
+            getLoc(lat, lon);
+            getForecast(lat, lon);
+
+
         }, error);
     } else {
         mapOption = {
@@ -893,6 +919,12 @@
         };
         map = new kakao.maps.Map(mapContainer, mapOption);
         map.setMaxLevel(8);
+
+        console.log("현재 위치", lat, lon);
+        getWeather(lat, lon);
+        getPollution(lat, lon);
+        getLoc(lat, lon);
+        getForecast(lat, lon);
     }
 
     function error() {
@@ -902,6 +934,12 @@
         };
         map = new kakao.maps.Map(mapContainer, mapOption);
         map.setMaxLevel(9);
+
+        console.log("현재 위치", lat, lon);
+        getWeather(lat, lon);
+        getPollution(lat, lon);
+        getLoc(lat, lon);
+        getForecast(lat, lon);
     }
 
 
@@ -1007,7 +1045,6 @@
             medicalMenu.className = 'menu_selected';
             foodMenu.className = '';
             travelMenu.className = '';
-            medicalMenu.className = 'menu_selected';
             hotelMenu.className = '';
             shoppingMenu.className = '';
             serviceMenu.className = '';
@@ -1143,29 +1180,6 @@
 
     // 모달 닫기 버튼 클릭 시 closeModal 함수 호출
 </script>
-
-<!--날씨 script start-->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-<script>
-
-
-    const getCurrentLocation = () => {
-        // 현재 위치 가져오기
-        navigator.geolocation.getCurrentPosition((position) => {
-            lat = position.coords.latitude;
-            lon = position.coords.longitude;
-            console.log("현재 위치", lat, lon);
-            getWeather(lat, lon);
-            getPollution(lat, lon);
-            getLoc(lat, lon);
-            getForecast(lat, lon);
-
-        });
-    };
-
-    getCurrentLocation();
-
 
     async function getLoc(lat, lon) {
         const apiKey = '8e2aafc9141104413adfd78425609d10'; // 실제 API 키로 변경
@@ -1367,7 +1381,6 @@
     // }, []);
 
 </script>
-<!--날씨 script end -->
 
 
 </body>
