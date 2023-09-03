@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css"/>
     <link rel="stylesheet" href="/css/swiper.min.css" type="text/css"/>
 
+    <!-- Carousel-Vertical  -->
+    <link rel="stylesheet" type="text/css" href="../dist/carousel-vertical.min.css" media="screen" />
+
     <!-- Editor Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
@@ -807,35 +810,6 @@
 
 </script>
 
-<script>
-    const infoSwiper = {
-        init() {
-            let $infoSwiper = document.querySelector(".info-swiper");
-
-            if ($infoSwiper) {
-                var swiper = new Swiper(".info-swiper", {
-                    loop: true,
-                    /* autoplay: {
-                        delay: 3000,
-                    }, */
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                    direction: "vertical",
-                    navigation: {
-                        nextEl: ".notice-next",
-                        prevEl: ".notice-prev",
-                    },
-                    speed: 900,
-                    autoplay: {
-                        delay: 2000,
-                    },
-                });
-            }
-        },
-    };
-
-
-</script>
 
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>
