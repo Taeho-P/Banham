@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-
     <title>반함 Banham</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,12 +22,18 @@
     <!-- Unicon Css -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
 
+
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css"/>
+
+
     <!-- Swiper Css -->
     <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css"/>
     <link rel="stylesheet" href="/css/swiper.min.css" type="text/css"/>
 
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="/css/style.min.css" type="text/css"/>
+    <!-- Editor Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <!-- Map Css -->
     <link rel="stylesheet" href="/css/map.css">
@@ -150,79 +156,21 @@
     </style>
 
 </head>
-
 <body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
+
 <!--Navbar Start-->
-<nav class="navbar navbar-expand-lg fixed-top sticky" id="navbar">
-    <div class="container-fluid custom-container">
-        <div>
-            <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-label="Toggle navigation">
-                <i class="mdi mdi-menu"></i>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <a class="navbar-brand logo f-30 text-dark fw-bold" href="index.html">
-                <img src="/images/banham_logo.png" class="logo-dark" alt="" height="40">
-            </a>
-            <ul class="navbar-nav mx-auto navbar-center">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">홈</a>
-                </li>
-                <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link dropdown-toggle homedrop" href="index.html" role="button"
-                       data-bs-toggle="dropdown">
-                        커뮤니티
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
-                        <li><a class="dropdown-item" href="ProudBoard.html"><i
-                                class="mdi f-20 me-2 align-middle"></i>내새끼자랑</a></li>
-                        <li><a class="dropdown-item" href="CommunityBoard.html"><i
-                                class="mdi f-20 me-2 align-middle"></i>자유게시판</a></li>
-                        <li><a class="dropdown-item" href="MagazineBoard.html"><i
-                                class="mdi f-20 me-2 align-middle"></i>에디터</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link pagedropdown" href="Adopt.html" role="button" data-bs-toggle="dropdown">
-                        입양
-                    </a>
-                </li>
-                <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link pagedropdown" href="MissingBoard.html" role="button"
-                       data-bs-toggle="dropdown">
-                        실종
-                    </a>
-                </li>
-                <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link dropdown-toggle" href="Notice.html" id="homedrop" role="button"
-                       data-bs-toggle="dropdown">
-                        공지사항
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
-                        <li><a class="dropdown-item" href="Notice.html"><i
-                                class="mdi f-20 me-2 align-middle"></i>공지사항</a></li>
-                        <li><a class="dropdown-item" href="Notice.html"><i
-                                class="mdi f-20 me-2 align-middle"></i>이벤트</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <button type="button" onclick="location.href='member/signUp'">회원가입</button>  <!-- 회원가입버튼(태호) -->
-                    <button type="button" onclick="location.href='member/login'">로그인</button>  <!-- 회원가입버튼(태호) -->
-                </li>
-            </ul>
-            <!--end navbar-nav-->
 
-            <a href="MyPage.html" class="btn btn-primary">마이페이지</a>
-        </div>
 
-    </div>
-    <!--end container-->
-</nav>
-<!-- Navbar End -->
+<!-- Start Navbar-->
 
+<header>
+    <div th:replace="/header :: header"></div>
+</header>
+<!--end Navbar-->
 <!-- start kakaomap api service -->
-<section class="mt-6 section service bg-light collection">
+
+<section class="mt-7 section service collection post-content">
+
     <!-- start container -->
     <div class="container">
         <div class="row ">
@@ -267,12 +215,17 @@
 </section>
 <!-- end kakaomap api service -->
 <!-- start weather service -->
-<section class="mt-1 section service bg-light collection">
+
+<section class="mt-1 section service collection">
+
     <!-- start container -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-
+                <div class="col-lg-6">
+                    <h2 class="fw-bold">오늘의 날씨</h2>
+                    <p class="text-muted">오늘의 날씨 알아맞춰보세용</p>
+                </div>
                 <div class="weather">
 
                     <div class="divLoc">
@@ -301,7 +254,6 @@
                         <div id="temperature-markers"></div>
                     </div>
 
-
                 </div>
             </div>
         </div>
@@ -311,7 +263,7 @@
 </section>
 <!-- end weather service -->
 
-<!-- start Best -->
+<!-- start Best pet -->
 <section class="testimonial section">
     <!-- start container -->
     <div class="container position-relative">
@@ -319,7 +271,7 @@
             <div class="col-lg-6">
                 <h6 class="text-gradiant fw-bold">Best</h6>
                 <h2 class="fw-bold">오늘의 내새끼 자랑</h2>
-                <p class="text-muted">우리집 새끼 말랑말랑 젤리 맛좀보세요</p>
+                <p class="text-muted">귀여운 우리집 새끼 자랑하고 가세요💖</p>
             </div>
         </div>
 
@@ -334,10 +286,14 @@
                       </div> -->
                     </div>
                     <div class="mt-5 text-center">
-                        <h5 class="fw-bold">강아지가 멍멍</h5>
-                        <p class="text-muted">강아지가 멍멍멍</p>
-                        <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기
+
+                        <div class="slider-overtext">
+                        <h5 class="fw-bold slider-overtext ">아침산책이 넘좋아요</h5>
+                        <p class="text-muted slider-overtext">날씨도 선선해져서 산책이 넘 좋아지네요 알콩이도 기분좋아보여요💕💕</p>
+                        </div>
+                            <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
+
+                          구경하러가기
                         </button>
                     </div>
                 </div>
@@ -354,8 +310,8 @@
                       </div> -->
                     </div>
                     <div class="mt-5 text-center">
-                        <h5 class="fw-bold">강아지가 야옹</h5>
-                        <p class="text-muted">강아지가 야옹</p>
+                        <h5 class="fw-bold slider-overtext">맥스는 평생 아가에요</h5>
+                        <p class="text-muted slider-overtext">자기 발로 품속에 안겨서 너무 사랑스러웠어요🥰</p>
                         <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
                             구경하러가기
                         </button>
@@ -373,8 +329,8 @@
                       </div> -->
                     </div>
                     <div class="mt-5 text-center">
-                        <h5 class="fw-bold">강아지가 멍멍</h5>
-                        <p class="text-muted">강아지가 멍멍멍</p>
+                        <h5 class="fw-bold slider-overtext">오늘도 미모 뿜뿜!</h5>
+                        <p class="text-muted slider-overtext">오늘도 너무 사랑스러운 미야랍니다 ~! </p>
                         <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
                             구경하러가기
                         </button>
@@ -392,8 +348,8 @@
                       </div> -->
                     </div>
                     <div class="mt-5 text-center">
-                        <h5 class="fw-bold">고양이가 멍멍</h5>
-                        <p class="text-muted">고양이가 멍멍멍</p>
+                        <h5 class="fw-bold slider-overtext">꽃보다두유🤍</h5>
+                        <p class="text-muted slider-overtext">두유가 꽃보다 더 이쁜거같죠?🫢🤍</p>
                         <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
                             구경하러가기
                         </button>
@@ -406,9 +362,144 @@
     </div>
     <!-- end container -->
 </section>
-<!-- end Best -->
+<!-- end Best pet -->
 
-<!-- start home -->
+<!-- start editor choice -->
+<section class="testimonial section">
+    <!-- start container -->
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-lg-6">
+                <h6 class="text-gradiant fw-bold">Editor Choice</h6>
+                <h2 class="fw-bold">에디터 추천 Pick</h2>
+                <p class="text-muted">에디터가 엄선해서 고른 추천 스팟</p>
+            </div>
+        </div>
+
+        <!-- Swiper -->
+        <div class="swiper editorSwiper ">
+
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img class="card-img" src="/images/editor-img1.png" alt="editor-img1">
+                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                            <h6 class="card-subtitle">충청남도 태안군</h6>
+                            <h3 class="card-title">하늘지기</h3>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="ratings">
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star"></i>
+                                </div>
+                            </div>
+                            <div class="link d-flex">
+                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img class="card-img" src="/images/editor-img2.png" alt="editor-img2">
+                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                            <h6 class="card-subtitle">경기도 가평군</h6>
+                            <h3 class="card-title">스위트몽</h3>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="ratings">
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star"></i>
+                                </div>
+                            </div>
+                            <div class="link d-flex">
+                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img class="card-img" src="/images/editor-img3.png" alt="editor-img3">
+                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                            <h6 class="card-subtitle">충정남도 태안군</h6>
+                            <h3 class="card-title">바다가쓴시</h3>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="ratings">
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star"></i>
+                                </div>
+                            </div>
+                            <div class="link d-flex">
+                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img class="card-img" src="/images/editor-img4.png" alt="editor-img4">
+                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                            <h6 class="card-subtitle">충남 아산시 </h6>
+                            <h3 class="card-title">포시즌발리</h3>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="ratings">
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star"></i>
+                                </div>
+                            </div>
+                            <div class="link d-flex">
+                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card">
+                        <img class="card-img" src="/images/editor-img5.png" alt="editor-img5">
+                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                            <h6 class="card-subtitle">충청남도 태안군</h6>
+                            <h3 class="card-title">하늘지기</h3>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="ratings">
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star rating-color"></i>
+                                    <i class="mdi mdi-star"></i>
+                                </div>
+                            </div>
+                            <div class="link d-flex">
+                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="pt-5">
+            <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!-- End slider -->
+    </div>
+    <!-- end container -->
+</section>
+<!-- end editor choice -->
+
+<!-- start adopt -->
 <section class="home bg-image" id="home">
     <!-- start container -->
     <div class="container">
@@ -418,7 +509,7 @@
                 <div class="home-content home-heading">
                     <h2 class="fw-bold">#사지말고 입양 해주세요 <span class="text-primary"> </span></h2>
                     <p class="text-muted my-4"> 따뜻한 보금자리를 기다리는 동물들에게 새로운 가족이 되어주세요.</p>
-                    <button class="btn btn-dark">더보기</button>
+                    <button class="btn-dark twosliderbtn">더보기</button>
                 </div>
                 <div class="client-slider clients-slider">
                     <div class="item">
@@ -482,7 +573,7 @@
                     <h2 class="fw-bold">#실종 전단지 <span class="text-primary"></span></h2>
                     <p class="text-muted my-4">
                         동물을 빨리 찾을 수 있도록 분실관련 정보를 공유하는 공간입니다</p>
-                    <button class="btn btn-dark">더보기</button>
+                    <button class="btn-dark twosliderbtn">더보기</button>
                 </div>
                 <div class="client-slider2" id="clients-slider">
                     <div class="item">
@@ -546,16 +637,26 @@
     </div>
     <!-- end container -->
 </section>
-<!-- end home -->
-
+<!-- end adopt -->
 
 <!-- start notice -->
-<section class="mt-6 section service bg-light" id="collection">
+<section class="mt-5 service bg-gray" id="collection">
     <!-- start container -->
-    <div class="container">
+    <div class="container notice">
         <div class="row ">
-            <div class="col-lg-12">
-
+            <div class="col-lg-12 ">
+                <div class="rollingbanner">
+                    <div class="title">공지사항</div>
+                    <div class="wrap">
+                        <ul>
+                            <li><a href="#">[공지사항] 반함 현대백화점 오프라인 팝업스토어 오픈! </a></li>
+                            <li class="next"><a href="#">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></li>
+                            <li class="current"><a href="#">[공지사항] 9월 21일 홈페이지 점검 안내</a></li>
+                            <li><a href="#">[이벤트] 반려동물과 함께 추억남기기 이벤트</a></li>
+                            <li class="prev"><a href="#">[이벤트] 내새끼 자랑 Best 당첨자 안내</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -563,106 +664,27 @@
     <!-- end container -->
 </section>
 <!-- end notice -->
+
 <!-- start footer -->
-<section class="footer">
-    <div class="container">
-        <div class="top-footer">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="footer-info mt-4">
-                        <a class="logo f-30 text-dark fw-bold" href="index.html">
-                            <img src="/images/banham_logo.png" class="logo-dark" alt="" height="40">
-                            <img src="/images/logo-light.png" class="logo-light" alt="" height="40">
-                        </a>
-                        <p class="f-18 mt-4 text-muted">
-                            반려동물과 함께.<br> 반함 커뮤니티 활동모임 입니다. <br>
-                        </p>
-                    </div>
-                </div>
+<footer>
+<div th:replace="/footer :: footer"></div>
+</footer>
+<!-- end footer-->
 
-
-                <div class="col-lg-6">
-                    <div class="mt-4 pl-0 pl-lg-4">
-                        <h5 class="f-18 fw-bold">SNS</h5>
-                        <ul class="list-inline social-icons-list pt-3">
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-facebook"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-linkedin"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#"><i class="mdi mdi-google-plus"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <hr>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="text-center">
-                    <p class="my-4 text-muted">©
-                        <script>document.write(new Date().getFullYear())</script>
-                        teami <i
-                                class="mdi mdi-heart text-danger"></i> by
-                        <a href="https://github.com/Taeho-P/Banham" target="_blank" class="text-reset">BanHam</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-    <!--maker modal start-->
-    <div class="modal" id="modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h7><strong>업체정보</strong></h7>
-                    <button class="close_button" data-dismiss="modal">닫기</button>
-                </div>
-                <div class="modal-body">
-                    <div class="info">
-                        <dl>
-                            <dt id="category_name"></dt>
-                            <dd><strong id="place_name"></strong></dd>
-                        </dl>
-                        <dl>
-                            <dt>이름 :</dt>
-                            <dd id="place_phone"></dd>
-                        </dl>
-                        <dl>
-                            <dt>주소 :</dt>
-                            <dd id="place_addr"></dd>
-                        </dl>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div id="scrolltop">
-    <button class="btn btn-primary"><span class="icon"><i class="fas fa-angle-up fa-2x"></i></span></button>
-</div>
 <!--Bootstrap Js-->
 <script src="/js/bootstrap.bundle.min.js"></script>
+
 
 <!-- Slider Js -->
 <script src="/js/tiny-slider.js"></script>
 <script src="/js/swiper.min.js"></script>
 
-<!-- Slick JS -->
-<script src="/js/slick.js"></script>
+<!-- Editor Swiper Js-->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Notice Js-->
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
 
 <!-- counter -->
 <script src="/js/counter.init.js"></script>
@@ -670,7 +692,32 @@
 <!-- App Js -->
 <script src="/js/app.js"></script>
 
+<!-- editor slider -->
 
+<script>
+    var swiper = new Swiper(".editorSwiper", {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+            },
+            1024: {
+                slidesPerView: 4,
+                spaceBetween: 50,
+            },
+        },
+    });
+</script>
 <script>
     var slider = tns({
         container: '.client-slider',
@@ -743,7 +790,6 @@
     });
 </script>
 
-
 <script>
     var slider = tns({
         container: '.testi-slider',
@@ -804,9 +850,13 @@
 
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>
+
 <!--날씨-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!--maker modal end-->
+
+<!--kakao maker modal end-->
+
 <script th:inline="javascript">
 
 
@@ -1131,7 +1181,6 @@
     // 모달 닫기 버튼 클릭 시 closeModal 함수 호출
 </script>
 
-<script>
     async function getLoc(lat, lon) {
         const apiKey = '8e2aafc9141104413adfd78425609d10'; // 실제 API 키로 변경
 
@@ -1332,8 +1381,6 @@
     // }, []);
 
 </script>
-
-</div>
 
 
 </body>
