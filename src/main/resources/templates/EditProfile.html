@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EditProfile</title>
+    <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+<body>
+<h3>회원 정보 수정</h3>
+<form action="/member/EditProfile" method="post" onsubmit="return editCheck(this)">
+    <input id="defaultNick" name="defaultNick" th:value="${session.loginDTO.getMemberNick()}" style="display: none">
+    <input id="defaultMail" name="defaultMail"th:value="${session.loginDTO.getMemberMail()}" style="display: none">
+    <label for="memberId">아이디 : </label> <label id="memberId" name="memberId" th:text="${session.loginDTO.getMemberId()}"/> <br>
+    <label for="memberNick">닉네임 : </label> <input id="memberNick" name="memberNick" onblur="nickCheck()" th:value="${session.loginDTO.getMemberNick()}"> <br>
+    <p id="nick_check_result"></p>
+    <label for="memberMail">이메일 : </label> <input id="memberMail" name="memberMail" onblur="mailCheck()" th:value="${session.loginDTO.getMemberMail()}"> <button type="button" id="btnConfirm" disabled="disabled" onclick="mailConfirm2()">메일 인증</button> <br>
+    <p id="mail_check_result"></p>
+    <label for="mailConfirm">인증 코드 : </label> <input id="mailConfirm" name="mailConfirm" onblur="confirmCheck()">
+    <p id="confirm_check_result"></p>
+    <button type="submit" id="doEdit" name="doEdit">수정하기</button>
+</form>
+</body>
+
+<script th:inline="javascript">
+    const nickCheck = () => {   // 입력한 닉네임의 유효 검사 및 중복 검사 메소드
+
+        const nickname = document.querySelector("#memberNick").value;  // 입력된 닉네임값
+        const checkResult = document.querySelector("#nick_check_result"); // 닉네임 유효성 검사 및 중복검사 결과값
+        const defaultNick = document.querySelector("#defaultNick").value; //기존 닉네임과 같으면 통과시키기 위한 변수
+
+        let check_nick = RegExp(/^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,8}$/); // 닉네임 유효성 검사 (영문,한글 및 숫자 2-8글자)
+
+        if(nickname == '' || nickname ==null) {
+            checkResult.innerHTML = "닉네임을 입력해주세요.";
+            checkResult.style.color = "black";
+        } else if (!check_nick.test(nickname)) {
+            checkResult.innerHTML = "닉네임은 영문,한글 및 숫자 2-8글자로 작성해주세요.";
+            checkResult.style.color = "black";
+        } else {
+            $.ajax({
+                //요청방식 posd
+                //주소 "/member/nick_check"
+                type: "post",
+                url: "/member/nick_check",
+                data: {
+                    "memberNick": nickname
+                },
+
+                success: function (res) {
+                    if(res == 'ok') {
+                        checkResult.innerHTML = "사용 가능한 닉네임 입니다.";
+                        checkResult.style.color = "green";
+                        console.log("사용 가능한 닉네임입니다.")
+                    } else {
+                        checkResult.innerHTML = "이미 사용중인 닉네임입니다.";
+                        checkResult.style.color = "red";
+                        console.log("이미 사용중인 닉네임입니다.")
+                    }
+
+                    if(defaultNick == nickname) {
+                        checkResult.innerHTML = "기존 닉네임 입니다.";
+                        checkResult.style.color = "green";
+                    }
+
+                    console.log("요청성공", res);
+                },
+                error: function (err) {
+                    console.log("에러발생", err);
+                }
+            })
+        }
+
+    }  // 입력한 닉네임의 유효 검사 및 중복 검사 메소드 end
+
+
+    const mailCheck = () => { // 이메일 유효성 검사 및 중복체크 메소드
+
+        const mail = document.querySelector("#memberMail").value; //사용자 입력 이메일 값
+        const checkResult = document.querySelector("#mail_check_result");
+        const defaultMail = document.querySelector("#defaultMail").value; //기존 이메일과 같으면 통과시키기 위한 변수
+
+        let check_mail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"); //이메일 검증을 위한 RFC 5322 형식의 정규식
+
+        if(mail == "" || mail == null) {
+            checkResult.innerHTML = "이메일을 입력해주세요."
+            checkResult.style.color = "black"
+            $("#btnConfirm").attr("disabled", true);
+        } else if (!check_mail.test(mail)) {
+            checkResult.innerHTML = "이메일 형식을 올바르게 입력해주세요."
+            checkResult.style.color = "black"
+            $("#btnConfirm").attr("disabled", true);
+        } else {
+            $.ajax({
+                //요청방식 post
+                //주소 "/member/mail_check"
+                type: "post",
+                url: "/member/mail_check",
+                data: {
+                    "memberMail": mail
+                },
+
+                success: function (res) {
+                    if(res == 'ok') {
+                        checkResult.innerHTML = "사용 가능한 이메일입니다.";
+                        checkResult.style.color = "green";
+                        console.log("사용 가능한 이메일입니다.");
+                        $("#btnConfirm").attr("disabled", false);
+                    } else {
+                        checkResult.innerHTML = "이미 가입된 이메일입니다.";
+                        checkResult.style.color = "red";
+                        console.log("중복된 이메일입니다.");
+                        $("#btnConfirm").attr("disabled", true);
+                    }
+
+                    if(defaultMail == mail) {
+                        checkResult.innerHTML = "기존 이메일 입니다.";
+                        checkResult.style.color = "green";
+                        $("#btnConfirm").attr("disabled", false);
+                    }
+                    console.log("요청성공", res);
+
+                },
+                error: function (err) {
+                    console.log("에러발생", err);
+                    alert("이메일 중복 체크 작업중 에러 발생")
+                }
+
+            })
+        }
+
+    } // 이메일 유효성 검사 및 중복체크 메소드 end
+
+
+    const mailConfirm2 = () => { // 인증코드 발송 메소드
+
+        const email = document.querySelector("#memberMail").value; // 입력된 이메일값
+
+        $.ajax({
+            type : "POST",
+            url : "/member/join/mailConfirm",
+            data : {
+                "email" : email
+            },
+            success : function(data){
+                alert("해당 이메일로 인증번호 발송이 완료되었습니다. 확인부탁드립니다.")
+                console.log("data : "+data);
+                sessionStorage.setItem("ePw", data);
+
+            },
+            error : function (data) {
+                alert("이메일 인증 도중 에러 발생" + data);
+                console.log("data : " + data);
+            }
+        })
+    } // 인증코드 발송 메소드 end
+
+
+    const confirmCheck = () => { //이메일 인증코드 확인 메소드
+        const mailConfirm = document.querySelector("#mailConfirm").value; //사용자가 입력한 인증문자열
+        const ePw = sessionStorage.getItem("ePw"); //실제 발송한 문자열
+        const checkResult = document.querySelector("#confirm_check_result"); //확인 결과창
+
+        console.log(ePw.toString());
+
+        if (mailConfirm == '' || mailConfirm == null) {
+            checkResult.innerHTML = "전송된 인증코드를 입력해주세요.";
+            checkResult.style.color = "black";
+        } else if (mailConfirm == ePw.toString()) {
+            checkResult.innerHTML = "이메일 인증이 완료됐습니다."
+            checkResult.style.color = "green";
+        } else {
+            checkResult.innerHTML = "잘못된 인증코드입니다. 전송된 이메일을 확인해주세요.";
+            checkResult.style.color = "red";
+        }
+
+    } //이메일 인증코드 확인 메소드 end
+
+
+    const editCheck = () => { //submit 실행시 각각의 정보가 잘 입력됐는지 체크하는 메소드 실행후 통과해야 submit진행
+        console.log("editCheck호출......")
+
+        const nick_checked = document.querySelector("#nick_check_result").innerHTML.toString(); // 닉네임 중복 검사 결과값
+        const mail_checked = document.querySelector("#mail_check_result").innerHTML.toString(); // 이메일 중복 검사 결과값
+        const confirm_checked = document.querySelector("#confirm_check_result").innerHTML.toString() //이메일 인증 결과값
+
+        if (nick_checked == "닉네임을 입력해주세요.") {
+            alert("닉네임을 입력해주세요.");
+            return false;
+        }
+
+        if (nick_checked == "닉네임은 영문,한글 및 숫자 2-8글자로 작성해주세요.") {
+            alert("닉네임은 영문,한글 및 숫자 2-8글자로 작성해주세요.");
+            return false;
+        }
+
+        if (nick_checked == "이미 사용중인 닉네임입니다.") {
+            alert("이미 사용중인 닉네임입니다.");
+            return false;
+        }
+
+        if (mail_checked == "이메일을 입력해주세요.") {
+            alert("이메일을 입력해주세요." );
+            return false;
+        }
+
+        if (mail_checked == "이메일 형식을 올바르게 입력해주세요.") {
+            alert("이메일 형식을 올바르게 입력해주세요.");
+            return false;
+        }
+
+        if (mail_checked == "이미 가입된 이메일입니다.") {
+            alert("이미 가입된 이메일입니다.");
+            return false;
+        }
+
+        if (confirm_checked == "" || confirm_checked == null) {
+            alert("이메일 인증을 진행해주세요.");
+            return false;
+        }
+
+        if (confirm_checked == "전송된 인증코드를 입력해주세요.") {
+            alert("전송된 인증코드를 입력해주세요.");
+            return false;
+        }
+
+        if(confirm_checked == "잘못된 인증코드입니다. 전송된 이메일을 확인해주세요.") {
+            alert("잘못된 인증코드입니다. 전송된 이메일을 확인해주세요.");
+            return false;
+        } else {
+            sessionStorage.removeItem("ePw"); //이메일 인증시 사용한 인증코드 세션에서 삭제
+            alert("회원정보 수정이 완료됐습니다.");
+        }
+    }  //onsubmit 메소드 end
+
+</script>
+</html>

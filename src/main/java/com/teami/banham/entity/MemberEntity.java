@@ -46,4 +46,18 @@ public class MemberEntity extends MemberBaseEntity {
 
         return memberEntity;
     }
+
+    public static MemberEntity toUpdateMemberEntity(MemberDTO memberDTO) {
+
+        MemberEntity memberEntity = new MemberEntity();
+
+        memberEntity.setMno(memberDTO.getMno()); //.save메소드에서 UPDATE 쿼리를 실행시키기 위해 기본키 컬럼 셋팅 추가
+        memberEntity.setMemberId(memberDTO.getMemberId());
+        memberEntity.setMemberPass(memberDTO.getMemberPass());
+        memberEntity.setMemberNick(memberDTO.getMemberNick());
+        memberEntity.setMemberMail(memberDTO.getMemberMail());
+
+        return memberEntity;
+
+    }
 }

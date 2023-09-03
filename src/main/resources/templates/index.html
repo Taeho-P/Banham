@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -201,8 +201,13 @@
                     </ul>
                 </li>
                 <li>
-                    <button type="button" onclick="location.href='member/signUp'">회원가입</button>  <!-- 회원가입버튼(태호) -->
-                    <button type="button" onclick="location.href='member/login'">로그인</button>  <!-- 회원가입버튼(태호) -->
+                    <!-- 8.31버튼 임의수정 (태호) (회의 후 조정 예정) -->
+                    <button th:if="${session.loginDTO == null}" type="button" onclick="location.href='member/signUp'">회원가입</button>  <!-- 회원가입 버튼(태호) -->
+                    <button th:unless="${session.loginDTO == null}"type="button" onclick="location.href='member/MyPage'">마이페이지</button>  <!-- 회원상세페이지 버튼(태호) -->
+                    <button th:if="${session.loginDTO == null}" type="button" onclick="location.href='member/login'">로그인</button>  <!-- 로그인 버튼(session.loginDTO가 null일때)(태호) -->
+                    <button th:unless="${session.loginDTO == null}" type="button" onclick="location.href='member/logout'">로그아웃</button>  <!-- 로그아웃 버튼(session.loginDTO에 값이 있을때)(태호) -->
+                    <label th:if="${session.loginDTO == null}">로그인 해주세요.</label>
+                    <label th:unless="${session.loginDTO == null}" th:text="${session.loginDTO.getMemberNick() + '님 안녕하세요!'}">님 안녕하세요!</label>
                 </li>
             </ul>
             <!--end navbar-nav-->

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>FindId</title>
+  <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>아이디 찾기</h2>
+<label for="mail">이메일 : </label> <input type="text" id="mail" name="mail" placeholder="가입에 사용한 이메일을 적어주세요." onblur="mailCheck()"> <button id="btnSendId" disabled="disabled" onclick="sendId()">아이디 찾기</button>
+<p id="mail_check_result"></p>
+
+</body>
+
+<script th:inline="javascript">
+  const mailCheck = () => { // 이메일 유효성 검사 및 중복체크 메소드
+
+    const mail = document.querySelector("#mail").value; //사용자 입력 이메일 값
+    const checkResult = document.querySelector("#mail_check_result");
+
+    let check_mail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"); //이메일 검증을 위한 RFC 5322 형식의 정규식
+
+    if(mail == "" || mail == null) {
+      checkResult.innerHTML = "이메일을 입력해주세요."
+      checkResult.style.color = "black"
+      $("#btnSendId").attr("disabled", true);
+    } else if (!check_mail.test(mail)) {
+      checkResult.innerHTML = "이메일 형식을 올바르게 입력해주세요."
+      checkResult.style.color = "black"
+      $("#btnSendId").attr("disabled", true);
+    } else {
+      $.ajax({
+        //요청방식 post
+        //주소 "/member/mail_check"
+        type: "post",
+        url: "/member/mail_check",
+        data: {
+          "memberMail": mail
+        },
+
+        success: function (res) {
+          if(res == 'ok') {
+            checkResult.innerHTML = "가입되지 않은 이메일 입니다.";
+            checkResult.style.color = "red";
+            console.log("가입되지 않은 이메일 입니다.");
+            $("#btnSendId").attr("disabled", true);
+          } else {
+            checkResult.innerHTML = "가입된 이메일 입니다.";
+            checkResult.style.color = "green";
+            console.log("가입된 이메일 입니다.");
+            $("#btnSendId").attr("disabled", false);
+          }
+          console.log("요청성공", res);
+
+        },
+        error: function (err) {
+          console.log("에러발생", err);
+          alert("이메일 중복 체크 작업중 에러 발생")
+        }
+
+      })
+    }
+  } // 이메일 유효성 검사 및 중복체크 메소드 end
+
+
+  const sendId = () => { // 아이디 발송 메소드
+
+    const email = document.querySelector("#mail").value; // 입력된 이메일값
+
+    $.ajax({
+      type : "POST",
+      url : "/member/FindId",
+      data : {
+        "email" : email
+      },
+      success : function(data){
+        alert("해당 이메일로 아이디 발송이 완료되었습니다.")
+        console.log("data : "+data);
+        location.href = "/member/login";
+
+      },
+      error : function (data) {
+        alert("아이디 발송 도중 에러 발생" + data);
+        console.log("data : " + data);
+      }
+    })
+  } // 아이디 발송 메소드 end
+
+</script>
+
+</html>
