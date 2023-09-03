@@ -50,8 +50,5 @@ function toggleSwitcher() {
   }
 }
 
-function setColor(theme) {
-  document.getElementById("color-opt").href = "./css/colors/" + theme + ".css";
-  toggleSwitcher(false);
-}
+
 

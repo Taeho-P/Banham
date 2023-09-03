@@ -1,21 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>반함 로그인</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content=" "/>
+  <meta name="keywords" content=""/>
+  <meta content="Pichforest" name="author"/>
+
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+  <!-- Material Icon Css -->
+  <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+  <!-- Unicon Css -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
   <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
-<body>
 
-  <label for="memberId">아이디</label><input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요."> <br>
-  <label for="memberPass">비밀번호</label><input type="password" id="memberPass" name="memberPass" placeholder="비밀번호를 입력해주세요."> <br>
-  <input type="button" onclick="login()" value="로그인"> <!-- 08.31 기존 submit버튼에서 일반 button으로 교체 (태호) -->
-  <button type="button" onclick="location.href='/member/FindId'">아이디 찾기</button>  <!-- 08.31 아이디찾기, 비밀번호 변경 추가 -->
-  <button type="button" onclick="location.href='/member/FindPw'">비밀번호 변경</button>
+<body  data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
+<!-- Start Navbar-->
+<header>
+  <div th:replace="/header :: header"></div>
+</header>
+<!--end Navbar-->
+<section class="login section position-relative overflow-hidden"
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover;top: 85px; ">
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+  <form action="/member/login" method="post" class="mt-2 inner-heading">
+    <h1 class="fw-bold">Welcome <img src="/images/jelly.png" style="width: 30px;"> To Banham</h1>
 
-</body>
+    <p class="text-muted">아직 반함 계정이 없으신가요 ? <a href="../SignUp.html" class="text-black font-weight-600">회원가입하기</a> </p>
+
+
+<!--    <label for="memberId">아이디</label><input type="text" id="memberId" name="memberId" placeholder="아이디를 입력해주세요."> <br>-->
+<!--  <label for="memberPass">비밀번호</label><input type="password" id="memberPass" name="memberPass" placeholder="비밀번호를 입력해주세요."> <br>-->
+<!--  <input type="submit" value="로그인">-->
+
+
+    <div class="info-box">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="email  mt-4">
+            <label for="memberId" class="form-label fw-semibold"> 아이디
+              :</label>
+            <input type="text" class="form-control" id="memberId" name="memberId"
+                   placeholder="아이디를 입력해주세요." required>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="password  mt-4">
+            <label for="memberPass" class="form-label fw-semibold">비밀번호
+              :</label>
+            <input type="password" class="form-control" id="memberPass"
+                   placeholder="비밀번호를 입력해주세요." value="" required>
+          </div>
+        </div>
+
+
+        <div class="col-12 ">
+          <div class="d-flex align-items-center mt-4">
+                        <div class="verify custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                          <label class="custom-control-label" for="defaultUnchecked">로그인 상태 유지</label>
+<!--                          <button type="button" class="btn border btn-light text-dark shadow-sm"-->
+<!--                                  id="liveToastBtn">로그인 상태 유지</button>-->
+                        </div>
+
+
+            <!--            <div class="verify">-->
+<!--              <input type="submit" value="로그인">-->
+<!--              <button type="button" class="btn border btn-light text-dark shadow-sm"-->
+<!--                      id="liveToastBtn">로그인하기</button>-->
+<!--            </div>-->
+            <div class="other ms-auto">
+              <div class="mb-0 text-muted fw-semibold"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="other ms-auto">
+        <div class="mt-5 text-muted fw-semibold">SNS 로그인 :
+          <a href="" class="text-dark ms-4">카카오톡</a></div>
+          <button type="button" onclick="location.href='/member/FindId'">아이디 찾기</button>  <!-- 08.31 아이디찾기, 비밀번호 변경 추가 -->
+          <button type="button" onclick="location.href='/member/FindPw'">비밀번호 변경</button>
+      </div>
+    <div class="submit-button mt-4">
+      <button class="btn btn-primary w-100" type="button" onclick="login()">로그인</button>
+    </div>
+      </div>
+
+    <div class="position-fixed start-0 bottom-50 p-3" style="z-index: 999">
+      <div id="liveToast" class="toast position-relative" role="alert" aria-live="assertive"
+           aria-atomic="true">
+        <div class="toast-header">
+
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <i class="mdi mdi-check-circle text-success f-30"></i>
+            </div>
+            <div class="flex-grow-1 ms-2">
+              <strong>어쩌구 저쩌구</strong>
+
+            </div>
+          </div>
+        </div>
+        <div class="toast-body">
+          어어어쩌구 저쩌구 고양이가 나라를 구원 어쩌구
+        </div>
+        <div class="progress" style="height: 5px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+               role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+               style="width: 95%;"></div>
+        </div>
+      </div>
+    </div>
+</form>
+  </div>
+  </div>
+
+
+  </div>
+  <!-- end container -->
+</section>
+<!-- start footer -->
+<footer>
+  <div th:replace="/footer :: footer"></div>
+</footer>
+<!-- end footer-->
+
+</body> <!-- body end -->
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/bootstrap-toasts.init.js"></script>
+
+<!-- App Js -->
+<script src="/js/app.js"></script>
 <script th:inline="javascript">
   const login = () => {
     const loginId = document.querySelector("#memberId").value;
@@ -52,4 +185,5 @@
 
   }
 </script>
+
 </html>
