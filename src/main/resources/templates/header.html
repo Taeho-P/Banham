@@ -64,6 +64,8 @@
 
                     </ul>
                     <!--end navbar-nav-->
+
+
                     <ul class="navbar-nav mx-auto navbar-center">
                         <li class="nav-item dropdown dropdown-hover">
                             <a class="nav-link dropdown-toggle homedrop" href="MyPage.html" role="button"
@@ -73,13 +75,28 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
                                 <li>
+                                    <label th:if="${session.loginDTO == null}" class="p-3">로그인 해주세요.</label>
+                                    <label th:unless="${session.loginDTO == null}" th:text="${session.loginDTO.getMemberNick() + '님 안녕하세요!'}">님 안녕하세요!</label>
+                                </li>
+                                <li>
+                                    <button th:unless="${session.loginDTO == null}"type="button" onclick="location.href='member/MyPage'">마이페이지</button>  <!-- 회원상세페이지 버튼(태호) -->
+                                </li>
+                                <li>
                                     <a class="dropdown-item" onclick="location.href='/member/signUp'"
                                        style="cursor:pointer;">
-                                        <i class="mdi f-20 me-2 align-middle"></i>회원가입</a>
+<!--                                        <i class="mdi f-20 me-2 align-middle"></i>회원가입-->
+                                        <button th:if="${session.loginDTO == null}" type="button" onclick="location.href='member/signUp'" class="btn btn-outline-primary f-20 me-2 align-middle">회원가입</button>  <!-- 회원가입 버튼(태호) -->
+
+                                    </a>
                                 </li>
                                 <li><a class="dropdown-item" onclick="location.href='/member/login'"
                                        style="cursor:pointer;">
-                                    <i class="mdi f-20 me-2 align-middle"></i>로그인</a></li>
+<!--                                    <i class="mdi f-20 me-2 align-middle"></i>로그인-->
+                                    <button th:if="${session.loginDTO == null}" type="button" onclick="location.href='member/login'" class="btn btn-outline-primary f-20 me-2 align-middle">로그인</button>  <!-- 로그인 버튼(session.loginDTO가 null일때)(태호) -->
+                                    <button th:unless="${session.loginDTO == null}" type="button" onclick="location.href='member/logout'" class="btn btn-outline-primary f-20 me-2 align-middle">로그아웃</button>  <!-- 로그아웃 버튼(session.loginDTO에 값이 있을때)(태호) -->
+                                    </a>
+
+                                </li>
                             </ul>
                         </li>
                     </ul>
