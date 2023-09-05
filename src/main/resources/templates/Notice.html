@@ -29,77 +29,74 @@
 </head>
 <body>
 <!--Start Navbar-->
-<header>
   <div th:replace="/header :: header"></div>
-</header>
 <!--end Navbar-->
 
 <!-- Start Notice -->
-<section class="home section position-relative overflow-hidden"
-         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover; top: 95px;">
-  <div class="content-wrapper ">
-    <section class="flexbox">
+<section class="section position-relative overflow-hidden"
+         style=" top: 95px;">
+  <div class="content-wrapper container ">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2 class="fw-bold">공지사항</h2>
+        <p class="text-muted">반함 공지사항 게시판입니다.</p>
+      </div>
+    </div>
+    <hr class="my-4">
+    <section class="flexbox pb-3">
       <div class="container">
-        <section class="notice bgl-gray-light">
+        <section class="notice d-flex justify-content-end">
           <div class="sch-cont">
             <select class="">
               <option value="title">제목</option>
-              <option value="contents">내용</option>
               <option value="writer">작성자</option>
+              <option value="create_date">작성일</option>
             </select>
             <input id="searchKeyword" name="searchKeyword" title="검색어 입력" class="q1" type="text" placeholder="검색어 입력" />
-            <a href="#none" onclick="fnCmdSearch();" class="btn2">검색</a>
+            <a href="#none" onclick="fnCmdSearch();" class="btn btn-sm btn-outline-dark">검색</a>
           </div>
         </section>
       </div>
+
       <!-- board list area -->
-      <div class="container">
+      <div class="container mt-3">
         <div class="demo-wrapper content-block pb-0">
           <div class="table data-table">
             <table class="table table-responsive">
               <colgroup>
-                <col width="0%"/>
                 <col width="60%"/>
-                <col width="10%"/>
-                <col width="10%"/>
-                <col width="10%"/>
-                <col width="10%"/>
+                <col width="13.33%"/>
+                <col width="13.33%"/>
+                <col width="13.33%"/>
               </colgroup>
               <thead class="bgl-gray-light">
               <tr>
-                <th class="th-h th-badge"></th>
-                <th class="th-o th-title">제목</th>
-                <th class="th-h th-name">작성자</th>
-                <th class="th-o th-date">작성일</th>
-                <th class="th-h th-views">조회수</th>
-                <th class="th-h th-file">파일</th>
+                <th class="text-center">제목</th>
+                <th class="text-center">작성자</th>
+                <th class="text-center">작성일</th>
+                <th class="text-center">조회수</th>
 
               </tr>
               </thead>
               <tbody>
               <tr>
-                <th class="th-h" scope="row"><label class=" badge pull-table">공지</label></th>
-                <td class="th-o"><a href="Notice_View.html"><span class="point-txt">[공지사항] 제목이 노출됩니다.</span></a></td>
-                <td class="th-h">관리자</td>
-                <td class="th-o">2021.08.15</td>
-                <td class="th-h">1354</td>
-                <td class="th-h"><i class="icon icon-download-1"></i></td>
+                <td class=""><a href="Notice_View.html">
+                  <span class="point-txt">[공지사항] 제목이 노출됩니다.</span></a></td>
+                <td class="text-center">관리자</td>
+                <td class="text-center">2023.09.20</td>
+                <td class="text-center">1354</td>
               </tr>
               <tr>
-                <th scope="row" class="th-h"></th>
-                <td class="th-o"><a href="Notice_View.html">제목이 노출됩니다.</span></a></td>
-                <td class="th-h">관리자</td>
-                <td class="th-o">2021.08.15</td>
-                <td class="th-h">1354</td>
-                <td class="th-h"><i class="icon icon-download-1"></i></td>
+                <td class=""><a href="Notice_View.html">제목이 노출됩니다.</span></a></td>
+                <td class="text-center">관리자</td>
+                <td class="text-center">2023.09.20</td>
+                <td class="text-center">1354</td>
               </tr>
               <tr>
-                <th scope="row" class="th-h"></th>
-                <td class="th-o"><a href="Notice_View.html">제목이 노출됩니다.</span></a></td>
-                <td class="th-h">관리자</td>
-                <td class="th-o">2021.08.15</td>
-                <td class="th-h">1354</td>
-                <td class="th-h"><i class="icon icon-download-1"></i></td>
+                <td class=""><a href="Notice_View.html">제목이 노출됩니다.</span></a></td>
+                <td class="text-center">관리자</td>
+                <td class="text-center">2023.09.20</td>
+                <td class="text-center">1354</td>
               </tr>
               </tbody>
             </table>
@@ -121,9 +118,7 @@
   </div>
 </section>
 <!-- End Notice -->
-<footer>
   <div th:replace="/footer :: footer"></div>
-</footer>
 <!-- end footer-->
 <!-- end SignUp-->
 
