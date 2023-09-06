@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>My Page</title>
+</head>
+<body>
+<label for="memberId">아이디 : </label><label id="memberId" name="memberId" th:text="${session.loginDTO.getMemberId()}"/> <br>
+<label for="memberNick">닉네임 : </label><label id="memberNick" name="memberNick" th:text="${session.loginDTO.getMemberNick()}"/> <br>
+<label for="memberMail">이메일 : </label><label id="memberMail" name="memberMail" th:text="${session.loginDTO.getMemberMail()}"/> <br>
+<label for="regdate">가입일 : </label><label id="regdate" name="regdate" th:text="${#temporals.format(session.loginDTO.getRegdate(), 'yyyy-MM-dd')}"/> <br>
+<button type="button" onclick="location.href='/member/EditProfile'">정보 수정하기</button>
+<button tpye="button" onclick="location.href='/member/WriteList'">내가 작성한 글</button>
+<button tpye="button" onclick="location.href='/member/ReplyList'">내가 작성한 댓글</button>
+<button tpye="button" onclick="location.href='/member/LikeList'">찜한 글</button>
+</body>
+</html>

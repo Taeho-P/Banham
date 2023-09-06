@@ -19,7 +19,41 @@ public class RegisterMail {
 
     private String ePw; //인증번호
 
+    //조회한 아이디를 파라미터로 받아서 아이디조회 이메일을 작성해주는 메소드 (08.31 추가)
+    public MimeMessage findIdMessage(String to, String id) throws MessagingException, UnsupportedEncodingException {
 
+        MimeMessage message = emailsender.createMimeMessage();
+
+        message.addRecipients(MimeMessage.RecipientType.TO, to);// 보내는 대상
+        message.setSubject("반함 아이디 찾기 결과");// 제목
+
+        String msgg = "";
+        msgg += "<div style='margin:100px;'>";
+        msgg += "<h1> 안녕하세요</h1>";
+        msgg += "<h1> 반려동물 커뮤니티 '반함' 입니다</h1>";
+        msgg += "<br>";
+        msgg += "<p>홈페이지로 돌아가 해당 아이디로 로그인해주세요<p>";
+        msgg += "<br>";
+        msgg += "<p>감사합니다!<p>";
+        msgg += "<br>";
+        msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+        msgg += "<h3 style='color:blue;'>조회하신 아이디 입니다.</h3>";
+        msgg += "<div style='font-size:130%'>";
+        msgg += "ID : <strong>";
+        msgg += id + "</strong><div><br/> "; // 메일에 인증번호 넣기
+        msgg += "</div>";
+        message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
+        // 보내는 사람의 이메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress("official_banham@naver.com"));// 보내는 사람
+
+        return message;
+    }
+
+
+
+
+
+    //이메일 인증시 인증코드가 입력된 메일 작성 메소드
     public MimeMessage createMessage(String to) throws MessagingException, UnsupportedEncodingException {
 //		System.out.println("보내는 대상 : " + to);
 //		System.out.println("인증 번호 : " + ePw);
@@ -97,6 +131,19 @@ public class RegisterMail {
 
 
         return ePw; // 메일로 보냈던 인증 코드를 서버로 반환
+    }
+
+
+    //아이디 조회를 통해 이메일로 조회한 아이디를 전송하는 메소드 (08.31 추가)
+    public void sendSimpleMessage(String to, String id) throws Exception {
+
+        MimeMessage message = findIdMessage(to, id); // 메일 발송
+        try {// 예외처리
+            emailsender.send(message);
+        } catch (MailException es) {
+            es.printStackTrace();
+            throw new IllegalArgumentException();
+        }
     }
 }
 
