@@ -2,12 +2,14 @@ package com.teami.banham.entity;
 
 import com.teami.banham.dto.MemberDTO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name = "member") //테이블 생성
+@EqualsAndHashCode(callSuper=false)
 @SequenceGenerator(
         name = "seq_mno",
         sequenceName = "seq_member",
