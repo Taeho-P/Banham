@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teami.banham.service.adoptService.AdoptFileMapper">
+
+    <!-- tb_file 테이블 전체 컬럼 -->
+    <sql id="fileColumns">
+        id
+        , board_id
+        , original_name
+        , store_name
+    </sql>
+
+
+    <!-- 파일 정보 저장 -->
+
+ <!--   <insert id="saveAll" parameterType="list">
+        <selectKey keyProperty="seq_adopt_file" resultType="java.lang.Long" order="BEFORE">
+            select seq_adopt_file.nextval from dual
+        </selectKey>
+        INSERT INTO tb_adopt_file (
+        <include refid="fileColumns" />
+        ) VALUES
+        <foreach item="file" collection="list" separator=",">
+            (
+            #{seq_adopt_file}
+            , #{file.boardId}
+            , #{file.originalName}
+            , #{file.storeName}
+            )
+        </foreach>
+    </insert>-->
+       <insert id="saveAll" parameterType="list">
+<!--           <selectKey keyProperty="seq_adopt_file" resultType="java.lang.Long" order="BEFORE">-->
+<!--               select seq_adopt_file.nextval from dual-->
+<!--           </selectKey>-->
+           <foreach collection="list" item="file" open="INSERT ALL" separator=" ">
+         INTO tb_adopt_file (
+        <include refid="fileColumns" />
+        ) VALUES
+            (
+                get_adopt
+            , #{file.boardId}
+            , #{file.originalName}
+            , #{file.storeName}
+            )
+
+        </foreach>
+           select *from dual
+    </insert>
+
+</mapper>

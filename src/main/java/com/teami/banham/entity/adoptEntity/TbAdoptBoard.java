@@ -1,16 +1,16 @@
 package com.teami.banham.entity.adoptEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,14 +37,18 @@ public class TbAdoptBoard {
 
     private String memNick; //작성자닉네임
 
+    @OneToMany(mappedBy = "tbAdoptBoard")
+    private List<TbAdoptFile> files = new ArrayList<>();//파일첨부
+
     @Builder
-    public TbAdoptBoard(String title, String content, long writer, int hits, int deleteYn, String memNick) {
+    public TbAdoptBoard(String title, String content, long writer, int hits, int deleteYn, String memNick, List<TbAdoptFile> files) {
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.hits = hits;
         this.deleteYn = deleteYn;
         this.memNick  = memNick;
+        this.files = files;
     }
 
 

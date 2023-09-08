@@ -1,9 +1,16 @@
 package com.teami.banham.dto.adoptDTO;
 
 import com.teami.banham.entity.adoptEntity.TbAdoptBoard;
+import com.teami.banham.entity.adoptEntity.TbAdoptFile;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Setter
 @Getter
 @NoArgsConstructor
 public class AdoptRequestDTO {
@@ -13,6 +20,9 @@ public class AdoptRequestDTO {
     private char deleteYn; // 삭제 여부
     private String memNick;
 
+
+    private List<MultipartFile> files = new ArrayList<>();
+
     public TbAdoptBoard toEntity() {
         return TbAdoptBoard.builder()
                 .title(title)
@@ -21,6 +31,7 @@ public class AdoptRequestDTO {
                 .hits(0)
                 .deleteYn(deleteYn)
                 .memNick(memNick)
+
                 .build();
     }
 }
