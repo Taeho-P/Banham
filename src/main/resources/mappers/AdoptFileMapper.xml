@@ -59,8 +59,8 @@
         FROM
         tb_adopt_file
         WHERE
-        board_id = 59
-        ORDER BY
+        board_id = #{value}
+        order by
         id
     </select>
 
@@ -83,10 +83,7 @@
 
     <!-- 파일 삭제 -->
     <delete id="deleteAllByIds" parameterType="list">
-        UPDATE tb_file
-        SET
-        delete_yn = 1
-        , deleted_date = NOW()
+        DELETE from tb_adopt_file
         WHERE
         id IN
         <foreach item="id" collection="list" open="(" separator="," close=")">

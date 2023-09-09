@@ -22,6 +22,7 @@ public class AdoptRequestDTO {
 
 
     private List<MultipartFile> files = new ArrayList<>();
+    private List<Long> removeFileIds = new ArrayList<>(); // 삭제할 첨부파일 id List
 
     public TbAdoptBoard toEntity() {
         return TbAdoptBoard.builder()

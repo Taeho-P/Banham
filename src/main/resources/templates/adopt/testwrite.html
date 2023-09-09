@@ -14,8 +14,10 @@
 
                 <input type="hidden" id="writer" name="writer" th:value="${session.loginDTO.getMno()}" />
                 <input type="hidden" id="memNick" name="memNick" th:value="${session.loginDTO.getMemberNick()}" />
+                <!--/* 삭제 처리할 파일 번호 */-->
+                <input type="hidden" id="removeFileIds" name="removeFileIds" />
 
-                <!--/* 서버로 전달할 공지글 여부 */-->
+
 
                 <table class="tb tb_row">
                     <colgroup>
@@ -69,12 +71,31 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
+
+
+        // 파일 삭제 처리용 익명 함수
+        const removeFileId = (function() {
+            const ids = [];
+            return {
+                add(id) {
+                    if (ids.includes(id)) {
+                        return false;
+                    }
+                    ids.push(id);
+                },
+                getAll() {
+                    return ids;
+                }
+            }
+        }());
+
+
         window.onload = () => {
             findBoard();
             findAllFile();
         }
 
-
+        
         // (수정 접근시)게시글 상세정보 렌더링
         function findBoard() {
 
@@ -131,6 +152,7 @@
             document.getElementById('saveBtn').disabled = true;
 
             const id = [[ ${id} ]];
+            form.removeFileIds.value = removeFileId.getAll().join(); // 추가
             form.action =  ( id ) ? `/api/adopt/${id}` : '/api/adopt/test';
             form.submit();
         }
@@ -145,7 +167,7 @@
 
 
         // 파일 선택
-        function selectFile(element) {
+            function selectFile(element, id) {
 
             const file = element.files[0];
             const filename = element.closest('.file_input').firstElementChild;
@@ -167,6 +189,11 @@
 
             // 3. 파일명 지정
             filename.value = file.name;
+
+            // 4. 삭제할 파일 id 추가
+            if (id) {
+                removeFileId.add(id);
+            }
         }
 
 
@@ -187,7 +214,13 @@
 
 
         // 파일 삭제
-        function removeFile(element) {
+        function removeFile(element, id) {
+
+            //삭제할 파일 id 추가
+            if (id) {
+                removeFileId.add(id);
+            }
+
             const fileAddBtn = element.nextElementSibling;
             if (fileAddBtn) {
                 const inputs = element.previousElementSibling.querySelectorAll('input');

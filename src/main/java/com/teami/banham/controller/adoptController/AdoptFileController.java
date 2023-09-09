@@ -7,10 +7,7 @@ import com.teami.banham.service.adoptService.AdoptFileService;
 import com.teami.banham.service.adoptService.AdoptService;
 import com.teami.banham.service.adoptService.FileUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +20,25 @@ public class AdoptFileController {
     private final AdoptFileService adoptFileService;
 
 
+    //글 수정 file ver
+    @PostMapping("/api/adopt/{id}")
+    public Long save(@PathVariable final Long id, final AdoptRequestDTO params){
+        List<AdoptFileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
+        if(!uploadFiles.isEmpty()){
+            adoptFileService.saveFiles(id, uploadFiles);
+        }
+        System.out.println("remove "+params.getRemoveFileIds());
+        List<AdoptFileResponse> deleteFiles = adoptFileService.findAllFileByIds(params.getRemoveFileIds());
+        fileUtils.deleteFiles(deleteFiles);
+        adoptFileService.deleteAllFileByIds(params.getRemoveFileIds());
+
+
+        return adoptService.update(id, params);
+    }
+
+
     //test file저장ver 글 생성
-    @PostMapping("/adopt/test")
+    @PostMapping("/api/adopt/test")
     public String savePost(final AdoptRequestDTO params){
         Long id = adoptService.save(params);
 

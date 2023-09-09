@@ -34,11 +34,11 @@ public class AdoptApiController {
     }
 
 
-    //글 수정
-    @PatchMapping("/adopt/{id}")
-    public Long save(@PathVariable final Long id, @RequestBody final AdoptRequestDTO params){
-        return adoptService.update(id, params);
-    }
+    //글 수정 (파일 전 ver)
+//    @PatchMapping("/adopt/{id}")
+//    public Long save(@PathVariable final Long id, @RequestBody final AdoptRequestDTO params){
+//        return adoptService.update(id, params);
+//    }
 
     //글 삭제
     @DeleteMapping("/adopt/{id}")

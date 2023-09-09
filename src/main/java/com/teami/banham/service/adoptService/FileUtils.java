@@ -48,8 +48,10 @@ public class FileUtils {
         }
 
         String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
-        String uploadPath = getUploadPath(today) + File.separator + saveName;
+//        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
+//        String uploadPath = getUploadPath(today) + File.separator + saveName;
+        String uploadPath = getUploadPath(saveName);
+
         File uploadFile = new File(uploadPath);
 
         try {
@@ -114,17 +116,26 @@ public class FileUtils {
             return;
         }
         for (AdoptFileResponse file : files) {
-            deleteFile(file.getStoreName());
+            deleteFilePath(file.getStoreName());
         }
     }
 
+//    /**원래거 참고
+//     * 파일 삭제 (from Disk)
+//     * @param addPath - 추가 경로
+//     * @param filename - 파일명
+//     */
+//    private void deleteFilePath(final String addPath, final String filename) {
+//        String filePath = Paths.get(uploadPath, addPath, filename).toString();
+//        deleteFile(filePath);
+//    }
     /**
      * 파일 삭제 (from Disk)
-     * @param addPath - 추가 경로
+     *
      * @param filename - 파일명
      */
-    private void deleteFile(final String addPath, final String filename) {
-        String filePath = Paths.get(uploadPath, addPath, filename).toString();
+    private void deleteFilePath(final String filename) {
+        String filePath = Paths.get(uploadPath, filename).toString();
         deleteFile(filePath);
     }
 
