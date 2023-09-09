@@ -70,27 +70,37 @@
         /*<![CDATA[*/
 
         window.onload = () => {
-            // renderPostInfo();
+            findBoard();
+            findAllFile();
         }
 
 
-        // 게시글 상세정보 렌더링
-        function renderPostInfo() {
-            const post = [[ ${post} ]];
+        // (수정 접근시)게시글 상세정보 렌더링
+        function findBoard() {
 
-            if ( !post ) {
-                initCreatedDate();
+            const id = [[ ${id} ]];
+
+            if ( !id ) {
+                console.log("false");
                 return false;
             }
 
-            const form = document.getElementById('saveForm');
-            const fields = ['id', 'title', 'content', 'writer', 'noticeYn'];
-            form.isNotice.checked = post.noticeYn;
-            form.createdDate.value = moment(post.createdDate).format('YYYY-MM-DD HH:mm');
+            fetch(`/api/adopt/${id}`).then(response => {
+                if (!response.ok) {
+                    throw new Error('Request failed...');
+                }
+                return response.json();
 
-            fields.forEach(field => {
-                form[field].value = post[field];
-            })
+            }).then(json => {
+                const form = document.getElementById('saveForm');
+                form.title.value = json.title;
+                form.content.value = json.content;
+                form.memNick.value = json.memNick;
+
+            }).catch(error => {
+                alert('게시글 정보를 찾을 수 없습니다.');
+                location.href = '/board/adopt';
+            });
         }
 
 
@@ -120,7 +130,8 @@
 
             document.getElementById('saveBtn').disabled = true;
 
-            form.action =  '/api/adopt/test';
+            const id = [[ ${id} ]];
+            form.action =  ( id ) ? `/api/adopt/${id}` : '/api/adopt/test';
             form.submit();
         }
 
@@ -186,6 +197,66 @@
             element.parentElement.remove();
         }
 
+
+        //(수정 접근시)파일 조회
+        function findAllFile() {
+
+            // 1. 신규 등록/수정 체크
+            const id = [[ ${id} ]];
+
+            if ( !id ) {
+                console.log("false");
+                return false;
+            }
+
+            // 2. API 호출
+            const response = getJson(`/api/adopt/${id}/files`);
+
+            // 3. 로직 종료
+            if ( !response.length ) {
+                return false;
+            }
+
+            // 4. 업로드 영역 추가
+            for (let i = 0, len = (response.length - 1); i < len; i++) {
+                addFile();
+            }
+
+            // 5. 파일 선택 & 삭제 이벤트 재선언 & 파일명 세팅
+            const filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
+            filenameInputs.forEach((input, i) => {
+                const fileInput = input.nextElementSibling.firstElementChild;
+                const fileRemoveBtn = input.parentElement.nextElementSibling;
+                fileInput.setAttribute('onchange', `selectFile(this, ${response[i].id})`);
+                fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].id})`);
+                input.value = response[i].originalName;
+            })
+        }
+
+
+
+
+
+        function getJson(uri, params) {
+
+            let json = {}
+
+            $.ajax({
+                url : uri,
+                type : 'get',
+                dataType : 'json',
+                data : params,
+                async : false,
+                success : function (response) {
+                    json = response;
+                },
+                error : function (request, status, error) {
+                    console.log(error)
+                }
+            })
+
+            return json;
+        }
         /*]]>*/
     </script>
 </th:block>

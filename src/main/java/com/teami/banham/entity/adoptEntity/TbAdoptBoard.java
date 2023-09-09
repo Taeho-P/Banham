@@ -58,5 +58,19 @@ public class TbAdoptBoard {
         this.modifiedDate = LocalDateTime.now();
         this.memNick = memNick;
     }
+
+    /**
+     * 조회 수 증가
+     */
+    public void increaseHits() {
+        this.hits++;
+    }
+
+    /**
+     * 게시글 삭제
+     */
+    public void delete() {
+        this.deleteYn = 1;
+    }
 }
 

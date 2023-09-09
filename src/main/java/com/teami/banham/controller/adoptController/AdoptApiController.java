@@ -1,6 +1,7 @@
 package com.teami.banham.controller.adoptController;
 
 import com.teami.banham.dto.adoptDTO.AdoptFileRequest;
+import com.teami.banham.dto.adoptDTO.AdoptFileResponse;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
 import com.teami.banham.service.adoptService.AdoptFileService;
@@ -18,33 +19,42 @@ public class AdoptApiController {
 
     private final AdoptService adoptService;
 
-    private final FileUtils fileUtils;
-    private final AdoptFileService adoptFileService;
+
+
+    //리스트 전체 조회
+    @GetMapping("/adopt")
+    public List<AdoptResponseDto> findAll() {
+        return adoptService.findAll();
+    }
+
     //글 생성
     @PostMapping("/adopt")
     public Long save (@RequestBody final AdoptRequestDTO params) {
         return adoptService.save(params);
     }
 
-    //리스트 조회
-    @GetMapping("/adopt")
-    public List<AdoptResponseDto> findAll() {
-        return adoptService.findAll();
-    }
 
+    //글 수정
     @PatchMapping("/adopt/{id}")
     public Long save(@PathVariable final Long id, @RequestBody final AdoptRequestDTO params){
         return adoptService.update(id, params);
     }
 
-    //test
-    @PostMapping("/adopt/test")
-    public String savePost(final AdoptRequestDTO params){
-        Long id = adoptService.save(params);
-        List<AdoptFileRequest> files = fileUtils.uploadFiles(params.getFiles());
-        System.out.println(files.get(0));
-        adoptFileService.saveFiles(id, files);
-        return "adopt/Adopt";
+    //글 삭제
+    @DeleteMapping("/adopt/{id}")
+    public Long delete(@PathVariable final Long id) {
+        return adoptService.delete(id);
     }
+    //글 상세 조회 (view)
+    @GetMapping("/adopt/{id}")
+    public AdoptResponseDto findById(@PathVariable final Long id) {
+        return adoptService.findById(id);
+    }
+
+
+
+
+
+
 
 }

@@ -29,7 +29,7 @@
             </div>
 
             <div class="btn_wrap text-center">
-                <a th:href="@{/board/list}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
+                <a th:href="@{/board/adopt}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
                 <button onclick="save()" type="button" class="btn btn-primary waves-effect waves-light">저장하기</button>
             </div>
         </form>
@@ -41,29 +41,7 @@
     <script th:inline="javascript" charset="UTF-8">
         /*<![CDATA[*/
 
-        /**
-         * 유효성 검사
-         */
-        function isValid() {
 
-            const form = document.getElementById('form');
-
-            if (!form.title.value.trim()) {
-                alert('제목을 입력해 주세요.');
-                form.title.value = '';
-                form.title.focus();
-                return false;
-            }
-
-            if (!form.content.value.trim()) {
-                alert('내용을 입력해 주세요.');
-                form.content.value = '';
-                form.content.focus();
-                return false;
-            }
-
-            return true;
-        }
 
         /**
          * 게시글 등록(생성/수정)
@@ -88,8 +66,13 @@
                 memNick: memNick
             };
 
-            fetch('/api/adopt', {
-                method: 'POST',
+            const id = /*[[ ${id} ]]*/;
+            const uri = ( id ) ? `/api/adopt/${id}` : '/api/adopt';
+            const method = ( id ) ? 'PATCH' : 'POST';
+
+
+            fetch(uri, {
+                method: method,
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -108,6 +91,63 @@
             });
         }
 
+        window.onload = () => {
+            findBoard();
+        }
+
+        /**
+         * 게시글 조회
+         */
+        function findBoard() {
+
+            const id = /*[[ ${id} ]]*/;
+
+            if ( !id ) {
+                return false;
+            }
+
+            fetch(`/api/adopt/${id}`).then(response => {
+                if (!response.ok) {
+                    throw new Error('Request failed...');
+                }
+                return response.json();
+
+            }).then(json => {
+                const form = document.getElementById('form');
+                form.title.value = json.title;
+                form.content.value = json.content;
+                form.writer.value = json.writer;
+
+            }).catch(error => {
+                alert('게시글 정보를 찾을 수 없습니다.');
+                location.href = '/board/list';
+            });
+        }
+
+
+        /**
+         * 유효성 검사
+         */
+        function isValid() {
+
+            const form = document.getElementById('form');
+
+            if (!form.title.value.trim()) {
+                alert('제목을 입력해 주세요.');
+                form.title.value = '';
+                form.title.focus();
+                return false;
+            }
+
+            if (!form.content.value.trim()) {
+                alert('내용을 입력해 주세요.');
+                form.content.value = '';
+                form.content.focus();
+                return false;
+            }
+
+            return true;
+        }
         /*]]>*/
     </script>
 </th:block>

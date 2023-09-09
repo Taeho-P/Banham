@@ -49,4 +49,48 @@
            select *from dual
     </insert>
 
+
+
+
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllFileByBoardId" parameterType="long" resultType="com.teami.banham.dto.adoptDTO.AdoptFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_adopt_file
+        WHERE
+        board_id = 59
+        ORDER BY
+        id
+    </select>
+
+
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllByIds" parameterType="list" resultType="com.teami.banham.dto.adoptDTO.AdoptFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_adopt_file
+        WHERE
+        id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY
+        id
+    </select>
+
+
+    <!-- 파일 삭제 -->
+    <delete id="deleteAllByIds" parameterType="list">
+        UPDATE tb_file
+        SET
+        delete_yn = 1
+        , deleted_date = NOW()
+        WHERE
+        id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

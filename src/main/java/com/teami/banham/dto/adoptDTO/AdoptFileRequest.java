@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public class AdoptFileRequest {
 
@@ -13,6 +16,7 @@ public class AdoptFileRequest {
     private Long boardId;
     private String originalName;
     private String storeName;
+    private List<Long> removeFileIds = new ArrayList<>();
 
     @Builder
     public AdoptFileRequest(String originalName, String storeName){

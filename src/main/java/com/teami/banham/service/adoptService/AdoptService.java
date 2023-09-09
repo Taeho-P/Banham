@@ -60,4 +60,27 @@ public class AdoptService {
         //해당 메서드에 업데이트 쿼리 실행 로직 없지만 종료 되면 쿼리가 자동으로 실행됌.(값이 변경되면) = 더티체킹
     }
 
+
+    /**
+     * 게시글 삭제
+     */
+    @Transactional
+    public Long delete(final Long id) {
+
+        TbAdoptBoard entity = adoptRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        entity.delete();
+        return id;
+    }
+
+
+    /**
+     * 게시글 상세정보 조회
+     */
+    @Transactional
+    public AdoptResponseDto findById(final Long id) {
+
+        TbAdoptBoard entity = adoptRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        entity.increaseHits();
+        return new AdoptResponseDto(entity);
+    }
 }
