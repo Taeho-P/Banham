@@ -35,4 +35,11 @@ public interface AdoptFileMapper {
      * @param ids - PK 리스트
      */
     void deleteAllByIds(List<Long> ids);
+
+    /**
+     * 파일 상세정보 조회
+     * @param id - PK
+     * @return 파일 상세정보
+     */
+    AdoptFileResponse findById(Long id);
 }

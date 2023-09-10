@@ -90,4 +90,15 @@
             #{id}
         </foreach>
     </delete>
+
+
+    <!-- 파일 상세정보 조회 -->
+    <select id="findById" parameterType="long" resultType="com.teami.banham.dto.adoptDTO.AdoptFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_adopt_file
+        WHERE
+        id = #{value}
+    </select>
 </mapper>

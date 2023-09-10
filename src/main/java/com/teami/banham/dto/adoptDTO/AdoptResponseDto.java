@@ -2,11 +2,13 @@ package com.teami.banham.dto.adoptDTO;
 
 import com.teami.banham.entity.adoptEntity.TbAdoptBoard;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class AdoptResponseDto {
 
 

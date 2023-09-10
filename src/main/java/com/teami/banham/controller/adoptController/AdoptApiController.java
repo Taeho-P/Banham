@@ -2,6 +2,7 @@ package com.teami.banham.controller.adoptController;
 
 import com.teami.banham.dto.adoptDTO.AdoptFileRequest;
 import com.teami.banham.dto.adoptDTO.AdoptFileResponse;
+import com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptCommonParams;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
 import com.teami.banham.service.adoptService.AdoptFileService;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -23,8 +25,8 @@ public class AdoptApiController {
 
     //리스트 전체 조회
     @GetMapping("/adopt")
-    public List<AdoptResponseDto> findAll() {
-        return adoptService.findAll();
+    public Map<String, Object> findAll(final AdoptCommonParams params) {
+        return adoptService.findAll(params);
     }
 
     //글 생성

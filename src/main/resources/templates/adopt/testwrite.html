@@ -48,8 +48,11 @@
                                         <input type="text" readonly />
                                         <label> 첨부파일
                                             <input type="file" name="files" onchange="selectFile(this);" />
+
                                         </label>
                                     </div>
+                                    <!--이미지 고쳐야함-->
+<!--                                    <img id ="preview" style="width: 100px; height: 100px"/>-->
                                     <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
                                     <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
                                 </div>
@@ -59,6 +62,7 @@
                     </tbody>
                 </table>
             </form>
+
             <p class="btn_set">
                 <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid">저장</button>
                 <button type="button" onclick="goListPage();" class="btns btn_bdr3 btn_mid">뒤로</button>
@@ -171,6 +175,16 @@
 
             const file = element.files[0];
             const filename = element.closest('.file_input').firstElementChild;
+                // //고쳐야함
+                // if (element.files && element.files[0] &&validFileType(file.name)) {
+                //     const reader = new FileReader();
+                //     reader.onload = function(e) {
+                //         document.getElementsByClassName('preview').src = e.target.result;
+                //     };
+                //     reader.readAsDataURL(element.files[0]);
+                // } else {
+                //     document.getElementById('preview').src = "";
+                // }
 
             // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
             if ( !file ) {
@@ -195,7 +209,10 @@
                 removeFileId.add(id);
             }
         }
-
+        function validFileType(filename) {
+            const fileTypes = ["png", "jpg", "jpeg"];
+            return fileTypes.indexOf(filename.substring(filename.lastIndexOf(".")+1, filename.length).toLowerCase()) >= 0;
+        }
 
         // 파일 추가
         function addFile() {
@@ -205,13 +222,26 @@
                         <input type="text" readonly />
                         <label> 첨부파일
                             <input type="file" name="files" onchange="selectFile(this);" />
+
                         </label>
                     </div>
                     <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
                 `;
             document.querySelector('.file_list').appendChild(fileDiv);
-        }
 
+            // const imgDiv = document.createElement('div');
+            // imgDiv.innerHTML = '<div class="preview"><img/></div>';
+            // document.querySelector('.file_list').appendChild(imgDiv);
+        }
+        //이미지 인덱스 가져오기
+        function getIndex(selector) {
+            var elem = document.querySelector(selector);
+            for(var i = 0; i < elem.parentNode.childNodes.length; i++) {
+                if (elem.parentNode.childNodes[i] === elem) {
+                    console.log('elemIndex = ' + i);
+                }
+            }
+        }
 
         // 파일 삭제
         function removeFile(element, id) {
@@ -290,6 +320,8 @@
 
             return json;
         }
+
+
         /*]]>*/
     </script>
 </th:block>

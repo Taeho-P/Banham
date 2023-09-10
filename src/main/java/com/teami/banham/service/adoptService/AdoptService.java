@@ -1,5 +1,7 @@
 package com.teami.banham.service.adoptService;
 
+import com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptCommonParams;
+import com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptPagination;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
 import com.teami.banham.entity.adoptEntity.AdoptRepository;
@@ -9,15 +11,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AdoptService {
     private final AdoptRepository adoptRepository;
-
+    private final AdoptPagingMapper adoptPagingMapper;
 
     /**
      * 게시글 생성
@@ -46,7 +47,37 @@ public class AdoptService {
 //        }
 //
 //        return boardList;
+
     }
+
+    /**
+     * 게시글 리스트 조회 - (With. pagination information)
+     */
+    public Map<String, Object> findAll(AdoptCommonParams params) {
+
+        // 게시글 수 조회
+        int count = adoptPagingMapper.count(params);
+
+        // 등록된 게시글이 없는 경우, 로직 종료
+        if (count < 1) {
+            return Collections.emptyMap();
+        }
+
+        // 페이지네이션 정보 계산
+        AdoptPagination pagination = new AdoptPagination(count, params);
+        params.setAdoptPagination(pagination);
+
+        // 게시글 리스트 조회
+        List<AdoptResponseDto> list = adoptPagingMapper.findAll(params);
+
+        // 데이터 반환
+        Map<String, Object> response = new HashMap<>();
+        response.put("params", params);
+        response.put("list", list);
+        return response;
+    }
+
+
 
     /**
      * 게시글 수정

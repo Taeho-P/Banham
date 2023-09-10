@@ -7,8 +7,14 @@ import com.teami.banham.service.adoptService.AdoptFileService;
 import com.teami.banham.service.adoptService.AdoptService;
 import com.teami.banham.service.adoptService.FileUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @RestController
@@ -57,5 +63,24 @@ public class AdoptFileController {
     public List<AdoptFileResponse> findAllFileByBoardId(@PathVariable final Long boardId) {
         System.out.println("file조회start");
         return adoptFileService.findAllFileByBoardId(boardId);
+    }
+
+
+    //파일 다운로드
+    @GetMapping("/api/adopt/{boardId}/files/{fileId}/download")
+    public ResponseEntity<Resource> downloadFile(@PathVariable final Long boardId, @PathVariable final Long fileId) {
+        AdoptFileResponse file = adoptFileService.findFileById(fileId);
+        Resource resource = fileUtils.readFileAsResource(file);
+        try {
+            String filename = URLEncoder.encode(file.getOriginalName(), "UTF-8");
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName=\"" + filename + "\";")
+//                    .header(HttpHeaders.CONTENT_LENGTH, file.getSize() + "")
+                    .body(resource);
+
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("filename encoding failed : " + file.getOriginalName());
+        }
     }
 }

@@ -67,4 +67,14 @@ public class AdoptFileService {
         }
         adoptFileMapper.deleteAllByIds(ids);
     }
+
+
+    /**
+     * 파일 상세정보 조회
+     * @param id - PK
+     * @return 파일 상세정보
+     */
+    public AdoptFileResponse findFileById(final Long id) {
+        return adoptFileMapper.findById(id);
+    }
 }
