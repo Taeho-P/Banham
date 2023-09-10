@@ -1,114 +1,99 @@
 <header>
-        <nav class="navbar navbar-expand-lg fixed-top sticky" id="navbar">
-            <div class="container-fluid custom-container">
-                <a class="navbar-brand logo f-30 text-dark fw-bold" >
-                    <img src="/images/banham_logo.png" class="logo-light" alt="" height="40">
-                </a>
-                <div>
-                    <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
-                            aria-label="Toggle navigation">
-                        <i class="mdi mdi-menu"></i>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mx-auto navbar-center">
-                        <div class="m-logo">
+    <nav class="navbar navbar-expand-lg fixed-top sticky" id="navbar">
+        <div class="container-fluid custom-container">
+            <a class="navbar-brand logo f-30 text-dark fw-bold" >
+                <img src="/images/banham_logo.png" class="logo-light" alt="" height="40">
+            </a>
+            <div>
+                <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                        aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mx-auto navbar-center">
+                    <div class="m-logo">
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link" onclick="location.href='/'" style="cursor:pointer;"  >
                                 <img src="/images/banham_logo.png" class="logo-light mobile-logo" alt="" height="40">
                             </a>
                         </li>
-                        </div>
-                    </ul>
-                    <ul class="navbar-nav mx-auto navbar-center">
-                        <li class="nav-item">
-                            <a href="#" onclick="location.href='index.html'" style="cursor:pointer;" class="nav-link">홈</a>
-                        </li>
-                        <li class="nav-item dropdown dropdown-hover">
-                            <a class="nav-link dropdown-toggle " href="index.html" id="homedrop" role="button"
-                               data-bs-toggle="dropdown">
-                                커뮤니티
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
-                                <li><a class="dropdown-item" href="ProudBoard.html"><i
-                                        class="mdi f-20 me-2 align-middle"></i>내새끼자랑</a></li>
-                                <li><a class="dropdown-item" href="CommunityBoard.html"><i
-                                        class="mdi f-20 me-2 align-middle"></i>자유게시판</a></li>
-                                <li><a class="dropdown-item" href="MagazineBoard.html"><i
-                                        class="mdi f-20 me-2 align-middle"></i>에디터</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Adopt.html">
-                                입양
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="MissingBoard.html" >
-                                실종
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown dropdown-hover">
-                            <a class="nav-link dropdown-toggle homedrop" href="Notice.html" role="button"
-                               data-bs-toggle="dropdown">
-                                공지사항
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
-                                <li>
-                                        <a class="dropdown-item" onclick="location.href='/board/notice'">
-                                            <i class="mdi f-20 me-2 align-middle"></i>공지사항
-                                        </a>
+                    </div>
+                </ul>
+                <ul class="navbar-nav mx-auto navbar-center">
+                    <li class="nav-item">
+                        <a onclick="location.href='/'" style="cursor:pointer;" class="nav-link">홈</a>
+                    </li>
+                    <li class="nav-item dropdown dropdown-hover">
+                        <a class="nav-link dropdown-toggle " href="index" id="homedrop" role="button"
+                           data-bs-toggle="dropdown">
+                            커뮤니티
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
+                            <li><a class="dropdown-item" onclick="location.href='/board/proud'"style="cursor:pointer;"><i
+                                    class="mdi f-20 me-2 align-middle"></i>내새끼자랑</a></li>
+                            <li><a class="dropdown-item" onclick="location.href='/board/community'"style="cursor:pointer;"><i
+                                    class="mdi f-20 me-2 align-middle"></i>자유게시판</a></li>
+                            <li><a class="dropdown-item" onclick="location.href='/board/EditorBoard'"style="cursor:pointer;"><i
+                                    class="mdi f-20 me-2 align-middle"></i>에디터</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="location.href='/board/adopt'" style="cursor:pointer;">
+                            입양
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="location.href='/board/adopt'" style="cursor:pointer;">
+                            실종
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " onclick="location.href='/board/NoticeBoard'" style="cursor:pointer;" >
+                            공지사항/이벤트
+                        </a>
+                    </li>
 
-                                </li>
-                                <li><a class="dropdown-item" href="Notice.html"><i
-                                        class="mdi f-20 me-2 align-middle"></i>이벤트</a></li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                    <!--end navbar-nav-->
+                </ul>
+                <!--end navbar-nav-->
 
 
-                    <ul class="navbar-nav mx-auto navbar-center">
-                        <li class="nav-item dropdown dropdown-hover">
-                            <a class="nav-link dropdown-toggle homedrop" href="MyPage.html" role="button"
-                               data-bs-toggle="dropdown">
+                <ul class="navbar-nav mx-auto navbar-center">
+                    <li class="nav-item dropdown dropdown-hover">
+                        <a class="nav-link dropdown-toggle homedrop" href="MyPage.html" role="button"
+                           data-bs-toggle="dropdown">
 
-                                <img src="/images/all_menu_user_no_img.png" style="width: 30px;" >
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
-                                <li>
-                                    <label th:if="${session.loginDTO == null}" class="p-3">로그인 해주세요.</label>
-                                    <label th:unless="${session.loginDTO == null}" th:text="${session.loginDTO.getMemberNick() + '님 안녕하세요!'}">님 안녕하세요!</label>
-                                </li>
-                                <li>
-                                    <button th:unless="${session.loginDTO == null}"type="button" onclick="location.href='member/MyPage'">마이페이지</button>  <!-- 회원상세페이지 버튼(태호) -->
-                                </li>
+                            <img src="/images/all_menu_user_no_img.png" style="width: 30px;" >
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
+                            <th:block th:if="${session.loginDTO == null}">
                                 <li>
                                     <a class="dropdown-item" onclick="location.href='/member/signUp'"
                                        style="cursor:pointer;">
-<!--                                        <i class="mdi f-20 me-2 align-middle"></i>회원가입-->
-                                        <button th:if="${session.loginDTO == null}" type="button" onclick="location.href='member/signUp'" class="btn btn-outline-primary f-20 me-2 align-middle">회원가입</button>  <!-- 회원가입 버튼(태호) -->
-
-                                    </a>
-                                </li>
+                                        <i class="mdi f-20 me-2 align-middle"></i>회원가입</a></li>
                                 <li><a class="dropdown-item" onclick="location.href='/member/login'"
                                        style="cursor:pointer;">
-<!--                                    <i class="mdi f-20 me-2 align-middle"></i>로그인-->
-                                    <button th:if="${session.loginDTO == null}" type="button" onclick="location.href='member/login'" class="btn btn-outline-primary f-20 me-2 align-middle">로그인</button>  <!-- 로그인 버튼(session.loginDTO가 null일때)(태호) -->
-                                    <button th:unless="${session.loginDTO == null}" type="button" onclick="location.href='member/logout'" class="btn btn-outline-primary f-20 me-2 align-middle">로그아웃</button>  <!-- 로그아웃 버튼(session.loginDTO에 값이 있을때)(태호) -->
-                                    </a>
-
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                                    <i class="mdi f-20 me-2 align-middle"></i>로그인</a></li>
+                            </th:block>
+                            <th:block th:unless="${session.loginDTO == null}">
+                                <li>
+                                    <a class="dropdown-item" onclick="location.href='/member/MyPage'"
+                                       style="cursor:pointer;">
+                                        <i class="mdi f-20 me-2 align-middle"></i>마이페이지</a></li>
+                                <li><a class="dropdown-item" onclick="location.href='/member/logout'"
+                                       style="cursor:pointer;">
+                                    <i class="mdi f-20 me-2 align-middle"></i>로그아웃</a></li>
+                            </th:block>
+                        </ul>
+                    </li>
+                </ul>
 
             </div>
-            <!--end container-->
-        </nav>
+
+        </div>
+        <!--end container-->
+    </nav>
 </header>
 <!-- Navbar End -->
 

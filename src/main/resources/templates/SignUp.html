@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <div th:replace="/header :: header"></div>
+<div th:replace="/header :: header"></div>
 
 <!--end Navbar-->
 
@@ -40,133 +40,133 @@
     <!-- start container -->
     <div class="container">
         <div class="row">
-            <div class="d-flex justify-content-center col-lg-11">
+            <div class="d-flex col-lg-11">
                 <div class="inner-heading">
                     <h1 class="fw-bold">회원가입</h1>
                     <p class="fw-semibold">반려동물과 함께 행복해지는 첫 걸음. 반함에 어서오세요.
-                        </p>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="row">
-        <div class="col align-self-center">
-            <div class="info-box">
-                <div class="row">
-                    <!-- name속성 : 서버로 전송할때 변수 이름의 역할 -->
-                    <form action="/member/signUp" method="post" onsubmit="return joinCheck(this);">
-                    <div class="col-lg-10 offset-lg-1">
-                        <div class=" mt-4">
-                            <div class="mt-3">
-                                <div class="Name">
-                                    <!-- 아이디 입력 영역 -->
+            <div class="col align-self-center">
+                <div class="info-box">
+                    <div class="row">
+                        <!-- name속성 : 서버로 전송할때 변수 이름의 역할 -->
+                        <form action="/member/signUp" method="post" onsubmit="return joinCheck(this);">
+                            <div class="col-lg-10 offset-lg-1">
+                                <div class=" mt-4">
+                                    <div class="mt-3">
+                                        <div class="Name">
+                                            <!-- 아이디 입력 영역 -->
 
-                                    <label for="memberId" class="form-label fw-semibold">아이디 : </label>
-                                    <input type="text" class="form-control" id="memberId" name="memberId"
-                                           placeholder="아이디를 입력해주세요." onblur="idCheck()" required>
-                                    <p id="id_check_result"></p>
+                                            <label for="memberId" class="form-label fw-semibold">아이디 : </label>
+                                            <input type="text" class="form-control" id="memberId" name="memberId"
+                                                   placeholder="아이디를 입력해주세요." onblur="idCheck()" required>
+                                            <p id="id_check_result"></p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <div class="Name">
+                                            <!-- 비밀번호 입력 영역 -->
+                                            <div>
+                                                <label for="memberPass" class="form-label fw-semibold">비밀번호 : </label>
+                                                <input type="password" id="memberPass" name="memberPass" onblur="passCheck1()" class="form-control"
+                                                       placeholder="비밀번호를 입력해주세요" required>
+                                            </div>
+                                            <div class="mt-2">
+                                                <label for="passCheck" class="form-label fw-semibold">비밀번호확인 : </label>
+                                                <input type="password" id="passCheck" name="passCheck" onblur="passCheck1()" class="form-control"
+                                                       placeholder="비밀번호를 한번더 입력해주세요" required>
+                                                <p id="pass_check_result"></p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mt-4">
+                                        <div class="Name">
+                                            <!-- 닉네임 입력 영역 -->
+                                            <div>
+                                                <label for="memberNick" class="form-label fw-semibold">닉네임 : </label>
+                                                <input type="text" id="memberNick" name="memberNick" onblur="nickCheck()" class="form-control"
+                                                       placeholder="사용할 닉네임을 입력해주세요" required>
+                                                <p id="nick_check_result"></p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <div class="Name">
+                                            <!-- 이메일 입력 영역 -->
+                                            <div>
+                                                <label for="memberMail" class="form-label fw-semibold">이메일 : </label>
+                                                <input type="text" id="memberMail" name="memberMail" onblur="mailCheck()" class="form-control"
+                                                       placeholder="사용할 이메일을 입력해주세요" >
+                                                <button type="button" class="btn btn-sm btn-blue mt-3" id="btnConfirm" disabled="disabled" onclick="mailConfirm1()">메일 인증</button>
+                                                <p id="mail_check_result"></p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <div class="Name">
+                                            <!-- 이메일 인증문자 입력 영역 -->
+                                            <div>
+                                                <label for="mailConfirm" class="form-label fw-semibold">인증 문자 : </label>
+                                                <input type="text" id="mailConfirm" name="mailConfirm" onblur="confirmCheck()" class="form-control"
+                                                       placeholder="사용할 이메일을 입력해주세요" required>
+                                                <p id="confirm_check_result"></p>
+                                            </div>
+
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
-
-                            <div class="mt-4">
-                                <div class="Name">
-                                    <!-- 비밀번호 입력 영역 -->
-                                    <div>
-                                    <label for="memberPass" class="form-label fw-semibold">비밀번호 : </label>
-                                    <input type="password" id="memberPass" name="memberPass" onblur="passCheck1()" class="form-control"
-                                           placeholder="비밀번호를 입력해주세요" required>
-                                    </div>
-                                    <div class="mt-2">
-                                        <label for="passCheck" class="form-label fw-semibold">비밀번호확인 : </label>
-                                        <input type="password" id="passCheck" name="passCheck" onblur="passCheck1()" class="form-control"
-                                               placeholder="비밀번호를 한번더 입력해주세요" required>
-                                        <p id="pass_check_result"></p>
-                                    </div>
-
-                                </div>
+                            <hr class="my-4">
+                            <!-- 회원가입 (submit) 버튼 -->
+                            <div class="submit-button text-center">
+                                <button class="btn btn-primary w-100" type="submit" value="회원가입" >회원가입하기</button>
                             </div>
 
+                        </form>
 
-                            <div class="mt-4">
-                                <div class="Name">
-                                    <!-- 닉네임 입력 영역 -->
-                                    <div>
-                                        <label for="memberNick" class="form-label fw-semibold">닉네임 : </label>
-                                        <input type="text" id="memberNick" name="memberNick" onblur="nickCheck()" class="form-control"
-                                               placeholder="사용할 닉네임을 입력해주세요" required>
-                                        <p id="nick_check_result"></p>
-                                    </div>
 
-                                </div>
-                            </div>
-
-                            <div class="mt-4">
-                                <div class="Name">
-                                    <!-- 이메일 입력 영역 -->
-                                    <div>
-                                        <label for="memberMail" class="form-label fw-semibold">이메일 : </label>
-                                        <input type="text" id="memberMail" name="memberMail" onblur="mailCheck()" class="form-control"
-                                               placeholder="사용할 이메일을 입력해주세요" >
-                                        <button type="button" class="btn btn-sm btn-blue mt-3" id="btnConfirm" disabled="disabled" onclick="mailConfirm1()">메일 인증</button>
-                                        <p id="mail_check_result"></p>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="mt-4">
-                                <div class="Name">
-                                    <!-- 이메일 인증문자 입력 영역 -->
-                                    <div>
-                                        <label for="mailConfirm" class="form-label fw-semibold">인증 문자 : </label>
-                                        <input type="text" id="mailConfirm" name="mailConfirm" onblur="confirmCheck()" class="form-control"
-                                               placeholder="사용할 이메일을 입력해주세요" required>
-                                        <p id="confirm_check_result"></p>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
+                        <!--                    <p class="text-muted">회원가입하면 다양한 혜택이 있습니다 </p>-->
                     </div>
-                        <hr class="my-4">
-                        <!-- 회원가입 (submit) 버튼 -->
-                        <div class="submit-button text-center">
-                            <button class="btn btn-primary w-100" type="submit" value="회원가입" >회원가입하기</button>
-                        </div>
 
-                    </form>
-
-
-<!--                    <p class="text-muted">회원가입하면 다양한 혜택이 있습니다 </p>-->
                 </div>
-
             </div>
-        </div>
         </div>
     </div>
     <!-- end container -->
 </section>
 <!-- start footer -->
 
-    <div th:replace="/footer :: footer"></div>
+<div th:replace="/footer :: footer"></div>
 
 <!-- end footer-->
 <!-- end SignUp-->
 
-        <!--Bootstrap Js-->
-        <script src="/js/bootstrap.bundle.min.js"></script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Slider Js -->
-        <script src="/js/tiny-slider.js"></script>
-        <script src="/js/swiper.min.js"></script>
+<!-- Slider Js -->
+<script src="/js/tiny-slider.js"></script>
+<script src="/js/swiper.min.js"></script>
 
-        <!-- counter -->
-        <script src="/js/counter.init.js"></script>
+<!-- counter -->
+<script src="/js/counter.init.js"></script>
 
-        <!-- App Js -->
-        <script src="/js/app.js"></script>
-    </body>
+<!-- App Js -->
+<script src="/js/app.js"></script>
+</body>
 
 
 <script th:inline="javascript">
