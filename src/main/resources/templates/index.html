@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
 
 
-
     <!-- Custom Css -->
     <link rel="stylesheet" href="/css/style.min.css" type="text/css"/>
 
@@ -32,131 +31,12 @@
     <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css"/>
     <link rel="stylesheet" href="/css/swiper.min.css" type="text/css"/>
 
-    <!-- Carousel-Vertical  -->
-    <link rel="stylesheet" type="text/css" href="../dist/carousel-vertical.min.css" media="screen" />
-
     <!-- Editor Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <!-- Map Css -->
     <link rel="stylesheet" href="/css/map.css">
 
-    <!--weather css-->
-    <!--<style>
-        .weather {
-            width: 1200px;
-            height: 180px;
-            /*background-image: url('https://i.ibb.co/TrFsRs8/Group-3.png');*/
-            /*background-image: url('https://i.ibb.co/rd3NHwW/Group-4.png');*/
-            background-image: url('https://i.ibb.co/wzfdhzG/back.png');
-            /*background-attachment: fixed;*/
-            background-repeat: no-repeat;
-
-            /*display: flex;*/
-            /*justify-content: space-between;*/
-            /*justify-content: space-around;*/
-            font-family: "G마켓 산스 TTF Light";
-            /*margin-top: 30px;*/
-            /*padding: 20px -10px 20px 20px ;*/
-
-            position: relative;
-
-        }
-
-        .divLoc {
-            text-align: left;
-            position: absolute;
-            top: 20px;
-            left: 30px;
-
-        }
-
-        #loc2 {
-            font-size: 20px;
-        }
-
-        #loc {
-            font-size: 15px;
-        }
-
-        #weatherTemp {
-            font-family: "G마켓 산스 TTF Medium";
-            text-align: center;
-            font-size: 40px;
-
-            position: absolute;
-            top: 90px;
-            left: 30px;
-        }
-
-
-        #weatherIcon {
-            position: absolute;
-            left: 265px;
-            top: 10px;
-        }
-
-        #weatherMain {
-            position: absolute;
-            left: 300px;
-            top: 110px;
-        }
-
-        #pollIcon {
-            position: absolute;
-            top: 30px;
-            left: 480px;
-            opacity: 0.7;
-        }
-
-        #pollution {
-            position: absolute;
-            top: 110px;
-            left: 460px;
-        }
-
-
-        #chart {
-            position: absolute;
-            right: 20px;
-            top: 10px;
-
-            width: 480px;
-            height: 150px;
-            background-color: ghostwhite;
-            opacity: 0.3;
-            overflow: hidden;
-        }
-
-        #curve_chart {
-            position: absolute;
-            top: -20px;
-
-            width: 500px;
-            height: 170px;
-
-        }
-
-        #temperature-markers {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .custom-marker {
-            position: absolute;
-            font-size: 12px;
-            font-weight: bold;
-            color: #333;
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 2px 5px;
-            border-radius: 5px;
-        }
-
-    </style>-->
 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
@@ -303,12 +183,12 @@
                     <div class="mt-5 text-center">
 
                         <div class="slider-overtext">
-                        <h5 class="fw-bold slider-overtext ">아침산책이 넘좋아요</h5>
-                        <p class="text-muted slider-overtext">날씨도 선선해져서 산책이 넘 좋아지네요 알콩이도 기분좋아보여요💕💕</p>
+                            <h5 class="fw-bold slider-overtext ">아침산책이 넘좋아요</h5>
+                            <p class="text-muted slider-overtext">날씨도 선선해져서 산책이 넘 좋아지네요 알콩이도 기분좋아보여요💕💕</p>
                         </div>
-                            <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
+                        <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
 
-                          구경하러가기
+                            구경하러가기
                         </button>
                     </div>
                 </div>
@@ -505,7 +385,7 @@
 
             </div>
             <div class="pt-5">
-            <div class="swiper-adoptPagination"></div>
+                <div class="swiper-pagination"></div>
             </div>
         </div>
         <!-- End slider -->
@@ -831,6 +711,35 @@
 
 </script>
 
+<script>
+    const infoSwiper = {
+        init() {
+            let $infoSwiper = document.querySelector(".info-swiper");
+
+            if ($infoSwiper) {
+                var swiper = new Swiper(".info-swiper", {
+                    loop: true,
+                    /* autoplay: {
+                        delay: 3000,
+                    }, */
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    direction: "vertical",
+                    navigation: {
+                        nextEl: ".notice-next",
+                        prevEl: ".notice-prev",
+                    },
+                    speed: 900,
+                    autoplay: {
+                        delay: 2000,
+                    },
+                });
+            }
+        },
+    };
+
+
+</script>
 
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>

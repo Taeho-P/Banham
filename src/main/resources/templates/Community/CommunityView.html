@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=""/>
+    <meta content="Pichforest" name="author"/>
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+    <!-- Material Icon Css -->
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+    <!-- Unicon Css -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+    <!-- Swiper Css -->
+    <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css" />
+    <link rel="stylesheet" href="/css/swiper.min.css" type="text/css" />
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
+
+    <title th:text="${board.title}"></title>
+
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+<section class="section position-relative overflow-hidden"
+         style=" top: 95px;">
+    <div class="page-wrapper container ">
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb default mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="../index.html" class="text-muted">홈</a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">자유게시판</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="section position-relative overflow-hidden"style=" top: 95px; padding-bottom: 90px;">
+    <div class="content-wrapper container ">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="fw-bold">자유게시판</h2>
+            </div>
+        </div>
+        <hr class="my-4">
+        <section class="artical flexbox pb-3">
+            <div class="container">
+                <div class="board-post">
+                    <h3 class="post-title"th:text="${board.title}" ></h3>
+                    <div class="post-header">
+                        <div class="info">
+                            <dl>
+                                <dt>작성자</dt>
+                                <dd th:text="${board.writer}"></dd>
+                            </dl>
+                            <dl>
+                                <dt class="th-h">조회수</dt>
+                                <dd class="th-h" th:text="${board.hits}"></dd>
+                            </dl>
+                            <dl>
+                                <dt>작성일</dt>
+                                <dd th:text="${#temporals.format(board.createDate,'yyyy-MM-dd HH:mm:ss')}"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <dl class="file-list2">
+                            <dd>
+                                <span th:if="${board.hasFile==1}"> <!-- 이미지가 있을시 출력-->
+                                    <span th:each="file:${board.repositoryFileName}">
+                                        <img th:src="@{|/upload/${file}|}" alt="" style="width:100%;"><br>
+                                    </span>
+                                </span>
+                                <span th:text="${board.contents}"></span> <!--내용 출력-->
+                            </dd>
+                        </dl>
+                        <ul class="file-list">
+                            <li th:each="file:${board.fileList}">
+                                <a class="icon icon-paperclip-1"href="#none" data-action="downloadFile" style="cursor: pointer;" th:text="${file.getOriginalFilename()}"></a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <button class="col-2 btn btn-list float-right" onclick="listReq()">목록</button>
+                        <th:block th:if="${session.loginDTO!=null}">
+                            <th:block th:if="${board.memberId==session.loginDTO.memberId}">
+                                <button class="col-2 btn btn-list float-right" onclick="updateReq()" value="수정">수정</button>
+                                <button class="col-2 btn btn-list float-right" onclick="deleteReq()" value="삭제">삭제</button>
+                            </th:block>
+                        </th:block>
+                    </div>
+                    <div class="comment-box mt-5">
+                        <h4 class="fw-bold">댓글</h4>
+                        <div id="Comment-box-item mb-1 comment-write">
+                                <span th:if="${session.loginDTO!=null}">
+                                    <input type="hidden" id="memberId" name="memberId" th:value="${session.loginDTO.memberId}">
+                                    <input type="text" id="commentWriter" th:value="${session.loginDTO.memberNick}"placeholder="작성자" readOnly/>
+                                    <input type="text" id="commentContents" placeholder="내용">
+                                    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
+                                </span>
+                                <div class="forum-form mt-4">
+                                    <div class="row d-flex align-items-center justify-content-start">
+                                        <div class="col-sm-2 col-3">
+                                            <div class="avatar forum-profile">
+                                                <img src="/images/img-1.png" alt=""
+                                                     class="img-fluid rounded-circle avatar-md">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-8 col-md-6 col-5 my-2">
+                                            <form>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                       placeholder="내용을 입력해주세요.">
+                                            </form>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-dark">댓글작성</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div  id="comment-list">
+                            <div  class="Comment-box-item mt-1" th:each="comment:${commentList}">
+                                <div class="comment-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <div class="avatar">
+                                                    <img src="/images/img-1.png" alt="" class="img-fluid avatar-md rounded-circle">
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-2">
+                                                <h6 class="mb-0" th:text="${comment.writer}"></h6>
+                                            </div>
+                                            <span th:if="${session.loginDTO!=null}">
+                                                <th:block th:if="${session.loginDTO.memberId==comment.memberId}">
+                                                    <button class="btn comment-modify-btn" th:id="'modify-comment-btn-' + ${comment.cno}" th:onclick="'showCommentModification(' + ${comment.cno} + ')'">수정</button>
+                                                <button class="btn" th:id="'comment-delete-btn' + ${comment.cno}" th:onclick="'deleteComment('+ ${comment.cno} + ')'">삭제</button>
+                                                </th:block>
+                                            </span>
+                                        </div>
+                                        <div class="time ms-auto">
+                                            <th:block th:if="${comment.commentUpdateTime==null || comment.commentCreatedTime==comment.commentUpdateTime}">
+                                                <h6 th:text="${#temporals.format(comment.commentCreatedTime,'yy-MM-dd, HH:mm:ss')}"></h6>
+                                            </th:block>
+                                            <th:block th:unless="${comment.commentUpdateTime==null ||  comment.commentCreatedTime==comment.commentUpdateTime}">
+                                                <h6 th:text="'수정됨 ' + ${#temporals.format(comment.commentUpdateTime,'yy-MM-dd, HH:mm:ss')}"></h6>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                    <div class="message-box mt-4">
+                                        <p class="text-muted mb-3" th:text="${comment.commentContents}"></p>
+                                    </div>
+                                    <div class="message-box mt-4 comment-modify-section" th:id="'modify-comment-section-'+ ${comment.cno}" style="display: none"><!--modify start-->
+                                        <th:block th:if="${session.loginDTO!=null}">
+                                        <span th:if="${session.loginDTO.memberId==comment.memberId}">
+                                        <input type="hidden" id="modify_memberId" name="memberId"
+                                               th:value="${session.loginDTO.memberId}">
+                                        <input type="text" th:id="'modify_commentWriter'+ ${comment.cno}"
+                                               th:value="${session.loginDTO.memberNick}" placeholder="작성자" readOnly/>
+                                        <input type="text" th:id="'modify_commentContents'+ ${comment.cno}" placeholder="내용">
+                                         <button id="modify_comment-write-btn" th:onclick="'commentModify(' + ${comment.cno} + ')'">수정</button>
+                                        </span>
+                                        </th:block>
+                                    </div><!--modify end-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</section>
+
+
+
+
+<!--    &lt;!&ndash;/* 댓글 수정 popup */&ndash;&gt;-->
+<!--    <div id="commentUpdatePopup" class="popLayer">-->
+<!--        <h3>댓글 수정</h3>-->
+<!--        <div class="pop_container">-->
+<!--            <table class="tb tb_row tl">-->
+<!--                <colgroup>-->
+<!--                    <col style="width:30%;" /><col style="width:70%;" />-->
+<!--                </colgroup>-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <th scope="row">작성자<span class="es">필수 입력</span></th>-->
+<!--                    <td><input type="text" id="modalWriter" name="modalWriter" placeholder="작성자를 입력해 주세요." /></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="row">내용<span class="es">필수 입력</span></th>-->
+<!--                    <td><textarea id="modalContent" name="modalContent" cols="90" rows="10" placeholder="수정할 내용을 입력해 주세요."></textarea></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--            <p class="btn_set">-->
+<!--                <button type="button" id="commentUpdateBtn" class="btns btn_st2">수정</button>-->
+<!--                <button type="button" class="btns btn_bdr2" onclick="closeCommentUpdatePopup();">취소</button>-->
+<!--            </p>-->
+<!--        </div>-->
+<!--        <button type="button" class="btn_close" onclick="closeCommentUpdatePopup();"><span><i class="far fa-times-circle"></i></span></button>-->
+<!--    </div>-->
+<!-- start footer -->
+<div th:replace="/footer :: footer"></div>
+<!-- end footer-->
+
+</body>
+<script th:inline="javascript">
+    const listReq = () => {
+        console.log("게시판 리스트 요청 성공");
+        const page = [[${page}]];
+        location.href = "/board/community/?page=" + page;
+    }
+    const updateReq = () => {
+        console.log("수정 요청");
+        const bno = [[${board.bno}]];
+        location.href = "/board/community/modify/" + bno;
+    }
+    const deleteReq = () => {
+        alert("정말 삭제 하시겠습니까?");
+        console.log("삭제 요청");
+        const bno = [[${board.bno}]];
+        location.href = "/board/community/delete/" + bno;
+    }
+    const commentWrite = () => {
+        const sessionId = [[${session.loginDTO != null ? session.loginDTO.memberId : ''}]];
+        const writer = document.getElementById("commentWriter").value;
+        const contents = document.getElementById("commentContents").value;
+        console.log("작성자: ", writer);
+        console.log("내용:", contents);
+        const bno = [[${board.bno}]]; //게시글번호
+        //게시글번호 가져오기
+            $.ajax({
+                // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
+                type: "post",
+                url: "/community/comment/save",
+                data: {
+                    "memberId": sessionId,
+                    "writer": writer,
+                    "commentContents": contents,
+                    "bno": bno
+                }
+            })
+                .done(function (fragment) {
+                    console.log(JSON.stringify(fragment));
+                        $('#comment-list').replaceWith(fragment);
+                });
+
+            document.getElementById('commentWriter').value = writer;
+            document.getElementById('commentContents').value = '';
+    }
+    function formatDate(dateString) {
+        const options = {
+            year: '2-digit',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+        return formattedDate;
+    }
+
+    function showCommentModification(cno) {
+        // Construct the IDs for the button and modification section
+        let modifyButtonId = 'modify-comment-btn-' + cno;
+        let modifySectionId = 'modify-comment-section-' + cno;
+        console.log(cno);
+        // Get references to the button and modification section elements
+        let modifyButton = document.getElementById(modifyButtonId);
+        let modifySection = document.getElementById(modifySectionId);
+
+        // Toggle the display of the modification section
+        if (modifySection.style.display === 'none') {
+            modifySection.style.display = 'block';
+            modifyButton.innerText= '수정취소';
+        } else {
+            modifySection.style.display = 'none';
+            modifyButton.innerText= '수정';
+        }
+    }
+
+    function commentModify(cno){
+
+        let modify_commentWriter = 'modify_commentWriter'+cno;
+        let modify_commentContents = 'modify_commentContents'+cno;
+
+        const sessionId = [[${session.loginDTO != null ? session.loginDTO.memberId : ''}]];
+        const writer = document.getElementById(modify_commentWriter).value;
+        const contents = document.getElementById(modify_commentContents).value;
+        console.log("작성자: ", writer);
+        console.log("내용:", contents);
+        const bno = [[${board.bno}]]; //게시글번호
+
+        //게시글번호 가져오기
+        $.ajax({
+            // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
+            type: "post",
+            url: "/community/comment/update/"+bno+"/"+cno,
+            data: {
+                "Cno":cno,
+                "memberId": sessionId,
+                "writer": writer,
+                "commentContents": contents,
+                "bno": bno
+            }
+        })
+            .done(function (fragment) {
+                $('#comment-list').replaceWith(fragment);
+            });
+        document.getElementById('commentWriter').value = writer;
+        document.getElementById('commentContents').value = '';
+
+        showCommentModification(cno);
+    }
+
+    function deleteComment(cno) {
+        // 사용자에게 확인을 요청하는 confirm 대화상자 표시
+        var confirmDelete = confirm("정말로 이 댓글을 삭제하시겠습니까?");
+        const bno = [[${board.bno}]]; //게시글번호
+        if (confirmDelete) {
+            // 사용자가 확인을 눌렀을 때, 댓글 삭제 요청을 보냄 (예를 들어, AJAX 요청)
+            $.ajax({
+                type: "POST", // 또는 "DELETE" 등 HTTP 요청 방식에 따라 변경
+                url: "/community/comment/delete/" + bno+"/"+cno, // 댓글 삭제를 처리하는 엔드포인트 URL
+                success: function (data) {
+                    console.log("댓글 삭제 성공");
+                },
+                error: function () {
+                    console.log("댓글 삭제 실패");
+                }
+            })
+                .done(function (fragment) {
+                    $('#comment-list').replaceWith(fragment);
+                });
+        } else {
+            console.log("댓글 삭제 취소");
+        }
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<!-- Slider Js -->
+<script src="/js/tiny-slider.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<!-- counter -->
+<script src="/js/counter.init.js"></script>
+
+<!-- App Js -->
+<script src="/js/app.js"></script>
+</html>
