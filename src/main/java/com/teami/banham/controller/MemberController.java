@@ -115,9 +115,10 @@ public class MemberController {
 
     //회원정보 수정 실행 (08.31 추가)
     @PostMapping("/EditProfile")
-    public String editProfile(@RequestParam("memberNick") String editNick, @RequestParam("memberMail") String editMail, HttpSession session) {
+    public String editProfile(@RequestParam("memberNick") String editNick, @RequestParam("memberMail") String editMail, @RequestParam("profileImgNo") String profileImgNo, HttpSession session) {
         MemberDTO editDTO = (MemberDTO)session.getAttribute("loginDTO");
         System.out.println("session내에 아이디 = " + editDTO.getMemberId() + ", editNick = " + editNick + ", editMail = " + editMail);
+        editDTO.setProfileImgNo(profileImgNo);
         editDTO.setMemberNick(editNick);
         editDTO.setMemberMail(editMail);
 
