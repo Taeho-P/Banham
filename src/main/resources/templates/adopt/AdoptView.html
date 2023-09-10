@@ -51,9 +51,12 @@
         </div>
     </div>
     <!--/* 댓글 작성 */-->
-    <div class="cm_write">
+    <div class="cm_write" th:if="${session.loginDTO != null}">
         <fieldset>
             <legend class="skipinfo">댓글 입력</legend>
+            <div class="cm_writer">
+                <input type="hidden" id="cm_writer" th:value="${session.loginDTO.getMemberNick()}"/>
+            </div>
             <div class="cm_input">
                 <span><textarea id="comment" name="content" onkeyup="countingLength(this);" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></span>
                 <span><button type="button" class="btns" onclick="saveComment();">등 록</button> <i id="counter">0/300자</i></span>
@@ -105,14 +108,16 @@
 
 
         window.onload = () => {
-            findAllComment();
+
             findBoard();
+            findAllComment();
             findAllFile();
         }
 
         /**
          * 게시글 조회
          */
+
         function findBoard() {
 
             const id = [[ ${id} ]];
@@ -252,7 +257,7 @@
 
         // 댓글 저장
         function saveComment() {
-
+            const memNick = document.getElementById('cm_writer');
             const content = document.getElementById('comment');
             isValid(content, '댓글');
 
@@ -262,7 +267,7 @@
             const params = {
                 boardId : boardId,
                 content : content.value,
-                writer : '홍길동'
+                writer : memNick.value
             }
 
             //function.js callApi로 ajax 연결!!
