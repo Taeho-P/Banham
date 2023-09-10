@@ -77,8 +77,8 @@ public class CommunityBoardDTO {
         communityBoardDTO.setHits(communityBoardEntity.getHits());
         communityBoardDTO.setWriter(communityBoardEntity.getWriter());
         communityBoardDTO.setMemberId(communityBoardEntity.getMemberId());
-        communityBoardDTO.setCreateDate(communityBoardEntity.getCreateDate());
-        communityBoardDTO.setUpdateDate(communityBoardEntity.getUpdateDate());
+        communityBoardDTO.setCreateDate(communityBoardEntity.getCreatedTime());
+        communityBoardDTO.setUpdateDate(communityBoardEntity.getUpdatedTime());
 
         if(communityBoardEntity.getHasFile()==0){
             communityBoardDTO.setHasFile(communityBoardEntity.getHasFile());
