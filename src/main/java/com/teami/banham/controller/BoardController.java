@@ -6,7 +6,6 @@ import com.teami.banham.dto.MemberDTO;
 import com.teami.banham.dto.adoptDTO.AdoptFileRequest;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
-import com.teami.banham.service.BoardService;
 import com.teami.banham.service.MemberService;
 import com.teami.banham.service.adoptService.AdoptFileService;
 import com.teami.banham.service.adoptService.AdoptService;
