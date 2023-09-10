@@ -23,6 +23,9 @@ public class MemberEntity extends MemberBaseEntity {
     ) //시퀀스 값을 받아오는 설정
     private Long mno; //회원 고유번호
 
+    @Column
+    private String profileImgNo; //프로필 이미지 고유번호
+
     @Column(unique = true, name = "memberId")
     private String memberId; //회원 아이디
 
@@ -39,6 +42,7 @@ public class MemberEntity extends MemberBaseEntity {
         //.save메소드에서 INSERT쿼리를 실행시키기 위해 기본키 컬럼 셋팅은 제외
         MemberEntity memberEntity = new MemberEntity();
 
+        memberEntity.setProfileImgNo(memberDTO.getProfileImgNo());
         memberEntity.setMemberId(memberDTO.getMemberId());
         memberEntity.setMemberPass(memberDTO.getMemberPass());
         memberEntity.setMemberNick(memberDTO.getMemberNick());
@@ -52,6 +56,7 @@ public class MemberEntity extends MemberBaseEntity {
         MemberEntity memberEntity = new MemberEntity();
 
         memberEntity.setMno(memberDTO.getMno()); //.save메소드에서 UPDATE 쿼리를 실행시키기 위해 기본키 컬럼 셋팅 추가
+        memberEntity.setProfileImgNo(memberDTO.getProfileImgNo());
         memberEntity.setMemberId(memberDTO.getMemberId());
         memberEntity.setMemberPass(memberDTO.getMemberPass());
         memberEntity.setMemberNick(memberDTO.getMemberNick());
