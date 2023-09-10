@@ -26,4 +26,9 @@ public class HomeController {
 
         return "index"; //index.html 찾아감
     }
+
+    @GetMapping("/testindex")
+    public String testindex(){
+        return "/adopt/testIndex";
+    }
 }
