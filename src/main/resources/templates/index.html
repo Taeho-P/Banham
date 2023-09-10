@@ -162,9 +162,9 @@
 
 <!-- Start Navbar-->
 
-<header>
+
     <div th:replace="/header :: header"></div>
-</header>
+
 <!--end Navbar-->
 <!-- start kakaomap api service -->
 
@@ -228,32 +228,44 @@
                 <div class="weather">
 
                     <div class="divLoc">
-                        <div id="loc2"></div>
+                        <div id ="loc2"></div>
                         <div id="loc"></div>
                     </div>
 
                     <div id="weatherTemp"></div>
 
 
-                    <div id="now">
+                    <div class="now">
                         <img id="weatherIcon">
-                        <div id="weatherMain"></div>
+                        <p id="weatherMain"></p>
                     </div>
 
-                    <img id="pollIcon">
-                    <div id="pollution">
-                        <span>미세먼지 : </span>
-                        <span id="weatherPol"></span>
+
+                    <div id="pollution" >
+                        <img id="pollIcon">
+                        <p id = "p1"> 미세먼지 : </p>
+                        <div><span id="weatherPol"></span></div>
+
+
                     </div>
 
-                    <div id="chart">
-                        <div id=curve_chart>
+                    <div id = "chart">
+                        <div id = curve_chart >
 
                         </div>
-                        <div id="temperature-markers"></div>
-                    </div>
+                        <div id="min-marker"></div>
+                        <div id="max-marker"></div>
 
-                </div>
+                        <div id="img-marker">
+                            <div><img></div>
+                            <div><img></div>
+                            <div><img></div>
+                            <div><img></div>
+                            <div><img></div>
+                            <div><img></div>
+                        </div>
+                    </div>
+                </div><!--/weather-->
             </div>
         </div>
 
@@ -665,9 +677,7 @@
 <!-- end notice -->
 
 <!-- start footer -->
-<footer>
-    <div th:replace="/footer :: footer"></div>
-</footer>
+<div th:replace="/footer :: footer"></div>
 <!-- end footer-->
 
 <!--Bootstrap Js-->
@@ -697,8 +707,8 @@
     var swiper = new Swiper(".editorSwiper", {
         slidesPerView: 1,
         spaceBetween: 10,
-        pagination: {
-            el: ".swiper-pagination",
+        adoptPagination: {
+            el: ".swiper-adoptPagination",
             clickable: true,
         },
         breakpoints: {
@@ -778,7 +788,7 @@
         slidesPerView: 1,
         paginationClickable: true,
         spaceBetween: 20,
-        pagination: '.swiper-pagination',
+        adoptPagination: '.swiper-adoptPagination',
         slidesPerView: 'auto',
         paginationClickable: true,
         spaceBetween: 0,
@@ -1209,16 +1219,17 @@
         }
     }
 
+    let iconWeathers = [];
     function getForecast(lat, lon) {
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=10&lang=kr&appid=e27648845eed31c67a61863e536ae668&units=metric`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=10&appid=e27648845eed31c67a61863e536ae668&units=metric`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                const timefull = data.list[2].dt_txt;
-                console.log(timefull);
+                const timefull =data.list[2].dt_txt;
+                // console.log(timefull);
 
                 let time = (Number)(timefull.charAt(11) + timefull.charAt(12));
-                console.log(time);
+                // console.log(time);
 
                 const timelist = [];
                 for (let i = 0; i < 6; i++) {
@@ -1237,6 +1248,8 @@
                     const tempValue = data.list[i].main.temp;
 
                     tempValues.push(tempValue);
+                    iconWeathers.push(data.list[i].weather[0].icon);
+                    console.log(iconWeathers[j]);
                     console.log(tempValues[j++]);
 
                 }
@@ -1264,36 +1277,69 @@
             curveType: 'function',
             legend: 'none',
             colors: ['black'],
+            backgroundColor: { fill: 'transparent' },
+            lineWidth: 0.5,
             vAxis: {
                 minValue: Math.floor(Math.min(...tempValues)) - 2,
-                maxValue: Math.ceil(Math.max(...tempValues)) + 2
+                // maxValue: Math.ceil(Math.max(...tempValues))+2,
+                gridlines: { count: 0 }
+
+
+            },
+            hAxis:{
+                gridlines: { count: 0 },
+                textStyle: {
+                    fontSize: 9 // 원하는 폰트 사이즈로 변경
+                }
+
             },
             series: {
                 0: {
                     pointsVisible: false
+
                 }
             }
         };
+        //차트 안의 마커 위치 구하기
+        function placeMarker(dataTable) {
+            console.log('placeMarker');
+            var cli = this.getChartLayoutInterface();
+            var chartArea = cli.getChartAreaBoundingBox();
+            let maxNum = Math.max(...tempValues);
+            let minNum = Math.min(...tempValues);
+            let indexMax = tempValues.indexOf(maxNum);
+            let indexMin = tempValues.indexOf(minNum);
+            console.log("indexMin: " + indexMin);
+
+            document.querySelector('#max-marker').style.top = Math.floor(cli.getYLocation(dataTable.getValue(indexMax, 1))) - 30 + "px";
+            document.querySelector('#max-marker').style.left = Math.floor(cli.getXLocation(indexMax)) -63 + "px";
+            document.querySelector('#max-marker').innerHTML = (parseInt(maxNum)) + "&#176;";
+
+
+            document.querySelector('#min-marker').style.top = Math.floor(cli.getYLocation(dataTable.getValue(indexMin, 1))) - 30 + "px";
+            document.querySelector('#min-marker').style.left = Math.floor(cli.getXLocation(indexMin)) -63 + "px";
+            document.querySelector('#min-marker').innerHTML = (parseInt(minNum)) + "&#176;";
+
+            for(let i =0 ;i<6;i++){
+                document.querySelector(`#img-marker :nth-child(${i+1})`).style.left = Math.floor(cli.getXLocation(i)) +"px";
+                // document.querySelector('#img-marker div:nth-child(${i + 1}) img').src = `https://openweathermap.org/img/wn/${iconWeathers[i]}@2x.png`;
+
+                var imgElement = document.querySelector(`#img-marker div:nth-child(${i + 1}) img`);
+                imgElement.src = `https://openweathermap.org/img/wn/${iconWeathers[i]}@2x.png`;
+            }
+
+
+        }
 
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
+        //마커추가
+        google.visualization.events.addListener(chart, 'ready',
+            placeMarker.bind(chart, data));
+
         chart.draw(data, options);
     }
-
-    /* function getWeather(lat, lon) {
-       fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=e27648845eed31c67a61863e536ae668&units=metric`)
-           .then(res => res.json())
-           .then(data => {
-               console.log(data);
-               const temp = data.main.temp;
-               const weathers = data.weather[data.weather.length -1];
-
-               // weatherIcon.src = `https://openweathermap.org/img/wn/${weathers.icon}@2x.png`;
-               weatherTemp.innerHTML = `${temp}&#176;`;
-               weatherMain.innerHTML = `${weathers.main}`;
-           })
-   }*/
 
     function getWeather(lat, lon) {
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=e27648845eed31c67a61863e536ae668&units=metric`)
@@ -1304,11 +1350,32 @@
                 if (data.weather && data.weather.length > 0) {
                     const temp = data.main.temp;
                     const weathers = data.weather[data.weather.length - 1];
+                    const weatherId = parseInt(`${weathers.id}`);
+
+                    <!--날씨 상태 번역-->
+                    let weatherInfo;
+
+                    if(weatherId == 801){
+                        weatherInfo = '조금 흐림';
+                    }else if (weatherId >= 802){
+                        weatherInfo = '흐림';
+                    }else{
+                        switch (weatherId/100){
+                            case 2: weatherInfo = '천둥'; break;
+                            case 3: weatherInfo = '이슬비'; break;
+                            case 5: weatherInfo = '비'; break;
+                            case 6: weatherInfo = '눈'; break;
+                            case 7: weatherInfo = '안개'; break;
+                            case 8 : weatherInfo = '맑음'; break;
+
+                        }
+                    }
 
                     weatherIcon.src = `https://openweathermap.org/img/wn/${weathers.icon}@2x.png`;
-
-                    weatherTemp.innerHTML = `${temp}&#176;`;
-                    weatherMain.innerHTML = `${weathers.main}`;
+                    let tempFloat = parseFloat(`${temp}`);
+                    let tempStr = tempFloat.toFixed(1);
+                    weatherTemp.innerHTML = `${tempStr} &#176;`;
+                    weatherMain.innerHTML = `${weatherInfo}`;
                 } else {
                     console.error('날씨 데이터를 사용할 수 없습니다.');
                 }

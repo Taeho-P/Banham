@@ -92,6 +92,15 @@ public class MemberController {
         }
     }
 
+    //로그아웃 기능 (수정 필요) (09.10)
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();  //세션정보를 다 날리는 방식이라 수정 고민해봐야함
+        return "redirect:/";
+    }
+
+
+
     //회원 상세페이지 이동 (08.31 추가)
     @GetMapping("/MyPage")
     public String myPageForm() {
@@ -106,9 +115,10 @@ public class MemberController {
 
     //회원정보 수정 실행 (08.31 추가)
     @PostMapping("/EditProfile")
-    public String editProfile(@RequestParam("memberNick") String editNick, @RequestParam("memberMail") String editMail, HttpSession session) {
+    public String editProfile(@RequestParam("memberNick") String editNick, @RequestParam("memberMail") String editMail, @RequestParam("profileImgNo") String profileImgNo, HttpSession session) {
         MemberDTO editDTO = (MemberDTO)session.getAttribute("loginDTO");
         System.out.println("session내에 아이디 = " + editDTO.getMemberId() + ", editNick = " + editNick + ", editMail = " + editMail);
+        editDTO.setProfileImgNo(profileImgNo);
         editDTO.setMemberNick(editNick);
         editDTO.setMemberMail(editMail);
 

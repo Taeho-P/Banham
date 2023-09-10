@@ -1,6 +1,6 @@
 package com.teami.banham.entity;
 
-import lombok.Getter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,14 +12,15 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@Getter
+@Data
 public class BoardBaseEntity {
 
-    @CreationTimestamp //게시글 생성시 타임 스탬프
-    @Column(updatable = false)
-    private LocalDateTime createDate;
+    //시간정보를 다루기 위해 따로 작성한 Entity
+    @CreationTimestamp //생성시 시간정보
+    @Column(updatable = false) //updatable = false 는 수정시에 이 컬럼이 관여 안하도록 설정
+    private LocalDateTime createdTime;
 
-    @UpdateTimestamp //게시글 수정시 타임스탬프
-    @Column(insertable = false)
-    private LocalDateTime updateDate;
+    @UpdateTimestamp //수정시 시간정보
+    @Column(insertable = false) //insertable = false 는 생성시에 이 컬럼이 관여 안하도록 설정
+    private LocalDateTime updatedTime;
 }
