@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 수정</title>
+</head>
+<body>
+<form action="/board/Notice/update" method="post" name="noticeUpdateForm">
+  <input type="hidden" name="bno" th:value="${noticeBoardUpdate.bno}">
+  <input type="hidden" name="boardWriter" th:value="${noticeBoardUpdate.boardWriter}">
+  <input type="hidden" name="writerMno" th:value="${noticeBoardUpdate.writerMno}">
+  <input type="text" name="boardTitle" id="boardTitle" th:value="${noticeBoardUpdate.boardTitle}" placeholder="제목을 입력해주세요"><br>
+  <textarea name="boardContents" id="boardContents" th:text="${noticeBoardUpdate.boardContents}" placeholder="내용을 입력해주세요"></textarea><br>
+  <input type="hidden" name="boardHits" th:value="${noticeBoardUpdate.boardHits}">
+  <input type="hidden" name="eorN" th:value="${noticeBoardUpdate.eorN}">
+  <input type="hidden" name="hasFile" th:value="${noticeBoardUpdate.hasFile}">
+  <input type="hidden" name="isDelete" th:value="${noticeBoardUpdate.isDelete}">
+  <button type="button" onclick="noticeBoardUpdate()">수정하기</button>
+</form>
+</body>
+<script th:inline="javascript">
+
+  const noticeBoardUpdate = () => {
+      const boardTitle = document.querySelector("#boardTitle").value; //수정하기위해 입력한 제목 값
+      const boardContents = document.querySelector("#boardContents").value; //수정하기위해 입력한 본문 값
+
+      if(boardTitle == '' || boardTitle == null) {
+        alert("제목을 입력해주세요.")
+        return;
+      }
+      if (boardContents == '' || boardContents == null) {
+        alert("내용을 입력해주세요.")
+        return;
+      }
+      document.noticeUpdateForm.submit();
+  }
+</script>
+</html>

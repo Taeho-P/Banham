@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항 작성</title>
+</head>
+<body>
+<!--private Long bno; //게시글 고유 번호-->
+<!--private Long writerMno; //게시글 작성자 고유번호-->
+<!--private String boardWriter; //게시글 작성자-->
+<!--private String boardTitle; //게시글 제목-->
+<!--private String boardContents; //게시글 내용-->
+<!--private int boardHits; //게시글 조회수-->
+<!--private String hasFile; //파일첨부 여부-->
+<!--private String isDelete; //게시글 삭제 여부-->
+<!--private LocalDateTime boardCreatedTime; //게시글 생성 시간-->
+<!--private LocalDateTime boardUpdatedTime; //게시글 수정 시간-->
+<h2>공지사항 작성</h2>
+<!-- submit을 통해 데이터를 보낼때 파일첨부도 하려면 'enctype="multipart/form-data"' 를 추가해줘야함 -->
+<form action="/board/Notice/save" method="post" name="noticeBoardForm" enctype="multipart/form-data">
+  <input type="hidden" id="writerMno" name="writerMno" th:value="${session.loginDTO.mno}">
+  <input type="hidden" id="boardWriter" name="boardWriter" th:value="${session.loginDTO.memberNick}">
+  <select name="EorN" id="EorN">
+    <option value="N">공지사항</option>
+    <option value="E">이벤트</option>
+  </select>
+  <label for="boardTitle">제목 </label><input type="text" id="boardTitle" name="boardTitle" placeholder="제목을 적어주세요."> <br>
+  <textarea id="boardContents" name="boardContents" placeholder="내용을 적어주세요."></textarea> <br>
+  <label for="boardFile">파일 첨부 </label> <input type="file" name="boardFile" id="boardFile" multiple> <br>
+  <button type="button" onclick="noticeSave()">작성하기</button>
+</form>
+</body>
+
+<script th:inline="javascript">
+
+  const noticeSave = () => {
+    const boardTitle = document.querySelector("#boardTitle").value; //제목 input 입력값
+    const boardContents = document.querySelector("#boardContents").value;// 내용 textarea 입력값
+
+    if(boardTitle == '' || boardTitle == null) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if(boardContents == '' || boardContents == null) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+    document.noticeBoardForm.submit(); //noticeBoardForm 폼을 submit한다.
+  }
+</script>
+</html>
