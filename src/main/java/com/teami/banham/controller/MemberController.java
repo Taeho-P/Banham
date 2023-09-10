@@ -92,6 +92,15 @@ public class MemberController {
         }
     }
 
+    //로그아웃 기능 (수정 필요) (09.10)
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();  //세션정보를 다 날리는 방식이라 수정 고민해봐야함
+        return "redirect:/";
+    }
+
+
+
     //회원 상세페이지 이동 (08.31 추가)
     @GetMapping("/MyPage")
     public String myPageForm() {

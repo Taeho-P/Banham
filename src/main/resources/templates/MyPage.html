@@ -2,16 +2,160 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>My Page</title>
+  <title>마이페이지</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content=" "/>
+  <meta name="keywords" content=""/>
+  <meta content="Pichforest" name="author"/>
+
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+  <!-- Material Icon Css -->
+  <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+  <!-- Unicon Css -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
 </head>
-<body>
-<label for="memberId">아이디 : </label><label id="memberId" name="memberId" th:text="${session.loginDTO.getMemberId()}"/> <br>
-<label for="memberNick">닉네임 : </label><label id="memberNick" name="memberNick" th:text="${session.loginDTO.getMemberNick()}"/> <br>
-<label for="memberMail">이메일 : </label><label id="memberMail" name="memberMail" th:text="${session.loginDTO.getMemberMail()}"/> <br>
-<label for="regdate">가입일 : </label><label id="regdate" name="regdate" th:text="${#temporals.format(session.loginDTO.getRegdate(), 'yyyy-MM-dd')}"/> <br>
-<button type="button" onclick="location.href='/member/EditProfile'">정보 수정하기</button>
-<button tpye="button" onclick="location.href='/member/WriteList'">내가 작성한 글</button>
-<button tpye="button" onclick="location.href='/member/ReplyList'">내가 작성한 댓글</button>
-<button tpye="button" onclick="location.href='/member/LikeList'">찜한 글</button>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+<!-- Start MagazineBoard -->
+
+<section class="profile section bg-light"style=" top: 95px;">
+  <!-- start container -->
+  <div class="container">
+    <!-- start container -->
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb default mb-0">
+            <li class="breadcrumb-item">
+              <a onclick="location.href='/'" style="cursor:pointer;" class="text-muted">홈</a>
+            </li>
+            <li onclick="location.href='/member/MyPage'" style="cursor:pointer;" class="breadcrumb-item active text-primary" aria-current="page">마이페이지</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- end container -->
+
+
+    <!-- start row -->
+    <div class="row mt-5 align-items-center">
+      <div class="col-lg-12">
+        <h6 class="fw-bold">나의 프로필사진</h6>
+        <div class="d-flex align-items-center justify-content-start">
+          <div class="avatar">
+            <img src="/images/img-1.png" alt=""
+                 class="img-fluid avatar-xl border border-4 border-white rounded-circle">
+          </div>
+          <div class="profile-name ms-3">
+            <h6 class="fw-bold"th:text="${session.loginDTO.getMemberNick()}"></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+
+    <!-- start row -->
+    <div class="row ">
+      <div class="col-lg-3">
+
+        <div class="Social-detail mt-5">
+          <h6 class="fw-bold">마이페이지 관리</h6>
+          <div class="details-box">
+            <div class="message d-flex align-items-center justify-content-start" onclick="location.href='/member/EditProfile'" style="cursor: pointer">
+              <div class="avatar-xs bg-soft-muted">
+                <i class="mdi mdi-text-box-check text-muted f-20"></i>
+              </div>
+              <div class="icon-content ms-2">
+                <p class="mb-0" ><span class="fw-bold" type="button" >정보 수정하기</span></p>
+              </div>
+            </div>
+            <hr class="my-3">
+            <div class="message d-flex align-items-center justify-content-start mt-3" onclick="location.href='/member/WriteList'"style="cursor: pointer">
+              <div class="avatar-xs bg-soft-blue">
+                <i class="mdi mdi-text-box text-blue f-20"></i>
+              </div>
+              <div class="icon-content ms-2">
+                <p class="mb-0"> <span class="fw-bold" tpye="button" >내가 작성한 글</span></p>
+              </div>
+            </div>
+            <hr class="my-3">
+            <div class=" message d-flex align-items-center justify-content-start mt-3" onclick="location.href='/member/ReplyList'"style="cursor: pointer">
+              <div class="avatar-xs bg-soft-success">
+                <i class="mdi mdi-message-text text-success f-20"></i>
+              </div>
+              <div class="icon-content ms-2">
+                <p class="mb-0"> <span class="fw-bold"  tpye="button" >내가 작성한 댓글</span></p>
+              </div>
+            </div>
+            <hr class="my-3">
+            <div class=" message d-flex align-items-center justify-content-start mt-3" onclick="location.href='/member/LikeList'"style="cursor: pointer">
+              <div class="avatar-xs bg-soft-danger">
+                <i class="mdi mdi-heart text-danger f-20"></i>
+              </div>
+              <div class="icon-content ms-2">
+                <p class="mb-0"> <span class="fw-bold"  tpye="button">찜한 글</span></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 mt-5">
+        <h6 class="fw-bold">회원 정보 보기</h6>
+        <div class="row">
+          <div class="col-lg-12 Social-detail">
+            <div class="details-box p-4 border-0">
+              <h6 class="fw-bold">회원 정보</h6>
+              <div class="body-content mt-3">
+                <label for="memberId">아이디 : </label><label id="memberId" name="memberId" th:text="${session.loginDTO.getMemberId()}"/> <br>
+                <hr class="my-3">
+                <label for="memberNick">닉네임 : </label><label id="memberNick" name="memberNick" th:text="${session.loginDTO.getMemberNick()}"/> <br>
+                <hr class="my-3">
+                <label for="memberMail">이메일 : </label><label id="memberMail" name="memberMail" th:text="${session.loginDTO.getMemberMail()}"/> <br>
+                <hr class="my-3">
+                <label for="regdate">가입일 : </label><label id="regdate" name="regdate" th:text="${#temporals.format(session.loginDTO.getRegdate(), 'yyyy-MM-dd')}"/> <br>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+
+  </div>
+  <!-- end container -->
+</section>
+
+<!-- Start footer-->
+<div th:replace="/footer :: footer"></div>
+<!-- end footer-->
+
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<!-- Slider Js -->
+<script src="/js/tiny-slider.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<!-- counter -->
+<script src="/js/counter.init.js"></script>
+
+<!-- App Js -->
+<script src="/js/app.js"></script>
+
 </body>
 </html>
