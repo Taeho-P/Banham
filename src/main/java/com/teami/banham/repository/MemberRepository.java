@@ -3,7 +3,6 @@ package com.teami.banham.repository;
 import com.teami.banham.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
