@@ -9,6 +9,21 @@
 <body>
 <h3>회원 정보 수정</h3>
 <form action="/member/EditProfile" method="post" onsubmit="return editCheck(this)">
+    <div>
+        <img id="selectImg" th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}"/><br>
+    </div>
+    <table>
+        <tr>        <!-- <img th:src="@{|/upload/${fileName}|}" alt=""> -->
+            <td><button type="button" onclick="select00()"><img th:src="@{/profile/00.png}" /></button></td>
+            <td><button type="button" onclick="select01()"><img th:src="@{/profile/01.png}" /></button></td>
+            <td><button type="button" onclick="select02()"><img th:src="@{/profile/02.png}" /></button></td>
+        </tr>
+        <tr>        <!-- <img th:src="@{|/upload/${fileName}|}" alt=""> -->
+            <td><button type="button" onclick="select03()"><img th:src="@{/profile/03.png}" /></button></td>
+            <td><button type="button" onclick="select04()"><img th:src="@{/profile/04.png}" /></button></td>
+        </tr>
+    </table>
+    <input type="hidden" id="profileImgNo" name="profileImgNo" th:value="${session.loginDTO.profileImgNo}">
     <input id="defaultNick" name="defaultNick" th:value="${session.loginDTO.getMemberNick()}" style="display: none">
     <input id="defaultMail" name="defaultMail"th:value="${session.loginDTO.getMemberMail()}" style="display: none">
     <label for="memberId">아이디 : </label> <label id="memberId" name="memberId" th:text="${session.loginDTO.getMemberId()}"/> <br>
@@ -23,6 +38,45 @@
 </body>
 
 <script th:inline="javascript">
+    const select00 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/00.png";
+        profileImgNo.value = "00";
+    }
+
+    const select01 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/01.png";
+        profileImgNo.value = "01";
+    }
+
+    const select02 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/02.png";
+        profileImgNo.value = "02";
+    }
+
+    const select03 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/03.png";
+        profileImgNo.value = "03";
+    }
+
+    const select04 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/04.png";
+        profileImgNo.value = "04";
+    }
     const nickCheck = () => {   // 입력한 닉네임의 유효 검사 및 중복 검사 메소드
 
         const nickname = document.querySelector("#memberNick").value;  // 입력된 닉네임값

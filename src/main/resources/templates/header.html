@@ -35,12 +35,12 @@
                                         class="mdi f-20 me-2 align-middle"></i>내새끼자랑</a></li>
                                 <li><a class="dropdown-item" href="CommunityBoard.html"><i
                                         class="mdi f-20 me-2 align-middle"></i>자유게시판</a></li>
-                                <li><a class="dropdown-item" href="MagazineBoard.html"><i
+                                <li><a class="dropdown-item" href="/board/EditorBoard"><i
                                         class="mdi f-20 me-2 align-middle"></i>에디터</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Adopt.html">
+                            <a class="nav-link" href="/board/adopt">
                                 입양
                             </a>
                         </li>
@@ -50,20 +50,22 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown dropdown-hover">
-                            <a class="nav-link dropdown-toggle homedrop" href="Notice.html" role="button"
+                            <a class="nav-link dropdown-toggle homedrop" href="NoticeView.html" role="button"
                                data-bs-toggle="dropdown">
                                 공지사항
                             </a>
                             <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
-                                <li><a class="dropdown-item" href="Notice.html"><i
+                                <li><a class="dropdown-item" href="/board/NoticeBoard"><i
                                         class="mdi f-20 me-2 align-middle"></i>공지사항</a></li>
-                                <li><a class="dropdown-item" href="Notice.html"><i
+                                <li><a class="dropdown-item" href="/board/NoticeBoard"><i
                                         class="mdi f-20 me-2 align-middle"></i>이벤트</a></li>
                             </ul>
                         </li>
 
                     </ul>
                     <!--end navbar-nav-->
+
+
                     <ul class="navbar-nav mx-auto navbar-center">
                         <li class="nav-item dropdown dropdown-hover">
                             <a class="nav-link dropdown-toggle homedrop" href="MyPage.html" role="button"
@@ -72,13 +74,46 @@
                                 <img src="/images/all_menu_user_no_img.png" style="width: 30px;" >
                             </a>
                             <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
-                                <li>
-                                    <a class="dropdown-item" onclick="location.href='/member/signUp'"
-                                       style="cursor:pointer;">
-                                        <i class="mdi f-20 me-2 align-middle"></i>회원가입</a></li>
-                                <li><a class="dropdown-item" onclick="location.href='/member/login'"
-                                       style="cursor:pointer;">
-                                    <i class="mdi f-20 me-2 align-middle"></i>로그인</a></li>
+                                <!-- 세션에 로그인한 회원 정보가 없는 경우 -->
+                                <th:block th:if="${session.loginDTO == null}">
+                                    <li>
+                                        <a class="dropdown-item" onclick="location.href='/member/signUp'"
+                                           style="cursor:pointer;">
+                                            <i class="mdi f-20 me-2 align-middle"></i>회원가입</a></li>
+                                    <li><a class="dropdown-item" onclick="location.href='/member/login'"
+                                           style="cursor:pointer;">
+                                        <i class="mdi f-20 me-2 align-middle"></i>로그인</a></li>
+                                </th:block>
+                                <!-- 세션에 로그인한 회원 정보가 있는 경우 -->
+                                <th:block th:unless="${session.loginDTO == null}">
+                                    <!-- 1. 세션에 로그인한 회원이 관리자계정일 경우 -->
+                                    <th:block th:if="${session.loginDTO.memberId == 'banham'}">
+                                        <li>
+                                            <a class="dropdown-item" onclick="location.href='/member/MyPage'"
+                                               style="cursor:pointer;">
+                                                <i class="mdi f-20 me-2 align-middle"></i>상세페이지</a></li>
+                                        <li><a class="dropdown-item" onclick="location.href='/member/logout'"
+                                               style="cursor:pointer;">
+                                            <i class="mdi f-20 me-2 align-middle"></i>로그아웃</a></li>
+                                        <li><a class="dropdown-item" onclick="location.href='/board/EditorWrite'"
+                                               style="cursor:pointer;">
+                                            <i class="mdi f-20 me-2 align-middle"></i>에디터 글 작성</a></li>
+                                        <li><a class="dropdown-item" onclick="location.href='/board/NoticeWrite'"
+                                               style="cursor:pointer;">
+                                            <i class="mdi f-20 me-2 align-middle"></i>공지사항 작성</a></li>
+                                    </th:block>
+
+                                    <!-- 2. 세션에 로그인한 회원이 일반회원일 경우 -->
+                                    <th:block th:unless="${session.loginDTO.memberId == 'banham'}">
+                                        <li>
+                                            <a class="dropdown-item" onclick="location.href='/member/MyPage'"
+                                               style="cursor:pointer;">
+                                                <i class="mdi f-20 me-2 align-middle"></i>상세페이지</a></li>
+                                        <li><a class="dropdown-item" onclick="location.href='/member/logout'"
+                                               style="cursor:pointer;">
+                                            <i class="mdi f-20 me-2 align-middle"></i>로그아웃</a></li>
+                                    </th:block>
+                                </th:block>
                             </ul>
                         </li>
                     </ul>

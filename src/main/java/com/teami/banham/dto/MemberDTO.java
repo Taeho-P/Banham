@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 public class MemberDTO {
     private Long mno;  //회원 고유번호
+    private String profileImgNo; //프로필 이미지 고유번호
     private String memberId;  //회원 아이디
     private String memberPass;  //회원 비밀번호
     private String memberMail;  //회원 이메일
@@ -25,6 +26,7 @@ public class MemberDTO {
         MemberDTO memberDTO = new MemberDTO();
 
         memberDTO.setMno(memberEntity.getMno());
+        memberDTO.setProfileImgNo(memberEntity.getProfileImgNo());
         memberDTO.setMemberId(memberEntity.getMemberId());
         memberDTO.setMemberPass(memberEntity.getMemberPass());
         memberDTO.setMemberMail(memberEntity.getMemberMail());
