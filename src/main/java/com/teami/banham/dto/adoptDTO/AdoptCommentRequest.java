@@ -10,4 +10,5 @@ public class AdoptCommentRequest {
     private Long boardId;
     private String content;
     private String writer;
+    private Long memberId;
 }
