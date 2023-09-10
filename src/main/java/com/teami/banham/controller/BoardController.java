@@ -65,7 +65,7 @@ public class BoardController {
         return "proud/ProudView";
     }
 
-    // 업데이트 구현 완료(9/5)
+    // 자랑게시판 수정 구현 완료(9/7)
     @GetMapping("/proud/modify/{bno}")
     public String proudUpdateForm(@PathVariable Long bno, Model model){
         ProudBoardDTO proudBoardDTO =boardService.proudFindById(bno);
@@ -73,7 +73,7 @@ public class BoardController {
         return "proud/ProudModify";
     }
 
-    // 업데이트 구현 완료(9/5)
+    // 자랑게시판 수정 구현 완료(9/7)
     @PostMapping("/proud/modify")
     public String update(@ModelAttribute ProudBoardDTO proudBoardDTO, Model model) throws IOException {
         ProudBoardDTO board= boardService.proudUpdate(proudBoardDTO);
@@ -81,7 +81,7 @@ public class BoardController {
         return "redirect:/board/proud/"+ proudBoardDTO.getBno();
     }
 
-    // 삭제 구현 완료(9/5)
+    // 자랑게시판 삭제 구현 완료(9/8)
     @GetMapping("/proud/delete/{bno}")
     public String proudDeleteForm(@PathVariable Long bno){
         boardService.proudDelete(bno);

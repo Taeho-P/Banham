@@ -17,6 +17,7 @@ import java.util.List;
 public class ProudCommentController {
     private final CommentService commentService;
 
+    // 자랑게시판 댓글 목록 (9/7)
     @GetMapping("/{bno}")
     public ResponseEntity findAll(@PathVariable Long bno){
         List<ProudCommentDTO> commentDTOList=commentService.proudfindAll(bno);
@@ -27,6 +28,7 @@ public class ProudCommentController {
         }
     }
 
+    // 자랑게시판 댓글 저장 (9/8)
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public String save(Model model, @ModelAttribute ProudCommentDTO commentDTO){
         System.out.println("commentDTO ======>>>>> "+commentDTO);
@@ -40,7 +42,7 @@ public class ProudCommentController {
         }
     }
 
-
+    // 자랑게시판 댓글 수정 (9/9)
     @RequestMapping(value = "/update/{Bno}/{Cno}",method = RequestMethod.POST)
     public  String update(Model model, @ModelAttribute ProudCommentDTO commentDTO){
         System.out.println("commentDTO ======>>>>> "+commentDTO);
@@ -54,6 +56,7 @@ public class ProudCommentController {
         }
     }
 
+    //자랑게시판 댓글 삭제 (9/10)
     @RequestMapping(value = "/delete/{bno}/{cno}",method = RequestMethod.POST)
     public  String proudCommentDelete(Model model,@PathVariable Long bno,@PathVariable Long cno){
         commentService.proudCommentdelete(cno);
