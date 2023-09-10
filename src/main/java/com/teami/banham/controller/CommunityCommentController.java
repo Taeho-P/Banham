@@ -34,7 +34,7 @@ public class CommunityCommentController {
         if(saveResult!=null){ //성공시 해당 게시글의 댓글목록 리턴
             List<CommunityCommentDTO> commentDTOList= communityCommentService.findAll(commentDTO.getBno());
             model.addAttribute("commentList",commentDTOList);
-            return "CommunityView :: #comment-list";
+            return "/Community/CommunityView :: #comment-list";
         }else {
             return "error";
         }
@@ -48,7 +48,7 @@ public class CommunityCommentController {
         if(updateResult!=null){ //성공시 해당 게시글의 댓글목록 리턴
             List<CommunityCommentDTO> commentDTOList= communityCommentService.findAll(commentDTO.getBno());
             model.addAttribute("commentList",commentDTOList);
-            return "CommunityView :: #comment-list";
+            return "/Community/CommunityView :: #comment-list";
         }else {
             return "error";
         }
@@ -63,7 +63,7 @@ public class CommunityCommentController {
 
 
             model.addAttribute("commentList",commentDTOList);
-            return "CommunityView :: #comment-list";
+            return "/Community/CommunityView :: #comment-list";
         }else {
             return "error";
         }

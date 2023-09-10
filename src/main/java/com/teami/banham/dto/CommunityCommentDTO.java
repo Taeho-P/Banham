@@ -27,8 +27,8 @@ public class CommunityCommentDTO {
         commentDTO.setWriter(communityCommentEntity.getWriter());
         commentDTO.setMemberId(communityCommentEntity.getMemberId());
         commentDTO.setDelete_ck(communityCommentEntity.getDelete_ck());
-        commentDTO.setCommentCreatedTime(communityCommentEntity.getCreateDate());
-        commentDTO.setCommentUpdateTime(communityCommentEntity.getUpdateDate());
+        commentDTO.setCommentCreatedTime(communityCommentEntity.getCreatedTime());
+        commentDTO.setCommentUpdateTime(communityCommentEntity.getUpdatedTime());
 
         return commentDTO;
 

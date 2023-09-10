@@ -62,7 +62,7 @@ public class CommunityBoardService {
         Page<CommunityBoardEntity> communityBoardEntities =                                                   //Entity에 들어있는 값 기준
                 communityBoardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")));
         System.out.println("communityBoard"+communityBoardEntities);
-        Page<CommunityBoardDTO> boardDTOS = communityBoardEntities.map(board -> new CommunityBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreateDate(), board.getUpdateDate(), board.getHasFile(), board.getCommunityBoardFileEntityList(),board.getCommunityCommentEntityList()));
+        Page<CommunityBoardDTO> boardDTOS = communityBoardEntities.map(board -> new CommunityBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getCommunityBoardFileEntityList(),board.getCommunityCommentEntityList()));
         return boardDTOS;
     }
 

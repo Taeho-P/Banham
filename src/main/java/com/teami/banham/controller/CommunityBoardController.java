@@ -36,13 +36,13 @@ public class CommunityBoardController {
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
 
-        return "CommunityBoard";
+        return "/Community/CommunityBoard";
     }
 
     // 자랑 게시판 글쓰기 (9/4)
     @GetMapping("/community/save")
     public String communitySaveForm() {
-        return "CommunitySave";
+        return "/Community/CommunitySave";
     }
 
     // 자랑 게시판 글쓰기 (9/4)
@@ -63,7 +63,7 @@ public class CommunityBoardController {
         model.addAttribute("commentList",commentDTOList);
         model.addAttribute("board", communityBoardDTO);
         model.addAttribute("page",pageable.getPageNumber());
-        return "CommunityView";
+        return "/Community/CommunityView";
     }
 
     // 업데이트 구현 완료(9/5)
@@ -71,7 +71,7 @@ public class CommunityBoardController {
     public String communityUpdateForm(@PathVariable Long bno, Model model){
         CommunityBoardDTO communityBoardDTO = communityBoardService.communityFindById(bno);
         model.addAttribute("boardUpdate", communityBoardDTO);
-        return "CommunityModify";
+        return "/Community/CommunityModify";
     }
 
     // 업데이트 구현 완료(9/5)
