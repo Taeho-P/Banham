@@ -5897,3 +5897,145 @@ textarea{
     width: 3dvi;
     height:3dvi;
 }
+
+/* weather css */
+@font-face {
+    font-family: 'HakgyoansimWoojuR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+.weather{
+    width: 1200px;
+    height: 180px;
+    background-image: url('https://i.ibb.co/wzfdhzG/back.png');
+    background-repeat: no-repeat;
+    font-family: "HakgyoansimWoojuR",sans-serif;
+
+    position: relative;
+}
+.divLoc{
+    text-align:  left;
+    position: absolute;
+    top:20px;
+    left:30px;
+
+}
+#loc2{
+    font-size: 23px;
+}
+#loc{
+    font-size: 15px;
+}
+
+#weatherTemp{
+
+    text-align: center;
+    font-size: 50px;
+
+    position: absolute;
+    top:76px;
+    left:30px;
+}
+
+.now{
+    position: absolute;
+    left:234px;
+    width: 180px;
+    height: 180px;
+}
+
+#weatherIcon{
+    width: 100px ;
+    height: 100px;
+    position: absolute;
+    left:40px;
+    top:10px;
+}
+#weatherMain{
+
+    margin-top : 115px;
+    text-align: center;
+
+}
+
+
+
+#pollution{
+    position: absolute;
+    /*top:110px;*/
+    left:433px;
+    width: 180px;
+    height: 180px;
+}
+#pollIcon{
+    position: absolute;
+    top:30px;
+    left:53px;
+    opacity: 0.7;
+}
+#p1{
+    margin-top : 115px;
+    text-align: center;
+}
+
+#pollution div{
+    margin-top : -12px;
+    text-align: center;
+}
+
+#chart{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+
+    width: 480px;
+    height: 160px;
+    background-color: rgba(182, 196, 205, 0.3);
+    white-space: nowrap;
+    overflow:hidden;
+}
+#curve_chart{
+    position: absolute;
+    top : -4px;
+    left : -67px;
+    width : 600px;
+    height: 170px;
+
+}
+
+#max-marker {
+    width: 50px;
+    height: 30px;
+    position: absolute;
+    top: 48px; /* chartArea top */
+    left: 300px; /* chartArea left */
+}
+
+#min-marker {
+    width: 50px;
+    height: 30px;
+    position: absolute;
+    top: 48px; /* chartArea top */
+    left: 300px; /* chartArea left */
+}
+
+#img-marker {
+    /*width: 480px;*/
+    /*height: 20px;*/
+    position: absolute;
+    top:110px;
+    left:-82px
+}
+#img-marker div{
+    width: 30px;
+    height: 30px;
+    display: inline;
+    position: absolute;
+}
+
+#img-marker div img{
+    max-width: 100%;
+    max-height: 100%;
+    /*filter: grayscale(100%);*/
+}
