@@ -34,7 +34,7 @@ public class LocalAPI {
     private ArrayList<LocalPointDataDTO> hotelList = new ArrayList<>();
 
     public void apiParserSearchAsync() {
-            List<CompletableFuture<Void>> futures = new ArrayList<>();
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
         for (int i = 0; i<17; i++) {
             String url = getURLParam(i);
             CompletableFuture<Void> future = processUrlAsync(url);

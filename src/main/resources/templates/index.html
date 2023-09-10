@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
 
 
-
     <!-- Custom Css -->
     <link rel="stylesheet" href="/css/style.min.css" type="text/css"/>
 
@@ -32,9 +31,6 @@
     <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css"/>
     <link rel="stylesheet" href="/css/swiper.min.css" type="text/css"/>
 
-    <!-- Carousel-Vertical  -->
-    <link rel="stylesheet" type="text/css" href="../dist/carousel-vertical.min.css" media="screen" />
-
     <!-- Editor Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
@@ -42,7 +38,7 @@
     <link rel="stylesheet" href="/css/map.css">
 
     <!--weather css-->
-    <!--<style>
+    <style>
         .weather {
             width: 1200px;
             height: 180px;
@@ -156,7 +152,7 @@
             border-radius: 5px;
         }
 
-    </style>-->
+    </style>
 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
@@ -303,12 +299,12 @@
                     <div class="mt-5 text-center">
 
                         <div class="slider-overtext">
-                        <h5 class="fw-bold slider-overtext ">아침산책이 넘좋아요</h5>
-                        <p class="text-muted slider-overtext">날씨도 선선해져서 산책이 넘 좋아지네요 알콩이도 기분좋아보여요💕💕</p>
+                            <h5 class="fw-bold slider-overtext ">아침산책이 넘좋아요</h5>
+                            <p class="text-muted slider-overtext">날씨도 선선해져서 산책이 넘 좋아지네요 알콩이도 기분좋아보여요💕💕</p>
                         </div>
-                            <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
+                        <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
 
-                          구경하러가기
+                            구경하러가기
                         </button>
                     </div>
                 </div>
@@ -505,7 +501,7 @@
 
             </div>
             <div class="pt-5">
-            <div class="swiper-adoptPagination"></div>
+                <div class="swiper-pagination"></div>
             </div>
         </div>
         <!-- End slider -->
@@ -831,6 +827,35 @@
 
 </script>
 
+<script>
+    const infoSwiper = {
+        init() {
+            let $infoSwiper = document.querySelector(".info-swiper");
+
+            if ($infoSwiper) {
+                var swiper = new Swiper(".info-swiper", {
+                    loop: true,
+                    /* autoplay: {
+                        delay: 3000,
+                    }, */
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    direction: "vertical",
+                    navigation: {
+                        nextEl: ".notice-next",
+                        prevEl: ".notice-prev",
+                    },
+                    speed: 900,
+                    autoplay: {
+                        delay: 2000,
+                    },
+                });
+            }
+        },
+    };
+
+
+</script>
 
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>
