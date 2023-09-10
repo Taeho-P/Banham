@@ -61,7 +61,7 @@ public class BoardService {
         // page 위치에 있는 값은 0부터 시작
         Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
                 proudBoardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")));
-        Page<ProudBoardDTO> boardDTOS = proudBoardEntities.map(board -> new ProudBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreateDate(), board.getUpdateDate(), board.getHasFile(), board.getProudBoardFileEntityList(),board.getProudCommentEntityList()));
+        Page<ProudBoardDTO> boardDTOS = proudBoardEntities.map(board -> new ProudBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getProudBoardFileEntityList(),board.getProudCommentEntityList()));
         return boardDTOS;
     }
 

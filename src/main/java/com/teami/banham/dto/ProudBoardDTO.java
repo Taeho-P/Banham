@@ -77,8 +77,8 @@ public class ProudBoardDTO {
         proudBoardDTO.setHits(proudBoardEntity.getHits());
         proudBoardDTO.setWriter(proudBoardEntity.getWriter());
         proudBoardDTO.setMemberId(proudBoardEntity.getMemberId());
-        proudBoardDTO.setCreateDate(proudBoardEntity.getCreateDate());
-        proudBoardDTO.setUpdateDate(proudBoardEntity.getUpdateDate());
+        proudBoardDTO.setCreateDate(proudBoardEntity.getCreatedTime());
+        proudBoardDTO.setUpdateDate(proudBoardEntity.getUpdatedTime());
 
         if(proudBoardEntity.getHasFile()==0){
             proudBoardDTO.setHasFile(proudBoardEntity.getHasFile());

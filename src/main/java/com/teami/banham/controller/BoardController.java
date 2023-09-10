@@ -126,9 +126,12 @@ public class BoardController {
     @GetMapping("/Notice/update/{bno}")
     public String updateNoticeForm(@PathVariable Long bno, Model model,
                                    @PageableDefault(page = 1) Pageable pageable) {
-        NoticeBoardDTO noticeBoardDTO =noticeBoardService.findByBno(bno);
+        NoticeBoardDTO noticeBoardDTO = noticeBoardService.findByBno(bno);
         model.addAttribute("noticeBoardUpdate", noticeBoardDTO);
         model.addAttribute("page", pageable.getPageNumber());
+
+        return "NoticeUpdate";
+    }
 
     // 자랑 게시판 글쓰기 (9/4)
     @PostMapping("/proud/save")
@@ -172,9 +175,8 @@ public class BoardController {
         boardService.proudDelete(bno);
         return "redirect:/board/proud";
     }
-}
-        return "NoticeUpdate";
-    }
+
+
 
 
     @PostMapping("/Notice/update")

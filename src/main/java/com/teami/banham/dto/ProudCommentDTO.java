@@ -27,8 +27,8 @@ public class ProudCommentDTO {
         commentDTO.setWriter(proudCommentEntity.getWriter());
         commentDTO.setMemberId(proudCommentEntity.getMemberId());
         commentDTO.setDelete_ck(proudCommentEntity.getDelete_ck());
-        commentDTO.setCommentCreatedTime(proudCommentEntity.getCreateDate());
-        commentDTO.setCommentUpdateTime(proudCommentEntity.getUpdateDate());
+        commentDTO.setCommentCreatedTime(proudCommentEntity.getCreatedTime());
+        commentDTO.setCommentUpdateTime(proudCommentEntity.getUpdatedTime());
 
         return commentDTO;
 
