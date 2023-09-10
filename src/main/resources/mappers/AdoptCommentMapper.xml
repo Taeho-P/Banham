@@ -12,6 +12,7 @@
         , delete_yn
         , created_date
         , modified_date
+        , member_id
     </sql>
 
 
@@ -30,6 +31,7 @@
         , 0
         , to_date(sysdate,'yyyy.mm.dd hh24:mi')
         , NULL
+        , #{memberId}
         )
     </insert>
 
