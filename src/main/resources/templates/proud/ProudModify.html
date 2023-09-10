@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    #preview{
+        float:left;margin:10px 0;
+        display: block;
+        width: 5dvi;
+        height:5dvi;
+    }
+    </style>
+</head>
+<body>
+
+<form action="/board/proud/modify" method="post" enctype="multipart/form-data"> <!--실제 파일이 넘어감-->
+<input type="hidden" name="bno" th:value="${boardUpdate.bno}">
+    <input type="hidden" name="memberId" th:value="${session.loginDTO.memberId}">
+    <input type="hidden" name="hits" th:value="${boardUpdate.hits}">
+    작성자 <input type="text" name="writer" th:value="${session.loginDTO.memberNick}" readonly/><br>
+    제목 <input type="text" name="title" th:value="${boardUpdate.title}"/><br>
+    <textarea name="contents" cols="30" rows="10" th:text="${boardUpdate.contents}"></textarea><br>
+    <input type="file" name="fileList" onchange="readURL(this)"  accept=".jpg, .png, .gif, .jpeg" multiple><br>
+    <img id="preview"/><br>
+    <input type="submit" value="글작성"/>
+
+</form>
+</body>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+</script>
+</html>

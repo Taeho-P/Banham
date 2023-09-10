@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>자랑 게시판</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=""/>
+    <meta content="Pichforest" name="author"/>
+
+    <!-- Bootstrap css -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+    <!-- Material Icon Css -->
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+    <!-- Unicon Css -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
+</head>
+<body>
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+
+<section class="section position-relative overflow-hidden"
+         style=" top: 95px;">
+    <div class="content-wrapper container ">
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb default mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="index.html" class="text-muted">홈</a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">자유게시판</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Start Notice -->
+<section class="section position-relative overflow-hidden"
+         style=" top: 95px; padding-bottom: 90px;">
+    <div class="content-wrapper container ">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="fw-bold">자유게시판</h2>
+                <p class="text-muted">일상을 자유롭게 공유하는 자유게시판입니다.</p>
+            </div>
+        </div>
+        <hr class="my-4">
+        <section class="flexbox pb-3">
+            <div class="container">
+                <section class="notice d-flex">
+                    <div class="sch-cont">
+                        <select class="">
+                            <option value="title">제목</option>
+                            <option value="writer">작성자</option>
+                            <option value="create_date">작성일</option>
+                        </select>
+                        <input id="searchKeyword" name="searchKeyword" title="검색어 입력" class="q1" type="text" placeholder="검색어 입력" />
+                        <a href="#none" onclick="fnCmdSearch();" class="btn btn-sm btn-outline-dark">검색</a>
+                        <button onclick="saveReq()" class="btn btn-sm">글쓰기</button><br>
+                    </div>
+                </section>
+                <th:block th:if="${session.loginDTO == null}"><!-- 세션값 가져오는 hidden input -->
+                    <input type="hidden" id="memberNick">
+                </th:block>
+
+                <th:block th:unless="${session.loginDTO == null}">
+                    <input type="hidden" id="memberNick" th:value="${session.loginDTO.getMemberNick()}"><!-- 세션값 가져오는 hidden input -->
+                </th:block>
+
+            </div>
+
+            <!-- board list area -->
+            <div class="container mt-3">
+                <div class="demo-wrapper content-block pb-0">
+                    <div class="table data-table">
+                        <table class="table table-responsive">
+                            <colgroup>
+                                <col width="60%"/>
+                                <col width="13.33%"/>
+                                <col width="13.33%"/>
+                                <col width="13.33%"/>
+                            </colgroup>
+                            <thead class="bgl-gray-light">
+                            <tr>
+                                <th class="text-center">제목</th>
+                                <th class="text-center">작성자</th>
+                                <th class="text-center">작성일</th>
+                                <th class="text-center">조회수</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <th:block th:unless="${boardList.isEmpty()}"><!-- 비어있지않으면 block으로 싸서 출력 -->
+                                    <span class="" th:each="board:${boardList}"><!-- board 글목록 반복출력코드 -->
+                                        <input type="hidden" th:value="${board.bno}"/>
+                                        <tr><!-- 글 번호 -->
+                                            <td>
+                                                <a th:href="@{|/board/proud/${board.bno}|}" th:text="${board.title}"  style="cursor: pointer;" ></a>
+                                                <span th:if="${board.proudCommentDTOList!=null}" class="text-center"> <!-- 댓글리스트 -->
+                                                [<span th:text="${board.proudCommentDTOList.size()}" class="text-center"></span>]<!-- 댓글수-->
+                                            </span>
+                                            </td><!-- 제목-->
+                                            <td class="text-center" th:text="${board.writer}"></td> <!-- 글쓴이 (닉네임)-->
+
+
+                                            <td th:text="${#temporals.format(board.createDate,'yyyy-MM-dd')}"class="text-center"></td><!-- 작성일-->
+                                            <td class="text-center" th:text="${board.getHits()}"></td>
+                                        </tr>
+                                    </span>
+                                </th:block>
+                                <th:block th:if="${boardList.isEmpty()}"><!-- 게시물이없을때 -->
+                                    게시물이 없어요!
+                                </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-block">
+                        <nav aria-label="navigation">
+                            <ul class="pagination justify-content-center">
+
+                                <!--첫번째 페이지로 이동--> <!--/board/paging?page=1-->
+                                <span th:if="${boardList.getTotalPages()!=1}">
+                                    <a th:href="@{/board/proud/(page=1)}">처음</a>
+                                        <!--이전 링크 활성화 비활성화-->
+                                        <!--boardList.getNumber() 사용자:2페이지 getNumber()=1-->
+                                    <a th:href="${boardList.first} ? '#' : @{/board/proud/(page=${boardList.number})}">이전</a>
+                                </span>
+                                <span th:unless="${endPage!=1}">
+                                    <span>처음</span>
+                                    <span>이전</span>
+                                </span>
+                                <!--페이지 번호 링크(현재 페이지는 숫자만)--> <!--for(int i = startPage; i<endPage;i++) -->
+                                <th:block th:if="${boardList.getTotalPages()>=1}">
+                                    <span th:each="page: ${#numbers.sequence(startPage,endPage)}">
+                                        <span th:if="${page==boardList.number+1}" th:text="${page}"></span>
+                                        <!--    unless(else) : 현재 페이지 번호가 아닌 다른페이지번호에는 링크를 보여줌 아래 a링크 -->
+                                        <span th:unless="${page==boardList.number+1}">
+                                            <a th:href="@{|/board/proud/?page=${page}|}" th:text="${page}"></a>
+                                        </span>
+                                    </span>
+                                </th:block>
+                                    <span th:if="${!boardList.isLast()}">
+                                    <!--다음 링크 활성화 비활성화-->
+                                    <a th:href="${boardList.last} ? '#' : @{/board/proud/(page=${boardList.number + 2})}">다음</a>
+                                    <!--마지막 페이지로 이동-->
+                                    <a th:href="${boardList.last}? '#' : @{/board/proud/(page=${boardList.totalPages})}">마지막</a>
+                                    </span>
+                                    <span th:unless="${!boardList.isLast()}">
+                                        <span>다음</span>
+                                        <span>마지막</span>
+                                    </span>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+<!-- start footer -->
+<footer>
+    <div th:replace="/footer :: footer"></div>
+</footer>
+<!-- end footer-->
+        </body>
+<script th:inline="javascript">
+    const saveReq = () => {
+        const nick = document.querySelector("#memberNick").value;
+
+        alert(nick);
+        if(nick == '' || nick == null){
+            alert("로그인 후 이용 가능합니다.");
+            location.href="/member/login";
+        } else {
+            location.href="/board/proud/save"
+        }
+    }
+</script>
+<!-- Scrollup -->
+<script src="/js/jquery.scrollUp.min.js"></script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!-- Scrollup -->
+<script src="/js/jquery.scrollUp.min.js"></script>
+</html>
