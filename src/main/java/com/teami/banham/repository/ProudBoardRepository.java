@@ -24,4 +24,13 @@ public interface ProudBoardRepository extends JpaRepository<ProudBoardEntity,Lon
     void deleteById(Long bno);
 
     Optional<ProudBoardEntity> findByBno(Long bno);
+
+    @Query("select b from ProudBoardEntity b where b.title like %:searchKeyword%")
+    Page<ProudBoardEntity> findAllByTitle(Pageable pageable,@Param("searchKeyword") String searchKeyword);
+
+    @Query("select b from ProudBoardEntity b where b.title like %:searchKeyword% or b.contents like %:searchKeyword%")
+    Page<ProudBoardEntity> findAllByContents(Pageable pageable,@Param("searchKeyword") String searchKeyword);
+
+    @Query("select b from ProudBoardEntity b where b.writer like %:searchKeyword%")
+    Page<ProudBoardEntity> findAllbyWriter(Pageable pageable,@Param("searchKeyword") String searchKeyword);
 }

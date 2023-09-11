@@ -1,12 +1,10 @@
 package com.teami.banham.controller;
 
 
-import com.teami.banham.dto.ProudBoardDTO;
-import com.teami.banham.dto.ProudCommentDTO;
+import com.teami.banham.dto.*;
 import com.teami.banham.service.BoardService;
 import com.teami.banham.service.CommentService;
 
-import com.teami.banham.dto.MemberDTO;
 import com.teami.banham.dto.adoptDTO.AdoptFileRequest;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
@@ -15,8 +13,6 @@ import com.teami.banham.service.adoptService.AdoptFileService;
 import com.teami.banham.service.adoptService.AdoptService;
 import com.teami.banham.service.adoptService.FileUtils;
 
-import com.teami.banham.dto.EditorBoardDTO;
-import com.teami.banham.dto.NoticeBoardDTO;
 import com.teami.banham.service.EditorBoardService;
 import com.teami.banham.service.NoticeBoardService;
 
@@ -24,11 +20,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import java.io.IOException;
+import java.util.Map;
 
 
 @Controller
@@ -174,6 +174,39 @@ public class BoardController {
     public String proudDeleteForm(@PathVariable Long bno){
         boardService.proudDelete(bno);
         return "redirect:/board/proud";
+    }
+
+    // 자랑게시판 검색 기능 구현 중 -- -- - ---
+    @Transactional
+    @RequestMapping(value = "/proud/search",method =RequestMethod.GET )
+    public String proudSearch(@PageableDefault(page=1) Pageable pageable,@RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model){
+        int nowPage=pageable.getPageNumber();
+        Page<ProudBoardDTO> proudBoardDTO = boardService.proudSearch(pageable,searchType,searchKeyword);
+        int blockLimit = 2;
+        int startPage=(((int)(Math.ceil((double)nowPage/blockLimit)))-1)*blockLimit+1; //1,6,11 ...
+        int endPage=((startPage+blockLimit-1)<proudBoardDTO.getTotalPages()) ? startPage+blockLimit-1:proudBoardDTO.getTotalPages();
+
+        model.addAttribute("boardList",proudBoardDTO);
+        model.addAttribute("startPage",startPage);
+        model.addAttribute("endPage",endPage);
+
+        return "/proud/ProudBoard :: #board_list";
+    }
+
+    @Transactional
+    @RequestMapping(value = "/proud/search/page",method =RequestMethod.POST )
+    public String proudSearchPage(@PageableDefault(page=1) Pageable pageable,@RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model){
+        int nowPage=pageable.getPageNumber();
+        Page<ProudBoardDTO> proudBoardDTO = boardService.proudSearch(pageable,searchType,searchKeyword);
+        int blockLimit = 2;
+        int startPage=(((int)(Math.ceil((double)nowPage/blockLimit)))-1)*blockLimit+1; //1,6,11 ...
+        int endPage=((startPage+blockLimit-1)<proudBoardDTO.getTotalPages()) ? startPage+blockLimit-1:proudBoardDTO.getTotalPages();
+
+        model.addAttribute("boardList",proudBoardDTO);
+        model.addAttribute("startPage",startPage);
+        model.addAttribute("endPage",endPage);
+
+        return "/proud/ProudBoard :: #page_list";
     }
 
 

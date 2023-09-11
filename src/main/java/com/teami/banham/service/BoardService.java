@@ -143,4 +143,32 @@ public class BoardService {
     public void proudDelete(Long bno){
         proudBoardRepository.deleteById(bno);
     }
+
+    public Page<ProudBoardDTO> proudSearch(Pageable pageable,String searchType,String searchKeyword){
+        int page = pageable.getPageNumber() - 1; //spring JPA에서 page는 0부터 시작하기때문
+        int pageLimit = 2; // 한페이지에 보여줄 글 갯수
+        // 한 페이지 당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
+        // page 위치에 있는 값은 0부터 시작
+        if(searchType.equals("title")){ // 검색 키워드가 제목일경우
+            Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
+                    proudBoardRepository.findAllByTitle(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+            Page<ProudBoardDTO> boardDTOS = proudBoardEntities.map(board -> new ProudBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getProudBoardFileEntityList(),board.getProudCommentEntityList()));
+            return boardDTOS;
+        } else if(searchType.equals("contents")){
+            Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
+                    proudBoardRepository.findAllByContents(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+            Page<ProudBoardDTO> boardDTOS = proudBoardEntities.map(board -> new ProudBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getProudBoardFileEntityList(),board.getProudCommentEntityList()));
+            return boardDTOS;
+        } else if (searchType.equals("writer")){
+            Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
+                    proudBoardRepository.findAllbyWriter(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+            Page<ProudBoardDTO> boardDTOS = proudBoardEntities.map(board -> new ProudBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getProudBoardFileEntityList(),board.getProudCommentEntityList()));
+            return boardDTOS;
+        } else {
+            return null;
+        }
+
+
+
+    }
 }
