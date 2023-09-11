@@ -76,7 +76,7 @@
             tb_adopt_comment
         WHERE
             delete_yn = 0
-          AND board_id = #{boardId}
+            AND board_id = #{boardId}
     </select>
 
     <!-- 댓글 리스트 조회 -->

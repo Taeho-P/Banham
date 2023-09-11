@@ -18,7 +18,10 @@
 
             <div class="form-group">
                 <label  class="col-sm-2 control-label">내용</label>
-                <div class="col-sm-10"><p id="content" class="form-control"></p></div>
+                <div class="col-sm-10">
+                    <div id="img-files"></div>
+                    <p id="content" class="form-control"></p>
+                </div>
             </div>
 
             <div class="form-group">
@@ -225,17 +228,19 @@
                  return false;
              }
 
-             // 3. 파일 영역 추가
+             // 3. 파일 영역 추가 & 이미지 추가
              let fileHtml = '<div class="file_down"><div class="cont">';
+             let imgHtml = '<div class="img_html" >';
              response.forEach(row => {
-                 fileHtml += `<a href="/api/adopt/${boardId}/files/${row.id}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`
-                 +`<img class="imgs" th:src="@{///C:/banham_files/${row.storeName}}" alt="" style="width: 200px; height: 200px"/>`;
+                 fileHtml += `<a href="/api/adopt/${boardId}/files/${row.id}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`;
+
+                 imgHtml += `<img class="imgs" src="/upload/${row.storeName}" alt="" style="width: 600px; display: block" /><p></p>`;
              })
              fileHtml += '</div></div>';
-
+             imgHtml += '</div>';
              // 4. 파일 HTML 렌더링
              document.getElementById('files').innerHTML = fileHtml;
-
+             document.getElementById('img-files').innerHTML = imgHtml;
 
          }
 

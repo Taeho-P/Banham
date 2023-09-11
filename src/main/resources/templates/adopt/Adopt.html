@@ -37,6 +37,7 @@
                 <th>작성자</th>
                 <th>등록일</th>
                 <th>조회 수</th>
+
             </tr>
             </thead>
 
@@ -69,6 +70,7 @@
         window.onload = () => {
 
             findAll(1);
+
             addEnterSearchEvent();
         }
 
@@ -125,7 +127,7 @@
 
 
             getJson('/api/adopt', params).then(response => {
-                console.log('in findall getjson');
+                // console.log('in findall getjson');
                 console.log(response);
                 if (!Object.keys(response).length) {
                     document.getElementById('list').innerHTML ='<td colspan="5">등록된 게시글이 없습니다.</td>';
@@ -141,8 +143,9 @@
 
                 response.list.forEach((obj, idx)=> {
                     html += `
-							<tr>
+                           <tr id="bno${obj.id}">
     							<td>${num--}</td>
+
     							<td class="text-left">
     								<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
     							</td>
@@ -154,9 +157,49 @@
                 });
 
                 document.getElementById('list').innerHTML = html;
+
                 drawPages(response.params);
+                findImg();
             });
+
         }
+
+        //이미지 띄우기
+function findImg(){
+    const imgRes = getImg('/api/adopt/allfiles');
+    let imgHtml = '';
+    console.table(imgRes);
+    imgRes.forEach(row => {
+        let imgTd = document.createElement("TD");
+        if(CheckImagefiles(`${row.storeName}`)){
+            imgHtml = `<img id="ino${row.boardId}" class="imgs" src="/upload/${row.storeName}" alt="" style="width: 130px; height: 130px; display: block; object-fit: cover;" />`;
+
+        }else{
+            imgHtml='';
+        }
+        imgTd.innerHTML = imgHtml;
+        console.log("imgTd: "+imgHtml);
+
+        document.getElementById(`bno${row.boardId}`).appendChild(imgTd);
+    })
+
+}
+        function CheckImagefiles(fileName) {
+            var result = false;
+            var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+            if(!ext){
+                return result;
+            }
+            var imgs = ['gif', 'jpg', 'jpeg', 'png', 'bmp' ,'ico', 'apng'];
+            ext = ext.toLocaleLowerCase();
+            imgs.forEach( function(element) {
+                if(ext == element){
+                    result = true;
+                }
+            });
+            return result;
+        }
+
         /**
          * 게시글 조회
          */
@@ -202,7 +245,32 @@
             document.querySelector('.pagination').innerHTML = html;
         }
 
+
+
+
+        //function
+        function getImg(uri, params) {
+
+            let json = {}
+
+            $.ajax({
+                url : uri,
+                type : 'get',
+                dataType : 'json',
+                data : params,
+                async : false,
+                success : function (response) {
+                    json = response;
+                },
+                error : function (request, status, error) {
+                    console.log(error)
+                }
+            })
+
+            return json;
+        }
         /*]]>*/
+
     </script>
 </th:block>
 </html>
