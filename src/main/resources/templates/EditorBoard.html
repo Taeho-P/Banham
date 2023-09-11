@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>에디터</title>
+  <title>반함 에디터</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content=" "/>
@@ -25,116 +25,77 @@
 
   <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 <!--Start Navbar-->
 <div th:replace="/header :: header"></div>
 <!--end Navbar-->
 
+<!-- Start MagazineBoard -->
 <section class="section position-relative overflow-hidden"
          style=" top: 95px;">
+
   <div class="content-wrapper container ">
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+        </nav>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="inner-blog section ">
+  <!-- start container -->
+  <div class="container">
     <div class="row">
+
       <div class="col-lg-6">
-        <h2 class="fw-bold">에디터</h2>
-        <p class="text-muted">반함 에디터 게시판입니다.</p>
+        <h2 class="fw-bold">반함 에디터 Pick 가이드</h2>
+        <p class="text-muted">누구나 갈 수 있는 특별한 장소 가이드 </p>
       </div>
     </div>
     <hr class="my-4">
-    <section class="flexbox pb-3">
-      <div class="container">
-        <section class="notice d-flex justify-content-end">
-          <div class="sch-cont">
-            <!-- 검색기능 후순위 -->
-            <!--                    <select class="">-->
-            <!--                        <option value="title">제목</option>-->
-            <!--                        <option value="writer">작성자</option>-->
-            <!--                        <option value="create_date">작성일</option>-->
-            <!--                    </select>-->
-            <!--                    <input id="searchKeyword" name="searchKeyword" title="검색어 입력" class="q1" type="text" placeholder="검색어 입력" />-->
-            <!--                    <a href="#none" onclick="fnCmdSearch();" class="btn btn-sm btn-outline-dark">검색</a>-->
-          </div>
-        </section>
-      </div>
+
+    <div class="row mt-5">
+      <div class="col-lg-12">
+        <div class="row">
 
 
-
-      <div class="container mt-3">
-        <div class="demo-wrapper content-block pb-0">
-          <div class="table data-table">
-            <table class="table table-responsive">
-              <colgroup>
-                <col width="60%"/>
-                <col width="13.33%"/>
-                <col width="13.33%"/>
-                <col width="13.33%"/>
-              </colgroup>
-              <thead class="bgl-gray-light">
-              <tr>
-                <th class="text-center">제목</th>
-                <th class="text-center">작성자</th>
-                <th class="text-center">작성일</th>
-                <th class="text-center">조회수</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr th:each="board: ${editorBoardList}">
-                <td><a th:href="@{|/board/Editor/${board.bno}|(page=${editorBoardList.number + 1})}" th:text="${board.boardTitle}"></a></td>
-                <td th:text="${board.boardWriter}"></td>
-                <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd')}"></td>
-                <td th:text="${board.boardHits}"></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- 페이징 버튼 와야함! -->
-
-
-          <div class="pagination-block">
-            <nav aria-label="navigation">
-              <ul class="pagination justify-content-center">
-
-                <!-- 첫번째 페이지로 이동 -->
-                <!-- /board/paging?page=1 -->
-                <li class="page-item"><a class="page-link" th:href="@{/board/EditorBoard(page=1)}">처음으로</a></li>
-                <!-- 이전 링크 활성화 비활성화 -->
-                <!-- noticeBoardList.getNumber() 사용자:2페이지 getNumber()=1 -->
-                <li class="page-item"><a class="page-link"
-                                         th:href="${editorBoardList.first} ? '#' : @{/board/EditorBoard(page=${editorBoardList.number})}">이전</a>
-                </li>
-
-                <!-- 페이지 번호 링크(현재 페이지는 숫자만)
-                        for(int page=startPage; page<=endPage; page++)-->
-                <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
-                        <!-- 현재페이지는 링크 없이 숫자만 -->
-                            <li class="page-item"><span class="page-link" th:if="${page == editorBoardList.number + 1}" th:text="${page}"></span></li>
-                  <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
-                            <li class="page-item"><span th:unless="${page == editorBoardList.number + 1}">
-                                <a class="page-link" th:href="@{/board/EditorBoard(page=${page})}" th:text="${page}"></a>
-                            </span></li>
-                        </span>
-
-                <!-- 다음 링크 활성화 비활성화
-                    사용자: 2페이지, getNumber: 1, 3페이지-->
-                <li class="page-item"><a class="page-link" th:href="${editorBoardList.last} ? '#' : @{/board/EditorBoard(page=${editorBoardList.number + 2})}">다음</a>
-                </li>
-                <!-- 마지막 페이지로 이동 -->
-                <li class="page-item"><a class="page-link" th:href="@{/board/EditorBoard(page=${editorBoardList.totalPages})}">마지막</a></li>
-
-              </ul>
-            </nav>
+          <div class="col-lg-4" th:each="board: ${editorBoardList}">
+            <div class="blog-item mt-4">
+              <div class="blog-image position-relative">
+                <img th:src="@{|/upload/${board.storedFile.get(0)}|}" alt="" class="img-fluid">
+                <div class="position-absolute top-0 end-0 mt-2 me-2 f-18">
+                  <span class="badge rounded-pill bg-white py-2 px-2 text-muted">
+                      <span class="ms-2"><i class="mdi mdi-eye align-middle" th:text="${board.boardHits}"></i></span>
+                      <span class="ms-2"><i class="mdi mdi-heart"></i>4</span>
+                  </span>
+                </div>
+              </div>
+              <div class="blog-content mt-3">
+                <h5 class="fw-bold slider-overtext"><a th:href="@{|/board/Editor/${board.bno}|(page=${editorBoardList.number + 1})}" th:text="${board.boardTitle}"></a></h5>
+                <p class="text-muted f-15 mb-3 slider-overtext" th:text="${#temporals.format(board.boardCreatedTime,'yyyy-MM-dd')}"></p>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
 
-    </section>
+
+
+    </div>
+
   </div>
+  <!-- end container -->
 </section>
 
-<!-- End Notice -->
+<!-- End MagazineBoard -->
+<!-- Start footer-->
 <div th:replace="/footer :: footer"></div>
 <!-- end footer-->
-
 
 <!--Bootstrap Js-->
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -148,5 +109,180 @@
 
 <!-- App Js -->
 <script src="/js/app.js"></script>
+
+<!-- Scrollup -->
+<script src="/js/jquery.scrollUp.min.js"></script>
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>에디터</title>-->
+<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--  <meta name="description" content=" "/>-->
+<!--  <meta name="keywords" content=""/>-->
+<!--  <meta content="Pichforest" name="author"/>-->
+
+<!--  <link rel="shortcut icon" href="images/favicon.ico">-->
+
+<!--  &lt;!&ndash; Bootstrap css &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />-->
+
+<!--  &lt;!&ndash; Material Icon Css &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />-->
+
+<!--  &lt;!&ndash; Unicon Css &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />-->
+
+<!--  &lt;!&ndash; Custom Css &ndash;&gt;-->
+<!--  <link rel="stylesheet" href="/css/style.min.css" type="text/css" />-->
+
+<!--  &lt;!&ndash; Ajax를 사용하기 위한 JQuery CDN 적용 &ndash;&gt;-->
+<!--  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;Start Navbar&ndash;&gt;-->
+<!--<div th:replace="/header :: header"></div>-->
+<!--&lt;!&ndash;end Navbar&ndash;&gt;-->
+
+<!--<section class="section position-relative overflow-hidden"-->
+<!--         style=" top: 95px;">-->
+<!--  <div class="content-wrapper container ">-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-6">-->
+<!--        <h2 class="fw-bold">에디터</h2>-->
+<!--        <p class="text-muted">반함 에디터 게시판입니다.</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <hr class="my-4">-->
+<!--    <section class="flexbox pb-3">-->
+<!--      <div class="container">-->
+<!--        <section class="notice d-flex justify-content-end">-->
+<!--          <div class="sch-cont">-->
+<!--            &lt;!&ndash; 검색기능 후순위 &ndash;&gt;-->
+<!--            &lt;!&ndash;                    <select class="">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <option value="title">제목</option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <option value="writer">작성자</option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <option value="create_date">작성일</option>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </select>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <input id="searchKeyword" name="searchKeyword" title="검색어 입력" class="q1" type="text" placeholder="검색어 입력" />&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <a href="#none" onclick="fnCmdSearch();" class="btn btn-sm btn-outline-dark">검색</a>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </section>-->
+<!--      </div>-->
+
+
+
+<!--      <div class="container mt-3">-->
+<!--        <div class="demo-wrapper content-block pb-0">-->
+<!--          <div class="table data-table">-->
+<!--            <table class="table table-responsive">-->
+<!--              <colgroup>-->
+<!--                <col width="60%"/>-->
+<!--                <col width="13.33%"/>-->
+<!--                <col width="13.33%"/>-->
+<!--                <col width="13.33%"/>-->
+<!--              </colgroup>-->
+<!--              <thead class="bgl-gray-light">-->
+<!--              <tr>-->
+<!--                <th class="text-center">제목</th>-->
+<!--                <th class="text-center">작성자</th>-->
+<!--                <th class="text-center">작성일</th>-->
+<!--                <th class="text-center">조회수</th>-->
+<!--              </tr>-->
+<!--              </thead>-->
+<!--              <tbody>-->
+<!--              <tr th:each="board: ${editorBoardList}">-->
+<!--                <td><a th:href="@{|/board/Editor/${board.bno}|(page=${editorBoardList.number + 1})}" th:text="${board.boardTitle}"></a></td>-->
+<!--                <td th:text="${board.boardWriter}"></td>-->
+<!--                <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd')}"></td>-->
+<!--                <td th:text="${board.boardHits}"></td>-->
+<!--              </tr>-->
+<!--              </tbody>-->
+<!--            </table>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; 페이징 버튼 와야함! &ndash;&gt;-->
+
+
+<!--          <div class="pagination-block">-->
+<!--            <nav aria-label="navigation">-->
+<!--              <ul class="pagination justify-content-center">-->
+
+<!--                &lt;!&ndash; 첫번째 페이지로 이동 &ndash;&gt;-->
+<!--                &lt;!&ndash; /board/paging?page=1 &ndash;&gt;-->
+<!--                <li class="page-item"><a class="page-link" th:href="@{/board/EditorBoard(page=1)}">처음으로</a></li>-->
+<!--                &lt;!&ndash; 이전 링크 활성화 비활성화 &ndash;&gt;-->
+<!--                &lt;!&ndash; noticeBoardList.getNumber() 사용자:2페이지 getNumber()=1 &ndash;&gt;-->
+<!--                <li class="page-item"><a class="page-link"-->
+<!--                                         th:href="${editorBoardList.first} ? '#' : @{/board/EditorBoard(page=${editorBoardList.number})}">이전</a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 페이지 번호 링크(현재 페이지는 숫자만)-->
+<!--                        for(int page=startPage; page<=endPage; page++)&ndash;&gt;-->
+<!--                <span th:each="page: ${#numbers.sequence(startPage, endPage)}">-->
+<!--                        &lt;!&ndash; 현재페이지는 링크 없이 숫자만 &ndash;&gt;-->
+<!--                            <li class="page-item"><span class="page-link" th:if="${page == editorBoardList.number + 1}" th:text="${page}"></span></li>-->
+<!--                  &lt;!&ndash; 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 &ndash;&gt;-->
+<!--                            <li class="page-item"><span th:unless="${page == editorBoardList.number + 1}">-->
+<!--                                <a class="page-link" th:href="@{/board/EditorBoard(page=${page})}" th:text="${page}"></a>-->
+<!--                            </span></li>-->
+<!--                        </span>-->
+
+<!--                &lt;!&ndash; 다음 링크 활성화 비활성화-->
+<!--                    사용자: 2페이지, getNumber: 1, 3페이지&ndash;&gt;-->
+<!--                <li class="page-item"><a class="page-link" th:href="${editorBoardList.last} ? '#' : @{/board/EditorBoard(page=${editorBoardList.number + 2})}">다음</a>-->
+<!--                </li>-->
+<!--                &lt;!&ndash; 마지막 페이지로 이동 &ndash;&gt;-->
+<!--                <li class="page-item"><a class="page-link" th:href="@{/board/EditorBoard(page=${editorBoardList.totalPages})}">마지막</a></li>-->
+
+<!--              </ul>-->
+<!--            </nav>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </section>-->
+<!--  </div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; End Notice &ndash;&gt;-->
+<!--<div th:replace="/footer :: footer"></div>-->
+<!--&lt;!&ndash; end footer&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;Bootstrap Js&ndash;&gt;-->
+<!--<script src="/js/bootstrap.bundle.min.js"></script>-->
+
+<!--&lt;!&ndash; Slider Js &ndash;&gt;-->
+<!--<script src="/js/tiny-slider.js"></script>-->
+<!--<script src="/js/swiper.min.js"></script>-->
+
+<!--&lt;!&ndash; counter &ndash;&gt;-->
+<!--<script src="/js/counter.init.js"></script>-->
+
+<!--&lt;!&ndash; App Js &ndash;&gt;-->
+<!--<script src="/js/app.js"></script>-->
+<!--</body>-->
+<!--</html>-->

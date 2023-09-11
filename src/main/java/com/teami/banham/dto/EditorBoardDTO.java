@@ -38,12 +38,25 @@ public class EditorBoardDTO {
 
     //boardTitle, boardWriter, createdTime, boardHits
     //Alt + insert 키를 누르면 자동 생성 가능 (getter, setter, constructor 등등)
-    public EditorBoardDTO(Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+    public EditorBoardDTO(Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime, String hasFile, List<EditorBoardFileEntity> boardFileEntityList) {
         this.bno = bno;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
         this.boardHits = boardHits;
         this.boardCreatedTime = boardCreatedTime;
+        if (hasFile== "N") {
+            this.setHasFile(hasFile);
+        } else {
+            List<String> originalFileNameList = new ArrayList<>();
+            List<String> repositoryFileNameList = new ArrayList<>();
+            this.setHasFile(hasFile);
+            for (EditorBoardFileEntity FileEntity : boardFileEntityList) {
+                originalFileNameList.add(FileEntity.getOriginalFileName());
+                repositoryFileNameList.add(FileEntity.getStoredFileName());
+            }
+            this.setOriginalFile(originalFileNameList);
+            this.setStoredFile(repositoryFileNameList);
+        }
     }
 
     public static EditorBoardDTO toEditorBoardDTO(EditorBoardEntity editorBoardEntity) {

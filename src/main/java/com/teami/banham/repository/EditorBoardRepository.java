@@ -23,7 +23,7 @@ public interface EditorBoardRepository extends JpaRepository<EditorBoardEntity, 
     Page<EditorBoardEntity> findAll(Specification<EditorBoardEntity> spec, Pageable pageable);
 
     @Modifying //update나 delete등을 실행할때 필수로 붙여줘야하는 어노테이션
-    @Query(value = "UPDATE NoticeBoardEntity b SET b.boardHits=b.boardHits+1 WHERE b.bno=:bno") //Entity기준으로 쿼리문을 작성할수 있다.
+    @Query(value = "UPDATE EditorBoardEntity b SET b.boardHits=b.boardHits+1 WHERE b.bno=:bno") //Entity기준으로 쿼리문을 작성할수 있다.
     void updateHits(@Param("bno") Long bno);  //@Query 쿼리문 안에 WHERE b.bno=:bno 라고 되어있으면 키값이 bno인 파라미터 값을 대입하게 된다
 
     @Modifying

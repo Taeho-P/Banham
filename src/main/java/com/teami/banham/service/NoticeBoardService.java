@@ -106,6 +106,7 @@ public class NoticeBoardService {
         }
     }
 
+    @Transactional
     public NoticeBoardDTO update(NoticeBoardDTO noticeBoardDTO) {
         NoticeBoardEntity noticeBoardEntity = NoticeBoardEntity.toUpdateEntity(noticeBoardDTO);
         noticeBoardRepository.save(noticeBoardEntity);

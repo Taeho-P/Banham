@@ -32,6 +32,7 @@ public class EditorBoardService {
 
     private final EditorBoardFileRepository editorBoardFileRepository;
 
+    @Transactional
     public void save(EditorBoardDTO editorBoardDTO) throws IOException {
         //파일 첨부 여부에 따라 save방식 분리
         if (editorBoardDTO.getBoardFile().stream().anyMatch(MultipartFile::isEmpty)) {
@@ -75,6 +76,7 @@ public class EditorBoardService {
     }
 
     //페이징을 위한 메소드
+    @Transactional
     public Page<EditorBoardDTO> paging(Pageable pageable) {
 
         Specification<EditorBoardEntity> spec = (root, query, criteriaBuilder) -> null;
@@ -85,7 +87,7 @@ public class EditorBoardService {
         Page<EditorBoardEntity> editorBoardEntities = editorBoardRepository.findAll(spec, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")));
 
         // 리스트에서 보여줄 목록 : bno(상세 게시글 조회를 위해), EorN, boardTitle, boardWriter, createdTime, boardHits
-        Page<EditorBoardDTO> editorBoardDTOS = editorBoardEntities.map(board -> new EditorBoardDTO(board.getBno(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        Page<EditorBoardDTO> editorBoardDTOS = editorBoardEntities.map(board -> new EditorBoardDTO(board.getBno(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime(), board.getHasFile(), board.getEditorBoardFileEntityList()));
 
         return editorBoardDTOS;
     }
@@ -108,6 +110,7 @@ public class EditorBoardService {
         }
     }
 
+    @Transactional
     public EditorBoardDTO update(EditorBoardDTO editorBoardDTO) {
         EditorBoardEntity editorBoardEntity = EditorBoardEntity.toUpdateEntity(editorBoardDTO);
         editorBoardRepository.save(editorBoardEntity);
