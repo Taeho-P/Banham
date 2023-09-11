@@ -19,6 +19,7 @@ public class AdoptRequestDTO {
     private Long writer; // 작성자
     private char deleteYn; // 삭제 여부
     private String memNick;
+    private int aniType; //동물종류
 
 
     private List<MultipartFile> files = new ArrayList<>();
@@ -32,7 +33,7 @@ public class AdoptRequestDTO {
                 .hits(0)
                 .deleteYn(deleteYn)
                 .memNick(memNick)
-
+                .aniType(aniType)
                 .build();
     }
 }

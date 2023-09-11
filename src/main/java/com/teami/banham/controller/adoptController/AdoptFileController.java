@@ -58,6 +58,14 @@ public class AdoptFileController {
     }
 
     //file
+    // 파일 전체 조회
+    @GetMapping("/api/adopt/allfiles")
+    public List<AdoptFileResponse> findAll(){
+        return adoptFileService.findAll();
+    }
+
+
+
     // 파일 리스트 조회
     @GetMapping("/api/adopt/{boardId}/files")
     public List<AdoptFileResponse> findAllFileByBoardId(@PathVariable final Long boardId) {
