@@ -89,12 +89,12 @@
               </thead>
               <tbody>
               <tr th:each="board: ${noticeBoardList}">
-                <td th:if="${board.eorN=='N'}">[공지사항]</td>
-                <td th:if="${board.eorN=='E'}">[이벤트]</td>
+                <td class="text-center" th:if="${board.eorN=='N'}">[공지사항]</td>
+                <td class="text-center" th:if="${board.eorN=='E'}">[이벤트]</td>
                 <td><a th:href="@{|/board/Notice/${board.bno}|(page=${noticeBoardList.number + 1})}" th:text="${board.boardTitle}"></a></td>
-                <td th:text="${board.boardWriter}"></td>
-                <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd')}"></td>
-                <td th:text="${board.boardHits}"></td>
+                <td class="text-center" th:text="${board.boardWriter}"></td>
+                <td class="text-center" th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd')}"></td>
+                <td class="text-center" th:text="${board.boardHits}"></td>
               </tr>
               </tbody>
             </table>

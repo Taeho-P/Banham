@@ -61,18 +61,18 @@
     <div class="row mt-5">
       <div class="col-lg-12">
         <div class="row">
-
-
           <div class="col-lg-4" th:each="board: ${editorBoardList}">
-            <div class="blog-item mt-4">
+            <div class="blog-item">
               <div class="blog-image position-relative">
+                <a th:href="@{|/board/Editor/${board.bno}|(page=${editorBoardList.number + 1})}" >
                 <img th:src="@{|/upload/${board.storedFile.get(0)}|}" alt="" class="img-fluid">
                 <div class="position-absolute top-0 end-0 mt-2 me-2 f-18">
                   <span class="badge rounded-pill bg-white py-2 px-2 text-muted">
-                      <span class="ms-2"><i class="mdi mdi-eye align-middle" th:text="${board.boardHits}"></i></span>
-                      <span class="ms-2"><i class="mdi mdi-heart"></i>4</span>
+                      <span class="ms-2"> <i class="mdi mdi-eye align-middle" th:text="${board.boardHits}"></i></span>
+                      <span class="ms-2"> <i class="mdi mdi-heart"></i>4</span>
                   </span>
                 </div>
+                </a>
               </div>
               <div class="blog-content mt-3">
                 <h5 class="fw-bold slider-overtext"><a th:href="@{|/board/Editor/${board.bno}|(page=${editorBoardList.number + 1})}" th:text="${board.boardTitle}"></a></h5>
