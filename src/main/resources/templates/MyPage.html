@@ -55,7 +55,7 @@
         <h6 class="fw-bold">나의 프로필사진</h6>
         <div class="d-flex align-items-center justify-content-start">
           <div class="avatar">
-            <img src="/images/img-1.png" alt=""
+            <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" alt=""
                  class="img-fluid avatar-xl border border-4 border-white rounded-circle">
           </div>
           <div class="profile-name ms-3">
