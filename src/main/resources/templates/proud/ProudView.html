@@ -117,7 +117,7 @@
                                       d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                                       fill="none" stroke="#ff0000" stroke-width="2px" style="width: 24px;height: 24px"/>
                             </svg>
-                            <div id="list_count">
+                            <div id="list_count" th:fragment="list_count">
                                 <th:block th:if="${board.proudLikeDTOList!=null}">
                                     <p th:text="${board.proudLikeDTOList.size()}"></p>
                                 </th:block>
@@ -350,17 +350,16 @@
         let memberId = sessionCheck.memberId;
         console.log("memberId!!!!",memberId);
         $.ajax({
-            // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
             type: "post",
             url: "/board/proud/likeCheck",
             data: {
                 "memberId": memberId,
                 "bno": bno
             }
-        })
+            })
             .done(function (fragment) {
                 console.log(JSON.stringify(fragment));
-                $('#like_count').replaceWith(fragment);
+                $('#list_count').replaceWith(fragment);
             });
     }
 
