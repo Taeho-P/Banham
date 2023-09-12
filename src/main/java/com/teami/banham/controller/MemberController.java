@@ -1,16 +1,12 @@
 package com.teami.banham.controller;
 
-import com.teami.banham.dto.EditorBoardDTO;
-import com.teami.banham.dto.MemberDTO;
-import com.teami.banham.dto.NoticeBoardDTO;
-import com.teami.banham.service.EditorBoardService;
-import com.teami.banham.service.MemberService;
-import com.teami.banham.service.NoticeBoardService;
-import com.teami.banham.service.RegisterMail;
+import com.teami.banham.dto.*;
+import com.teami.banham.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +23,8 @@ public class MemberController {
 
     private final NoticeBoardService noticeBoardService;
     private final EditorBoardService editorBoardService;
+    private final BoardService proudBoardService;
+    private final CommunityBoardService communityBoardService;
 
     //회원가입 페이지 출력 요청
     @GetMapping("/signUp")
@@ -188,6 +186,7 @@ public class MemberController {
     }
 
     //로그인중인 회원이 작성한 글 목록 호출
+    @Transactional
     @GetMapping("/WriteList")
     public String writeListForm(HttpSession session, Model model) {
         MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
@@ -195,8 +194,13 @@ public class MemberController {
         List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeWriteList(loginDTO.getMno()); //사용자가 작성한 공지사항 목록 불러오기
         List<EditorBoardDTO> editorBoardDTOList = editorBoardService.editorWriteList(loginDTO.getMno()); //사용자가 작성한 에디터 글 목록 불러오기
 
+        List<ProudBoardDTO> proudBoardDTOList = proudBoardService.proudFindAllList(loginDTO.getMemberId());
+        List<CommunityBoardDTO> communityBoardDTOList = communityBoardService.communityFindAllList(loginDTO.getMemberId());
+
         model.addAttribute("noticeBoardList", noticeBoardDTOList);
         model.addAttribute("editorBoardList", editorBoardDTOList);
+        model.addAttribute("proudBoardList", proudBoardDTOList);
+        model.addAttribute("communityBoardList", communityBoardDTOList);
 
         return "WriteList";
     }

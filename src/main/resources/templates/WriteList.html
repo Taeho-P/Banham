@@ -6,6 +6,90 @@
 </head>
 <body>
 
+<h2>자유게시판 글 목록</h2>
+<div class="container mt-3">
+    <div class="demo-wrapper content-block pb-0">
+        <div class="table data-table">
+            <table class="table table-responsive">
+                <!--    <tr>-->
+                <!--        <th>종류</th>-->
+                <!--        <th>제목</th>-->
+                <!--        <th>작성자</th>-->
+                <!--        <th>작성일</th>-->
+                <!--        <th>조회수</th>-->
+                <!--    </tr>-->
+                <colgroup>
+                    <col width="60%"/>
+                    <col width="13.33%"/>
+                    <col width="13.33%"/>
+                    <col width="13.33%"/>
+                </colgroup>
+                <thead class="bgl-gray-light">
+                <tr>
+                    <th class="text-center">제목</th>
+                    <th class="text-center">작성자</th>
+                    <th class="text-center">작성일</th>
+                    <th class="text-center">조회수</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board: ${communityBoardList}">
+                    <td><a th:href="@{|/board/community/${board.bno}|}" th:text="${board.title}"></a></td>
+                    <td th:text="${board.writer}"></td>
+                    <td th:text="*{#temporals.format(board.createDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${board.hits}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<h2>내새끼 자랑 글 목록</h2>
+<div class="container mt-3">
+    <div class="demo-wrapper content-block pb-0">
+        <div class="table data-table">
+            <table class="table table-responsive">
+                <!--    <tr>-->
+                <!--        <th>종류</th>-->
+                <!--        <th>제목</th>-->
+                <!--        <th>작성자</th>-->
+                <!--        <th>작성일</th>-->
+                <!--        <th>조회수</th>-->
+                <!--    </tr>-->
+                <colgroup>
+                    <col width="60%"/>
+                    <col width="13.33%"/>
+                    <col width="13.33%"/>
+                    <col width="13.33%"/>
+                </colgroup>
+                <thead class="bgl-gray-light">
+                <tr>
+                    <th class="text-center">제목</th>
+                    <th class="text-center">작성자</th>
+                    <th class="text-center">작성일</th>
+                    <th class="text-center">조회수</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board: ${proudBoardList}">
+                    <td><a th:href="@{|/board/proud/${board.bno}|}" th:text="${board.title}"></a></td>
+                    <td th:text="${board.writer}"></td>
+                    <td th:text="*{#temporals.format(board.createDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${board.hits}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
 <h2>에디터 글 목록</h2>
 <div class="container mt-3">
     <div class="demo-wrapper content-block pb-0">

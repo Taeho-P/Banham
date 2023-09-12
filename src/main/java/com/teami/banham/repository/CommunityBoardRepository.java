@@ -1,6 +1,7 @@
 package com.teami.banham.repository;
 
 import com.teami.banham.entity.CommunityBoardEntity;
+import com.teami.banham.entity.ProudBoardEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CommunityBoardRepository extends JpaRepository<CommunityBoardEntity,Long> {
@@ -24,4 +26,8 @@ public interface CommunityBoardRepository extends JpaRepository<CommunityBoardEn
     void deleteById(Long bno);
 
     Optional<CommunityBoardEntity> findByBno(Long bno);
+
+    @Query("select b from CommunityBoardEntity b where b.memberId=:memberId and b.delete_ck=0 order by b.bno desc")
+    List<CommunityBoardEntity> findAllList(@Param("memberId")String memberId);
+
 }
