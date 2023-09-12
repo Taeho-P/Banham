@@ -51,6 +51,8 @@ public class ProudBoardEntity extends BoardBaseEntity {
     @OneToMany(mappedBy="proudBoardEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ProudCommentEntity> proudCommentEntityList =new ArrayList<>();
 
+    @OneToMany(mappedBy = "proudBoardEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<ProudLikeEntity> proudLikeEntityList = new ArrayList<>();
 
     // 파일이 없는 상태에서 게시글 저장시 사용되는 메소드
     public static ProudBoardEntity toSaveEntity(ProudBoardDTO proudBoardDTO){

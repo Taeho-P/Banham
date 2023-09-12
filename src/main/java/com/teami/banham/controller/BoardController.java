@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,15 +52,15 @@ public class BoardController {
 
     // 자랑 게시판 목록 (9/4)
     @GetMapping("/proud")
-    public String findAll(@PageableDefault(page=1) Pageable pageable, Model model){
-        int nowPage=pageable.getPageNumber();
+    public String findAll(@PageableDefault(page = 1) Pageable pageable, Model model) {
+        int nowPage = pageable.getPageNumber();
         Page<ProudBoardDTO> boardDTOPage = boardService.proudFindAll(pageable);
         int blockLimit = 2;
-        int startPage=(((int)(Math.ceil((double)nowPage/blockLimit)))-1)*blockLimit+1; //1,6,11 ...
-        int endPage=((startPage+blockLimit-1)<boardDTOPage.getTotalPages()) ? startPage+blockLimit-1:boardDTOPage.getTotalPages();
-        model.addAttribute("boardList",boardDTOPage);
-        model.addAttribute("startPage",startPage);
-        model.addAttribute("endPage",endPage);
+        int startPage = (((int) (Math.ceil((double) nowPage / blockLimit))) - 1) * blockLimit + 1; //1,6,11 ...
+        int endPage = ((startPage + blockLimit - 1) < boardDTOPage.getTotalPages()) ? startPage + blockLimit - 1 : boardDTOPage.getTotalPages();
+        model.addAttribute("boardList", boardDTOPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "proud/ProudBoard";
     }
@@ -68,6 +70,7 @@ public class BoardController {
     public String proudSaveForm() {
         return "proud/ProudSave";
     }
+
     private final NoticeBoardService noticeBoardService;
     private final EditorBoardService editorBoardService;
 
@@ -93,7 +96,7 @@ public class BoardController {
 
         int blockLimit = 5;
         //보여지는 페이지 갯수 지정
-        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
         //각 페이지의 시작 페이지수 (1, 6, 11, 16, 21...)
         int endPage = ((startPage + blockLimit - 1) < noticeBoardDTOList.getTotalPages()) ? startPage + blockLimit - 1 : noticeBoardDTOList.getTotalPages();
         //각 페이지의 마지막 페이지 수
@@ -143,20 +146,21 @@ public class BoardController {
 
     // 자랑게시판 게시글 보기 (9/4)
     @GetMapping("/proud/{bno}")
-    public String findById(@PathVariable Long bno, Model model, @PageableDefault(page=1) Pageable pageable){
+    public String findById(@PathVariable Long bno, Model model, @PageableDefault(page = 1) Pageable pageable) {
         boardService.proudUpdateHits(bno);
-        ProudBoardDTO proudBoardDTO =boardService.proudFindById(bno);
-        List<ProudCommentDTO> commentDTOList=commentService.proudfindAll(bno);
-        model.addAttribute("commentList",commentDTOList);
+        ProudBoardDTO proudBoardDTO = boardService.proudFindById(bno);
+        List<ProudCommentDTO> commentDTOList = commentService.proudfindAll(bno);
+
+        model.addAttribute("commentList", commentDTOList);
         model.addAttribute("board", proudBoardDTO);
-        model.addAttribute("page",pageable.getPageNumber());
+        model.addAttribute("page", pageable.getPageNumber());
         return "proud/ProudView";
     }
 
     // 자랑게시판 수정 구현 완료(9/7)
     @GetMapping("/proud/modify/{bno}")
-    public String proudUpdateForm(@PathVariable Long bno, Model model){
-        ProudBoardDTO proudBoardDTO =boardService.proudFindById(bno);
+    public String proudUpdateForm(@PathVariable Long bno, Model model) {
+        ProudBoardDTO proudBoardDTO = boardService.proudFindById(bno);
         model.addAttribute("boardUpdate", proudBoardDTO);
         return "proud/ProudModify";
     }
@@ -164,57 +168,75 @@ public class BoardController {
     // 자랑게시판 수정 구현 완료(9/7)
     @PostMapping("/proud/modify")
     public String update(@ModelAttribute ProudBoardDTO proudBoardDTO, Model model) throws IOException {
-        ProudBoardDTO board= boardService.proudUpdate(proudBoardDTO);
-        model.addAttribute("board",board);
-        return "redirect:/board/proud/"+ proudBoardDTO.getBno();
+        ProudBoardDTO board = boardService.proudUpdate(proudBoardDTO);
+        model.addAttribute("board", board);
+        return "redirect:/board/proud/" + proudBoardDTO.getBno();
     }
 
     // 자랑게시판 삭제 구현 완료(9/8)
     @GetMapping("/proud/delete/{bno}")
-    public String proudDeleteForm(@PathVariable Long bno){
+    public String proudDeleteForm(@PathVariable Long bno) {
         boardService.proudDelete(bno);
         return "redirect:/board/proud";
     }
 
     // 자랑게시판 검색 기능 구현 중 -- -- - ---
     @Transactional
-    @RequestMapping(value = "/proud/search",method =RequestMethod.GET )
-    public String proudSearch(@PageableDefault(page=1) Pageable pageable,@RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model){
-        int nowPage=pageable.getPageNumber();
-        Page<ProudBoardDTO> proudBoardDTO = boardService.proudSearch(pageable,searchType,searchKeyword);
+    @RequestMapping(value = "/proud/search", method = RequestMethod.GET)
+    public String proudSearch(@PageableDefault(page = 1) Pageable pageable, @RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model) {
+        int nowPage = pageable.getPageNumber();
+        Page<ProudBoardDTO> proudBoardDTO = boardService.proudSearch(pageable, searchType, searchKeyword);
         int blockLimit = 2;
-        int startPage=(((int)(Math.ceil((double)nowPage/blockLimit)))-1)*blockLimit+1; //1,6,11 ...
-        int endPage=((startPage+blockLimit-1)<proudBoardDTO.getTotalPages()) ? startPage+blockLimit-1:proudBoardDTO.getTotalPages();
+        int startPage = (((int) (Math.ceil((double) nowPage / blockLimit))) - 1) * blockLimit + 1; //1,6,11 ...
+        int endPage = ((startPage + blockLimit - 1) < proudBoardDTO.getTotalPages()) ? startPage + blockLimit - 1 : proudBoardDTO.getTotalPages();
 
-        model.addAttribute("boardList",proudBoardDTO);
-        model.addAttribute("startPage",startPage);
-        model.addAttribute("endPage",endPage);
+        model.addAttribute("boardList", proudBoardDTO);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "/proud/ProudBoard :: #board_list";
     }
 
     @Transactional
-    @RequestMapping(value = "/proud/search/page",method =RequestMethod.POST )
-    public String proudSearchPage(@PageableDefault(page=1) Pageable pageable,@RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model){
-        int nowPage=pageable.getPageNumber();
-        Page<ProudBoardDTO> proudBoardDTO = boardService.proudSearch(pageable,searchType,searchKeyword);
+    @RequestMapping(value = "/proud/search/page", method = RequestMethod.POST)
+    public String proudSearchPage(@PageableDefault(page = 1) Pageable pageable, @RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model) {
+        int nowPage = pageable.getPageNumber();
+        Page<ProudBoardDTO> proudBoardDTO = boardService.proudSearch(pageable, searchType, searchKeyword);
         int blockLimit = 2;
-        int startPage=(((int)(Math.ceil((double)nowPage/blockLimit)))-1)*blockLimit+1; //1,6,11 ...
-        int endPage=((startPage+blockLimit-1)<proudBoardDTO.getTotalPages()) ? startPage+blockLimit-1:proudBoardDTO.getTotalPages();
+        int startPage = (((int) (Math.ceil((double) nowPage / blockLimit))) - 1) * blockLimit + 1; //1,6,11 ...
+        int endPage = ((startPage + blockLimit - 1) < proudBoardDTO.getTotalPages()) ? startPage + blockLimit - 1 : proudBoardDTO.getTotalPages();
 
-        model.addAttribute("boardList",proudBoardDTO);
-        model.addAttribute("startPage",startPage);
-        model.addAttribute("endPage",endPage);
+        model.addAttribute("boardList", proudBoardDTO);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "/proud/ProudBoard :: #page_list";
     }
 
+    @Transactional
+    @GetMapping("/proud/{bno}/likeCheck")
+    public ResponseEntity proudLikeCheck(Long bno, String memberId) {
+        boolean likeCheck = boardService.proudMemberIdisLiked(bno, memberId);
+        if (memberId != null) {
+            return new ResponseEntity<>(likeCheck, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(likeCheck, HttpStatus.OK);
+        }
+    }
 
+    @Transactional
+    @RequestMapping(value = "/proud/likeCheck", method = RequestMethod.POST)
+    public String proudLikeClickEvent(ProudLikeDTO proudLikeDTO,@RequestParam("bno") Long bno, Model model) {
+        boardService.proudLike(proudLikeDTO);
+        ProudBoardDTO proudBoardDTO = boardService.proudFindById(bno);
+        model.addAttribute("board",proudBoardDTO);
+        return "/proud/ProudView :: #like_count";
+    }
 
 
     @PostMapping("/Notice/update")
     public String updateNotice(@ModelAttribute NoticeBoardDTO noticeBoardDTO, Model model,
-                               @PageableDefault(page=1) Pageable pageable) {
+                               @PageableDefault(page = 1) Pageable pageable) {
         NoticeBoardDTO board = noticeBoardService.update(noticeBoardDTO);
         NoticeBoardDTO board2 = noticeBoardService.findByBno(board.getBno());
 
@@ -239,30 +261,32 @@ public class BoardController {
     private final AdoptService adoptService;
 
 
-    /**Adopt Board*
-     * */
+    /**
+     * Adopt Board*
+     */
     //입양 게시판 리스트 홈
     @GetMapping("/adopt")
     public String openAdoptList() {
         return "adopt/Adopt";
     }
+
     //입양 글 등록 페이지
     @GetMapping("/adopt/write")
-    public  String openAdoptWrite(HttpSession session, @RequestParam(required = false) final Long id, Model model) {
-        MemberDTO memberDTO = (MemberDTO)session.getAttribute("loginDTO");
+    public String openAdoptWrite(HttpSession session, @RequestParam(required = false) final Long id, Model model) {
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginDTO");
         model.addAttribute("id", id);
-        if(memberDTO!=null){
+        if (memberDTO != null) {
 //            return "adopt/AdoptWrite";
             return "adopt/testwrite";
-        }else return "adopt/Adopt";
+        } else return "adopt/Adopt";
     }
+
     //입양 글 상세 페이지
     @GetMapping("/adopt/view/{id}")
-    public String openAdoptView(@PathVariable final Long id, Model model){
+    public String openAdoptView(@PathVariable final Long id, Model model) {
         model.addAttribute("id", id);
         return "adopt/AdoptView";
     }
-
 
 
     @GetMapping("/EditorWrite")
@@ -287,7 +311,7 @@ public class BoardController {
 
         int blockLimit = 5;
         //보여지는 페이지 갯수 지정
-        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
         //각 페이지의 시작 페이지수 (1, 6, 11, 16, 21...)
         int endPage = ((startPage + blockLimit - 1) < editorBoardDTOList.getTotalPages()) ? startPage + blockLimit - 1 : editorBoardDTOList.getTotalPages();
         //각 페이지의 마지막 페이지 수
@@ -320,7 +344,7 @@ public class BoardController {
     @GetMapping("/Editor/update/{bno}")
     public String updateEditorForm(@PathVariable Long bno, Model model,
                                    @PageableDefault(page = 1) Pageable pageable) {
-        EditorBoardDTO editorBoardDTO =editorBoardService.findByBno(bno);
+        EditorBoardDTO editorBoardDTO = editorBoardService.findByBno(bno);
         model.addAttribute("editorBoardUpdate", editorBoardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
@@ -330,7 +354,7 @@ public class BoardController {
 
     @PostMapping("/Editor/update")
     public String updateEditor(@ModelAttribute EditorBoardDTO editorBoardDTO, Model model,
-                               @PageableDefault(page=1) Pageable pageable) {
+                               @PageableDefault(page = 1) Pageable pageable) {
         EditorBoardDTO board = editorBoardService.update(editorBoardDTO);
         EditorBoardDTO board2 = editorBoardService.findByBno(board.getBno());
 

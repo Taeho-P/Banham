@@ -31,6 +31,5 @@ public class CommunityCommentDTO {
         commentDTO.setCommentUpdateTime(communityCommentEntity.getUpdatedTime());
 
         return commentDTO;
-
     }
 }

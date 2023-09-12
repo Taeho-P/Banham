@@ -13,24 +13,35 @@
     <link rel="shortcut icon" href="images/favicon.ico">
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style"/>
 
     <!-- Material Icon Css -->
-    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css"/>
 
     <!-- Unicon Css -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
 
     <!-- Swiper Css -->
-    <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css" />
-    <link rel="stylesheet" href="/css/swiper.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/swiper.min.css" type="text/css"/>
 
     <!-- Custom Css -->
-    <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css"/>
 
 
     <title th:text="${board.title}"></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <style>
+        .heart-button {
+            cursor: pointer;
+        }
 
+        .heart-icon {
+            width: 24px;
+            height: 24px;
+            fill: #000; /* 기본으로 까만색 하트 */
+        }
+    </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 <!--Start Navbar-->
@@ -54,7 +65,7 @@
 
     </div>
 </section>
-<section class="section position-relative overflow-hidden"style=" top: 95px; padding-bottom: 90px;">
+<section class="section position-relative overflow-hidden" style=" top: 95px; padding-bottom: 90px;">
     <div class="content-wrapper container ">
         <div class="row">
             <div class="col-lg-6">
@@ -65,7 +76,8 @@
         <section class="artical flexbox pb-3">
             <div class="container">
                 <div class="board-post">
-                    <h3 class="post-title"th:text="${board.title}" ></h3>
+                    <span id="bno_get" th:text="${board.bno}" style="display: none"></span>
+                    <h3 class="post-title" th:text="${board.title}"></h3>
                     <div class="post-header">
                         <div class="info">
                             <dl>
@@ -80,7 +92,6 @@
                                 <dt>작성일</dt>
                                 <dd th:text="${#temporals.format(board.createDate,'yyyy-MM-dd HH:mm:ss')}"></dd>
                             </dl>
-
                         </div>
                     </div>
                     <div class="post-body">
@@ -96,18 +107,34 @@
                         </dl>
                         <ul class="file-list">
                             <li th:each="file:${board.fileList}">
-                                <a class="icon icon-paperclip-1" href="#none" data-action="downloadFile" style="cursor: pointer;" th:text="${file.getOriginalFilename()}"></a>
+                                <a class="icon icon-paperclip-1" href="#none" data-action="downloadFile"
+                                   style="cursor: pointer;" th:text="${file.getOriginalFilename()}"></a>
                             </li>
-
-
                         </ul>
+                        <div id="like_check" class="heart-button" onclick="likeClick()"> <!-- 좋아요 버튼 -->
+                            <svg class="heart-icon" viewBox="0 0 24 24">
+                                <path class="heart-fill"
+                                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                                      fill="none" stroke="#ff0000" stroke-width="2px" style="width: 24px;height: 24px"/>
+                            </svg>
+                            <div id="list_count">
+                                <th:block th:if="${board.proudLikeDTOList!=null}">
+                                    <p th:text="${board.proudLikeDTOList.size()}"></p>
+                                </th:block>
+                                <th:block th:unless="${board.proudLikeDTOList!=null}">
+                                    <p th:text="0"></p>
+                                </th:block>
+                            </div>
+                        </div><!--좋아요 버튼 끝-->
                     </div>
                     <div class="row">
                         <button class="col-2 btn btn-list float-right" onclick="listReq()">목록</button>
                         <th:block th:if="${session.loginDTO!=null}">
                             <th:block th:if="${board.memberId==session.loginDTO.memberId}">
-                                <button class="col-2 btn btn-list float-right" onclick="updateReq()" value="수정">수정</button>
-                                <button class="col-2 btn btn-list float-right" onclick="deleteReq()" value="삭제">삭제</button>
+                                <button class="col-2 btn btn-list float-right" onclick="updateReq()" value="수정">수정
+                                </button>
+                                <button class="col-2 btn btn-list float-right" onclick="deleteReq()" value="삭제">삭제
+                                </button>
                             </th:block>
                         </th:block>
                     </div>
@@ -115,39 +142,42 @@
                         <h4 class="fw-bold">댓글</h4>
                         <div id="Comment-box-item mb-1 comment-write">
                                 <span th:if="${session.loginDTO!=null}">
-                                    <input type="hidden" id="memberId" name="memberId" th:value="${session.loginDTO.memberId}">
-                                    <input type="text" id="commentWriter" th:value="${session.loginDTO.memberNick}" placeholder="작성자" readOnly/>
+                                    <input type="hidden" id="memberId" name="memberId"
+                                           th:value="${session.loginDTO.memberId}">
+                                    <input type="text" id="commentWriter" th:value="${session.loginDTO.memberNick}"
+                                           placeholder="작성자" readOnly/>
                                     <input type="text" id="commentContents" placeholder="내용">
                                     <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
                                 </span>
-                                <div class="forum-form mt-4">
-                                    <div class="row d-flex align-items-center justify-content-start">
-                                        <div class="col-sm-2 col-3">
-                                            <div class="avatar forum-profile">
-                                                <img src="/images/img-1.png" alt=""
-                                                     class="img-fluid rounded-circle avatar-md">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-8 col-md-6 col-5 my-2">
-                                            <form>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                       placeholder="내용을 입력해주세요.">
-                                            </form>
-                                        </div>
-                                        <div class="col-2">
-                                            <button class="btn btn-dark">댓글작성</button>
+                            <div class="forum-form mt-4">
+                                <div class="row d-flex align-items-center justify-content-start">
+                                    <div class="col-sm-2 col-3">
+                                        <div class="avatar forum-profile">
+                                            <img src="/images/img-1.png" alt=""
+                                                 class="img-fluid rounded-circle avatar-md">
                                         </div>
                                     </div>
+                                    <div class="col-xl-8 col-md-6 col-5 my-2">
+                                        <form>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                   placeholder="내용을 입력해주세요.">
+                                        </form>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-dark">댓글작성</button>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
-                        <div  id="comment-list">
-                            <div  class="Comment-box-item mt-1" th:each="comment:${commentList}">
+                        <div id="comment-list">
+                            <div class="Comment-box-item mt-1" th:each="comment:${commentList}">
                                 <div class="comment-item">
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
                                                 <div class="avatar">
-                                                    <img src="/images/img-1.png" alt="" class="img-fluid avatar-md rounded-circle">
+                                                    <img src="/images/img-1.png" alt=""
+                                                         class="img-fluid avatar-md rounded-circle">
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 ms-2">
@@ -155,16 +185,21 @@
                                             </div>
                                             <span th:if="${session.loginDTO!=null}">
                                                 <th:block th:if="${session.loginDTO.memberId==comment.memberId}">
-                                                    <button class="btn comment-modify-btn" th:id="'modify-comment-btn-' + ${comment.cno}" th:onclick="'showCommentModification(' + ${comment.cno} + ')'">수정</button>
-                                                <button class="btn" th:id="'comment-delete-btn' + ${comment.cno}" th:onclick="'deleteComment('+ ${comment.cno} + ')'">삭제</button>
+                                                    <button class="btn comment-modify-btn"
+                                                            th:id="'modify-comment-btn-' + ${comment.cno}"
+                                                            th:onclick="'showCommentModification(' + ${comment.cno} + ')'">수정</button>
+                                                <button class="btn" th:id="'comment-delete-btn' + ${comment.cno}"
+                                                        th:onclick="'deleteComment('+ ${comment.cno} + ')'">삭제</button>
                                                 </th:block>
                                             </span>
                                         </div>
                                         <div class="time ms-auto">
-                                            <th:block th:if="${comment.commentUpdateTime==null || comment.commentCreatedTime==comment.commentUpdateTime}">
+                                            <th:block
+                                                    th:if="${comment.commentUpdateTime==null || comment.commentCreatedTime==comment.commentUpdateTime}">
                                                 <h6 th:text="${#temporals.format(comment.commentCreatedTime,'yy-MM-dd, HH:mm:ss')}"></h6>
                                             </th:block>
-                                            <th:block th:unless="${comment.commentUpdateTime==null ||  comment.commentCreatedTime==comment.commentUpdateTime}">
+                                            <th:block
+                                                    th:unless="${comment.commentUpdateTime==null ||  comment.commentCreatedTime==comment.commentUpdateTime}">
                                                 <h6 th:text="'수정됨 ' + ${#temporals.format(comment.commentUpdateTime,'yy-MM-dd, HH:mm:ss')}"></h6>
                                             </th:block>
                                         </div>
@@ -172,15 +207,19 @@
                                     <div class="message-box mt-4">
                                         <p class="text-muted mb-3" th:text="${comment.commentContents}"></p>
                                     </div>
-                                    <div class="message-box mt-4 comment-modify-section" th:id="'modify-comment-section-'+ ${comment.cno}" style="display: none"><!--modify start-->
+                                    <div class="message-box mt-4 comment-modify-section"
+                                         th:id="'modify-comment-section-'+ ${comment.cno}" style="display: none">
+                                        <!--modify start-->
                                         <th:block th:if="${session.loginDTO!=null}">
                                         <span th:if="${session.loginDTO.memberId==comment.memberId}">
                                         <input type="hidden" id="modify_memberId" name="memberId"
                                                th:value="${session.loginDTO.memberId}">
                                         <input type="text" th:id="'modify_commentWriter'+ ${comment.cno}"
                                                th:value="${session.loginDTO.memberNick}" placeholder="작성자" readOnly/>
-                                        <input type="text" th:id="'modify_commentContents'+ ${comment.cno}" placeholder="내용">
-                                         <button id="modify_comment-write-btn" th:onclick="'commentModify(' + ${comment.cno} + ')'">수정</button>
+                                        <input type="text" th:id="'modify_commentContents'+ ${comment.cno}"
+                                               placeholder="내용">
+                                         <button id="modify_comment-write-btn"
+                                                 th:onclick="'commentModify(' + ${comment.cno} + ')'">수정</button>
                                         </span>
                                         </th:block>
                                     </div><!--modify end-->
@@ -194,8 +233,6 @@
     </div>
 
 </section>
-
-
 
 
 <!--    &lt;!&ndash;/* 댓글 수정 popup */&ndash;&gt;-->
@@ -227,9 +264,106 @@
 <!-- start footer -->
 <div th:replace="/footer :: footer"></div>
 <!-- end footer-->
+<script>
 
+</script>
 </body>
+<script>
+
+</script>
 <script th:inline="javascript">
+
+    let sessionCheck;
+
+    const sessionReq = () => {
+        $.ajax({
+            type: "GET",
+            url: "/get-session-value", // 세션 값을 반환하는 엔드포인트 URL
+            success: function (data) {
+                // 성공적으로 세션 값을 가져왔을 때 실행되는 콜백 함수
+                // data 객체에 서버에서 반환한 세션 값이 들어 있습니다.
+
+                // 여기에서 data를 원하는 방식으로 처리할 수 있습니다.
+                // 예: 세션 값이 있다면 해당 값을 사용하고, 없다면 기본값을 사용
+                if (data.loginDTO) {
+                    // 세션 값이 존재할 때의 처리
+                    sessionCheck = data.loginDTO;
+                    likeReq();
+                } else {
+                    // 세션 값이 없을 때의 처리
+                    sessionCheck = null;
+                }
+            },
+            error: function () {
+                sessionCheck = null;
+            }
+        });
+
+    }
+
+    const likeReq = () => {
+        if (sessionCheck) {
+            let memberId = sessionCheck.memberId;
+            let bno = [[${board.bno}]];
+            let heartPath = document.querySelector(".heart-fill");
+            $.ajax({
+                type: "get",
+                url: "/board/proud/" + bno + "/" + "likeCheck",
+                data: {
+                    "memberId": memberId,
+                    "bno": bno
+                },
+                success: function (data) {
+                    console.log("빨간 하트");
+                    console.log(data);
+                    if (data) {
+                        heartPath.setAttribute("fill", "#ff0000");
+                    } else {
+                        heartPath.setAttribute("fill", "none");
+                    }
+                },
+                error: function () {
+                    console.log("흰색 하트");
+                    heartPath.setAttribute("fill", "none");
+                }
+            });
+        }
+    }
+    sessionReq();
+    const likeClick = () => {
+        let heartPath = document.querySelector(".heart-fill");
+        if (sessionCheck) {
+            likeAjax();
+            if (heartPath.getAttribute("fill") == "none") {
+                heartPath.setAttribute("fill", "#ff0000");
+            } else {
+                heartPath.setAttribute("fill", "none");
+            }
+        } else {
+            alert("로그인을 해주세요!");
+        }
+
+    }
+
+    const likeAjax = () =>  {
+        let bno = [[${board.bno}]];
+        let memberId = sessionCheck.memberId;
+        console.log("memberId!!!!",memberId);
+        $.ajax({
+            // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
+            type: "post",
+            url: "/board/proud/likeCheck",
+            data: {
+                "memberId": memberId,
+                "bno": bno
+            }
+        })
+            .done(function (fragment) {
+                console.log(JSON.stringify(fragment));
+                $('#like_count').replaceWith(fragment);
+            });
+    }
+
     const listReq = () => {
         console.log("게시판 리스트 요청 성공");
         const page = [[${page}]];
@@ -254,38 +388,39 @@
         console.log("내용:", contents);
         const bno = [[${board.bno}]]; //게시글번호
         //게시글번호 가져오기
-            $.ajax({
-                // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
-                type: "post",
-                url: "/board/proud/comment/save",
-                data: {
-                    "memberId": sessionId,
-                    "writer": writer,
-                    "commentContents": contents,
-                    "bno": bno
-                }
-            })
-                .done(function (fragment) {
-                    console.log(JSON.stringify(fragment));
-                        $('#comment-list').replaceWith(fragment);
-                });
+        $.ajax({
+            // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
+            type: "post",
+            url: "/board/proud/comment/save",
+            data: {
+                "memberId": sessionId,
+                "writer": writer,
+                "commentContents": contents,
+                "bno": bno
+            }
+        })
+            .done(function (fragment) {
+                console.log(JSON.stringify(fragment));
+                $('#comment-list').replaceWith(fragment);
+            });
 
-            document.getElementById('commentWriter').value = writer;
-            document.getElementById('commentContents').value = '';
+        document.getElementById('commentWriter').value = writer;
+        document.getElementById('commentContents').value = '';
     }
-    function formatDate(dateString) {
-        const options = {
-            year: '2-digit',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-        };
-        const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
-        return formattedDate;
-    }
+
+    // function formatDate(dateString) {
+    //     const options = {
+    //         year: '2-digit',
+    //         month: '2-digit',
+    //         day: '2-digit',
+    //         hour: '2-digit',
+    //         minute: '2-digit',
+    //         second: '2-digit',
+    //         hour12: false
+    //     };
+    //     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    //     return formattedDate;
+    // }
 
     function showCommentModification(cno) {
         // Construct the IDs for the button and modification section
@@ -299,17 +434,17 @@
         // Toggle the display of the modification section
         if (modifySection.style.display === 'none') {
             modifySection.style.display = 'block';
-            modifyButton.innerText= '수정취소';
+            modifyButton.innerText = '수정취소';
         } else {
             modifySection.style.display = 'none';
-            modifyButton.innerText= '수정';
+            modifyButton.innerText = '수정';
         }
     }
 
-    function commentModify(cno){
+    function commentModify(cno) {
 
-        let modify_commentWriter = 'modify_commentWriter'+cno;
-        let modify_commentContents = 'modify_commentContents'+cno;
+        let modify_commentWriter = 'modify_commentWriter' + cno;
+        let modify_commentContents = 'modify_commentContents' + cno;
 
         const sessionId = [[${session.loginDTO != null ? session.loginDTO.memberId : ''}]];
         const writer = document.getElementById(modify_commentWriter).value;
@@ -322,9 +457,9 @@
         $.ajax({
             // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
             type: "post",
-            url: "/board/proud/comment/update/"+bno+"/"+cno,
+            url: "/board/proud/comment/update/" + bno + "/" + cno,
             data: {
-                "Cno":cno,
+                "Cno": cno,
                 "memberId": sessionId,
                 "writer": writer,
                 "commentContents": contents,
@@ -348,7 +483,7 @@
             // 사용자가 확인을 눌렀을 때, 댓글 삭제 요청을 보냄 (예를 들어, AJAX 요청)
             $.ajax({
                 type: "POST", // 또는 "DELETE" 등 HTTP 요청 방식에 따라 변경
-                url: "/board/proud/comment/delete/" + bno+"/"+cno, // 댓글 삭제를 처리하는 엔드포인트 URL
+                url: "/board/proud/comment/delete/" + bno + "/" + cno, // 댓글 삭제를 처리하는 엔드포인트 URL
                 success: function (data) {
                     console.log("댓글 삭제 성공");
                 },
@@ -363,8 +498,8 @@
             console.log("댓글 삭제 취소");
         }
     }
+
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!--Bootstrap Js-->
 <script src="/js/bootstrap.bundle.min.js"></script>
 
