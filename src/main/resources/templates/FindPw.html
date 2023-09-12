@@ -1,27 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>FindPw</title>
+  <title>비밀번호 찾기</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content=" "/>
+  <meta name="keywords" content=""/>
+  <meta content="Pichforest" name="author"/>
+
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+  <!-- Material Icon Css -->
+  <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+  <!-- Unicon Css -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
   <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 
-
 <body>
-<h2>비밀번호 변경</h2>
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+<section class="section position-relative overflow-hidden"
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover; top: 95px;">
+  <div class="content-wrapper container ">
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb default mb-0">
+            <li class="breadcrumb-item">
+              <a href="/" class="text-muted">홈</a>
+            </li>
+            <li class="breadcrumb-item " aria-current="page"><a class="text-muted" href="/member/login">로그인</a></li>
+            <li class="breadcrumb-item active text-primary" aria-current="page">비밀번호찾기</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section position-relative overflow-hidden"
+         style=" top: 50px; padding-bottom: 90px;" >
+  <div class="content-wrapper container mt-5">
+    <div class="row">
+      <div class="col-lg-11">
+        <h2 class="fw-bold">비밀번호 찾기</h2>
+        <p class="fw-semibold">반함 비밀번호 찾기</p>
+      </div>
+    </div>
+    <hr class="my-4">
+    <section class="flexbox pb-3">
+      <div class="col align-self-center">
+        <div class="info-box">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <div class="mt-4">
+                <div class="mt-2">
+                  <label class="form-label fw-semibold" for="findId">아이디 </label>
+                  <input class="form-control" type="text" id="findId" name="findId"> <br>
+                </div>
+                <label class="form-label fw-semibold" for="findMail">이메일 </label>
+                <input class="form-control" type="text" id="findMail" name="findMail">
+                <button class="btn btn-sm btn-primary mt-3" type="button" id="btnConfirm" onclick="mailConfirm3()">메일
+                  인증
+                </button>
+                <div class="mt-2">
+                  <label class="form-label fw-semibold" for="mailConfirm">인증 코드 </label>
+                  <input class="form-control" type="text" id="mailConfirm" name="mailConfirm"
+                         onblur="confirmCheck()">
+                  <p id="confirm_check_result">이메일 인증 후 비밀번호 변경을 진행해주세요.</p>
+                </div>
+                <div class="mt-4">
+                  <label class="form-label fw-semibold" for="memberPass">새 비밀번호</label>
+                  <input class="form-control" type="password" id="memberPass" name="memberPass" readonly> <br>
+                  <label class="form-label fw-semibold" for="passCheck">비밀번호 확인</label>
+                  <input class="form-control" type="password" id="passCheck" name="passCheck" readonly>
+                  <hr class="my-4">
+                  <div class="submit-button text-center">
+                    <button class="btn btn-sm btn-primary w-100" type="button" id="changePw" name="changePw"
+                            disabled="disabled"
+                            onclick="passCheck2()">비밀번호 변경
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+</section>
 
-<label for="findId">아이디 : </label> <input type="text" id="findId" name="findId"> <br>
-
-<label for="findMail">이메일 : </label> <input type="text" id="findMail" name="findMail"> <button type="button" id="btnConfirm" onclick="mailConfirm3()">메일 인증</button> <br>
-
-<label for="mailConfirm">인증 코드 : </label> <input type="text" id="mailConfirm" name="mailConfirm" onblur="confirmCheck()">
-<p id="confirm_check_result">이메일 인증 후 비밀번호 변경을 진행해주세요.</p>
-
-<label for="memberPass">새 비밀번호</label> <input type="password" id="memberPass" name="memberPass" readonly> <br>
-<label for="passCheck">비밀번호 확인</label> <input type="password" id="passCheck" name="passCheck" readonly>
-<button type="button" id="changePw" name="changePw" disabled="disabled" onclick="passCheck2()">비밀번호 변경</button>
-
+<!-- End Notice -->
+<div th:replace="/footer :: footer"></div>
+<!-- end footer-->
 </body>
 <script th:inline="javascript">
 
@@ -148,4 +231,16 @@
   } //비밀번호 입력, 재입력 확인 및 유효성 검사 및 비밀번호 변경 메소드 end
 
 </script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<!-- Slider Js -->
+<script src="/js/tiny-slider.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<!-- counter -->
+<script src="/js/counter.init.js"></script>
+
+<!-- App Js -->
+<script src="/js/app.js"></script>
 </html>
