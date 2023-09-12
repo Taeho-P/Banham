@@ -76,7 +76,7 @@ public class BoardController {
 
     @GetMapping("/NoticeWrite")
     public String noticeForm() { //공지사항 게시판 페이지 이동 (태호)
-        return "NoticeWrite";
+        return "/notice/NoticeWrite";
     }
 
     @PostMapping("/Notice/save")
@@ -105,7 +105,7 @@ public class BoardController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "NoticeBoard";
+        return "/notice/NoticeBoard";
     }
 
 
@@ -123,7 +123,7 @@ public class BoardController {
         model.addAttribute("board", noticeBoardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
-        return "NoticeView";
+        return "/notice/NoticeView";
     }
 
     @GetMapping("/Notice/update/{bno}")
@@ -133,7 +133,7 @@ public class BoardController {
         model.addAttribute("noticeBoardUpdate", noticeBoardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
-        return "NoticeUpdate";
+        return "/notice/NoticeUpdate";
     }
 
     // 자랑 게시판 글쓰기 (9/4)
@@ -293,7 +293,7 @@ public class BoardController {
 
     @GetMapping("/EditorWrite")
     public String editorForm() { //공지사항 게시판 페이지 이동 (태호)
-        return "EditorWrite";
+        return "/editor/EditorWrite";
     }
 
     @PostMapping("/Editor/save")
@@ -322,7 +322,7 @@ public class BoardController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "EditorBoard";
+        return "/editor/EditorBoard";
     }
 
 
@@ -331,7 +331,7 @@ public class BoardController {
                                   @PageableDefault(page = 1) Pageable pageable) {
         /*
             해당 게시글의 조회수를 1 올리고
-            게시글 데이터를 가져와서 NoticeView.html에 출력해주는 방식
+            게시글 데이터를 가져와서 EditorView.html에 출력해주는 방식
          */
         editorBoardService.updateHits(bno); // '해당 게시글의 조회수를 1 올리고'  --> 해결
 
@@ -340,7 +340,7 @@ public class BoardController {
         model.addAttribute("board", editorBoardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
-        return "EditorView";
+        return "/editor/EditorView";
     }
 
     @GetMapping("/Editor/update/{bno}")
@@ -350,7 +350,7 @@ public class BoardController {
         model.addAttribute("editorBoardUpdate", editorBoardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
-        return "EditorUpdate";
+        return "/editor/EditorUpdate";
     }
 
 
