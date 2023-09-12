@@ -80,4 +80,14 @@ public class CommentService {
     public void proudCommentdelete(Long cno){
         proudCommentRepository.deleteById(cno);
     }
+
+    @Transactional
+    public List<ProudCommentDTO> proudCommentFindByMemberId(String memberId){
+        List<ProudCommentEntity> proudCommentEntities = proudCommentRepository.findByCommentMemberId(memberId);
+        List<ProudCommentDTO> proudCommentDTOList = new ArrayList<>();
+        for(ProudCommentEntity entits : proudCommentEntities){
+            proudCommentDTOList.add(ProudCommentDTO.toCommentDTO(entits));
+        }
+        return proudCommentDTOList;
+    }
 }

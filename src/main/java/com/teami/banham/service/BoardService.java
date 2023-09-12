@@ -5,9 +5,11 @@ import com.teami.banham.dto.ProudCommentDTO;
 import com.teami.banham.dto.ProudLikeDTO;
 import com.teami.banham.entity.ProudBoardEntity;
 import com.teami.banham.entity.ProudBoardFileEntity;
+import com.teami.banham.entity.ProudCommentEntity;
 import com.teami.banham.entity.ProudLikeEntity;
 import com.teami.banham.repository.ProudBoardFileRepository;
 import com.teami.banham.repository.ProudBoardRepository;
+import com.teami.banham.repository.ProudCommentRepository;
 import com.teami.banham.repository.ProudLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,6 +34,7 @@ public class BoardService {
     private final ProudBoardRepository proudBoardRepository;
     private final ProudBoardFileRepository proudBoardFileRepository;
     private final ProudLikeRepository proudLikeRepository;
+    private final ProudCommentRepository proudCommentRepository;
 
     //자랑 게시판 게시글 작성시 저장 메소드
     public Long proudSave(ProudBoardDTO proudBoardDTO) throws IOException {
@@ -158,6 +161,7 @@ public class BoardService {
     @Transactional
     public void proudDelete(Long bno){
         proudBoardRepository.deleteById(bno);
+        proudCommentRepository.deleteByDelete_ck(bno);
     }
 
     public Page<ProudBoardDTO> proudSearch(Pageable pageable,String searchType,String searchKeyword){
@@ -177,7 +181,7 @@ public class BoardService {
             return boardDTOS;
         } else if (searchType.equals("writer")){
             Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
-                    proudBoardRepository.findAllbyWriter(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+                    proudBoardRepository.findallbyWriter(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
             Page<ProudBoardDTO> boardDTOS = proudBoardEntities.map(board -> new ProudBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getProudBoardFileEntityList(),board.getProudCommentEntityList(),board.getProudLikeEntityList()));
             return boardDTOS;
         } else {
@@ -205,7 +209,6 @@ public class BoardService {
         }
     }
 
-
     @Transactional
     public List<ProudBoardDTO> proudFindAllList(String memberId) {
         List<ProudBoardEntity> proudBoardEntities =
@@ -214,7 +217,26 @@ public class BoardService {
         for(ProudBoardEntity entits : proudBoardEntities){
             proudBoardDTOList.add(ProudBoardDTO.toBoardDTO(entits));
         }
-
         return proudBoardDTOList;
+    }
+
+    @Transactional
+    public List<ProudBoardDTO> proudLikeFindMemberIdBoardList(String memberId){
+        List<ProudLikeEntity> proudLikeEntities = proudLikeRepository.findAllMemberId(memberId);
+        List<ProudBoardEntity> proudBoardEntities = new ArrayList<>();
+        if(proudLikeEntities!=null) {
+            for (int i = 0;i < proudLikeEntities.size();i++) {
+                ProudLikeEntity proudLike = proudLikeEntities.get(i);
+                ProudBoardEntity proudBoard=proudBoardRepository.findbyforLikeBno(proudLike.getProudBoardEntity().getBno());
+                proudBoardEntities.add(proudBoard);
+            }
+            List<ProudBoardDTO> proudBoardDTOList = new ArrayList<>();
+            for(ProudBoardEntity proudBoardEntity : proudBoardEntities){
+                proudBoardDTOList.add(ProudBoardDTO.toBoardDTO(proudBoardEntity));
+            }
+            return proudBoardDTOList;
+        }else{
+            return null;
+        }
     }
 }

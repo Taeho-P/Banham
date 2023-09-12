@@ -1,10 +1,11 @@
 package com.teami.banham.repository;
 
+import org.springframework.data.repository.query.Param;
 import com.teami.banham.entity.ProudLikeEntity;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -12,12 +13,15 @@ import java.util.Optional;
 public interface ProudLikeRepository extends JpaRepository<ProudLikeEntity,Long> {
 
     @Query("select count(l) from ProudLikeEntity l where l.proudBoardEntity.bno=:bno")
-    Long findAllCount(@Param("bno") Long bno);
+    Long findAllCount(Long bno);
 
     @Query("select l from ProudLikeEntity l where l.proudBoardEntity.bno=:bno and l.memberId=:memberId")
-    Optional<ProudLikeEntity> findByMemberId(@Param("bno")Long bno,@Param("memberId") String memberId);
+    Optional<ProudLikeEntity> findByMemberId(Long bno,String memberId);
 
     @Modifying
     @Query("delete from ProudLikeEntity l where l.proudBoardEntity.bno=:bno and l.memberId=:memberId")
     void deleteByLike(Long bno, String memberId);
+
+    @Query("select l from ProudLikeEntity l where l.memberId=:memberId")
+    List<ProudLikeEntity> findAllMemberId(String memberId);
 }
