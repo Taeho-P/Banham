@@ -85,7 +85,6 @@
         <th:block th:unless="${session.loginDTO == null}">
             <input type="hidden" id="memberNick" th:value="${session.loginDTO.getMemberNick()}">
         </th:block><!-- 세션값 가져오는 hidden input end -->
-
         <div class="row mt-5">
             <div class="col-lg-12">
                 <div class="row" id="board_list"> <!--게시판 목록 start-->
@@ -101,7 +100,7 @@
                       <th:block th:if="${board.proudCommentDTOList!=null}">
                       <span class="ms-2"> <i class="mdi mdi-message-text-outline align-middle"
                                              th:text="${board.proudCommentDTOList.size()}"></i> </span>
-                          </th:block>
+                      </th:block>
                       <th:block th:unless="${board.proudCommentDTOList!=null}">
                            <span class="ms-2"> <i class="mdi mdi-message-text-outline align-middle"
                                                   th:text="0"></i> </span>
@@ -122,13 +121,21 @@
                                 <h5 class="fw-bold slider-overtext"><a
                                         th:href="@{|/board/proud/${board.bno}|(page=${boardList.number + 1})}"
                                         th:text="${board.title}"></a></h5>
-                                <p class="text-muted f-15 mb-3 slider-overtext"
+                                <p class="text-muted fw-bold f-5 slider-overtext"
+                                   th:text="${board.writer}"></p>
+                                <p class="f-5 slider-overtext"
                                    th:text="${#temporals.format(board.createDate,'yyyy-MM-dd')}"></p>
                             </div>
                         </div>
                     </div>
+                    <div class="pt-3 text-center section">
+                        <th:block th:if="${boardList.isEmpty()}"><!-- 게시물이없을때 -->
+                            게시물이 없어요!
+                        </th:block>
+                    </div>
                 </div><!--게시판목록 end-->
             </div>
+            <hr class="my-3">
             <div class="pagination-block">
                 <nav aria-label="navigation">
                     <ul id="page_list" class="pagination justify-content-center">

@@ -5,9 +5,11 @@ import com.teami.banham.dto.ProudCommentDTO;
 import com.teami.banham.dto.ProudLikeDTO;
 import com.teami.banham.entity.ProudBoardEntity;
 import com.teami.banham.entity.ProudBoardFileEntity;
+import com.teami.banham.entity.ProudCommentEntity;
 import com.teami.banham.entity.ProudLikeEntity;
 import com.teami.banham.repository.ProudBoardFileRepository;
 import com.teami.banham.repository.ProudBoardRepository;
+import com.teami.banham.repository.ProudCommentRepository;
 import com.teami.banham.repository.ProudLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,6 +34,7 @@ public class BoardService {
     private final ProudBoardRepository proudBoardRepository;
     private final ProudBoardFileRepository proudBoardFileRepository;
     private final ProudLikeRepository proudLikeRepository;
+    private final ProudCommentRepository proudCommentRepository;
 
     //자랑 게시판 게시글 작성시 저장 메소드
     public Long proudSave(ProudBoardDTO proudBoardDTO) throws IOException {
@@ -158,6 +161,7 @@ public class BoardService {
     @Transactional
     public void proudDelete(Long bno){
         proudBoardRepository.deleteById(bno);
+        proudCommentRepository.deleteByDelete_ck(bno);
     }
 
     public Page<ProudBoardDTO> proudSearch(Pageable pageable,String searchType,String searchKeyword){
@@ -205,7 +209,6 @@ public class BoardService {
         }
     }
 
-
     @Transactional
     public List<ProudBoardDTO> proudFindAllList(String memberId) {
         List<ProudBoardEntity> proudBoardEntities =
@@ -214,7 +217,6 @@ public class BoardService {
         for(ProudBoardEntity entits : proudBoardEntities){
             proudBoardDTOList.add(ProudBoardDTO.toBoardDTO(entits));
         }
-
         return proudBoardDTOList;
     }
 }
