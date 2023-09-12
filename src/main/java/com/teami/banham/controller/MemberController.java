@@ -1,15 +1,21 @@
 package com.teami.banham.controller;
 
+import com.teami.banham.dto.EditorBoardDTO;
 import com.teami.banham.dto.MemberDTO;
+import com.teami.banham.dto.NoticeBoardDTO;
+import com.teami.banham.service.EditorBoardService;
 import com.teami.banham.service.MemberService;
+import com.teami.banham.service.NoticeBoardService;
 import com.teami.banham.service.RegisterMail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor //final 필드에 대한 생성자 자동 생성 (lombok)
@@ -18,6 +24,9 @@ public class MemberController {
     //생성자 주입 (@RequiredArgsConstructor 를 통해 final필드에 대한 생성자 생성
     private final MemberService memberService;
     private final RegisterMail registerMail;
+
+    private final NoticeBoardService noticeBoardService;
+    private final EditorBoardService editorBoardService;
 
     //회원가입 페이지 출력 요청
     @GetMapping("/signUp")
@@ -176,6 +185,20 @@ public class MemberController {
             memberService.update(memberDTO);
             return new ResponseEntity<>(memberDTO, HttpStatus.OK);
         }
+    }
+
+    //로그인중인 회원이 작성한 글 목록 호출
+    @GetMapping("/WriteList")
+    public String writeListForm(HttpSession session, Model model) {
+        MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
+
+        List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeWriteList(loginDTO.getMno()); //사용자가 작성한 공지사항 목록 불러오기
+        List<EditorBoardDTO> editorBoardDTOList = editorBoardService.editorWriteList(loginDTO.getMno()); //사용자가 작성한 에디터 글 목록 불러오기
+
+        model.addAttribute("noticeBoardList", noticeBoardDTOList);
+        model.addAttribute("editorBoardList", editorBoardDTOList);
+
+        return "WriteList";
     }
 
 }

@@ -10,4 +10,7 @@ public class EditorBoardSpecification {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isDelete"), isDelete);
     }
 
+    public static Specification<EditorBoardEntity> equalWriterMno(Long writerMno) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("writerMno"), writerMno);
+    }
 }

@@ -1,59 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>에디터</title>
-  <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-</head>
-<body>
-<table>
-  <tr>
-    <th>게시글 번호</th>
-    <td th:text="${board.bno}"></td>
-  </tr>
-  <tr>
-    <th>제목</th>
-    <td th:text="${board.boardTitle}"></td>
-  </tr>
-  <tr>
-    <th>작성자</th>
-    <td th:text="${board.boardWriter}"></td>
-  </tr>
-  <tr>
-    <th>작성일</th>
-    <td th:text="${#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-  </tr>
-  <th>수정일</th>
-  <td th:if="${board.getBoardUpdatedTime() == null}"> - </td>
-  <td th:unless="${board.getBoardUpdatedTime() == null}" th:text="${#temporals.format(board.getBoardUpdatedTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
-  <tr>
-    <th>조회수</th>
-    <td th:text="${board.boardHits}"></td>
-  </tr>
-  <tr>
-    <th>내용</th>
-    <td th:text="${board.boardContents}"></td>
-  </tr>
-  <tr th:if="${board.hasFile == 'Y'}">
-    <td th:each="fileName: ${board.storedFile}">  <!-- 파일 이름 List내의 파일 수만큼 반복문 -->
-      <img th:src="@{|/upload/${fileName}|}" alt="">
-    </td>
-  </tr>
 
-</table>
-<button onclick="listReq()">목록</button>
-<th:block th:if="${session.loginDTO != null}">
-  <th:block th:if="${session.loginDTO.memberId == 'banham'}">
-    <button onclick="updateReq()">수정</button>
-    <button onclick="deleteReq()">삭제</button>
-  </th:block>
-</th:block>
+  <meta charset="UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content=" "/>
+  <meta name="keywords" content=""/>
+  <meta content="Pichforest" name="author"/>
+
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+  <!-- Material Icon Css -->
+  <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+  <!-- Unicon Css -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- Swiper Css -->
+  <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css" />
+  <link rel="stylesheet" href="/css/swiper.min.css" type="text/css" />
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
+
+  <title th:text="${board.boardTitle}"></title>
+
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+<section class="section position-relative overflow-hidden"
+         style=" top: 95px;">
+  <div class="page-wrapper container ">
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb default mb-0">
+            <li class="breadcrumb-item">
+              <a href="/" class="text-muted">홈</a>
+            </li>
+            <li class="breadcrumb-item active text-primary" aria-current="page">
+              <a href="/board/EditorBoard" class="text-muted">에디터</a>
+            </li>  <!-- NoticeBoard.html로 이동 추가 -->
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="section position-relative overflow-hidden"style=" top: 95px; padding-bottom: 90px;">
+  <div class="content-wrapper container ">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2 class="fw-bold">에디터 추천</h2>
+      </div>
+    </div>
+    <hr class="my-4">
+    <section class="artical flexbox pb-3">
+      <div class="container">
+        <div class="board-post">
+          <h3 class="post-title"th:text="${board.boardTitle}" ></h3>
+          <div class="post-header">
+            <div class="info">
+              <dl>
+                <dt>작성자</dt>
+                <dd th:text="${board.boardWriter}"></dd>
+              </dl>
+              <dl>
+                <dt class="th-h">조회수</dt>
+                <dd class="th-h" th:text="${board.boardHits}"></dd>
+              </dl>
+              <dl>
+                <dt>작성일</dt>
+                <dd th:text="${#temporals.format(board.boardCreatedTime,'yyyy-MM-dd HH:mm:ss')}"></dd>
+              </dl>
+            </div>
+          </div>
+          <div class="post-body">
+            <dl class="file-list2">
+              <dd>
+                                <span th:if="${board.hasFile=='Y'}"> <!-- 이미지가 있을시 출력-->
+                                    <span th:each="file:${board.storedFile}">
+                                        <img th:src="@{|/upload/${file}|}" alt="" style="width:100%;"><br>
+                                    </span>
+                                </span>
+                <span th:text="${board.boardContents}" style="white-space: pre-wrap"></span> <!--내용 출력-->
+              </dd>
+            </dl>
+            <ul class="file-list">
+              <li th:each="file:${board.boardFile}">
+                <a class="icon icon-paperclip-1"href="#none" data-action="downloadFile" style="cursor: pointer;" th:text="${file.getOriginalFilename()}"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="row">
+            <button class="col-2 btn btn-list float-right" onclick="listReq()">목록</button>
+            <th:block th:if="${session.loginDTO!=null}">
+              <th:block th:if="${board.boardWriter==session.loginDTO.memberNick}">
+                <th:block th:if="${session.loginDTO.memberId=='banham'}">
+                  <button class="col-2 btn btn-list float-right" onclick="updateReq()" value="수정">수정</button>
+                  <button class="col-2 btn btn-list float-right" onclick="deleteReq()" value="삭제">삭제</button>
+                </th:block>
+              </th:block>
+            </th:block>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+
+
+
+<!-- start footer -->
+<div th:replace="/footer :: footer"></div>
+<!-- end footer-->
 
 </body>
-
 <script th:inline="javascript">
-
 
   const listReq = () => {
     console.log("상세목록 조회");
@@ -73,5 +146,116 @@
       location.href = "/board/Editor/delete/" + bno;
     }
   }
+
+
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<!-- Slider Js -->
+<script src="/js/tiny-slider.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<!-- counter -->
+<script src="/js/counter.init.js"></script>
+
+<!-- App Js -->
+<script src="/js/app.js"></script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>에디터</title>-->
+<!--  &lt;!&ndash; Ajax를 사용하기 위한 JQuery CDN 적용 &ndash;&gt;-->
+<!--  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<table>-->
+<!--  <tr>-->
+<!--    <th>게시글 번호</th>-->
+<!--    <td th:text="${board.bno}"></td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <th>제목</th>-->
+<!--    <td th:text="${board.boardTitle}"></td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <th>작성자</th>-->
+<!--    <td th:text="${board.boardWriter}"></td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <th>작성일</th>-->
+<!--    <td th:text="${#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+<!--  </tr>-->
+<!--  <th>수정일</th>-->
+<!--  <td th:if="${board.getBoardUpdatedTime() == null}"> - </td>-->
+<!--  <td th:unless="${board.getBoardUpdatedTime() == null}" th:text="${#temporals.format(board.getBoardUpdatedTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+<!--  <tr>-->
+<!--    <th>조회수</th>-->
+<!--    <td th:text="${board.boardHits}"></td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <th>내용</th>-->
+<!--    <td th:text="${board.boardContents}"></td>-->
+<!--  </tr>-->
+<!--  <tr th:if="${board.hasFile == 'Y'}">-->
+<!--    <td th:each="fileName: ${board.storedFile}">  &lt;!&ndash; 파일 이름 List내의 파일 수만큼 반복문 &ndash;&gt;-->
+<!--      <img th:src="@{|/upload/${fileName}|}" alt="">-->
+<!--    </td>-->
+<!--  </tr>-->
+
+<!--</table>-->
+<!--<button onclick="listReq()">목록</button>-->
+<!--<th:block th:if="${session.loginDTO != null}">-->
+<!--  <th:block th:if="${session.loginDTO.memberId == 'banham'}">-->
+<!--    <button onclick="updateReq()">수정</button>-->
+<!--    <button onclick="deleteReq()">삭제</button>-->
+<!--  </th:block>-->
+<!--</th:block>-->
+
+<!--</body>-->
+
+<!--<script th:inline="javascript">-->
+
+
+<!--  const listReq = () => {-->
+<!--    console.log("상세목록 조회");-->
+<!--    location.href = "/board/EditorBoard?page=" + [[${page}]];-->
+<!--  }-->
+
+<!--  const updateReq = () => {-->
+<!--    console.log("수정 요청");-->
+<!--    const bno = [[${board.bno}]];-->
+<!--    location.href = "/board/Editor/update/" + bno;-->
+<!--  }-->
+
+<!--  const deleteReq = () => {-->
+<!--    console.log("삭제 요청");-->
+<!--    if(confirm("게시글을 삭제하시겠습니까?")) {-->
+<!--      const bno = [[${board.bno}]]-->
+<!--      location.href = "/board/Editor/delete/" + bno;-->
+<!--    }-->
+<!--  }-->
+<!--</script>-->
+<!--</html>-->

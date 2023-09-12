@@ -1,12 +1,11 @@
 package com.teami.banham.service;
 
 import com.teami.banham.dto.EditorBoardDTO;
+import com.teami.banham.dto.NoticeBoardDTO;
 import com.teami.banham.entity.EditorBoardEntity;
 import com.teami.banham.entity.EditorBoardFileEntity;
-import com.teami.banham.repository.EditorBoardFileRepository;
-import com.teami.banham.repository.EditorBoardRepository;
-import com.teami.banham.repository.EditorBoardSpecification;
-import com.teami.banham.repository.MemberRepository;
+import com.teami.banham.entity.NoticeBoardEntity;
+import com.teami.banham.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -32,6 +33,7 @@ public class EditorBoardService {
 
     private final EditorBoardFileRepository editorBoardFileRepository;
 
+    @Transactional
     public void save(EditorBoardDTO editorBoardDTO) throws IOException {
         //파일 첨부 여부에 따라 save방식 분리
         if (editorBoardDTO.getBoardFile().stream().anyMatch(MultipartFile::isEmpty)) {
@@ -75,6 +77,7 @@ public class EditorBoardService {
     }
 
     //페이징을 위한 메소드
+    @Transactional
     public Page<EditorBoardDTO> paging(Pageable pageable) {
 
         Specification<EditorBoardEntity> spec = (root, query, criteriaBuilder) -> null;
@@ -85,7 +88,7 @@ public class EditorBoardService {
         Page<EditorBoardEntity> editorBoardEntities = editorBoardRepository.findAll(spec, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")));
 
         // 리스트에서 보여줄 목록 : bno(상세 게시글 조회를 위해), EorN, boardTitle, boardWriter, createdTime, boardHits
-        Page<EditorBoardDTO> editorBoardDTOS = editorBoardEntities.map(board -> new EditorBoardDTO(board.getBno(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        Page<EditorBoardDTO> editorBoardDTOS = editorBoardEntities.map(board -> new EditorBoardDTO(board.getBno(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime(), board.getHasFile(), board.getEditorBoardFileEntityList()));
 
         return editorBoardDTOS;
     }
@@ -108,6 +111,7 @@ public class EditorBoardService {
         }
     }
 
+    @Transactional
     public EditorBoardDTO update(EditorBoardDTO editorBoardDTO) {
         EditorBoardEntity editorBoardEntity = EditorBoardEntity.toUpdateEntity(editorBoardDTO);
         editorBoardRepository.save(editorBoardEntity);
@@ -117,5 +121,23 @@ public class EditorBoardService {
     @Transactional //아무튼 자꾸 붙여줘야댐..
     public void delete(Long bno) {
         editorBoardRepository.updateIsDelete(bno);
+    }
+
+    public List<EditorBoardDTO> editorWriteList(Long mno) {
+        Specification<EditorBoardEntity> spec = (root, query, criteriaBuilder) -> null;
+        spec = spec.and(EditorBoardSpecification.equalIsDelete("N"));
+        spec = spec.and(EditorBoardSpecification.equalWriterMno(mno));
+
+        List<EditorBoardEntity> editorBoardEntities = editorBoardRepository.findAll(spec);
+
+        List<EditorBoardDTO> editorBoardDTOList = new ArrayList<>();
+
+        for(EditorBoardEntity editorBoardEntity : editorBoardEntities) {    //Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime)
+            EditorBoardDTO editorBoardDTO = new EditorBoardDTO(editorBoardEntity.getBno(), editorBoardEntity.getBoardWriter(), editorBoardEntity.getBoardTitle(), editorBoardEntity.getBoardHits(), editorBoardEntity.getCreatedTime());
+
+            editorBoardDTOList.add(editorBoardDTO);
+        }
+
+        return editorBoardDTOList;
     }
 }

@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>에디터 글 수정</title>
-</head>
-<body>
-<form action="/board/Editor/update" method="post" name="editorUpdateForm">
-  <input type="hidden" name="bno" th:value="${editorBoardUpdate.bno}">
-  <input type="hidden" name="boardWriter" th:value="${editorBoardUpdate.boardWriter}">
-  <input type="hidden" name="writerMno" th:value="${editorBoardUpdate.writerMno}">
-  <input type="text" name="boardTitle" id="boardTitle" th:value="${editorBoardUpdate.boardTitle}" placeholder="제목을 입력해주세요"><br>
-  <textarea name="boardContents" id="boardContents" th:text="${editorBoardUpdate.boardContents}" placeholder="내용을 입력해주세요"></textarea><br>
-  <input type="hidden" name="boardHits" th:value="${editorBoardUpdate.boardHits}">
-  <input type="hidden" name="hasFile" th:value="${editorBoardUpdate.hasFile}">
-  <input type="hidden" name="isDelete" th:value="${editorBoardUpdate.isDelete}">
-  <button type="button" onclick="editorBoardUpdate()">수정하기</button>
-</form>
-</body>
-<script th:inline="javascript">
 
+  <meta charset="UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content=" "/>
+  <meta name="keywords" content=""/>
+  <meta content="Pichforest" name="author"/>
+
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+  <!-- Material Icon Css -->
+  <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+  <!-- Unicon Css -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- Swiper Css -->
+  <link rel="stylesheet" href="/css/tiny-slider.css" type="text/css" />
+  <link rel="stylesheet" href="/css/swiper.min.css" type="text/css" />
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
+
+  <!--    <title th:text="${board.title}"></title>-->
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+<section class="section position-relative overflow-hidden"  style=" top: 95px; margin-bottom:5%;">
+  <div class="content-wrapper mb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="fw-bold">공지사항 수정</h2>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="form-group row">
+        <div class="col-lg-12">
+          <form action="/board/Editor/update" method="post" name="editorUpdateForm">
+            <input type="hidden" name="bno" th:value="${editorBoardUpdate.bno}">
+            <input type="hidden" name="hasFile" th:value="${editorBoardUpdate.hasFile}">
+            <input type="hidden" name="boardHits" th:value="${editorBoardUpdate.boardHits}">
+            <input type="hidden" id="writerMno" name="writerMno" th:value="${session.loginDTO.mno}">
+            <input type="hidden" name="isDelete" th:value="${editorBoardUpdate.isDelete}">
+            <input style="outline: none" id="boardWriter" name="boardWriter" th:value="${session.loginDTO.memberNick}" type="hidden">
+            <input type="text" id="boardTitle" name="boardTitle" placeholder="제목을 입력하세요" class="form-control form-control-uniform" th:value="${editorBoardUpdate.boardTitle}">
+            <div class="row grid-margin section">
+              <div class="col-lg-12">
+                <textarea class="w-100" id="boardContents" name="boardContents"placeholder="내용을 입력하세요" th:text="${editorBoardUpdate.boardContents}"></textarea>
+              </div>
+            </div>
+            <div class="section">
+              <div class="modal-footer justify-content-end ">
+                <button type="button" class="btn btn-none btn-sm cursor" onclick="history.back()">취소</button>
+                <button class="btn btn-primary btn-sm cursor" type="button" onclick="editorBoardUpdate()" value="글수정">수정하기</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- start footer -->
+<div th:replace="/footer :: footer"></div>
+<!-- end footer-->
+</body>
+<script>
   const editorBoardUpdate = () => {
     const boardTitle = document.querySelector("#boardTitle").value; //수정하기위해 입력한 제목 값
     const boardContents = document.querySelector("#boardContents").value; //수정하기위해 입력한 본문 값
@@ -33,5 +94,75 @@
     }
     document.editorUpdateForm.submit();
   }
+
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<!-- Slider Js -->
+<script src="/js/tiny-slider.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<!-- counter -->
+<script src="/js/counter.init.js"></script>
+
+<!-- App Js -->
+<script src="/js/app.js"></script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>에디터 글 수정</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form action="/board/Editor/update" method="post" name="editorUpdateForm">-->
+<!--  <input type="hidden" name="bno" th:value="${editorBoardUpdate.bno}">-->
+<!--  <input type="hidden" name="boardWriter" th:value="${editorBoardUpdate.boardWriter}">-->
+<!--  <input type="hidden" name="writerMno" th:value="${editorBoardUpdate.writerMno}">-->
+<!--  <input type="text" name="boardTitle" id="boardTitle" th:value="${editorBoardUpdate.boardTitle}" placeholder="제목을 입력해주세요"><br>-->
+<!--  <textarea name="boardContents" id="boardContents" th:text="${editorBoardUpdate.boardContents}" placeholder="내용을 입력해주세요"></textarea><br>-->
+<!--  <input type="hidden" name="boardHits" th:value="${editorBoardUpdate.boardHits}">-->
+<!--  <input type="hidden" name="hasFile" th:value="${editorBoardUpdate.hasFile}">-->
+<!--  <input type="hidden" name="isDelete" th:value="${editorBoardUpdate.isDelete}">-->
+<!--  <button type="button" onclick="editorBoardUpdate()">수정하기</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--<script th:inline="javascript">-->
+
+<!--  const editorBoardUpdate = () => {-->
+<!--    const boardTitle = document.querySelector("#boardTitle").value; //수정하기위해 입력한 제목 값-->
+<!--    const boardContents = document.querySelector("#boardContents").value; //수정하기위해 입력한 본문 값-->
+
+<!--    if(boardTitle == '' || boardTitle == null) {-->
+<!--      alert("제목을 입력해주세요.")-->
+<!--      return;-->
+<!--    }-->
+<!--    if (boardContents == '' || boardContents == null) {-->
+<!--      alert("내용을 입력해주세요.")-->
+<!--      return;-->
+<!--    }-->
+<!--    document.editorUpdateForm.submit();-->
+<!--  }-->
+<!--</script>-->
+<!--</html>-->

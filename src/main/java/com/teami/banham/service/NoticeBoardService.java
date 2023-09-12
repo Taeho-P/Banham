@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -106,6 +108,7 @@ public class NoticeBoardService {
         }
     }
 
+    @Transactional
     public NoticeBoardDTO update(NoticeBoardDTO noticeBoardDTO) {
         NoticeBoardEntity noticeBoardEntity = NoticeBoardEntity.toUpdateEntity(noticeBoardDTO);
         noticeBoardRepository.save(noticeBoardEntity);
@@ -115,5 +118,24 @@ public class NoticeBoardService {
     @Transactional //아무튼 자꾸 붙여줘야댐..
     public void delete(Long bno) {
         noticeBoardRepository.updateIsDelete(bno);
+    }
+
+    @Transactional
+    public List<NoticeBoardDTO> noticeWriteList(Long mno) {
+        Specification<NoticeBoardEntity> spec = (root, query, criteriaBuilder) -> null;
+        spec = spec.and(NoticeBoardSpecification.equalIsDelete("N"));
+        spec = spec.and(NoticeBoardSpecification.equalWriterMno(mno));
+
+        List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findAll(spec);
+
+        List<NoticeBoardDTO> noticeBoardDTOList = new ArrayList<>();
+
+        for(NoticeBoardEntity noticeBoardEntity : noticeBoardEntities) {
+            NoticeBoardDTO noticeBoardDTO = new NoticeBoardDTO(noticeBoardEntity.getBno(), noticeBoardEntity.getEorN(), noticeBoardEntity.getBoardWriter(), noticeBoardEntity.getBoardTitle(), noticeBoardEntity.getBoardHits(), noticeBoardEntity.getCreatedTime());
+
+            noticeBoardDTOList.add(noticeBoardDTO);
+        }
+
+        return noticeBoardDTOList;
     }
 }
