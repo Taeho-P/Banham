@@ -18,7 +18,6 @@ public class AdoptTest {
         TbAdoptBoard params = TbAdoptBoard.builder()
                 .title("1번 게시글 제목")
                 .content("1번 게시글 내용")
-                .writer("나")
                 .hits(0)
                 .deleteYn(0)
                 .build();
