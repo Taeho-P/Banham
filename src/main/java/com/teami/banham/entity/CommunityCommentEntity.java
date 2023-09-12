@@ -32,6 +32,9 @@ public class CommunityCommentEntity extends BoardBaseEntity {
     private String memberId;
 
     @Column
+    private String profile;
+
+    @Column
     private int delete_ck;
 
     /*  Board:Comment 1:다수 */
@@ -45,6 +48,7 @@ public class CommunityCommentEntity extends BoardBaseEntity {
         communityCommentEntity.setCommentContents(commentDTO.getCommentContents());
         communityCommentEntity.setWriter(commentDTO.getWriter());
         communityCommentEntity.setMemberId(commentDTO.getMemberId());
+        communityCommentEntity.setProfile(commentDTO.getProfile());
         communityCommentEntity.setDelete_ck(commentDTO.getDelete_ck());
         communityCommentEntity.setCommunityBoardEntity(communityBoardEntity);
 

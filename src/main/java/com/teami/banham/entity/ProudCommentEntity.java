@@ -32,6 +32,9 @@ public class ProudCommentEntity extends BoardBaseEntity {
     private String memberId;
 
     @Column
+    private String profile;
+
+    @Column
     private int delete_ck;
 
     /*  Board:Comment 1:다수 */
@@ -45,6 +48,7 @@ public class ProudCommentEntity extends BoardBaseEntity {
         proudCommentEntity.setCommentContents(commentDTO.getCommentContents());
         proudCommentEntity.setWriter(commentDTO.getWriter());
         proudCommentEntity.setMemberId(commentDTO.getMemberId());
+        proudCommentEntity.setProfile(commentDTO.getProfile());
         proudCommentEntity.setDelete_ck(commentDTO.getDelete_ck());
         proudCommentEntity.setProudBoardEntity(proudBoardEntity);
 
