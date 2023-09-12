@@ -54,7 +54,7 @@ public class AdoptFileController {
             adoptFileService.saveFiles(id, files);
         }
 
-        return "adopt/Adopt";
+        return "redirect:/board/adopt";
     }
 
     //file

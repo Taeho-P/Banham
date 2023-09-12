@@ -86,7 +86,7 @@ public class AdoptService {
     public Long update(final Long id, final AdoptRequestDTO params) {
 
         TbAdoptBoard entity = adoptRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        entity.update(params.getTitle(), params.getContent(), params.getMemNick());
+        entity.update(params.getTitle(), params.getContent(), params.getMemNick(), params.getAniType());
         return id;
         //해당 메서드에 업데이트 쿼리 실행 로직 없지만 종료 되면 쿼리가 자동으로 실행됌.(값이 변경되면) = 더티체킹
     }

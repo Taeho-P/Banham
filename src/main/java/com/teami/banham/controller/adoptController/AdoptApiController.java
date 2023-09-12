@@ -5,6 +5,7 @@ import com.teami.banham.dto.adoptDTO.AdoptFileResponse;
 import com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptCommonParams;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
+import com.teami.banham.service.adoptService.AdoptCommentMapper;
 import com.teami.banham.service.adoptService.AdoptFileService;
 import com.teami.banham.service.adoptService.AdoptService;
 import com.teami.banham.service.adoptService.FileUtils;
@@ -20,7 +21,14 @@ import java.util.Map;
 public class AdoptApiController {
 
     private final AdoptService adoptService;
-
+    private final AdoptCommentMapper commentMapper;
+//    @GetMapping("/adopt/cmtcount")
+//    public List<Integer> getCount (List<Integer> boardId) {
+//        List<Integer> getCount;
+//        for(int i = 0 ; i < boardId.size() ;i++){
+//
+//        }
+//    }댓글..생각하다 잠이들다
 
 
     //리스트 전체 조회
