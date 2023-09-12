@@ -55,11 +55,12 @@ public class TbAdoptBoard {
     }
 
 
-    public void update(String title, String content, String memNick) {
+    public void update(String title, String content, String memNick, int aniType) {
         this.title = title;
         this.content = content;
         this.modifiedDate = LocalDateTime.now();
         this.memNick = memNick;
+        this.aniType = aniType;
     }
 
     /**

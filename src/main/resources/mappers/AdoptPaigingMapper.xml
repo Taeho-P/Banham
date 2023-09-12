@@ -108,6 +108,7 @@
         , created_date
         , modified_date
           ,mem_nick
+          ,ani_type
           FROM tb_adopt_board  <include refid="conditions" />
         ORDER BY id desc, created_date DESC
         offset #{adoptPagination.limitStart} ROWS FETCH NEXT #{recordPerPage} ROWS ONLY

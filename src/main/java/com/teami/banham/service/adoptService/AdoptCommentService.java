@@ -75,4 +75,8 @@ public class AdoptCommentService {
         return new AdoptPagingResponse<>(list, pagination);
     }
 
+//    public int getCountCmt (){
+//        int count = commentMapper.count();
+//    }
+
 }
