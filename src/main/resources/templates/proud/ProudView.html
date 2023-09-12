@@ -102,7 +102,7 @@
                                         <img th:src="@{|/upload/${file}|}" alt="" style="width:100%;"><br>
                                     </span>
                                 </span>
-                                <span th:text="${board.contents}"></span> <!--내용 출력-->
+                                <span th:text="${board.contents}" style="white-space: pre-wrap"></span> <!--내용 출력-->
                             </dd>
                         </dl>
                         <ul class="file-list">

@@ -49,7 +49,7 @@ public class BoardService {
             for (MultipartFile proudBoardFileList : proudBoardDTO.getFileList()) {
                 String originalFileName = proudBoardFileList.getOriginalFilename();
                 String repositoryFileName = System.currentTimeMillis() + "" + ((int) (Math.random() * 1000)) + "_" + originalFileName;
-                String savePath = "C:/banham_img/" + repositoryFileName;
+                String savePath = "C:/banham_files/" + repositoryFileName;
                 proudBoardFileList.transferTo(new File(savePath)); // 경로에 이름변경한 파일을 저장
 
                 ProudBoardFileEntity proudBoardFileEntity = ProudBoardFileEntity.toBoardFileEntity(proudBoard, originalFileName, repositoryFileName);
@@ -119,7 +119,7 @@ public class BoardService {
                 for (MultipartFile proudBoardFileList : proudBoardDTO.getFileList()) {
                     String originalFileName = proudBoardFileList.getOriginalFilename();
                     String repositoryFileName = System.currentTimeMillis() + "" + ((int) (Math.random() * 1000)) + "_" + originalFileName;
-                    String savePath = "C:/banham_img/" + repositoryFileName;
+                    String savePath = "C:/banham_files/" + repositoryFileName;
                     proudBoardFileList.transferTo(new File(savePath)); // 경로에 이름변경한 파일을 저장
 
                     ProudBoardFileEntity proudBoardFileEntity = ProudBoardFileEntity.toBoardFileEntity(proudBoard, originalFileName, repositoryFileName);
@@ -129,7 +129,7 @@ public class BoardService {
             }
         } else { // 수정하려는 게시글에 기존 첨부파일이 있었을시
             proudBoardFileRepository.deleteProudBoardFileEntitiesByBno(proudBoardDTO.getBno());
-            String path="C:/banham_img/";
+            String path="C:/banham_files/";
             if (proudBoardDTO.getFileList().stream().anyMatch(MultipartFile::isEmpty)) {
                 // 수정할때 파일 첨부 없을시
                 ProudBoardEntity proudBoardEntity = ProudBoardEntity.toSaveEntity(proudBoardDTO);
