@@ -226,11 +226,13 @@ public class BoardController {
 
     @Transactional
     @RequestMapping(value = "/proud/likeCheck", method = RequestMethod.POST)
-    public String proudLikeClickEvent(ProudLikeDTO proudLikeDTO,@RequestParam("bno") Long bno, Model model) {
+    public String proudLikeClickEvent(ProudLikeDTO proudLikeDTO, Model model) {
         boardService.proudLike(proudLikeDTO);
-        ProudBoardDTO proudBoardDTO = boardService.proudFindById(bno);
+        ProudBoardDTO proudBoardDTO = boardService.proudFindById(proudLikeDTO.getBno());
+
         model.addAttribute("board",proudBoardDTO);
-        return "/proud/ProudView :: #like_count";
+
+        return "/proud/ProudView :: #list_count";
     }
 
 
