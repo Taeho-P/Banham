@@ -511,6 +511,9 @@ ul.pattern .color3
     {
         display:none
     }
+    .mobile-user{
+        position: absolute;
+    }
 
     .navbar-collapse
     {
