@@ -356,7 +356,6 @@
     const likeAjax = () =>  {
         let bno = [[${board.bno}]];
         let memberId = sessionCheck.memberId;
-        console.log("memberId!!!!",memberId);
         $.ajax({
             type: "post",
             url: "/board/proud/likeCheck",
@@ -366,7 +365,6 @@
             }
             })
             .done(function (fragment) {
-                console.log(JSON.stringify(fragment));
                 $('#list_count').replaceWith(fragment);
             });
     }
