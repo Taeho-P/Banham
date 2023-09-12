@@ -113,31 +113,36 @@
                     <div class="comment-box mt-5">
                         <h4 class="fw-bold">댓글</h4>
                         <div id="Comment-box-item mb-1 comment-write">
-                                <span th:if="${session.loginDTO!=null}">
-                                    <input type="hidden" id="memberId" name="memberId" th:value="${session.loginDTO.memberId}">
-                                    <input type="text" id="commentWriter" th:value="${session.loginDTO.memberNick}"placeholder="작성자" readOnly/>
-                                    <input type="text" id="commentContents" placeholder="내용">
-                                    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
-                                </span>
+<!--                                <span th:if="${session.loginDTO!=null}">-->
+<!--                                    <input type="hidden" id="memberId" name="memberId" th:value="${session.loginDTO.memberId}">-->
+<!--                                    <input type="hidden" id="commentWriter" th:value="${session.loginDTO.memberNick}">-->
+<!--&lt;!&ndash;                                    <input type="text" id="commentContents" placeholder="내용">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>&ndash;&gt;-->
+<!--                                </span>-->
+                            <span th:if="${session.loginDTO!=null}">
                                 <div class="forum-form mt-4">
                                     <div class="row d-flex align-items-center justify-content-start">
                                         <div class="col-sm-2 col-3">
                                             <div class="avatar forum-profile">
-                                                <img src="/images/img-1.png" alt=""
+                                                <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" alt=""
                                                      class="img-fluid rounded-circle avatar-md">
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-md-6 col-5 my-2">
                                             <form>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                       placeholder="내용을 입력해주세요.">
+                                                <input type="hidden" id="memberId" name="memberId" th:value="${session.loginDTO.memberId}">
+                                                <input type="hidden" id="commentWriter" th:value="${session.loginDTO.memberNick}">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="내용을 입력해주세요."> <!-- id="commentContents" -->
+
                                             </form>
                                         </div>
                                         <div class="col-2">
-                                            <button class="btn btn-dark">댓글작성</button>
+<!--                                            <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
+                                            <button class="btn btn-dark" id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
                                         </div>
                                     </div>
                                 </div>
+                            </span>
                         </div>
                         <div  id="comment-list">
                             <div  class="Comment-box-item mt-1" th:each="comment:${commentList}">
@@ -146,7 +151,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
                                                 <div class="avatar">
-                                                    <img src="/images/img-1.png" alt="" class="img-fluid avatar-md rounded-circle">
+                                                    <img th:src="@{|/profile/${comment.profile}.png|}" alt="" class="img-fluid avatar-md rounded-circle">
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 ms-2">
@@ -176,6 +181,7 @@
                                         <span th:if="${session.loginDTO.memberId==comment.memberId}">
                                         <input type="hidden" id="modify_memberId" name="memberId"
                                                th:value="${session.loginDTO.memberId}">
+                                        <input type="hidden" th:id="'modify_profile'+ ${comment.cno}" th:value="${session.loginDTO.profileImgNo}">
                                         <input type="text" th:id="'modify_commentWriter'+ ${comment.cno}"
                                                th:value="${session.loginDTO.memberNick}" placeholder="작성자" readOnly/>
                                         <input type="text" th:id="'modify_commentContents'+ ${comment.cno}" placeholder="내용">
@@ -247,8 +253,9 @@
     }
     const commentWrite = () => {
         const sessionId = [[${session.loginDTO != null ? session.loginDTO.memberId : ''}]];
+        const sessionProfile = [[${session.loginDTO != null ? session.loginDTO.profileImgNo : ''}]];
         const writer = document.getElementById("commentWriter").value;
-        const contents = document.getElementById("commentContents").value;
+        const contents = document.getElementById("exampleFormControlInput1").value;
         console.log("작성자: ", writer);
         console.log("내용:", contents);
         const bno = [[${board.bno}]]; //게시글번호
@@ -258,6 +265,7 @@
                 type: "post",
                 url: "/community/comment/save",
                 data: {
+                    "profile":sessionProfile,
                     "memberId": sessionId,
                     "writer": writer,
                     "commentContents": contents,
@@ -270,7 +278,7 @@
                 });
 
             document.getElementById('commentWriter').value = writer;
-            document.getElementById('commentContents').value = '';
+            document.getElementById('exampleFormControlInput1').value = '';
     }
     function formatDate(dateString) {
         const options = {
@@ -309,8 +317,10 @@
 
         let modify_commentWriter = 'modify_commentWriter'+cno;
         let modify_commentContents = 'modify_commentContents'+cno;
+        let modify_profile='modify_profile'+cno;
 
         const sessionId = [[${session.loginDTO != null ? session.loginDTO.memberId : ''}]];
+        const profile=document.getElementById(modify_profile).value;
         const writer = document.getElementById(modify_commentWriter).value;
         const contents = document.getElementById(modify_commentContents).value;
         console.log("작성자: ", writer);
@@ -325,6 +335,7 @@
             data: {
                 "Cno":cno,
                 "memberId": sessionId,
+                "profile":profile,
                 "writer": writer,
                 "commentContents": contents,
                 "bno": bno
