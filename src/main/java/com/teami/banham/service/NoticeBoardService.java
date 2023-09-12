@@ -138,4 +138,23 @@ public class NoticeBoardService {
 
         return noticeBoardDTOList;
     }
+
+    public List<NoticeBoardDTO> noticeIndexList() {
+
+        Specification<NoticeBoardEntity> spec = (root, query, criteriaBuilder) -> null;
+        spec = spec.and(NoticeBoardSpecification.equalIsDelete("N"));
+
+        List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findAll(spec);
+
+        List<NoticeBoardDTO> noticeBoardDTOList = new ArrayList<>();
+
+        for(NoticeBoardEntity noticeBoardEntity : noticeBoardEntities) {
+            NoticeBoardDTO noticeBoardDTO = new NoticeBoardDTO(noticeBoardEntity.getBno(), noticeBoardEntity.getEorN(), noticeBoardEntity.getBoardWriter(), noticeBoardEntity.getBoardTitle(), noticeBoardEntity.getBoardHits(), noticeBoardEntity.getCreatedTime());
+
+            noticeBoardDTOList.add(noticeBoardDTO);
+        }
+
+        return noticeBoardDTOList;
+
+    }
 }
