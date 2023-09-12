@@ -62,7 +62,7 @@ public class BoardService {
     @Transactional
     public Page<ProudBoardDTO> proudFindAll(Pageable pageable) {
         int page = pageable.getPageNumber() - 1; //spring JPA에서 page는 0부터 시작하기때문
-        int pageLimit = 2; // 한페이지에 보여줄 글 갯수
+        int pageLimit = 15; // 한페이지에 보여줄 글 갯수
         // 한 페이지 당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0부터 시작
         Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
