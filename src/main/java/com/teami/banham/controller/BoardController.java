@@ -202,7 +202,7 @@ public class BoardController {
     public String proudSearchPage(@PageableDefault(page = 1) Pageable pageable, @RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model) {
         int nowPage = pageable.getPageNumber();
         Page<ProudBoardDTO> proudBoardDTO = boardService.proudSearch(pageable, searchType, searchKeyword);
-        int blockLimit = 2;
+        int blockLimit = 5;
         int startPage = (((int) (Math.ceil((double) nowPage / blockLimit))) - 1) * blockLimit + 1; //1,6,11 ...
         int endPage = ((startPage + blockLimit - 1) < proudBoardDTO.getTotalPages()) ? startPage + blockLimit - 1 : proudBoardDTO.getTotalPages();
 
