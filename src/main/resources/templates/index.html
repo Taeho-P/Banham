@@ -537,25 +537,50 @@
 <!-- start notice -->
 <section class="mt-5 service bg-gray" id="collection">
     <!-- start container -->
+<!--    <div class="container notice">-->
+<!--        <div class="row ">-->
+<!--            <div class="col-lg-12 ">-->
+<!--                <div class="rollingbanner">-->
+<!--                    <div class="title">공지사항</div>-->
+<!--                    <div class="wrap">-->
+<!--                        <ul>-->
+<!--                            <li><a href="#">[공지사항] 반함 현대백화점 오프라인 팝업스토어 오픈! </a></li>-->
+<!--                            <li class="next"><a href="#">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></li>-->
+<!--                            <li class="current"><a href="#">[공지사항] 9월 21일 홈페이지 점검 안내</a></li>-->
+<!--                            <li><a href="#">[이벤트] 반려동물과 함께 추억남기기 이벤트</a></li>-->
+<!--                            <li class="prev"><a href="#">[이벤트] 내새끼 자랑 Best 당첨자 안내</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
     <div class="container notice">
         <div class="row ">
             <div class="col-lg-12 ">
                 <div class="rollingbanner">
                     <div class="title">공지사항</div>
-                    <div class="wrap">
-                        <ul>
-                            <li><a href="#">[공지사항] 반함 현대백화점 오프라인 팝업스토어 오픈! </a></li>
-                            <li class="next"><a href="#">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></li>
-                            <li class="current"><a href="#">[공지사항] 9월 21일 홈페이지 점검 안내</a></li>
-                            <li><a href="#">[이벤트] 반려동물과 함께 추억남기기 이벤트</a></li>
-                            <li class="prev"><a href="#">[이벤트] 내새끼 자랑 Best 당첨자 안내</a></li>
-                        </ul>
+                    <div class="wrap d-flex flex-row">
+                        <div class="row">
+                            <div class="col-8" id="srolling">
+                                <!-- height 를 늘일 경우 노출되는 아이템이 늘어납니다. -->
+                                <div class="rollingtext slider-overtext" id="srolling2"
+                                     style="position: relative;overflow:hidden;height:30px;"></div>
+                            </div>
+
+                            <div class="col-4">
+                                <div id="n_click2" class="btn btn-sm btn-primary" style="float: right;">다음</div>
+                                <div id="p_click2" class="btn btn-sm btn-primary " style="float: right;right:4px;">이전</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
     <!-- end container -->
 </section>
 <!-- end notice -->
@@ -710,36 +735,59 @@
     });
 
 </script>
+<!-- 공지사항 세로 롤링시작-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery-slider-rolling.js"></script>
+<script type="text/javascript">
+    jQuery(function() {
 
-<script>
-    const infoSwiper = {
-        init() {
-            let $infoSwiper = document.querySelector(".info-swiper");
+        var data = [
+            "<div style='height:20px;'><a href=\"#\">[공지사항] 반함 현대백화점 오프라인 팝업스토어 오픈! </a></div>",
+            "<div style='height:20px;'><a href=\"#\">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></div>",
+            "<div style='height:20px;'><a href=\"#\">[공지사항] 9월 21일 홈페이지 점검 안내</a></div>"
+        ];
 
-            if ($infoSwiper) {
-                var swiper = new Swiper(".info-swiper", {
-                    loop: true,
-                    /* autoplay: {
-                        delay: 3000,
-                    }, */
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                    direction: "vertical",
-                    navigation: {
-                        nextEl: ".notice-next",
-                        prevEl: ".notice-prev",
-                    },
-                    speed: 900,
-                    autoplay: {
-                        delay: 2000,
-                    },
-                });
-            }
-        },
-    };
+
+        /*
+        data : [ ], // 롤링될 아이템 데이터
+        name : '#srolling_area', // 롤링 대상 element
+        item_count : 1, // 한번 이동될 아이템 수
+        cache_count : 5, // 최초 한번 임시로 생성될 아이템 수 (고치지마세요)
+        width : 100, // 노출될 아이템 크기 (필수 : 실제 아이템 보다 약간 크게 설정하세요)
+        height : 100, // 노출될 아이템 크기 (필수 : 실제 아이템 보다 약간 크게 설정하세요)
+        auto : false, // 자동 이동 설정
+        delay : 1000, // 자동 이동 후 대기 시간
+        delay_frame : 500, // 이동 속도 (움직이는 효과를 없애고 싶으면 0)
+        move : 'left', // 이동 방향 left , right , up , down
+        prev : '#srolling_prev', // 이전 아이템 이동 버튼 element
+        next : '#srolling_next', // 다음 아이템 이동 버튼 element
+        is_bullet : false, // 블릿 사용여부
+        bullet : '#srolling_bullet', // 블릿 버튼 element
+        bullet_item : '#srolling_bullet_item', // 블릿 버튼 item element
+        bullet_style_func : null // 선택된 블릿 효과주기
+        */
+
+
+        // 위아래 슬라이드 소스
+        jQuery("#srolling2").srolling({
+            data : data,
+            width : 500,
+            height : 25,
+            auto : true,
+            delay : 1000,
+            delay_frame : 200,
+            move : 'up',
+            prev : '#p_click2',
+            next : '#n_click2'
+        });
+
+
+    });
 
 
 </script>
+<!--/롤링 끝-->
+
 
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>
