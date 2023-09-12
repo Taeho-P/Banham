@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProudBoardRepository extends JpaRepository<ProudBoardEntity,Long> {
@@ -33,4 +34,7 @@ public interface ProudBoardRepository extends JpaRepository<ProudBoardEntity,Lon
 
     @Query("select b from ProudBoardEntity b where b.writer like %:searchKeyword%")
     Page<ProudBoardEntity> findAllbyWriter(Pageable pageable,@Param("searchKeyword") String searchKeyword);
+
+    @Query("select b from ProudBoardEntity b where b.memberId=:memberId and b.delete_ck=0 order by b.bno desc")
+    List<ProudBoardEntity> findAllList(@Param("memberId") String memberId);
 }

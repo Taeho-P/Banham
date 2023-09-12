@@ -1,16 +1,93 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>FindId</title>
+  <title>아이디 찾기</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content=" "/>
+  <meta name="keywords" content=""/>
+  <meta content="Pichforest" name="author"/>
+
+  <link rel="shortcut icon" href="images/favicon.ico">
+
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+  <!-- Material Icon Css -->
+  <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+  <!-- Unicon Css -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- Custom Css -->
+  <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
   <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <body>
-<h2>아이디 찾기</h2>
-<label for="mail">이메일 : </label> <input type="text" id="mail" name="mail" placeholder="가입에 사용한 이메일을 적어주세요." onblur="mailCheck()"> <button id="btnSendId" disabled="disabled" onclick="sendId()">아이디 찾기</button>
-<p id="mail_check_result"></p>
 
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+<section class="section position-relative overflow-hidden"
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover; top: 95px;">
+  <div class="content-wrapper container ">
+    <div class="row mt-4">
+      <div class="col-lg-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb default mb-0">
+            <li class="breadcrumb-item">
+              <a href="/" class="text-muted">홈</a>
+            </li>
+            <li class="breadcrumb-item " aria-current="page"><a class="text-muted"  href="/member/login">로그인</a></li>
+            <li class="breadcrumb-item active text-primary" aria-current="page">아이디찾기</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section position-relative overflow-hidden"
+         style=" top: 50px; padding-bottom: 90px;" >
+  <div class="content-wrapper container mt-5 ">
+    <div class="row">
+      <div class="col-lg-11">
+        <h2 class="fw-bold">아이디 찾기</h2>
+        <p class="fw-semibold">반함 아이디 찾기</p>
+      </div>
+    </div>
+    <hr class="my-4">
+    <section class="flexbox pb-3">
+      <div class="col align-self-center">
+        <div class="info-box">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <div class="mt-4">
+                <label class="form-label fw-semibold" for="mail">이메일  </label>
+                <input class="form-control"  type="text" id="mail" name="mail" placeholder="가입에 사용한 이메일을 적어주세요."onblur="mailCheck()">
+                <p id="mail_check_result"></p>
+                <hr class="my-4">
+                <button class="btn btn-sm btn-primary w-100"  id="btnSendId" disabled="disabled" onclick="sendId()">아이디 찾기</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-3">
+
+      </div>
+    </section>
+  </div>
+</section>
+
+
+<!-- End Notice -->
+<div th:replace="/footer :: footer"></div>
+<!-- end footer-->
 </body>
 
 <script th:inline="javascript">
@@ -88,5 +165,16 @@
   } // 아이디 발송 메소드 end
 
 </script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
 
+<!-- Slider Js -->
+<script src="/js/tiny-slider.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<!-- counter -->
+<script src="/js/counter.init.js"></script>
+
+<!-- App Js -->
+<script src="/js/app.js"></script>
 </html>

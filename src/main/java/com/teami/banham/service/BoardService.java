@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -205,4 +206,15 @@ public class BoardService {
     }
 
 
+    @Transactional
+    public List<ProudBoardDTO> proudFindAllList(String memberId) {
+        List<ProudBoardEntity> proudBoardEntities =
+                proudBoardRepository.findAllList(memberId);
+        List<ProudBoardDTO> proudBoardDTOList = new ArrayList<>();
+        for(ProudBoardEntity entits : proudBoardEntities){
+            proudBoardDTOList.add(ProudBoardDTO.toBoardDTO(entits));
+        }
+
+        return proudBoardDTOList;
+    }
 }

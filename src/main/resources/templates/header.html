@@ -63,8 +63,12 @@
                     <li class="nav-item dropdown dropdown-hover">
                         <a class="nav-link dropdown-toggle homedrop" href="MyPage.html" role="button"
                            data-bs-toggle="dropdown">
-
+                            <th:block th:if="${session.loginDTO == null}">
                             <img src="/images/all_menu_user_no_img.png" style="width: 30px;" >
+                            </th:block>
+                            <th:block th:unless="${session.loginDTO == null}">
+                                <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" style="width: 30px;" >
+                            </th:block>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="homedrop">
                             <!-- 세션에 로그인한 회원 정보가 없는 경우 -->
