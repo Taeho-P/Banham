@@ -49,6 +49,8 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CommentService commentService;
+    private final NoticeBoardService noticeBoardService;
+    private final EditorBoardService editorBoardService;
 
     // 자랑 게시판 목록 (9/4)
     @GetMapping("/proud")
@@ -71,8 +73,6 @@ public class BoardController {
         return "proud/ProudSave";
     }
 
-    private final NoticeBoardService noticeBoardService;
-    private final EditorBoardService editorBoardService;
 
     @GetMapping("/NoticeWrite")
     public String noticeForm() { //공지사항 게시판 페이지 이동 (태호)

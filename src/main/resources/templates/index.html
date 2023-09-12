@@ -741,10 +741,17 @@
 <script type="text/javascript">
     jQuery(function() {
 
+
+
+
+
         var data = [
-            "<div style='height:20px;'><a href=\"#\">[공지사항] 반함 현대백화점 오프라인 팝업스토어 오픈! </a></div>",
-            "<div style='height:20px;'><a href=\"#\">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></div>",
-            "<div style='height:20px;'><a href=\"#\">[공지사항] 9월 21일 홈페이지 점검 안내</a></div>"
+            // <tr th:each="board: ${noticeBoardList}">
+            // "<div th:each='board: ${noticeBoardList}'>",
+
+            "<div th:each='board: ${noticeBoardList}'><div style='height:20px;'><a th:href='@{|/board/Notice/${board.bno}|(page=${noticeBoardList.number + 1})}' th:text='${board.boardTitle}'></a></div></div>"
+            // "<div style='height:20px;'><a href=\"#\">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></div>",
+            // "<div style='height:20px;'><a href=\"#\">[공지사항] 9월 21일 홈페이지 점검 안내</a></div>"
         ];
 
 
