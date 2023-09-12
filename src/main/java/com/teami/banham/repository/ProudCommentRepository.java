@@ -22,4 +22,11 @@ public interface ProudCommentRepository extends JpaRepository<ProudCommentEntity
 
     @Query("select c from ProudCommentEntity c where c.cno=:cno and c.delete_ck=0")
     Optional<ProudCommentEntity> findById(Long cno);
+
+    @Modifying
+    @Query(value="update ProudCommentEntity c set c.delete_ck=1 where c.proudBoardEntity.bno=:bno")
+    void deleteByDelete_ck(Long bno);
+
+    @Query("select c from ProudCommentEntity c inner join MemberEntity m on c.memberId=m.memberId where m.memberId=:memberId order by c.cno desc")
+    List<ProudCommentEntity> findByCommentMemberId(String memberId);
 }

@@ -1,5 +1,6 @@
 package com.teami.banham.dto;
 
+import com.teami.banham.entity.ProudBoardEntity;
 import com.teami.banham.entity.ProudCommentEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class ProudCommentDTO {
         commentDTO.setDelete_ck(proudCommentEntity.getDelete_ck());
         commentDTO.setCommentCreatedTime(proudCommentEntity.getCreatedTime());
         commentDTO.setCommentUpdateTime(proudCommentEntity.getUpdatedTime());
+        commentDTO.setBno(proudCommentEntity.getProudBoardEntity().getBno());
 
         return commentDTO;
 

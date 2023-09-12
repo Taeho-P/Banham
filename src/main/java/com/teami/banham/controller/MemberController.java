@@ -25,6 +25,7 @@ public class MemberController {
     private final EditorBoardService editorBoardService;
     private final BoardService proudBoardService;
     private final CommunityBoardService communityBoardService;
+    private final CommentService proudCommentService;
 
     //회원가입 페이지 출력 요청
     @GetMapping("/signUp")
@@ -203,6 +204,27 @@ public class MemberController {
         model.addAttribute("communityBoardList", communityBoardDTOList);
 
         return "WriteList";
+    }
+
+    @Transactional
+    @GetMapping("/CommentList")
+    public String commentListForm(HttpSession session, Model model){
+        MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
+
+        List<ProudCommentDTO> proudCommentDTOList = proudCommentService.proudCommentFindByMemberId(loginDTO.getMemberId());
+        model.addAttribute("proudCommentList",proudCommentDTOList);
+
+        return "CommentList";
+    }
+
+    @Transactional
+    @GetMapping("/LikeList")
+    public String likeListForm(HttpSession session, Model model){
+        MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
+        List<ProudBoardDTO> proudLikeDTOList= proudBoardService.proudLikeFindMemberIdBoardList(loginDTO.getMemberId());
+        model.addAttribute("proudLikeList",proudLikeDTOList);
+
+        return "LikeList";
     }
 
 }

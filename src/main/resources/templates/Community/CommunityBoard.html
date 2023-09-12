@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>자랑 게시판</title>
+    <title>자유 게시판</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content=" "/>
@@ -54,7 +54,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="fw-bold">자유게시판</h2>
-                <p class="text-muted">일상을 자유롭게 공유하는 자유게시판입니다.</p>
+                <p class="text-muted">일상을 자유롭게 공유하는 자유게시판입니다.🐾</p>
             </div>
         </div>
         <hr class="my-4">
@@ -133,42 +133,53 @@
                     </div>
                     <div class="pagination-block">
                         <nav aria-label="navigation">
-                            <ul class="pagination justify-content-center">
-
-                                <!--첫번째 페이지로 이동--> <!--/board/paging?page=1-->
-                                <span th:if="${boardList.getTotalPages()!=1}">
-                                    <a th:href="@{/board/community/(page=1)}">처음</a>
-                                        <!--이전 링크 활성화 비활성화-->
-                                        <!--boardList.getNumber() 사용자:2페이지 getNumber()=1-->
-                                    <a th:href="${boardList.first} ? '#' : @{/board/community/(page=${boardList.number})}">이전</a>
-                                </span>
-                                <span th:unless="${endPage!=1}">
-                                    <span>처음</span>
-                                    <span>이전</span>
-                                </span>
-                                <!--페이지 번호 링크(현재 페이지는 숫자만)--> <!--for(int i = startPage; i<endPage;i++) -->
-                                <th:block th:if="${boardList.getTotalPages()>=1}">
-                                    <span th:each="page: ${#numbers.sequence(startPage,endPage)}">
-                                        <span th:if="${page==boardList.number+1}" th:text="${page}"></span>
-                                        <!--    unless(else) : 현재 페이지 번호가 아닌 다른페이지번호에는 링크를 보여줌 아래 a링크 -->
-                                        <span th:unless="${page==boardList.number+1}">
-                                            <a th:href="@{|/board/community/?page=${page}|}" th:text="${page}"></a>
-                                        </span>
-                                    </span>
+                            <ul id="page_list" class="pagination justify-content-center">
+                                <!-- 첫번째 페이지로 이동 -->
+                                <!-- /board/paging?page=1 -->
+                                <th:block th:if="${boardList.getTotalPages()!=1}">
+                                    <li class="page-item"><a class="page-link" th:href="@{/board/proud/(page=1)}">처음</a></li>
+                                    <!-- 이전 링크 활성화 비활성화 -->
+                                    <!-- noticeBoardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+                                    <li class="page-item"><a class="page-link"
+                                                             th:href="${boardList.first} ? '#' : @{/board/proud/(page=${boardList.number})}">이전</a>
+                                    </li>
                                 </th:block>
-                                    <span th:if="${!boardList.isLast()}">
-                                    <!--다음 링크 활성화 비활성화-->
-                                    <a th:href="${boardList.last} ? '#' : @{/board/community/(page=${boardList.number + 2})}">다음</a>
-                                    <!--마지막 페이지로 이동-->
-                                    <a th:href="${boardList.last}? '#' : @{/board/community/(page=${boardList.totalPages})}">마지막</a>
-                                    </span>
-                                    <span th:unless="${!boardList.isLast()}">
-                                        <span>다음</span>
-                                        <span>마지막</span>
-                                    </span>
-                                        </ul>
-                                    </nav>
-                                </div>
+                                <th:block th:unless="${endPage!=1}">
+                                    <li class="page-item"><a class="page-link" href="#">처음</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                                </th:block>
+
+                                <!-- 페이지 번호 링크(현재 페이지는 숫자만)
+                                        for(int page=startPage; page<=endPage; page++)-->
+                                <th:block th:if="${boardList.getTotalPages()>=1}">
+                        <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                        <!-- 현재페이지는 링크 없이 숫자만 -->
+                            <li class="page-item"><span class="page-link" th:if="${page==boardList.number+1}"
+                                                        th:text="${page}"></span></li>
+                            <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+                            <li class="page-item"><span th:unless="${page==boardList.number+1}">
+                                <a class="page-link" th:href="@{|/board/proud/?page=${page}|}" th:text="${page}"></a>
+                            </span></li>
+                        </span>
+                                </th:block>
+                                <!-- 다음 링크 활성화 비활성화
+                                    사용자: 2페이지, getNumber: 1, 3페이지-->
+                                <th:block th:if="${!boardList.isLast()}">
+                                    <li class="page-item"><a class="page-link"
+                                                             th:href="${boardList.last} ? '#' : @{/board/proud/(page=${boardList.number + 2})}">다음</a>
+                                    </li>
+                                    <!-- 마지막 페이지로 이동 -->
+                                    <li class="page-item"><a class="page-link"
+                                                             th:href="${boardList.last}? '#' : @{/board/proud/(page=${boardList.totalPages})}">마지막</a>
+                                    </li>
+                                </th:block>
+                                <th:block th:unless="${!boardList.isLast()}">
+                                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">마지막</a></li>
+                                </th:block>
+                            </ul>
+                        </nav>
+                    </div>
                             </div>
                         </div>
                     </section>

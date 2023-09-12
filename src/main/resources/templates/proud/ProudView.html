@@ -31,17 +31,6 @@
 
     <title th:text="${board.title}"></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <style>
-        .heart-button {
-            cursor: pointer;
-        }
-
-        .heart-icon {
-            width: 24px;
-            height: 24px;
-            fill: #000; /* 기본으로 까만색 하트 */
-        }
-    </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 <!--Start Navbar-->
@@ -57,7 +46,7 @@
                         <li class="breadcrumb-item">
                             <a href="index.html" class="text-muted">홈</a>
                         </li>
-                        <li class="breadcrumb-item active text-primary" aria-current="page">자유게시판</li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">내새끼 자랑 게시판</li>
                     </ol>
                 </nav>
             </div>
@@ -69,7 +58,7 @@
     <div class="content-wrapper container ">
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="fw-bold">자유게시판</h2>
+                <h2 class="fw-bold">내새끼 자랑 게시판</h2>
             </div>
         </div>
         <hr class="my-4">
@@ -111,8 +100,8 @@
                                    style="cursor: pointer;" th:text="${file.getOriginalFilename()}"></a>
                             </li>
                         </ul>
-                        <div id="like_check" class="heart-button" onclick="likeClick()"> <!-- 좋아요 버튼 -->
-                            <svg class="heart-icon" viewBox="0 0 24 24">
+                        <div id="like_check" class="heart-button" onclick="likeClick()" style="cursor: pointer;"> <!-- 좋아요 버튼 -->
+                            <svg class="heart-icon" viewBox="0 0 24 24" width="24px"x height="24px">
                                 <path class="heart-fill"
                                       d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                                       fill="none" stroke="#ff0000" stroke-width="2px" style="width: 24px;height: 24px"/>
@@ -306,7 +295,6 @@
                 sessionCheck = null;
             }
         });
-
     }
 
     const likeReq = () => {
@@ -449,7 +437,6 @@
     }
 
     function commentModify(cno) {
-
         let modify_commentWriter = 'modify_commentWriter' + cno;
         let modify_commentContents = 'modify_commentContents' + cno;
         let modify_profile='modify_profile'+cno;
