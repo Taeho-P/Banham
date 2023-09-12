@@ -59,6 +59,14 @@ public class EditorBoardDTO {
         }
     }
 
+    public EditorBoardDTO(Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+        this.bno = bno;
+        this.boardWriter = boardWriter;
+        this.boardTitle = boardTitle;
+        this.boardHits = boardHits;
+        this.boardCreatedTime = boardCreatedTime;
+    }
+
     public static EditorBoardDTO toEditorBoardDTO(EditorBoardEntity editorBoardEntity) {
         EditorBoardDTO editorBoardDTO = new EditorBoardDTO();
 

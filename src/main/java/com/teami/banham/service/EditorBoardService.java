@@ -1,12 +1,11 @@
 package com.teami.banham.service;
 
 import com.teami.banham.dto.EditorBoardDTO;
+import com.teami.banham.dto.NoticeBoardDTO;
 import com.teami.banham.entity.EditorBoardEntity;
 import com.teami.banham.entity.EditorBoardFileEntity;
-import com.teami.banham.repository.EditorBoardFileRepository;
-import com.teami.banham.repository.EditorBoardRepository;
-import com.teami.banham.repository.EditorBoardSpecification;
-import com.teami.banham.repository.MemberRepository;
+import com.teami.banham.entity.NoticeBoardEntity;
+import com.teami.banham.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -120,5 +121,23 @@ public class EditorBoardService {
     @Transactional //아무튼 자꾸 붙여줘야댐..
     public void delete(Long bno) {
         editorBoardRepository.updateIsDelete(bno);
+    }
+
+    public List<EditorBoardDTO> editorWriteList(Long mno) {
+        Specification<EditorBoardEntity> spec = (root, query, criteriaBuilder) -> null;
+        spec = spec.and(EditorBoardSpecification.equalIsDelete("N"));
+        spec = spec.and(EditorBoardSpecification.equalWriterMno(mno));
+
+        List<EditorBoardEntity> editorBoardEntities = editorBoardRepository.findAll(spec);
+
+        List<EditorBoardDTO> editorBoardDTOList = new ArrayList<>();
+
+        for(EditorBoardEntity editorBoardEntity : editorBoardEntities) {    //Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime)
+            EditorBoardDTO editorBoardDTO = new EditorBoardDTO(editorBoardEntity.getBno(), editorBoardEntity.getBoardWriter(), editorBoardEntity.getBoardTitle(), editorBoardEntity.getBoardHits(), editorBoardEntity.getCreatedTime());
+
+            editorBoardDTOList.add(editorBoardDTO);
+        }
+
+        return editorBoardDTOList;
     }
 }

@@ -83,7 +83,46 @@
         </div>
 
       </div>
+      <div class="pagination-block">
+        <nav aria-label="navigation">
+          <ul class="pagination justify-content-center">
 
+            <!-- 첫번째 페이지로 이동 -->
+            <!-- /board/paging?page=1 -->
+            <li class="page-item"><a class="page-link" th:href="@{/board/EditorBoard(page=1)}">처음으로</a></li>
+            <!-- 이전 링크 활성화 비활성화 -->
+            <!-- noticeBoardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+            <li class="page-item"><a class="page-link"
+                                     th:href="${editorBoardList.first} ? '#' : @{/board/EditorBoard(page=${editorBoardList.number})}">이전</a>
+            </li>
+
+            <!-- 페이지 번호 링크(현재 페이지는 숫자만)
+                    for(int page=startPage; page<=endPage; page++)-->
+            <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                        <!-- 현재페이지는 링크 없이 숫자만 -->
+                            <li class="page-item"><span class="page-link" th:if="${page == editorBoardList.number + 1}" th:text="${page}"></span></li>
+              <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+                            <li class="page-item"><span th:unless="${page == editorBoardList.number + 1}">
+                                <a class="page-link" th:href="@{/board/EditorBoard(page=${page})}" th:text="${page}"></a>
+                            </span></li>
+                        </span>
+
+            <!-- 다음 링크 활성화 비활성화
+                사용자: 2페이지, getNumber: 1, 3페이지-->
+            <li class="page-item"><a class="page-link" th:href="${editorBoardList.last} ? '#' : @{/board/EditorBoard(page=${editorBoardList.number + 2})}">다음</a>
+            </li>
+            <!-- 마지막 페이지로 이동 -->
+            <li class="page-item"><a class="page-link" th:href="@{/board/EditorBoard(page=${editorBoardList.totalPages})}">마지막</a></li>
+
+
+            <!--                        <li class="page-item"><a class="page-link" href="#">이전</a></li>-->
+            <!--                        <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+            <!--                        <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+            <!--                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+            <!--                        <li class="page-item"><a class="page-link" href="#">다음</a></li>-->
+          </ul>
+        </nav>
+      </div>
 
 
     </div>

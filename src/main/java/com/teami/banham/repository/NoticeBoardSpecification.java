@@ -10,4 +10,7 @@ public class NoticeBoardSpecification {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isDelete"), isDelete);
     }
 
+    public static Specification<NoticeBoardEntity> equalWriterMno(Long writerMno) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("writerMno"), writerMno);
+    }
 }
