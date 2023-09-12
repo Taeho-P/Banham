@@ -39,7 +39,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb default mb-0">
                         <li class="breadcrumb-item">
-                            <a href="index.html" class="text-muted">홈</a>
+                            <a href="/" class="text-muted">홈</a>
                         </li>
                         <li class="breadcrumb-item active text-primary" aria-current="page">자유게시판</li>
                     </ol>
@@ -124,11 +124,14 @@
                                         </tr>
                                     </span>
                                 </th:block>
-                                <th:block th:if="${boardList.isEmpty()}"><!-- 게시물이없을때 -->
-                                    게시물이 없어요!
-                                </th:block>
+
                             </tbody>
                         </table>
+                    </div>
+                    <div class="pt-3 text-center section">
+                        <th:block th:if="${boardList.isEmpty()}"><!-- 게시물이없을때 -->
+                            게시물이 없어요!
+                        </th:block>
                     </div>
                     <div class="pagination-block">
                         <nav aria-label="navigation">
