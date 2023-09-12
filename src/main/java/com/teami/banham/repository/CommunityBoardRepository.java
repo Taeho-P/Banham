@@ -2,6 +2,7 @@ package com.teami.banham.repository;
 
 import com.teami.banham.entity.CommunityBoardEntity;
 import com.teami.banham.entity.ProudBoardEntity;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -5264,7 +5264,7 @@ body[data-layout-mode=dark] .footer .logo .logo-light
 {
     font-weight:700;
     float:left;
-    padding-right:100px;
+    padding-right:20px;
     color:#fff
 }
 
@@ -5272,7 +5272,7 @@ body[data-layout-mode=dark] .footer .logo .logo-light
 {
     position:relative;
     width:auto;
-    height:100%;
+    /*height:100%;*/
     box-sizing:border-box;
     overflow:hidden
 }
@@ -5327,6 +5327,14 @@ body[data-layout-mode=dark] .footer .logo .logo-light
 {
     top:36px
 }
+.rollingtext{
+    color : #fff;
+    width: 1000px;
+}
+@media (min-width: 1199px)
+    .rollingtext{
+        width: 800px;
+    }
 
 .swiper
 {
