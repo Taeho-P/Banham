@@ -6,13 +6,51 @@
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
+
+
+    <!--css add-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=""/>
+    <meta content="Pichforest" name="author"/>
+
+    <!-- Bootstrap css -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+    <!-- Material Icon Css -->
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+    <!-- Unicon Css -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
+    <!--/css add-->
+
+
+
     <link rel="stylesheet" th:href="@{/adopt/scripts/content.css}" />
-    <title>JPA 게시판</title>
+
+
+    <title>입양 게시판</title>
 </head>
 <body>
-<div class="fixed-navbar">
+
+
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+
+
+
+<!--<div class="fixed-navbar">
     <div class="pull-left">
-        <h1 class="page-title">Board</h1>
+
     </div>
 </div>
 <div id="wrapper">
@@ -22,21 +60,28 @@
                 <div class="box-content">
                     <div class="clearfix">
                         <h4 class="box-title pull-left"></h4>
-                    </div>
+                    </div>-->
 
                     <!--/* 페이지 Content 영역 */-->
                     <th:block layout:fragment="content"></th:block>
 
-                </div>
+<!--                </div>
             </div>
         </div>
-        <footer class="footer">
+        &lt;!&ndash;<footer class="footer">
             <ul class="list-inline">
                 <li>2023 © Banham.</li>
             </ul>
-        </footer>
+        </footer>&ndash;&gt;
     </div>
-</div>
+</div>-->
+
+<!-- start footer -->
+<footer>
+    <div th:replace="/footer :: footer"></div>
+</footer>
+<!-- end footer-->
+
 
 <script th:src="@{/adopt/scripts/moment.min.js}"></script>
 <script th:src="@{/adopt/scripts/jquery.min.js}"></script>
@@ -47,7 +92,23 @@
 <script th:src="@{/adopt/scripts/bootstrap.min.js}"></script>
 
 
+<!--add js-->
+<!-- Scrollup -->
+<script src="/js/jquery.scrollUp.min.js"></script>
+<!--Bootstrap Js-->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!-- Scrollup -->
+<script src="/js/jquery.scrollUp.min.js"></script>
+<!--/add js-->
+
+
+
+
 <!--/* JavaScript 영역 */-->
 <th:block layout:fragment="script"></th:block>
+
+
+
+
 </body>
 </html>

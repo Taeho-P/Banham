@@ -6,13 +6,43 @@
 
 
 <th:block layout:fragment="content">
+    <!--add-->
+    <section class="section position-relative overflow-hidden"
+             style=" top: 95px;">
+        <div class="content-wrapper container ">
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb default mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html" class="text-muted">홈</a>
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">입양게시판</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--Start Board-->
+
+
     <div>
-        <div th:if="${session.loginDTO != null}" class="top_menu">
-            <div class="login_user"><strong><i class="far fa-user-circle"></i> [[ ${session.loginDTO.getMemberNick()} ]]</strong>님 반갑습니다.</div>
-         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="fw-bold">입양 게시판</h2>
+                <p class="text-muted">입양을 통해 동물들의 삶을 바꿔주세요.</p>
+            </div>
+        </div>
         <!--/* 검색 영역 */-->
         <div class="input-group" id="adv-search">
             <form id="searchForm" onsubmit="return false;">
+<!--                <select id="aniType">-->
+<!--                    <option value=""></option>-->
+<!--                    <option value=1>강아지</option>-->
+<!--                    <option value=2>고양이</option>-->
+<!--                    <option value=0>기타</option>-->
+<!--                </select>-->
                 <select id="searchType" class="form-control" style="width: 100px;">
                     <option value="">전체</option>
                     <option value="title">제목</option>
@@ -32,11 +62,12 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>번호</th>
+<!--                <th>번호</th>-->
                 <th>제목</th>
                 <th>작성자</th>
                 <th>등록일</th>
                 <th>조회 수</th>
+
             </tr>
             </thead>
 
@@ -69,6 +100,7 @@
         window.onload = () => {
 
             findAll(1);
+
             addEnterSearchEvent();
         }
 
@@ -122,10 +154,8 @@
                 ,keyword : form.keyword.value
             }
 
-
-
-            getJson('/api/adopt', params).then(response => {
-                console.log('in findall getjson');
+                 getJson('/api/adopt', params).then(response => {
+                // console.log('in findall getjson');
                 console.log(response);
                 if (!Object.keys(response).length) {
                     document.getElementById('list').innerHTML ='<td colspan="5">등록된 게시글이 없습니다.</td>';
@@ -139,24 +169,78 @@
                 let num = response.params.adoptPagination.totalRecordCount - ((response.params.page - 1) * response.params.recordPerPage);
                 console.log(`${num}`);
 
+
                 response.list.forEach((obj, idx)=> {
+                    //동물타입 아이콘
+                    let aniicon = `${obj.aniType}`;
+                    console.log("aniicon "+aniicon);
+                    let aniHtml = '';
+                    if(aniicon == '1'){
+                        aniHtml = "<img id='aniicon' src='/images/dogicon.png'>";
+                    }else if(aniicon =='2'){
+                        aniHtml = "<img id='aniicon' src='/images/caticon.png'>";
+                    }else{
+                        aniHtml = "<img id='aniicon' src='/images/aniicon.png'>";
+                    }
+
                     html += `
-							<tr>
-    							<td>${num--}</td>
+                                <tr id="bno${obj.id}">
+<!--    							<td>${num--}</td>-->
+
     							<td class="text-left">
-    								<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
+    								`+aniHtml+`<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
     							</td>
     							<td>${obj.memNick}</td>
-    							<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+    							<td>${moment(obj.createdDate).format('YYYY-MM-DD')}</td>
     							<td>${obj.hits}</td>
 							</tr>
 						`;
                 });
 
                 document.getElementById('list').innerHTML = html;
+
                 drawPages(response.params);
+                findImg();
             });
+
         }
+
+        //이미지 띄우기
+function findImg(){
+    const imgRes = getImg('/api/adopt/allfiles');
+    let imgHtml = '';
+    console.table(imgRes);
+    imgRes.forEach(row => {
+        let imgTd = document.createElement("TD");
+        if(CheckImagefiles(`${row.storeName}`)){
+            imgHtml = `<img id="ino${row.boardId}" class="imgs" src="/upload/${row.storeName}" alt="" style="width: 130px; height: 130px; display: block; object-fit: cover;" />`;
+
+        }else{
+            imgHtml='';
+        }
+        imgTd.innerHTML = imgHtml;
+        console.log("imgTd: "+imgHtml);
+
+        document.getElementById(`bno${row.boardId}`).appendChild(imgTd);
+    })
+
+}
+        function CheckImagefiles(fileName) {
+            var result = false;
+            var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+            if(!ext){
+                return result;
+            }
+            var imgs = ['gif', 'jpg', 'jpeg', 'png', 'bmp' ,'ico', 'apng'];
+            ext = ext.toLocaleLowerCase();
+            imgs.forEach( function(element) {
+                if(ext == element){
+                    result = true;
+                }
+            });
+            return result;
+        }
+
         /**
          * 게시글 조회
          */
@@ -202,7 +286,32 @@
             document.querySelector('.pagination').innerHTML = html;
         }
 
+
+
+
+        //function
+        function getImg(uri, params) {
+
+            let json = {}
+
+            $.ajax({
+                url : uri,
+                type : 'get',
+                dataType : 'json',
+                data : params,
+                async : false,
+                success : function (response) {
+                    json = response;
+                },
+                error : function (request, status, error) {
+                    console.log(error)
+                }
+            })
+
+            return json;
+        }
         /*]]>*/
+
     </script>
 </th:block>
 </html>

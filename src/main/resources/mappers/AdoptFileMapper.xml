@@ -49,6 +49,14 @@
            select *from dual
     </insert>
 
+    <!-- 파일 전체(리스트에서 보여주기)-->
+    <select id="findAll" resultType="com.teami.banham.dto.adoptDTO.AdoptFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_adopt_file
+        WHERE ROWID IN (SELECT MIN(ROWID) FROM TB_ADOPT_FILE GROUP BY board_id)
+    </select>
 
 
 

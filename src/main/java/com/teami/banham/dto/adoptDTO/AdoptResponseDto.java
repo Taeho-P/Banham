@@ -21,6 +21,7 @@ public class AdoptResponseDto {
     private LocalDateTime createdDate; // 생성일
     private LocalDateTime modifiedDate; // 수정일
     private String memNick;
+    private int aniType; //동물 종류
 
     public AdoptResponseDto(TbAdoptBoard entity) {
         this.id = entity.getId();
@@ -32,5 +33,6 @@ public class AdoptResponseDto {
         this.createdDate = entity.getCreatedDate();
         this.modifiedDate = entity.getModifiedDate();
         this.memNick = entity.getMemNick();
+        this.aniType = entity.getAniType();
     }
 }

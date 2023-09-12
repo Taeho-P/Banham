@@ -8,6 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface AdoptFileMapper {
+
+    /**전체 파일**/
+    List<AdoptFileResponse> findAll();
+
+
     /**
      * 파일 정보 저장
      * @param files - 파일 정보 리스트

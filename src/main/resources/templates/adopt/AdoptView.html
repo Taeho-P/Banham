@@ -8,17 +8,20 @@
         <form class="form-horizontal form-view">
             <div class="form-group">
                 <label  class="col-sm-2 control-label">제목</label>
-                <div class="col-sm-10"><p id="title" class="form-control"></p></div>
+                <div class="col-sm-10"><img id="animal_icon"><span id="title" class="form-control"></span></div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">이름</label>
+                <label class="col-sm-2 control-label">작성자</label>
                 <div class="col-sm-10"><p id="memNick" class="form-control"></p></div>
             </div>
 
             <div class="form-group">
-                <label  class="col-sm-2 control-label">내용</label>
-                <div class="col-sm-10"><p id="content" class="form-control"></p></div>
+                <label  class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <div id="img-files"></div>
+                    <p id="content" class="form-control"></p>
+                </div>
             </div>
 
             <div class="form-group">
@@ -56,6 +59,7 @@
             <legend class="skipinfo">댓글 입력</legend>
             <div class="cm_writer">
                 <input type="hidden" id="cm_writer" th:value="${session.loginDTO.getMemberNick()}"/>
+                <input type="hidden" id="cm_id" th:value="${session.loginDTO.getMno()}"/>
             </div>
             <div class="cm_input">
                 <span><textarea id="comment" name="content" onkeyup="countingLength(this);" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></span>
@@ -83,9 +87,8 @@
           <col style="width:30%;" /><col style="width:70%;" />
         </colgroup>
         <tbody>
-        <tr>
-          <th scope="row">작성자<span class="es">필수 입력</span></th>
-          <td><input type="text" id="modalWriter" name="modalWriter" placeholder="작성자를 입력해 주세요." /></td>
+        <tr th:if="${session.loginDTO != null}">
+          <input type="hidden" id="modalWriter" name="modalWriter" th:value="${session.loginDTO.getMemberNick()}" />
         </tr>
         <tr>
           <th scope="row">내용<span class="es">필수 입력</span></th>
@@ -132,7 +135,18 @@
 
             }).then(json => {
                 console.table(json);
-                json.createdDate = moment(json.createdDate).format('YYYY-MM-DD HH:mm:ss');
+                json.createdDate = moment(json.createdDate).format('YYYY-MM-DD');
+
+                const aniImg = json.aniType;
+                console.log(aniImg)
+                const aniHtml = document.getElementById('animal_icon');
+                if(aniImg == '1'){
+                    aniHtml.src = "/images/dogicon.png";
+                }else if(aniImg =='2'){
+                    aniHtml.src = "/images/caticon.png";
+                }else{
+                    aniHtml.src = "/images/aniicon.png";
+                }
 
 
                 Object.keys(json).forEach(key => {
@@ -225,17 +239,19 @@
                  return false;
              }
 
-             // 3. 파일 영역 추가
+             // 3. 파일 영역 추가 & 이미지 추가
              let fileHtml = '<div class="file_down"><div class="cont">';
+             let imgHtml = '<div class="img_html" >';
              response.forEach(row => {
-                 fileHtml += `<a href="/api/adopt/${boardId}/files/${row.id}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`
-                 +`<img class="imgs" src="@{C:filetest\\${row.storeName}}" alt="" style="width: 200px; height: 200px"/>`;
+                 fileHtml += `<a href="/api/adopt/${boardId}/files/${row.id}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`;
+
+                 imgHtml += `<img class="imgs" src="/upload/${row.storeName}" alt="" style="width: 600px; display: block" /><p></p>`;
              })
              fileHtml += '</div></div>';
-
+             imgHtml += '</div>';
              // 4. 파일 HTML 렌더링
              document.getElementById('files').innerHTML = fileHtml;
-
+             document.getElementById('img-files').innerHTML = imgHtml;
 
          }
 
@@ -257,6 +273,8 @@
 
         // 댓글 저장
         function saveComment() {
+            const memberId = document.getElementById('cm_id');
+            console.log('memid '+ memberId);
             const memNick = document.getElementById('cm_writer');
             const content = document.getElementById('comment');
             isValid(content, '댓글');
@@ -267,7 +285,8 @@
             const params = {
                 boardId : boardId,
                 content : content.value,
-                writer : memNick.value
+                writer : memNick.value,
+                memberId : memberId.value
             }
 
             //function.js callApi로 ajax 연결!!
@@ -298,7 +317,16 @@
             console.log(response);
 
             const pagination = response.adoptPagination;
-            drawComments(response.list);
+            let memChk = document.getElementById('cm_id');
+
+            if(memChk != null){
+                memChk = memChk.value;
+                drawComments(response.list, memChk);
+            }else{
+                memChk = 0;
+                drawComments(response.list, memChk);
+            }
+
             drawPage(pagination, page);
         }
 
@@ -324,6 +352,7 @@
             const boardId = /*[[ ${id} ]]*/;
             const uri = `/adopt/${boardId}/comments/${id}`;
             const response = getJson(uri);
+            // const memNick = document.getElementById('cm_writer').value;
             document.getElementById('modalWriter').value = response.writer;
             document.getElementById('modalContent').value = response.content;
             document.getElementById('commentUpdateBtn').setAttribute('onclick', `updateComment(${id})`);
@@ -367,17 +396,17 @@
 
 
         // 댓글 HTML draw
-        function drawComments(list) {
+        function drawComments(list, memChk) {
 
             if ( !list.length ) {
                 document.querySelector('.cm_list').innerHTML = '<div class="cm_none"><p>등록된 댓글이 없습니다.</p></div>';
                 return false;
             }
-
+            console.log(memChk);
             let commentHtml = '';
-
-            list.forEach(row => {
-                commentHtml += `
+            if ( memChk == 0){
+                list.forEach(row => {
+                    commentHtml += `
                 <div>
                     <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>
                     <p class="writer">
@@ -386,12 +415,31 @@
                     </p>
                     <div class="cont"><div class="txt_con">${row.content}</div></div>
                     <p class="func_btns">
+
+                    </p>
+                </div>
+            `;
+                })
+            }else {
+
+                list.forEach(row => {
+                    commentHtml += `
+                <div>
+                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>
+                    <p class="writer">
+                        <em>${row.writer}</em>
+                        <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
+                    </p>
+                    <div class="cont"><div class="txt_con">${row.content}</div></div>
+                    <p th:if="${row.memberId == memChk}" class="func_btns">
                         <button type="button" onclick="openCommentUpdatePopup(${row.id});" class="btns"><span class="icons icon_modify">수정</span></button>
                         <button type="button" onclick="deleteComment(${row.id});" class="btns"><span class="icons icon_del">삭제</span></button>
                     </p>
                 </div>
             `;
-            })
+                })
+            }
+
 
             document.querySelector('.cm_list').innerHTML = commentHtml;
         }

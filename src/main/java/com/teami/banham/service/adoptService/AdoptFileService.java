@@ -31,6 +31,9 @@ public class AdoptFileService {
 
     }
 
+    public List<AdoptFileResponse> findAll (){
+       return adoptFileMapper.findAll();
+    }
 
 
     /**

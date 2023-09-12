@@ -12,6 +12,7 @@
         , delete_yn
         , created_date
         , modified_date
+        , member_id
     </sql>
 
 
@@ -30,6 +31,7 @@
         , 0
         , to_date(sysdate,'yyyy.mm.dd hh24:mi')
         , NULL
+        , #{memberId}
         )
     </insert>
 
@@ -74,7 +76,7 @@
             tb_adopt_comment
         WHERE
             delete_yn = 0
-          AND board_id = #{boardId}
+            AND board_id = #{boardId}
     </select>
 
     <!-- 댓글 리스트 조회 -->

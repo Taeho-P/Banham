@@ -37,11 +37,13 @@ public class TbAdoptBoard {
 
     private String memNick; //작성자닉네임
 
+    private int aniType; //동물 종류
+
     @OneToMany(mappedBy = "tbAdoptBoard")
     private List<TbAdoptFile> files = new ArrayList<>();//파일첨부
 
     @Builder
-    public TbAdoptBoard(String title, String content, long writer, int hits, int deleteYn, String memNick, List<TbAdoptFile> files) {
+    public TbAdoptBoard(String title, String content, long writer, int hits, int deleteYn, String memNick, List<TbAdoptFile> files, int aniType) {
         this.title = title;
         this.content = content;
         this.writer = writer;
@@ -49,14 +51,16 @@ public class TbAdoptBoard {
         this.deleteYn = deleteYn;
         this.memNick  = memNick;
         this.files = files;
+        this.aniType =aniType;
     }
 
 
-    public void update(String title, String content, String memNick) {
+    public void update(String title, String content, String memNick, int aniType) {
         this.title = title;
         this.content = content;
         this.modifiedDate = LocalDateTime.now();
         this.memNick = memNick;
+        this.aniType = aniType;
     }
 
     /**
