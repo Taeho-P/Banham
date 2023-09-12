@@ -573,6 +573,23 @@ ul.pattern .color3
     padding:18px 30px
 }
 
+/* body footer 하단 붙이기 */
+/*body{*/
+/*    min-height: 100%;*/
+/*    position: relative;*/
+/*}*/
+/*.footer{*/
+/*    position: absolute;*/
+/*    height: 10px;*/
+/*    width: 100%;*/
+/*    !* padding: 0 25px; *!*/
+/*    !* line-height: 60px; *!*/
+/*    !* color: #8a8c8f; *!*/
+/*    !* border-top: 1px solid #dee5e7; *!*/
+/*    !* background-color: #3f3f3f; *!*/
+/*    bottom: 0;*/
+/*}*/
+/*body footer 하단 붙이기 end */
 body[data-layout-mode=dark] .navbar
 {
     background-color:#303841!important
@@ -1276,6 +1293,10 @@ h1,h2,h3,h4,h5,h6
     font-family:"Binggrae-Two",sans-serif;
     font-weight:500;
     line-height:1.4
+}
+
+button img{
+    width: 70px;
 }
 
 .btn,.btn:focus,button,button:focus
@@ -5163,7 +5184,7 @@ body[data-layout-mode=dark] .not-found
 
 .footer .footer-bg
 {
-    background-color:#3f3f3f
+    background-color:#3f3f3f;
 }
 
 .footer .logo .logo-dark

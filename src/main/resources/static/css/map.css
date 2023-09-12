@@ -1,6 +1,6 @@
 #modal {
     position: fixed;
-    z-index: 1;
+    z-index: 9999;
     left: 0;
     top: 0;
     width: 100%;
@@ -12,17 +12,22 @@
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 30% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 100%;
 }
 
 .close_button {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 21px;
     font-weight: bold;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+     border: 0px;
+    line-height: 0.5;
 }
 
 .close_button:hover,
