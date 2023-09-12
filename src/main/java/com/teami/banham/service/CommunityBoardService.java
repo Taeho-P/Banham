@@ -1,8 +1,10 @@
 package com.teami.banham.service;
 
 import com.teami.banham.dto.CommunityBoardDTO;
+import com.teami.banham.dto.ProudBoardDTO;
 import com.teami.banham.entity.CommunityBoardEntity;
 import com.teami.banham.entity.CommunityBoardFileEntity;
+import com.teami.banham.entity.ProudBoardEntity;
 import com.teami.banham.repository.CommunityBoardFileRepository;
 import com.teami.banham.repository.CommunityBoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -145,4 +149,17 @@ public class CommunityBoardService {
     public void communityDelete(Long bno){
         communityBoardRepository.deleteById(bno);
     }
+
+    public List<CommunityBoardDTO> communityFindAllList(String memberId) {
+        List<CommunityBoardEntity> communityBoardEntities =
+                communityBoardRepository.findAllList(memberId);
+        List<CommunityBoardDTO> communityBoardDTOList = new ArrayList<>();
+        for(CommunityBoardEntity entits : communityBoardEntities){
+            communityBoardDTOList.add(CommunityBoardDTO.toBoardDTO(entits));
+        }
+
+        return communityBoardDTOList;
+    }
+
+
 }
