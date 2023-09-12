@@ -3,6 +3,7 @@ package com.teami.banham.dto;
 import com.teami.banham.entity.ProudBoardEntity;
 import com.teami.banham.entity.ProudBoardFileEntity;
 import com.teami.banham.entity.ProudCommentEntity;
+import com.teami.banham.entity.ProudLikeEntity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,8 +33,9 @@ public class ProudBoardDTO {
     private List<String> repositoryFileName; //서버 저장용 파일 이름
     private List<MultipartFile> fileList; //게시글에 첨부된 파일 목록
     private List<ProudCommentDTO> proudCommentDTOList;
+    private List<ProudLikeDTO> proudLikeDTOList;
 
-    public ProudBoardDTO(Long bno, String title, String contents, int hits, String writer, String memberId, LocalDateTime createDate, LocalDateTime updateDate, int hasFile, List<ProudBoardFileEntity> boardFileEntityList, List<ProudCommentEntity> proudCommentEntityList){
+    public ProudBoardDTO(Long bno, String title, String contents, int hits, String writer, String memberId, LocalDateTime createDate, LocalDateTime updateDate, int hasFile, List<ProudBoardFileEntity> boardFileEntityList, List<ProudCommentEntity> proudCommentEntityList, List<ProudLikeEntity> proudLikeEntityList){
         this.bno=bno;
         this.title=title;
         this.contents=contents;
@@ -67,6 +69,16 @@ public class ProudBoardDTO {
             this.proudCommentDTOList=dtoList;
         }
 
+        if(proudLikeEntityList.isEmpty()){
+            this.proudLikeDTOList=null;
+        } else {
+            List<ProudLikeDTO> dtoList=new ArrayList<>();
+            for(int i = 0;i<proudLikeEntityList.size();i++){
+                dtoList.add(ProudLikeDTO.toproudLikeDTO(proudLikeEntityList.get(i)));
+            }
+            this.proudLikeDTOList=dtoList;
+        }
+
     }
 
     public static ProudBoardDTO toBoardDTO(ProudBoardEntity proudBoardEntity){
@@ -92,6 +104,14 @@ public class ProudBoardDTO {
             }
             proudBoardDTO.setOriginalFileName(originalFileName);
             proudBoardDTO.setRepositoryFileName(repositoryFileName);
+        }
+
+        if(!proudBoardEntity.getProudLikeEntityList().isEmpty()){
+            List<ProudLikeDTO> proudLikeEntityList = new ArrayList<>();
+            for(int i = 0;i<proudBoardEntity.getProudLikeEntityList().size();i++){
+                proudLikeEntityList.add(ProudLikeDTO.toproudLikeDTO(proudBoardEntity.getProudLikeEntityList().get(i)));
+            }
+            proudBoardDTO.setProudLikeDTOList(proudLikeEntityList);
         }
         return proudBoardDTO;
     }

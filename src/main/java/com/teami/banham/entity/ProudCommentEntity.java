@@ -35,7 +35,7 @@ public class ProudCommentEntity extends BoardBaseEntity {
     private int delete_ck;
 
     /*  Board:Comment 1:다수 */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bno", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ProudBoardEntity proudBoardEntity;
 

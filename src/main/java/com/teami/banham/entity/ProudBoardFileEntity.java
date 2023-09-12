@@ -27,7 +27,7 @@ public class ProudBoardFileEntity {
     @Column
     private String repositoryFileName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="proud_bno")
     private ProudBoardEntity proudBoardEntity;
 
