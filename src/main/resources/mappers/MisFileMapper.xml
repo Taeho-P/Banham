@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teami.banham.service.MissingService.MisFileMapper">
+
+    <!-- tb_file 테이블 전체 컬럼 -->
+    <sql id="fileColumns">
+        id
+        , board_id
+        , original_name
+        , store_name
+    </sql>
+
+
+    <!-- 파일 정보 저장 -->
+
+ <!--   <insert id="saveAll" parameterType="list">
+        <selectKey keyProperty="seq_adopt_file" resultType="java.lang.Long" order="BEFORE">
+            select seq_adopt_file.nextval from dual
+        </selectKey>
+        INSERT INTO tb_adopt_file (
+        <include refid="fileColumns" />
+        ) VALUES
+        <foreach item="file" collection="list" separator=",">
+            (
+            #{seq_adopt_file}
+            , #{file.boardId}
+            , #{file.originalName}
+            , #{file.storeName}
+            )
+        </foreach>
+    </insert>-->
+       <insert id="saveAll" parameterType="list">
+<!--           <selectKey keyProperty="seq_adopt_file" resultType="java.lang.Long" order="BEFORE">-->
+<!--               select seq_adopt_file.nextval from dual-->
+<!--           </selectKey>-->
+           <foreach collection="list" item="file" open="INSERT ALL" separator=" ">
+         INTO tb_missing_file (
+        <include refid="fileColumns" />
+        ) VALUES
+            (
+                get_missing
+            , #{file.boardId}
+            , #{file.originalName}
+            , #{file.storeName}
+            )
+
+        </foreach>
+           select *from dual
+    </insert>
+
+    <!-- 파일 전체(리스트에서 보여주기)-->
+    <select id="findAll" resultType="com.teami.banham.dto.MissingDTO.MisFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_missing_file
+        WHERE ROWID IN (SELECT MIN(ROWID) FROM tb_missing_file GROUP BY board_id)
+    </select>
+
+
+
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllFileByBoardId" parameterType="long" resultType="com.teami.banham.dto.MissingDTO.MisFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_missing_file
+        WHERE
+        board_id = #{value}
+        order by
+        id
+    </select>
+
+
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllByIds" parameterType="list" resultType="com.teami.banham.dto.MissingDTO.MisFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_missing_file
+        WHERE
+        id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY
+        id
+    </select>
+
+
+    <!-- 파일 삭제 -->
+    <delete id="deleteAllByIds" parameterType="list">
+        DELETE from tb_adopt_file
+        WHERE
+        id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <!-- 파일 상세정보 조회 -->
+    <select id="findById" parameterType="long" resultType="com.teami.banham.dto.MissingDTO.MisFileResponse">
+        SELECT
+        <include refid="fileColumns" />
+        FROM
+        tb_missing_file
+        WHERE
+        id = #{value}
+    </select>
+</mapper>

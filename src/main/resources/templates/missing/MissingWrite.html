@@ -164,7 +164,7 @@
                 return false;
             }
 
-            fetch(`/api/adopt/${id}`).then(response => {
+            fetch(`/api/missing/${id}`).then(response => {
                 if (!response.ok) {
                     throw new Error('Request failed...');
                 }
@@ -196,7 +196,7 @@
 
             }).catch(error => {
                 alert('게시글 정보를 찾을 수 없습니다.');
-                location.href = '/board/adopt';
+                location.href = '/board/missing';
             });
         }
 
@@ -230,7 +230,7 @@
 
             const id = [[ ${id} ]];
             form.removeFileIds.value = removeFileId.getAll().join(); // 추가
-            form.action =  ( id ) ? `/api/adopt/${id}` : '/api/adopt/test';
+            form.action =  ( id ) ? `/api/missing/${id}` : '/api/missing/test';
             form.submit();
         }
 
@@ -346,7 +346,7 @@
             }
 
             // 2. API 호출
-            const response = getJson(`/api/adopt/${id}/files`);
+            const response = getJson(`/api/missing/${id}/files`);
 
             // 3. 로직 종료
             if ( !response.length ) {

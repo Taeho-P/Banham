@@ -196,7 +196,7 @@
             let getMno = [[${session.loginDTO}]];
             console.log(getMno);
 
-            fetch(`/api/adopt/${id}`).then(response => {
+            fetch(`/api/missing/${id}`).then(response => {
                 if (!response.ok) {
                     throw new Error('Request failed...');
                 }
@@ -255,14 +255,14 @@
          * 뒤로가기
          */
         function goList() {
-            location.href = '/board/adopt';
+            location.href = '/board/missing';
         }
 
         /**
          * 수정하기
          */
         function goWrite() {
-            location.href = `/board/adopt/write?id=[[ ${id} ]]`;
+            location.href = `/board/missing/write?id=[[ ${id} ]]`;
         }
 
         /**
@@ -276,7 +276,7 @@
                 return false;
             }
 
-            fetch(`/api/adopt/${id}`, {
+            fetch(`/api/missing/${id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
 
@@ -301,7 +301,7 @@
              const boardId = /*[[ ${id}]]*/;
              console.log(boardId);
 
-             const response = getJson(`/api/adopt/${boardId}/files`);
+             const response = getJson(`/api/missing/${boardId}/files`);
 
              // 2. 로직 종료
              if ( !response.length ) {
@@ -312,7 +312,7 @@
              let fileHtml = '<div class="file_down"><div class="cont">';
              let imgHtml = '<div class="img_html" >';
              response.forEach(row => {
-                 fileHtml += `<a href="/api/adopt/${boardId}/files/${row.id}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`;
+                 fileHtml += `<a href="/api/missing/${boardId}/files/${row.id}/download"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`;
 
                  imgHtml += `<img class="imgs" src="/upload/${row.storeName}" alt="" style="width: 600px; display: block" /><p></p>`;
              })
@@ -349,7 +349,7 @@
             isValid(content, '댓글');
 
             const boardId =  /*[[ ${id} ]]*/;
-            const uri = `/adopt/${boardId}/comments`;
+            const uri = `/missing/${boardId}/comments`;
             console.log(boardId);
             const params = {
                 boardId : boardId,
@@ -373,7 +373,7 @@
             page = (page) ? page : (currentPage ? Number(currentPage.text) : 1);
 
             const boardId = /*[[ ${id} ]]*/;
-            const uri = `/adopt/${boardId}/comments`;
+            const uri = `/missing/${boardId}/comments`;
 
             const params = {
                 page : page,
@@ -385,7 +385,7 @@
             const response = getJson(uri, params);
             console.log(response);
 
-            const pagination = response.adoptPagination;
+            const pagination = response.misPagination;
             let memChk = document.getElementById('cm_id');
 
             if(memChk != null){
@@ -409,7 +409,7 @@
 
             const boardId = /*[[ ${id} ]]*/;
 
-            const uri = `/adopt/${boardId}/comments/${id}`;
+            const uri = `/missing/${boardId}/comments/${id}`;
             callApi(uri, 'delete');
             alert('삭제되었습니다.');
             findAllComment();
@@ -419,7 +419,7 @@
         function openCommentUpdatePopup(id) {
 
             const boardId = /*[[ ${id} ]]*/;
-            const uri = `/adopt/${boardId}/comments/${id}`;
+            const uri = `/missing/${boardId}/comments/${id}`;
             const response = getJson(uri);
             // const memNick = document.getElementById('cm_writer').value;
             document.getElementById('modalWriter').value = response.writer;
@@ -446,7 +446,7 @@
             isValid(content, '수정할 내용');
 
             const boardId = /*[[ ${id} ]]*/;
-            const uri = `/adopt/${boardId}/comments/${id}`;
+            const uri = `/missing/${boardId}/comments/${id}`;
 
             const params = {
                 id : id,
