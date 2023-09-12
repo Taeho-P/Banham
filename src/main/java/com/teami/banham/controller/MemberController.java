@@ -217,4 +217,14 @@ public class MemberController {
         return "CommentList";
     }
 
+    @Transactional
+    @GetMapping("/LikeList")
+    public String likeListForm(HttpSession session, Model model){
+        MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
+        List<ProudBoardDTO> proudLikeDTOList= proudBoardService.proudLikeFindMemberIdBoardList(loginDTO.getMemberId());
+        model.addAttribute("proudLikeList",proudLikeDTOList);
+
+        return "LikeList";
+    }
+
 }

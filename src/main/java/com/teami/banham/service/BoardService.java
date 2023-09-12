@@ -181,7 +181,7 @@ public class BoardService {
             return boardDTOS;
         } else if (searchType.equals("writer")){
             Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
-                    proudBoardRepository.findAllbyWriter(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+                    proudBoardRepository.findallbyWriter(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
             Page<ProudBoardDTO> boardDTOS = proudBoardEntities.map(board -> new ProudBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getProudBoardFileEntityList(),board.getProudCommentEntityList(),board.getProudLikeEntityList()));
             return boardDTOS;
         } else {
@@ -218,5 +218,25 @@ public class BoardService {
             proudBoardDTOList.add(ProudBoardDTO.toBoardDTO(entits));
         }
         return proudBoardDTOList;
+    }
+
+    @Transactional
+    public List<ProudBoardDTO> proudLikeFindMemberIdBoardList(String memberId){
+        List<ProudLikeEntity> proudLikeEntities = proudLikeRepository.findAllMemberId(memberId);
+        List<ProudBoardEntity> proudBoardEntities = new ArrayList<>();
+        if(proudLikeEntities!=null) {
+            for (int i = 0;i < proudLikeEntities.size();i++) {
+                ProudLikeEntity proudLike = proudLikeEntities.get(i);
+                ProudBoardEntity proudBoard=proudBoardRepository.findbyforLikeBno(proudLike.getProudBoardEntity().getBno());
+                proudBoardEntities.add(proudBoard);
+            }
+            List<ProudBoardDTO> proudBoardDTOList = new ArrayList<>();
+            for(ProudBoardEntity proudBoardEntity : proudBoardEntities){
+                proudBoardDTOList.add(ProudBoardDTO.toBoardDTO(proudBoardEntity));
+            }
+            return proudBoardDTOList;
+        }else{
+            return null;
+        }
     }
 }

@@ -86,9 +86,7 @@ public class CommentService {
         List<ProudCommentEntity> proudCommentEntities = proudCommentRepository.findByCommentMemberId(memberId);
         List<ProudCommentDTO> proudCommentDTOList = new ArrayList<>();
         for(ProudCommentEntity entits : proudCommentEntities){
-            System.out.println("MMMMMMMM=====>>>>"+entits);
             proudCommentDTOList.add(ProudCommentDTO.toCommentDTO(entits));
-            System.out.println("SSSSSSSS=====>>>>"+proudCommentDTOList);
         }
         return proudCommentDTOList;
     }
