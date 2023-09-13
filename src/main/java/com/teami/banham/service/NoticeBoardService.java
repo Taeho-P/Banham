@@ -141,10 +141,7 @@ public class NoticeBoardService {
 
     public List<NoticeBoardDTO> noticeIndexList() {
 
-        Specification<NoticeBoardEntity> spec = (root, query, criteriaBuilder) -> null;
-        spec = spec.and(NoticeBoardSpecification.equalIsDelete("N"));
-
-        List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findAll(spec);
+        List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findIndexNotice();
 
         List<NoticeBoardDTO> noticeBoardDTOList = new ArrayList<>();
 

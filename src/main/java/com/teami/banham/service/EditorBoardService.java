@@ -140,4 +140,23 @@ public class EditorBoardService {
 
         return editorBoardDTOList;
     }
+
+    @Transactional
+    public List<EditorBoardDTO> editorIndexList() {
+
+        List<EditorBoardEntity> editorBoardEntities = editorBoardRepository.findIndexEditor();
+
+        List<EditorBoardDTO> editorBoardDTOList = new ArrayList<>();
+
+        for(EditorBoardEntity editorBoardEntity : editorBoardEntities) {
+            EditorBoardFileEntity test = editorBoardEntity.getEditorBoardFileEntityList().get(0);
+            System.out.println("여기는 있나?-------------------------------" + test.getStoredFileName());
+            EditorBoardDTO editorBoardDTO = new EditorBoardDTO(editorBoardEntity.getBno(), editorBoardEntity.getBoardWriter(), editorBoardEntity.getBoardTitle(), editorBoardEntity.getBoardHits(), editorBoardEntity.getCreatedTime(), editorBoardEntity.getEditorBoardFileEntityList());
+
+            editorBoardDTOList.add(editorBoardDTO);
+        }
+
+        return editorBoardDTOList;
+
+    }
 }

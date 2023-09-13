@@ -74,11 +74,33 @@
                                                  class="img-fluid rounded-circle avatar-md">
                                         </div>
                                     </div>
-                                    <div class="col-xl-8 col-md-6 col-5 my-2"></div>
+                                    <div class="col-xl-8 col-md-6 col-5 my-2">
+                                        <form>
+                                            <input type="hidden" id="cm_writer" name="cm_writer"
+                                                   th:value="${session.loginDTO.getMemberNick()}">
+                                            <input type="hidden" id="cm_id" th:value="${session.loginDTO.getMno()}">
+                                            <!--                                            <input type="text" id="commentContents" placeholder="내용">-->
+<!--                                            <input type="text" class="form-control" id="exampleFormControlInput1"-->
+<!--                                                   placeholder="내용을 입력해주세요.">-->
+                                            <span><textarea class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="120" rows="2" placeholder="댓글을 입력해 주세요."></textarea></span>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-2">
+                                        <!--                                        <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
+                                        <span><button id="comment-write-btn" class="btn btn-dark" onclick="saveComment();">댓글작성</button><i id="counter">0/300자</i></span>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
+                        <div id="comment-list">
+
+
+                        </div>
+
+
+
                     </div>
                 </div>
 
@@ -88,5 +110,26 @@
         </section>
     </div>
 </section>
+
+
+
+
+<!--댓글-->
+<div class="Comment-box-item mt-1">
+
+</div>
+<div class="comment-item">
+    <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <!--원래 프로필 이미지 영역-->
+            </div>
+        </div>
+        <div class="flex-grow-1 ms-2">
+            <h6 class="mb-0" >${row.writer}</h6>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

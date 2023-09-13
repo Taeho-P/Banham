@@ -220,111 +220,112 @@
         <div class="swiper editorSwiper ">
 
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img class="card-img" src="/images/editor-img1.png" alt="editor-img1">
-                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
-                            <h6 class="card-subtitle">충청남도 태안군</h6>
-                            <h3 class="card-title">하늘지기</h3>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="ratings">
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star"></i>
+
+                <th:block th:each="board : ${editorBoardList}">
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <img class="card-img" th:src="@{|/upload/${board.storedFile.get(0)}|}" alt="editor-img1">
+                            <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                                <h6 class="card-subtitle" ><a th:href="@{|/board/Editor/${board.bno}|}" th:text="${board.boardTitle}"></a></h6>
+<!--                                <h3 class="card-title">하늘지기</h3>-->
+                                <div class="d-flex justify-content-between align-items-center">
+<!--                                    <div class="ratings">-->
+<!--                                        <i class="mdi mdi-star rating-color"></i>-->
+<!--                                        <i class="mdi mdi-star rating-color"></i>-->
+<!--                                        <i class="mdi mdi-star rating-color"></i>-->
+<!--                                        <i class="mdi mdi-star rating-color"></i>-->
+<!--                                        <i class="mdi mdi-star"></i>-->
+<!--                                    </div>-->
                                 </div>
-                            </div>
-                            <div class="link d-flex">
-                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                                <div class="link d-flex">
+                                    <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img class="card-img" src="/images/editor-img2.png" alt="editor-img2">
-                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
-                            <h6 class="card-subtitle">경기도 가평군</h6>
-                            <h3 class="card-title">스위트몽</h3>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="ratings">
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star"></i>
-                                </div>
-                            </div>
-                            <div class="link d-flex">
-                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img class="card-img" src="/images/editor-img3.png" alt="editor-img3">
-                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
-                            <h6 class="card-subtitle">충정남도 태안군</h6>
-                            <h3 class="card-title">바다가쓴시</h3>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="ratings">
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star"></i>
-                                </div>
-                            </div>
-                            <div class="link d-flex">
-                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img class="card-img" src="/images/editor-img4.png" alt="editor-img4">
-                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
-                            <h6 class="card-subtitle">충남 아산시 </h6>
-                            <h3 class="card-title">포시즌발리</h3>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="ratings">
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star"></i>
-                                </div>
-                            </div>
-                            <div class="link d-flex">
-                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card">
-                        <img class="card-img" src="/images/editor-img5.png" alt="editor-img5">
-                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
-                            <h6 class="card-subtitle">충청남도 태안군</h6>
-                            <h3 class="card-title">하늘지기</h3>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="ratings">
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star rating-color"></i>
-                                    <i class="mdi mdi-star"></i>
-                                </div>
-                            </div>
-                            <div class="link d-flex">
-                                <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </th:block>
+
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="card">-->
+<!--                        <img class="card-img" src="/images/editor-img2.png" alt="editor-img2">-->
+<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
+<!--                            <h6 class="card-subtitle">경기도 가평군</h6>-->
+<!--                            <h3 class="card-title">스위트몽</h3>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="ratings">-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="link d-flex">-->
+<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="card">-->
+<!--                        <img class="card-img" src="/images/editor-img3.png" alt="editor-img3">-->
+<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
+<!--                            <h6 class="card-subtitle">충정남도 태안군</h6>-->
+<!--                            <h3 class="card-title">바다가쓴시</h3>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="ratings">-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="link d-flex">-->
+<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="card">-->
+<!--                        <img class="card-img" src="/images/editor-img4.png" alt="editor-img4">-->
+<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
+<!--                            <h6 class="card-subtitle">충남 아산시 </h6>-->
+<!--                            <h3 class="card-title">포시즌발리</h3>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="ratings">-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="link d-flex">-->
+<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="card">-->
+<!--                        <img class="card-img" src="/images/editor-img5.png" alt="editor-img5">-->
+<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
+<!--                            <h6 class="card-subtitle">충청남도 태안군</h6>-->
+<!--                            <h3 class="card-title">하늘지기</h3>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="ratings">-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star rating-color"></i>-->
+<!--                                    <i class="mdi mdi-star"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="link d-flex">-->
+<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
+
 
 
 
@@ -504,7 +505,11 @@
 
 <!--    <div style='height:20px;'><a href='/board/Notice/bno' text='board.boardTitle'></a></div>-->
 
-
+    <input type="hidden" id="notice1" th:value="${noticeList.get(0).toString()}">
+    <input type="hidden" id="notice2" th:value="${noticeList.get(1).toString()}">
+    <input type="hidden" id="notice3" th:value="${noticeList.get(2).toString()}">
+    <input type="hidden" id="notice4" th:value="${noticeList.get(3).toString()}">
+    <input type="hidden" id="notice5" th:value="${noticeList.get(4).toString()}">
 
     <div class="container notice">
         <div class="row ">
@@ -691,20 +696,14 @@
 
     jQuery(function() {
 
-        let noticeList = [];
 
-        /*[# th:each="n : ${noticeList}"]*/
+        const no1 = document.querySelector("#notice1").value;
+        const no2 = document.querySelector("#notice2").value;
+        const no3 = document.querySelector("#notice3").value;
+        const no4 = document.querySelector("#notice4").value;
+        const no5 = document.querySelector("#notice5").value;
 
-        noticeList.push('[(${n})]');
-
-        /*[/]*/
-        console.log(noticeList);
-
-
-
-        //     "<div style='height:20px;'><a th:href=\"board/NoticeBoard\">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></div>",
-        //     "<div style='height:20px;'><a href=\"#\">[공지사항] 9월 21일 홈페이지 점검 안내</a></div>"
-        // ];
+        let data = [ no1, no2, no3, no4, no5 ];
 
 
 
@@ -730,7 +729,7 @@
 
         // 위아래 슬라이드 소스
         jQuery("#srolling2").srolling({
-            data : noticeList,
+            data : data,
             width : 500,
             height : 25,
             auto : true,
