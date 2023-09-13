@@ -4131,7 +4131,9 @@ body[data-layout-mode=dark] .item-detail .backhome-content .tab-box p
         overflow:hidden
     }
 }
-
+tr td a{
+    color:#161616;
+}
 body[data-layout-mode=dark] .ranking
 {
     background-color:#303841!important
