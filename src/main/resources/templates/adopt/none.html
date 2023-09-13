@@ -63,6 +63,23 @@
 
                         </div>
                     </div>
+                    <div class="comment-box mt-5">
+                        <h4 class="fw-bold">댓글</h4>
+                        <div id="Comment-box-item mb-1 comment-write">
+                            <div class="forum-form mt-4 cm_write" >
+                                <div class="row d-flex align-items-center justify-content-start" th:if="${session.loginDTO != null}">
+                                    <div class="col-sm-2 col-3">
+                                        <div class="avatar forum-profile">
+                                            <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" alt=""
+                                                 class="img-fluid rounded-circle avatar-md">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-8 col-md-6 col-5 my-2"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
 
