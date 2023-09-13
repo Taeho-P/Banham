@@ -107,7 +107,7 @@
             <div class="col-lg-12">
                 <div class="col-lg-6">
                     <h2 class="fw-bold">오늘의 날씨</h2>
-                    <p class="text-muted">오늘의 날씨 알아맞춰보세용</p>
+                    <p class="text-muted">오늘의 날씨를 확인하고 오늘 일정을 짜볼까요 ?</p>
                 </div>
                 <div class="weather">
 
@@ -227,18 +227,9 @@
                             <img class="card-img" th:src="@{|/upload/${board.storedFile.get(0)}|}" alt="editor-img1">
                             <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
                                 <h6 class="card-subtitle" th:text="${board.boardLocal}"></h6>
-                                <h3 class="card-title" ><a th:href="@{|/board/Editor/${board.bno}|}" th:text="${board.boardTitle}"></a></h3>
-                                <div class="d-flex justify-content-between align-items-center">
-<!--                                    <div class="ratings">-->
-<!--                                        <i class="mdi mdi-star rating-color"></i>-->
-<!--                                        <i class="mdi mdi-star rating-color"></i>-->
-<!--                                        <i class="mdi mdi-star rating-color"></i>-->
-<!--                                        <i class="mdi mdi-star rating-color"></i>-->
-<!--                                        <i class="mdi mdi-star"></i>-->
-<!--                                    </div>-->
-                                </div>
+                                <h3 class="card-title" th:href="@{|/board/Editor/${board.bno}|}" th:text="${board.boardTitle}"></h3>
                                 <div class="link d-flex">
-                                    <!--                                <a href="#" class="card-link text-warning">구경하러가기</a>-->
+                                   <a th:href="@{|/board/Editor/${board.bno}|}" class="card-link btn btn-sm btn-primary">추천글 더보기</a>
                                 </div>
                             </div>
                         </div>
@@ -350,7 +341,7 @@
                 <div class="home-content home-heading">
                     <h2 class="fw-bold">#사지말고 입양 해주세요 <span class="text-primary"> </span></h2>
                     <p class="text-muted my-4"> 따뜻한 보금자리를 기다리는 동물들에게 새로운 가족이 되어주세요.</p>
-                    <button class="btn-dark twosliderbtn">더보기</button>
+                    <button class="btn-dark twosliderbtn" ><a href="/board/adopt">더보기</a></button>
                 </div>
                 <div class="client-slider clients-slider">
                     <!--입양 롤링-->
@@ -372,46 +363,6 @@
                     </th:block>
                     <!--/입양 롤링-->
 
-
-                    <!-- slider item -->
-                   <!-- <div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    &lt;!&ndash; slider item &ndash;&gt;
-                    <div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    &lt;!&ndash; slider item &ndash;&gt;
-                    <div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>-->
                     <!-- slider item -->
                 </div>
                 <!-- End slider -->
@@ -422,7 +373,7 @@
                     <h2 class="fw-bold">#실종 전단지 <span class="text-primary"></span></h2>
                     <p class="text-muted my-4">
                         동물을 빨리 찾을 수 있도록 실종 정보를 공유하는 공간입니다</p>
-                    <button class="btn-dark twosliderbtn">더보기</button>
+                    <button class="btn-dark twosliderbtn"><a href="/board/adopt">더보기</a></button>
                 </div>
                 <div class="client-slider2" id="clients-slider">
                     <!--입양 롤링-->
@@ -538,7 +489,9 @@
                                      style="position: relative;overflow:hidden;height:30px;"></div>
                             </div>
 
+
                             <div class="col-4">
+                                <div class="notice-viewmore"><a class="notice-link" href="/board/NoticeBoard"><span class="notice-viewtext">더보기</span></a></div>
                                 <div id="n_click2" class="btn btn-sm btn-primary" style="float: right;">다음</div>
                                 <div id="p_click2" class="btn btn-sm btn-primary " style="float: right;right:4px;">이전</div>
                             </div>
@@ -744,11 +697,11 @@
         // 위아래 슬라이드 소스
         jQuery("#srolling2").srolling({
             data : data,
-            width : 500,
+            width : 800,
             height : 25,
             auto : true,
             delay : 1000,
-            delay_frame : 200,
+            delay_frame : 500,
             move : 'up',
             prev : '#p_click2',
             next : '#n_click2'

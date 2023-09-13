@@ -1295,10 +1295,25 @@ h1,h2,h3,h4,h5,h6
     line-height:1.4
 }
 
+#imgTd > imgs{
+    border:0px;
+    display: inline-block;
+    content: "";
+}
+img{
+    display: inline-block;
+    content: "";
+}
+
 button img{
     width: 70px;
 }
-
+button a{
+    color: #fff;
+}
+button a:hover{
+    color: #fff;
+}
 .btn,.btn:focus,button,button:focus
 {
     outline:none!important
@@ -5276,6 +5291,37 @@ body[data-layout-mode=dark] .footer .logo .logo-light
     align-items:center
 }
 
+.notice-rolling{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1 1 100%;
+    padding-right: 2rem;
+    font-size: 18px;
+}
+.notice-date{
+    opacity: 0.6;
+    flex: 0 0 auto;
+}
+.notice-link{
+    color: #fff;
+    border-radius: 0.4rem;
+    text-align: center;
+}
+.notice-viewmore{
+    position: absolute;
+    right: 11rem;
+    width: 39px;
+}
+.notice-viewtext{
+    color: #fff;
+    opacity: 0.6;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: -48.6rem;
+    text-decoration: underline;
+    text-underline-position: under;
+}
 .rollingbanner
 {
     position:relative;
@@ -5334,8 +5380,8 @@ body[data-layout-mode=dark] .footer .logo .logo-light
 
 .rollingbanner a
 {
-    display:block;
-    display:-webkit-box;
+    /*display:block;*/
+    /*display:-webkit-box;*/
     text-decoration:none;
     -webkit-line-clamp:1;
     -webkit-box-orient:vertical;
