@@ -1,6 +1,6 @@
 package com.teami.banham.repository;
 
-
+import java.util.List;
 import com.teami.banham.entity.NoticeBoardEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,4 +29,8 @@ public interface NoticeBoardRepository extends JpaRepository<NoticeBoardEntity, 
     @Modifying
     @Query(value = "UPDATE NoticeBoardEntity b SET b.isDelete='Y' WHERE b.bno=:bno")
     void updateIsDelete(@Param("bno") Long bno);
+
+    @Modifying
+    @Query(value = "SELECT c.* FROM (SELECT * FROM notice_board b WHERE b.IS_DELETE='N' ORDER BY b.CREATED_TIME DESC) c WHERE rownum<=5",nativeQuery = true)
+    List<NoticeBoardEntity> findIndexNotice();
 }
