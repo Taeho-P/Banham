@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,12 +36,17 @@ public class HomeController {
 
         List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeIndexList();
 
+        List<String> divHTMLList = new ArrayList<>();
+
         for(NoticeBoardDTO testNoticeBoardDTO : noticeBoardDTOList) {
-            System.out.println("넘어왔는지 보자" + testNoticeBoardDTO.getBoardTitle());
+            String divHTML = "\"<div style='height:20px;'><a href='/board/Notice/" + testNoticeBoardDTO.getBno() + "' >" + testNoticeBoardDTO.getBoardTitle() + "</a></div>\"";
+            divHTMLList.add(divHTML);
+
+            System.out.println("넘겨주는 div 값 : " + divHTML);
         }
 
 
-        model.addAttribute("noticeBoardList", noticeBoardDTOList);
+        model.addAttribute("noticeList", divHTMLList);
 
 
         return "index"; //index.html 찾아감
