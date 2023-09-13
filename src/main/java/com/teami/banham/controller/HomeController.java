@@ -35,11 +35,6 @@ public class HomeController {
 
         List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeIndexList();
 
-        for(NoticeBoardDTO testNoticeBoardDTO : noticeBoardDTOList) {
-            System.out.println("넘어왔는지 보자" + testNoticeBoardDTO.getBoardTitle());
-        }
-
-
         model.addAttribute("noticeBoardList", noticeBoardDTOList);
 
 

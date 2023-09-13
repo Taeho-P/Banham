@@ -730,7 +730,6 @@
                 gutter: 30,
                 items: 3
             },
-
         }
     });
 
@@ -795,7 +794,6 @@
 </script>
 <!--/롤링 끝-->
 
-
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e6e2fbdddf2598b484e10300b7622f66&&libraries=services,drawing,clusterer"></script>
 
@@ -832,7 +830,7 @@
     let clusterer = new kakao.maps.MarkerClusterer({
         map: map,
         averageCenter: true,
-        minLevel: 5
+        minLevel: 7
     });
     let imageSize = new kakao.maps.Size(22, 26);
     let imageOptions = {
@@ -898,20 +896,6 @@
         return markerImage;
     }
 
-    // // 초기화 및 데이터 로딩 후 실행할 함수
-    // function initialize() {
-    //     // 초기화할 데이터 카테고리를 배열로 정의
-    //     const categories = ['service', 'food', 'travel', 'medical', 'hotel', 'shopping'];
-    //
-    //     // 각 카테고리에 해당하는 데이터를 비동기적으로 로딩하고 마커 생성
-    //     categories.forEach(category => {
-    //         createrMarker(category);
-    //     });
-    // }
-    //
-    // // 페이지 로딩 완료 시 초기화 함수 실행
-    // window.addEventListener('load', initialize);
-
     function createMarker(position, image) {
         let marker = new kakao.maps.Marker({
             position: position,
@@ -921,22 +905,36 @@
         return marker;
     }
 
+    // 마커 별로 모달에 정보 띄워주는 function
     function createMarkersByCategory(category, dataList, markerArray) {
         let marker;
         for (let i = 0; i < dataList.length; i++) {
             let data = dataList[i];
             let title = data.title;
-            let location = data.addr1;
+            let addr1 = data.addr1;
+            let addr2 = data.addr2;
+            let tel = data.tel;
+            let openTime = data.openTime;
+            let indoor = data.indoor;
+            let outdoor = data.outdoor;
+            let parking = data.parking;
+            let homepage = data.homepage;
+
             let latlng = new kakao.maps.LatLng(data.latitude, data.longitude);
             marker = createMarker(latlng, createMarkerImage(imageSrc, imageSize));
 
             kakao.maps.event.addListener(marker, 'click', function () {
                 const modal = document.getElementById("modal");
-                let placeTitle = title;
-                let placeAddr = location;
 
-                document.getElementById("place_phone").innerText = placeTitle;
-                document.getElementById("place_addr").innerText = placeAddr;
+                document.getElementById("place_title").innerText = title;
+                document.getElementById("place_tel").innerText = tel;
+                document.getElementById("place_addr1").innerText = addr1;
+                document.getElementById("place_addr2").innerText = addr2;
+                document.getElementById("place_openTime").innerText = openTime;
+                document.getElementById("place_indoor").innerText = indoor;
+                document.getElementById("place_outdoor").innerText = outdoor;
+                document.getElementById("place_parking").innerText = parking;
+                document.getElementById("place_homepage").innerText = homepage;
                 modal.style.display = "block";
             });
             markerArray.push(marker);
