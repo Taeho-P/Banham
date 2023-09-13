@@ -13,15 +13,15 @@ import java.util.Optional;
 public interface ProudLikeRepository extends JpaRepository<ProudLikeEntity,Long> {
 
     @Query("select count(l) from ProudLikeEntity l where l.proudBoardEntity.bno=:bno")
-    Long findAllCount(Long bno);
+    Long findAllCount(@Param("bno") Long bno);
 
     @Query("select l from ProudLikeEntity l where l.proudBoardEntity.bno=:bno and l.memberId=:memberId")
-    Optional<ProudLikeEntity> findByMemberId(Long bno,String memberId);
+    Optional<ProudLikeEntity> findByMemberId(@Param("bno") Long bno,@Param("memberId") String memberId);
 
     @Modifying
     @Query("delete from ProudLikeEntity l where l.proudBoardEntity.bno=:bno and l.memberId=:memberId")
-    void deleteByLike(Long bno, String memberId);
+    void deleteByLike(@Param("bno") Long bno,@Param("memberId")  String memberId);
 
     @Query("select l from ProudLikeEntity l where l.memberId=:memberId")
-    List<ProudLikeEntity> findAllMemberId(String memberId);
+    List<ProudLikeEntity> findAllMemberId(@Param("memberId") String memberId);
 }
