@@ -74,7 +74,7 @@
         <div class="container">
             <div class="board-post">
                 <img id="animal_icon"><!--icon-->
-                <h3 class="post-title" id="title"></h3><!--제목-->
+                <h3  class="post-title" id="title"> </h3><!--제목-->
                 <div class="post-header">
                     <div class="info">
                         <dl>
@@ -87,7 +87,7 @@
                         </dl>
                         <dl>
                             <dt>작성일</dt>
-                            <dd id="createDate"></dd>
+                            <dd id="createdDate"></dd>
                         </dl>
                     </div>
                 </div>
@@ -250,8 +250,8 @@
         //로그인 시 수정삭제버튼 보여주기
         function showEdit(){
             let edithtml = '';
-            edithtml += '<div> <a href="javascript: void(0);" onclick="goWrite();" class="btn btn-primary waves-effect waves-light">수정하기</a>' +
-                '<button type="button" onclick="deleteBoard();" class="btn btn-danger waves-effect waves-light">삭제하기</button></div>';
+            edithtml += '<div> <button href="javascript: void(0);" onclick="goWrite();" class="col-2 btn btn-list float-right">수정하기</button>' +
+                '<button type="button" onclick="deleteBoard();" class="col-2 btn btn-list float-right">삭제하기</button></div>';
 
             const editElem = document.querySelector('.adoptedit');
             editElem.innerHTML = edithtml;
