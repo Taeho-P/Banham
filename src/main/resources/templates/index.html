@@ -174,7 +174,12 @@
             <div class="item"  th:each="proudBoard:${proudBoardList}">
                 <div class="testi-box p-4 position-relative">
                     <div class="tab-image">
+                        <th:block th:if="${proudBoard.hasFile==1}">
                         <img th:src="@{|/upload/${proudBoard.repositoryFileName.get(0)}|}" alt="" class="img-fluid">
+                        </th:block>
+                        <th:block th:unless="${proudBoard.hasFile==1}">
+                            <img th:src="@{|/upload/no_image_file/no_image_file.jpg|}" alt="" class="img-fluid">
+                        </th:block>
                         <!-- <div class="avatar-xl">
                           <img src="images/img-1.png" alt=""
                               class="img-fluid rounded-circle border border-3 border-white">
