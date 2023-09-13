@@ -13,4 +13,6 @@ public interface AdoptPagingMapper {
     int count (final AdoptCommonParams params);
 
     List<AdoptResponseDto> findAll(final AdoptCommonParams params);
+
+    List<AdoptResponseDto> findMyAdopt(Long writer);
 }

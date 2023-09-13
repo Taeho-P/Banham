@@ -1,7 +1,9 @@
 package com.teami.banham.controller;
 
 import com.teami.banham.dto.*;
+import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
 import com.teami.banham.service.*;
+import com.teami.banham.service.adoptService.AdoptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,8 @@ public class MemberController {
     private final BoardService proudBoardService;
     private final CommunityBoardService communityBoardService;
     private final CommentService proudCommentService;
+
+    private final AdoptService adoptService;
 
     //회원가입 페이지 출력 요청
     @GetMapping("/signUp")
@@ -198,10 +202,15 @@ public class MemberController {
         List<ProudBoardDTO> proudBoardDTOList = proudBoardService.proudFindAllList(loginDTO.getMemberId());
         List<CommunityBoardDTO> communityBoardDTOList = communityBoardService.communityFindAllList(loginDTO.getMemberId());
 
+        List<AdoptResponseDto> adoptResponseDtoList = adoptService.findMyAdopt(loginDTO.getMno());//사용자가 작성한 입양 글 목록 불러오기
+
+
         model.addAttribute("noticeBoardList", noticeBoardDTOList);
         model.addAttribute("editorBoardList", editorBoardDTOList);
         model.addAttribute("proudBoardList", proudBoardDTOList);
         model.addAttribute("communityBoardList", communityBoardDTOList);
+        model.addAttribute("adoptBoardList", adoptResponseDtoList);
+
 
         return "WriteList";
     }

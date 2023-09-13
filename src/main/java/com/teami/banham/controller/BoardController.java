@@ -291,6 +291,40 @@ public class BoardController {
     }
 
 
+    /**
+     * Missing Board*
+     */
+    //Missing 게시판 리스트 홈
+    @GetMapping("/missing")
+    public String openMissingList() {
+        return "missing/Missing";
+    }
+
+    //Missing 글 등록 페이지
+    @GetMapping("/missing/write")
+    public String openMissingWrite(HttpSession session, @RequestParam(required = false) final Long id, Model model) {
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginDTO");
+        model.addAttribute("id", id);
+        if (memberDTO != null) {
+//            return "adopt/AdoptWrite";
+            return "missing/MissingWrite";
+        } else return "missing/Missing";
+    }
+
+    //Missing 글 상세 페이지
+    @GetMapping("/missing/view/{id}")
+    public String openMissingView(@PathVariable final Long id, Model model) {
+        model.addAttribute("id", id);
+        return "missing/MissingView";
+    }
+
+
+
+
+
+
+
+
     @GetMapping("/EditorWrite")
     public String editorForm() { //공지사항 게시판 페이지 이동 (태호)
         return "/editor/EditorWrite";

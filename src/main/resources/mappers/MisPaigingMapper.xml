@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.teami.banham.service.adoptService.AdoptPagingMapper">
+<mapper namespace="com.teami.banham.service.MissingService.MisPagingMapper">
 
     <!--     SELECT 결과 Map-->
-    <resultMap id="BoardResultMap" type="com.teami.banham.dto.adoptDTO.AdoptResponseDto">
+    <resultMap id="BoardResultMap" type="com.teami.banham.dto.MissingDTO.MisResponseDto">
         <result property="id"            column="id" />
         <result property="title"         column="title" />
         <result property="content"       column="content" />
@@ -51,16 +51,16 @@
     </sql>
 
     <!-- 게시글 수 조회 -->
-    <select id="count" parameterType="com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptCommonParams" resultType="int">
+    <select id="count" parameterType="com.teami.banham.dto.MissingDTO.misPaging.MisCommonParams" resultType="int">
         SELECT
         COUNT(*)
         FROM
-        tb_adopt_board
+        tb_missing_board
         <include refid="conditions" />
     </select>
 
     <!-- 게시글 리스트 조회 -->
-    <select id="findAll" parameterType="com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptCommonParams" resultMap="BoardResultMap">
+    <select id="findAll" parameterType="com.teami.banham.dto.MissingDTO.misPaging.MisCommonParams" resultMap="BoardResultMap">
         <!--  SELECT
           id
           , title
@@ -109,14 +109,14 @@
         , modified_date
           ,mem_nick
           ,ani_type
-          FROM tb_adopt_board  <include refid="conditions" />
+          FROM tb_missing_board  <include refid="conditions" />
         ORDER BY id desc, created_date DESC
-        offset #{adoptPagination.limitStart} ROWS FETCH NEXT #{recordPerPage} ROWS ONLY
+        offset #{misPagination.limitStart} ROWS FETCH NEXT #{recordPerPage} ROWS ONLY
     </select>
     <!--입양 나의 게시글 찾기-->
     <select id="findMyAdopt" parameterType="Long" resultMap="BoardResultMap">
         select id, title, content, writer, hits, delete_yn, created_date, modified_date, mem_nick, ani_type
-        from tb_adopt_board
+        from tb_missing_board
         where delete_yn = 0 and writer = #{writer}
 
     </select>

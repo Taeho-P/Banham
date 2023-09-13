@@ -36,7 +36,7 @@
     <link rel="stylesheet" th:href="@{/adopt/scripts/content.css}"/>
 
 
-    <title>입양 게시판</title>
+    <title>실종 게시판</title>
 </head>
 <body>
 <!--Start Navbar-->
@@ -53,7 +53,7 @@
                         <li class="breadcrumb-item">
                             <a href="index.html" class="text-muted">홈</a>
                         </li>
-                        <li class="breadcrumb-item active text-primary" aria-current="page">입양게시판</li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">실종 게시판</li>
                     </ol>
                 </nav>
             </div>
@@ -69,8 +69,8 @@
     <div class="content-wrapper container ">
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="fw-bold">입양게시판</h2>
-                <p class="text-muted">입양을 통해 동물들의 삶을 바꿔주세요</p>
+                <h2 class="fw-bold">실종 게시판</h2>
+                <p class="text-muted">실종된 반려동물을 찾기 위한 소중한 정보를 공유하세요.</p>
             </div>
         </div>
         <hr class="my-4">
@@ -131,7 +131,7 @@
                     </div>
                     <!--글쓰기버튼-->
                     <div class="btn_wrap text-right" style="float: right">
-                        <a class="btn btn-primary waves-effect waves-light" th:href="@{/board/adopt/write}"
+                        <a class="btn btn-primary waves-effect waves-light" th:href="@{/board/missing/write}"
                            th:if="${session.loginDTO != null} ">Write</a>
                     </div>
                     <!--페이지네이션-->
@@ -217,7 +217,7 @@
             , keyword: form.keyword.value
         }
 
-        getJson('/api/adopt', params).then(response => {
+        getJson('/api/missing', params).then(response => {
             // console.log('in findall getjson');
             console.log(response);
             if (!Object.keys(response).length) {
@@ -229,7 +229,7 @@
             }
 
             let html = '';
-            let num = response.params.adoptPagination.totalRecordCount - ((response.params.page - 1) * response.params.recordPerPage);
+            let num = response.params.misPagination.totalRecordCount - ((response.params.page - 1) * response.params.recordPerPage);
             console.log(`${num}`);
 
 
@@ -272,7 +272,7 @@
 
     //이미지 띄우기
     function findImg() {
-        const imgRes = getImg('/api/adopt/allfiles');
+        const imgRes = getImg('/api/missing/allfiles');
         let imgHtml = '';
         console.table(imgRes);
         imgRes.forEach(row => {
@@ -316,7 +316,7 @@
      * 게시글 조회
      */
     function goView(id) {
-        location.href = `/board/adopt/view/${id}`;
+        location.href = `/board/missing/view/${id}`;
     }
 
     /**
@@ -330,7 +330,7 @@
         }
 
         let html = '';
-        const pagination = params.adoptPagination;
+        const pagination = params.misPagination;
 
         // 첫 페이지, 이전 페이지
         if (pagination.existPrevPage) {
