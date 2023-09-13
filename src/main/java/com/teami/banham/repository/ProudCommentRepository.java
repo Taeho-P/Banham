@@ -5,6 +5,7 @@ import com.teami.banham.entity.ProudCommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -15,18 +16,18 @@ public interface ProudCommentRepository extends JpaRepository<ProudCommentEntity
     @Transactional
     @Modifying
     @Query("DELETE FROM ProudCommentEntity c WHERE c.cno = :cno")
-    void deleteById(Long cno);
+    void deleteById(@Param("cno") Long cno);
 
     List<ProudCommentEntity> findAllByProudBoardEntityOrderByCnoDesc(ProudBoardEntity proudBoardEntity);
 
 
     @Query("select c from ProudCommentEntity c where c.cno=:cno and c.delete_ck=0")
-    Optional<ProudCommentEntity> findById(Long cno);
+    Optional<ProudCommentEntity> findById(@Param("cno") Long cno);
 
     @Modifying
     @Query(value="update ProudCommentEntity c set c.delete_ck=1 where c.proudBoardEntity.bno=:bno")
-    void deleteByDelete_ck(Long bno);
+    void deleteByDelete_ck(@Param("bno") Long bno);
 
     @Query("select c from ProudCommentEntity c inner join MemberEntity m on c.memberId=m.memberId where m.memberId=:memberId order by c.cno desc")
-    List<ProudCommentEntity> findByCommentMemberId(String memberId);
+    List<ProudCommentEntity> findByCommentMemberId(@Param("memberId") String memberId);
 }
