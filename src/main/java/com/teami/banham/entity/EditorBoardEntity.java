@@ -40,6 +40,9 @@ public class EditorBoardEntity extends BoardBaseEntity{
 
     @Column
     private String boardWriter; //게시글 작성자
+    
+    @Column
+    private String boardLocal; //추천 지역 정보
 
     @Column
     private String boardTitle; //게시글 제목
@@ -72,6 +75,7 @@ public class EditorBoardEntity extends BoardBaseEntity{
         editorBoardEntity.setBoardWriter(editorBoardDTO.getBoardWriter());
         editorBoardEntity.setBoardTitle(editorBoardDTO.getBoardTitle());
         editorBoardEntity.setBoardContents(editorBoardDTO.getBoardContents());
+        editorBoardEntity.setBoardLocal(editorBoardDTO.getBoardLocal());
         editorBoardEntity.setBoardHits(0); //게시글 첫 작성이니 조회수는 0으로 고정
         editorBoardEntity.setHasFile("N"); //파일첨부 없이 저장할 경우 넘어오는 메소드이기 때문에 N 삽입
         editorBoardEntity.setIsDelete("N"); //첫 작성이니 삭제하지 않은 상태
@@ -87,6 +91,7 @@ public class EditorBoardEntity extends BoardBaseEntity{
         editorBoardEntity.setBoardWriter(editorBoardDTO.getBoardWriter());
         editorBoardEntity.setBoardTitle(editorBoardDTO.getBoardTitle());
         editorBoardEntity.setBoardContents(editorBoardDTO.getBoardContents());
+        editorBoardEntity.setBoardLocal(editorBoardDTO.getBoardLocal());
         editorBoardEntity.setBoardHits(0); //게시글 첫 작성이니 조회수는 0으로 고정
         editorBoardEntity.setHasFile("Y"); //파일첨부된 DTO를 ENtity로 변환하는 작업이기 때문에 파일첨부 여부에 Y삽입
         editorBoardEntity.setIsDelete("N"); //첫 작성이니 삭제하지 않은 상태
@@ -102,6 +107,7 @@ public class EditorBoardEntity extends BoardBaseEntity{
 
         editorBoardEntity.setWriterMno(editorBoardDTO.getWriterMno());
         editorBoardEntity.setBoardWriter(editorBoardDTO.getBoardWriter());
+        editorBoardEntity.setBoardLocal(editorBoardDTO.getBoardLocal());
         editorBoardEntity.setBoardTitle(editorBoardDTO.getBoardTitle());
         editorBoardEntity.setBoardContents(editorBoardDTO.getBoardContents());
         editorBoardEntity.setBoardHits(editorBoardDTO.getBoardHits());
