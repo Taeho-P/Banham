@@ -2,9 +2,11 @@ package com.teami.banham.controller;
 
 import com.teami.banham.api.LocalAPI;
 import com.teami.banham.dto.EditorBoardDTO;
+import com.teami.banham.dto.LocalPointDataDTO;
 import com.teami.banham.dto.NoticeBoardDTO;
 import com.teami.banham.dto.ProudBoardDTO;
 import com.teami.banham.service.EditorBoardService;
+import com.teami.banham.service.LocalPointService;
 import com.teami.banham.service.NoticeBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,23 +24,26 @@ public class HomeController {
     private final NoticeBoardService noticeBoardService;
     private final EditorBoardService editorBoardService;
     private final BoardService proudBoardService;
+    private final LocalPointService localPointService;
 
     //기본페이지 요청 메소드
     @GetMapping("/")
 
     public String index(Model model) {
+        List<LocalPointDataDTO> serviceList = localPointService.serviceDataFindAll();
+        List<LocalPointDataDTO> foodList = localPointService.foodDataFindAll();
+        List<LocalPointDataDTO> travelList = localPointService.travelDataFindAll();
+        List<LocalPointDataDTO> shoppingList = localPointService.shoppingDataFindAll();
+        List<LocalPointDataDTO> medicalList = localPointService.medicalDataFindAll();
+        List<LocalPointDataDTO> hotelList = localPointService.hotelDataFindAll();
 
-        LocalAPI localData= new LocalAPI();  //index 페이지에 지도 띄우기
-        localData.apiParserSearchAsync();
-
-        model.addAttribute("serviceList",localData.getServiceList());
-        model.addAttribute("foodList",localData.getFoodList());
-        model.addAttribute("travelList",localData.getTravelList());
-        model.addAttribute("shoppingList",localData.getShoppingList());
-        model.addAttribute("medicalList",localData.getMedicalList());
-        model.addAttribute("hotelList",localData.getHotelList());
+        model.addAttribute("serviceList",serviceList);
+        model.addAttribute("foodList",foodList);
+        model.addAttribute("travelList",travelList);
+        model.addAttribute("shoppingList",shoppingList);
+        model.addAttribute("medicalList",medicalList);
+        model.addAttribute("hotelList",hotelList);
         //index 페이지에 지도 띄우기 end
-
 
         List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeIndexList();
         List<EditorBoardDTO> editorBoardDTOList = editorBoardService.editorIndexList();

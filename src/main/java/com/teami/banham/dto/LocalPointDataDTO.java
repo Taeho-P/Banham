@@ -10,6 +10,7 @@ import java.security.Provider;
 @Getter
 @Setter
 public class LocalPointDataDTO {
+    private Long id;
     private String latitude; //위도
     private String longitude; //경도
     private String category; //분류설명(ex)동물약국 등,,)
@@ -26,6 +27,7 @@ public class LocalPointDataDTO {
     public static LocalPointDataDTO toServiceDTO(ServiceEntity serviceEntity){
         LocalPointDataDTO localPointDataDTO = new LocalPointDataDTO();
 
+        localPointDataDTO.setId(serviceEntity.getId());
         localPointDataDTO.setLatitude(serviceEntity.getLatitude());
         localPointDataDTO.setLongitude(serviceEntity.getLongitude());
         localPointDataDTO.setCategory(serviceEntity.getCategory());
@@ -45,6 +47,7 @@ public class LocalPointDataDTO {
     public static LocalPointDataDTO toTravelDTO(TravelEntity travelEntity){
         LocalPointDataDTO localPointDataDTO = new LocalPointDataDTO();
 
+        localPointDataDTO.setId(travelEntity.getId());
         localPointDataDTO.setLatitude(travelEntity.getLatitude());
         localPointDataDTO.setLongitude(travelEntity.getLongitude());
         localPointDataDTO.setCategory(travelEntity.getCategory());
@@ -64,6 +67,7 @@ public class LocalPointDataDTO {
     public static LocalPointDataDTO toFoodDTO(FoodEntity foodEntity){
         LocalPointDataDTO localPointDataDTO = new LocalPointDataDTO();
 
+        localPointDataDTO.setId(foodEntity.getId());
         localPointDataDTO.setLatitude(foodEntity.getLatitude());
         localPointDataDTO.setLongitude(foodEntity.getLongitude());
         localPointDataDTO.setCategory(foodEntity.getCategory());
@@ -83,6 +87,7 @@ public class LocalPointDataDTO {
     public static LocalPointDataDTO toHotelDTO(HotelEntity hotelEntity){
         LocalPointDataDTO localPointDataDTO = new LocalPointDataDTO();
 
+        localPointDataDTO.setId(hotelEntity.getId());
         localPointDataDTO.setLatitude(hotelEntity.getLatitude());
         localPointDataDTO.setLongitude(hotelEntity.getLongitude());
         localPointDataDTO.setCategory(hotelEntity.getCategory());
@@ -102,6 +107,7 @@ public class LocalPointDataDTO {
     public static LocalPointDataDTO toMedicalDTO(MedicalEntity medicalEntity){
         LocalPointDataDTO localPointDataDTO = new LocalPointDataDTO();
 
+        localPointDataDTO.setId(medicalEntity.getId());
         localPointDataDTO.setLatitude(medicalEntity.getLatitude());
         localPointDataDTO.setLongitude(medicalEntity.getLongitude());
         localPointDataDTO.setCategory(medicalEntity.getCategory());
@@ -121,6 +127,7 @@ public class LocalPointDataDTO {
     public static LocalPointDataDTO toShoppingDTO(ShoppingEntity shoppingEntity){
         LocalPointDataDTO localPointDataDTO = new LocalPointDataDTO();
 
+        localPointDataDTO.setId(shoppingEntity.getId());
         localPointDataDTO.setLatitude(shoppingEntity.getLatitude());
         localPointDataDTO.setLongitude(shoppingEntity.getLongitude());
         localPointDataDTO.setCategory(shoppingEntity.getCategory());
