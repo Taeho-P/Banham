@@ -2,10 +2,14 @@ package com.teami.banham.controller;
 
 import com.teami.banham.api.LocalAPI;
 import com.teami.banham.dto.EditorBoardDTO;
+import com.teami.banham.dto.MissingDTO.MissingIndex;
 import com.teami.banham.dto.NoticeBoardDTO;
 import com.teami.banham.dto.ProudBoardDTO;
+import com.teami.banham.dto.adoptDTO.AdoptIndex;
 import com.teami.banham.service.EditorBoardService;
+import com.teami.banham.service.MissingService.MissingService;
 import com.teami.banham.service.NoticeBoardService;
+import com.teami.banham.service.adoptService.AdoptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +26,8 @@ public class HomeController {
     private final NoticeBoardService noticeBoardService;
     private final EditorBoardService editorBoardService;
     private final BoardService proudBoardService;
+    private final AdoptService adoptService;
+    private final MissingService missingService;
 
     //기본페이지 요청 메소드
     @GetMapping("/")
@@ -40,9 +46,13 @@ public class HomeController {
         //index 페이지에 지도 띄우기 end
 
 
+        //index 게시판 롤링
         List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeIndexList();
         List<EditorBoardDTO> editorBoardDTOList = editorBoardService.editorIndexList();
         List<ProudBoardDTO> proudBoardDTOList = proudBoardService.proudBoardToIndex();
+
+        List<AdoptIndex> adoptIndexList = adoptService.findAdoptIndex();
+        List<MissingIndex> missingIndexList = missingService.findMisIndex();
 
         
         //index.html 공지사항 롤링을 위한 div html 작성
@@ -63,6 +73,8 @@ public class HomeController {
 
         model.addAttribute("noticeList", divHTMLList);  //index.html 공지사항 롤링용 객체
 
+        model.addAttribute("adoptIndexList", adoptIndexList);
+        model.addAttribute("misIndexList", missingIndexList);
 
 
         return "index"; //index.html 찾아감
