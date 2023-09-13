@@ -2,6 +2,7 @@ package com.teami.banham.repository;
 
 
 import com.teami.banham.entity.EditorBoardEntity;
+import com.teami.banham.entity.NoticeBoardEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,4 +31,8 @@ public interface EditorBoardRepository extends JpaRepository<EditorBoardEntity, 
     @Modifying
     @Query(value = "UPDATE EditorBoardEntity b SET b.isDelete='Y' WHERE b.bno=:bno")
     void updateIsDelete(@Param("bno") Long bno);
+
+    @Modifying
+    @Query(value = "SELECT c.* FROM (SELECT * FROM editor_board b WHERE b.IS_DELETE='N' ORDER BY b.CREATED_TIME DESC) c WHERE rownum<=5",nativeQuery = true)
+    List<EditorBoardEntity> findIndexEditor();
 }

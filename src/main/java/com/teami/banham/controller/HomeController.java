@@ -1,8 +1,10 @@
 package com.teami.banham.controller;
 
 import com.teami.banham.api.LocalAPI;
+import com.teami.banham.dto.EditorBoardDTO;
 import com.teami.banham.dto.NoticeBoardDTO;
 import com.teami.banham.dto.ProudBoardDTO;
+import com.teami.banham.service.EditorBoardService;
 import com.teami.banham.service.NoticeBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import java.util.List;
 public class HomeController {
 
     private final NoticeBoardService noticeBoardService;
+    private final EditorBoardService editorBoardService;
     private final BoardService proudBoardService;
 
     //기본페이지 요청 메소드
@@ -38,23 +41,23 @@ public class HomeController {
 
 
         List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeIndexList();
+        List<EditorBoardDTO> editorBoardDTOList = editorBoardService.editorIndexList();
         List<ProudBoardDTO> proudBoardDTOList = proudBoardService.proudBoardToIndex();
 
+        
+        //index.html 공지사항 롤링을 위한 div html 작성
         List<String> divHTMLList = new ArrayList<>();
 
         for(NoticeBoardDTO testNoticeBoardDTO : noticeBoardDTOList) {
             String divHTML = "\"<div style='height:20px;'><a href='/board/Notice/" + testNoticeBoardDTO.getBno() + "' >" + testNoticeBoardDTO.getBoardTitle() + "</a></div>\"";
             divHTMLList.add(divHTML);
-
-            System.out.println("넘겨주는 div 값 : " + divHTML);
         }
 
-
-
-        model.addAttribute("noticeBoardList", noticeBoardDTOList);
+        
         model.addAttribute("proudBoardList",proudBoardDTOList);
+        model.addAttribute("editorBoardList",editorBoardDTOList);
 
-        model.addAttribute("noticeList", divHTMLList);
+        model.addAttribute("noticeList", divHTMLList);  //index.html 공지사항 롤링용 객체
 
 
 

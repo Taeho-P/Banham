@@ -67,6 +67,18 @@ public class EditorBoardDTO {
         this.boardCreatedTime = boardCreatedTime;
     }
 
+    public EditorBoardDTO(Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime, List<EditorBoardFileEntity> boardFile) {
+        this.bno = bno;
+        this.boardWriter = boardWriter;
+        this.boardTitle = boardTitle;
+        this.boardHits = boardHits;
+        this.boardCreatedTime = boardCreatedTime;
+        System.out.println("이거없음? --------------" + boardFile.get(0).getStoredFileName());
+
+        this.storedFile = new ArrayList<>();
+        storedFile.add(boardFile.get(0).getStoredFileName());
+    }
+
     public static EditorBoardDTO toEditorBoardDTO(EditorBoardEntity editorBoardEntity) {
         EditorBoardDTO editorBoardDTO = new EditorBoardDTO();
 
