@@ -109,7 +109,7 @@
                         <table class="table table-responsive">
                             <thead>
                             <tr>
-                                <!--                <th></th>-->
+                                <th></th>
                                 <th>제목</th>
                                 <th>작성자</th>
                                 <th>등록일</th>
@@ -246,7 +246,7 @@
 
                 html += `
                                 <tr id="bno${obj.id}">
-<!--    							<td>${num--}</td>-->
+    							    <td class="imgTd" ><img class="imgs" style="width: 130px; height: 130px; display: block; object-fit: cover;"></td>
 
                                     <td class="text-left">
                                         ` + aniHtml + `<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
@@ -274,20 +274,29 @@
         let imgHtml = '';
         console.table(imgRes);
         imgRes.forEach(row => {
-            let imgTd = document.createElement("TD");
-            if (CheckImagefiles(`${row.storeName}`)) {
-                imgHtml = `<img id="ino${row.boardId}" class="imgs" src="/upload/${row.storeName}" alt="" style="width: 130px; height: 130px; display: block; object-fit: cover;" />`;
+            // if (CheckImagefiles(`${row.storeName}`)){
+            //
+            // }
 
-            } else {
-                imgHtml = '';
-            }
-            imgTd.innerHTML = imgHtml;
-            console.log("imgTd: " + imgHtml);
-            if (document.getElementById(`bno${row.boardId}`) != null) {
+            // let imgTd = document.createElement("imgTD");
+            // if (CheckImagefiles(`${row.storeName}`)) {
+            //     imgHtml = `<img id="ino${row.boardId}" class="imgs" src="/upload/${row.storeName}" alt="" style="width: 130px; height: 130px; display: block; object-fit: cover;" />`;
+            //
+            // } else {
+            //     imgHtml = '';
+            // }
+            // imgTd.innerHTML = imgHtml;
+            // console.log("imgTd: " + imgHtml);
+            let imgName = "/upload/"+`${row.storeName}`;
+            console.log(imgName);
+            if (document.getElementById(`bno${row.boardId}`) != null && CheckImagefiles(`${row.storeName}`)){
                 const parentElement = document.getElementById(`bno${row.boardId}`);
-                const firstChild = parentElement.firstChild;
+                console.log("pe"+parentElement.id);
+                let firstChild= parentElement.querySelector("img");
+                // const firstChild = parentElement.firstChild.firstChild;
                 // document.getElementById(`bno${row.boardId}`).insertBefore(imgTd, firstChild);
-                parentElement.insertBefore(imgTd, firstChild);
+                // parentElement.insertBefore(imgTd, firstChild);
+                firstChild.src = imgName;
             }
 
         })

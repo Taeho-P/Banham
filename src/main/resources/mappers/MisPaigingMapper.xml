@@ -114,10 +114,19 @@
         offset #{misPagination.limitStart} ROWS FETCH NEXT #{recordPerPage} ROWS ONLY
     </select>
     <!--입양 나의 게시글 찾기-->
-    <select id="findMyAdopt" parameterType="Long" resultMap="BoardResultMap">
+    <select id="findMyMissing" parameterType="Long" resultMap="BoardResultMap">
         select id, title, content, writer, hits, delete_yn, created_date, modified_date, mem_nick, ani_type
         from tb_missing_board
         where delete_yn = 0 and writer = #{writer}
 
+    </select>
+    <!--입양 인덱스 띄우기-->
+    <select id="findMisIndex" resultType="com.teami.banham.dto.MissingDTO.MissingIndex">
+        SELECT DISTINCT tab.id, tab.title, tab.CONTENT , taf.STORE_NAME, tab.hits
+        FROM tb_missing_file taf, tb_missing_board tab
+        WHERE tab.DELETE_YN = 0
+          AND tab.id = taf.board_id
+          AND REGEXP_LIKE(taf.STORE_NAME, 'jpg|png|jpeg|svg|bmp')
+          AND rownum <![CDATA[<=]]> 6 ORDER BY tab.hits DESC
     </select>
 </mapper>

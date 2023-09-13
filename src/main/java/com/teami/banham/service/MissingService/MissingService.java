@@ -2,9 +2,11 @@ package com.teami.banham.service.MissingService;
 
 import com.teami.banham.dto.MissingDTO.MisRequestDTO;
 import com.teami.banham.dto.MissingDTO.MisResponseDto;
+import com.teami.banham.dto.MissingDTO.MissingIndex;
 import com.teami.banham.dto.MissingDTO.misPaging.MisCommonParams;
 import com.teami.banham.dto.MissingDTO.misPaging.MisPagination;
 
+import com.teami.banham.dto.adoptDTO.AdoptIndex;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
 
 import com.teami.banham.entity.MissingEntity.MissingRepository;
@@ -25,8 +27,15 @@ public class MissingService {
     private final MissingRepository missingRepository;
     private final MisPagingMapper misPagingMapper;
 
+    // 인덱스 리스트 띄우기
+    public List<MissingIndex> findMisIndex(){
+
+        return misPagingMapper.findMisIndex();
+    }
+
+
     // 유저의 게시글 찾기
-    public List<MisResponseDto> findMyAdopt(Long writer){
+    public List<MisResponseDto> findMyMissing(Long writer){
 
         return misPagingMapper.findMyMissing(writer);
     }

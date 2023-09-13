@@ -1,5 +1,6 @@
 package com.teami.banham.service.adoptService;
 
+import com.teami.banham.dto.adoptDTO.AdoptIndex;
 import com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptCommonParams;
 import com.teami.banham.dto.adoptDTO.AdoptPaging.AdoptPagination;
 import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
@@ -19,6 +20,12 @@ import java.util.stream.Collectors;
 public class AdoptService {
     private final AdoptRepository adoptRepository;
     private final AdoptPagingMapper adoptPagingMapper;
+
+    // 인덱스 리스트 띄우기
+     public List<AdoptIndex> findAdoptIndex(){
+
+         return adoptPagingMapper.findAdoptIndex();
+     }
 
     // 유저의 게시글 찾기
     public List<AdoptResponseDto> findMyAdopt(Long writer){

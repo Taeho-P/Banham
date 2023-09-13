@@ -1,5 +1,6 @@
 package com.teami.banham;
 
+import com.teami.banham.dto.adoptDTO.AdoptIndex;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
 import com.teami.banham.service.adoptService.AdoptService;
 import org.junit.jupiter.api.Test;
@@ -28,5 +29,10 @@ class BanhamApplicationTests {
 		List<AdoptResponseDto> list = adoptService.findMyAdopt(1L);
 		System.out.println(list);
 
+	}
+	@Test
+	void indextest() {
+		List<AdoptIndex> list = adoptService.findAdoptIndex();
+		System.out.println(list);
 	}
 }
