@@ -174,7 +174,7 @@
             <div class="item"  th:each="proudBoard:${proudBoardList}">
                 <div class="testi-box p-4 position-relative">
                     <div class="tab-image">
-                        <img th:src="@{/upload/${proudBoard.repositoryFileName.get(0)}}" alt="" class="img-fluid">
+                        <img th:src="@{|/upload/${proudBoard.repositoryFileName.get(0)}|}" alt="" class="img-fluid">
                         <!-- <div class="avatar-xl">
                           <img src="images/img-1.png" alt=""
                               class="img-fluid rounded-circle border border-3 border-white">
@@ -182,10 +182,10 @@
                     </div>
                     <div class="mt-5 text-center">
                         <div class="slider-overtext">
-                            <h5 class="fw-bold slider-overtext"></h5>
-                            <p class="text-muted slider-overtext" th:text="${proudBoard.title}"></p>
+                            <h5 class="fw-bold slider-overtext" th:text="${proudBoard.title}"></h5>
+                            <p class="text-muted slider-overtext" th:text="${proudBoard.contents}"></p>
                         </div>
-                        <button class="btn btn-sm btn-primary" th:onclick="|location.href='@{/board/proud/${proudBoard.bno}}'|"><i class="mdi mdi-plus f-16 align-middle"></i>
+                        <button class="btn btn-sm btn-primary" th:onclick="|location.href='/board/proud/${proudBoard.bno}'|"><i class="mdi mdi-plus f-16 align-middle"></i>
                             구경하러가기
                         </button>
                     </div>

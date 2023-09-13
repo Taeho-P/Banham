@@ -48,7 +48,9 @@ public class HomeController {
 
             System.out.println("넘겨주는 div 값 : " + divHTML);
         }
-
+        for(int i = 0; i<proudBoardDTOList.size();i++){
+            System.out.println("메인메인메인>>>>>>"+proudBoardDTOList.get(i));
+        }
 
 
         model.addAttribute("noticeBoardList", noticeBoardDTOList);

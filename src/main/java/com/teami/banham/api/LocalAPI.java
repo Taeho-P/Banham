@@ -17,9 +17,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class LocalAPI {
 
-    JSONArray arrayData;
-    JSONArray arrayData2;
-
     @Getter
     private ArrayList<LocalPointDataDTO> serviceList = new ArrayList<>();
     @Getter
@@ -55,14 +52,20 @@ public class LocalAPI {
                 HttpURLConnection urlConnection = (HttpURLConnection) apiUrl.openConnection();
                 urlConnection.setRequestMethod("GET");
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
+                BufferedReader rd;
+                if (urlConnection.getResponseCode() >= 200 && urlConnection.getResponseCode() <= 300) {
+                    rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                } else {
+                    rd = new BufferedReader(new InputStreamReader(urlConnection.getErrorStream()));
                 }
-
-                parseJsonData(response.toString());
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = rd.readLine()) != null) {
+                    sb.append(line);
+                }
+                parseJsonData(sb.toString());
+                rd.close();
+                urlConnection.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
