@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section class="section position-relative overflow-hidden" style=" top: 95px; padding-bottom: 90px;">
+    <div class="content-wrapper container ">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="fw-bold">입양 게시판</h2>
+            </div>
+
+        </div>
+        <hr class="my-4">
+        <section class="artical flexbox pb-3">
+            <div class="container">
+                <div class="board-post">
+                    <img id="animal_icon"><!--icon-->
+                    <h3 class="post-title" id="title"></h3><!--제목-->
+                    <div class="post-header">
+                        <div class="info">
+                            <dl>
+                                <dt>작성자 </dt>
+                                <dd id="memNick"></dd>
+                            </dl>
+                            <dl>
+                                <dt class="th-h">조회수 </dt>
+                                <dd class="th-h" id="hits"></dd>
+                            </dl>
+                            <dl>
+                                <dt>작성일</dt>
+                                <dd id="createDate"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <dl class="file-list2">
+                            <dd>
+                                <div id="img-files"></div>
+                                <span id="content" style="white-space: pre-wrap"> </span>
+                            </dd>
+
+                        </dl>
+
+                            <table class="file-list">
+                                <tr>
+                                    <th scope="row">첨부파일</th>
+                                    <td id="files" colspan="3">
+
+
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                    </div>
+                    <div class="row">
+                        <div class="adoptedit">
+
+                            <button class="col-2 btn btn-list float-right"  onclick="goList();" >목록</button>
+
+                        </div>
+                    </div>
+                    <div class="comment-box mt-5">
+                        <h4 class="fw-bold">댓글</h4>
+                        <div id="Comment-box-item mb-1 comment-write">
+                            <div class="forum-form mt-4 cm_write" >
+                                <div class="row d-flex align-items-center justify-content-start" th:if="${session.loginDTO != null}">
+                                    <div class="col-sm-2 col-3">
+                                        <div class="avatar forum-profile">
+                                            <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" alt=""
+                                                 class="img-fluid rounded-circle avatar-md">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-8 col-md-6 col-5 my-2"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </section>
+    </div>
+</section>
+</body>
+</html>

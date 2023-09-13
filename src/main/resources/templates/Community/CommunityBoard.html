@@ -25,20 +25,20 @@
     <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
 
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 <!--Start Navbar-->
 <div th:replace="/header :: header"></div>
 <!--end Navbar-->
 
 <section class="section position-relative overflow-hidden"
-         style=" top: 95px;">
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover;top: 95px;">
     <div class="content-wrapper container ">
         <div class="row mt-4">
             <div class="col-lg-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb default mb-0">
                         <li class="breadcrumb-item">
-                            <a href="../index.html" class="text-muted">홈</a>
+                            <a href="/" class="text-muted">홈</a>
                         </li>
                         <li class="breadcrumb-item active text-primary" aria-current="page">자유게시판</li>
                     </ol>
@@ -49,11 +49,11 @@
 </section>
 <!-- Start Notice -->
 <section class="section position-relative overflow-hidden"
-         style=" top: 95px; padding-bottom: 90px;">
+         style=" top: 90px; padding-bottom: 90px;">
     <div class="content-wrapper container ">
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="fw-bold">자유게시판</h2>
+                <h2 class="fw-bold">자유 게시판</h2>
                 <p class="text-muted">일상을 자유롭게 공유하는 자유게시판입니다.🐾</p>
             </div>
         </div>
@@ -68,8 +68,8 @@
                             <option value="create_date">작성일</option>
                         </select>
                         <input id="searchKeyword" name="searchKeyword" title="검색어 입력" class="q1" type="text" placeholder="검색어 입력" />
-                        <a href="#none" onclick="fnCmdSearch();" class="btn btn-sm btn-outline-dark">검색</a>
-                        <button onclick="saveReq()" class="btn btn-sm">글쓰기</button><br>
+                        <a href="#none" onclick="fnCmdSearch();" class="btn btn-sm btn-secondary">검색</a>
+                        <button onclick="saveReq()" class="btn btn-sm btn-primary">글쓰기</button><br>
                     </div>
                 </section>
                 <th:block th:if="${session.loginDTO == null}"><!-- 세션값 가져오는 hidden input -->
@@ -108,7 +108,7 @@
                                         <input type="hidden" th:value="${board.bno}"/>
                                         <tr><!-- 글 번호 -->
                                             <td>
-                                                <a th:href="@{|/board/community/${board.bno}|}" th:text="${board.title}"  style="cursor: pointer;" ></a>
+                                                <a class="slider-overtext" th:href="@{|/board/community/${board.bno}|}" th:text="${board.title}"  style="cursor: pointer;" ></a>
                                                 <span th:if="${board.communityCommentDTOList!=null}" class="text-center"> <!-- 댓글리스트 -->
                                                 [<span th:text="${board.communityCommentDTOList.size()}" class="text-center"></span>]<!-- 댓글수-->
                                             </span>
@@ -131,6 +131,7 @@
                             게시물이 없어요!
                         </th:block>
                     </div>
+                    <hr class="my-3">
                     <div class="pagination-block">
                         <nav aria-label="navigation">
                             <ul id="page_list" class="pagination justify-content-center">

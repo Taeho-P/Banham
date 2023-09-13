@@ -122,7 +122,7 @@
                         <div class="mt-4">
                             <div class="Name">
                                 <label for="memberNick" class="form-label fw-semibold">닉네임</label>
-                                <input class="form-control" type="text" id="memberNick" onblur="nickCheck()" th:value="${session.loginDTO.getMemberNick()}">
+                                <input class="form-control" type="text" name="memberNick" id="memberNick" onblur="nickCheck()" th:value="${session.loginDTO.getMemberNick()}">
                                 <p id="nick_check_result"></p>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                 <label for="memberMail" class="form-label fw-semibold">이메일
                                 </label>
                                 <input type="text" class="form-control" id="memberMail"
-                                       onblur="mailCheck()" th:value="${session.loginDTO.getMemberMail()}">
+                                       onblur="mailCheck()" name="memberMail" th:value="${session.loginDTO.getMemberMail()}">
                                 <button type="submit" class="btn btn-sm btn-primary mt-3" id="btnConfirm" disabled="disabled" onclick="mailConfirm2()">
                                     메일인증</button>
                                 <p id="mail_check_result"></p>

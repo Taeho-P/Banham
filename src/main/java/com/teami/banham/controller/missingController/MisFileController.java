@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -33,7 +34,7 @@ public class MisFileController {
 
     //글 수정 file ver
     @PostMapping("/api/missing/{id}")
-    public Long save(@PathVariable final Long id, final MisRequestDTO params){
+    public RedirectView save(@PathVariable final Long id, final MisRequestDTO params){
         List<MisFileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
         if(!uploadFiles.isEmpty()){
             misFileService.saveFiles(id, uploadFiles);
@@ -42,15 +43,16 @@ public class MisFileController {
         List<MisFileResponse> deleteFiles = misFileService.findAllFileByIds(params.getRemoveFileIds());
         fileUtils.deleteFiles(deleteFiles);
         misFileService.deleteAllFileByIds(params.getRemoveFileIds());
+         missingService.update(id, params);
 
+        return new RedirectView("/board/missing") ;
 
-        return missingService.update(id, params);
     }
 
 
     //test file저장ver 글 생성
     @PostMapping("/api/missing/test")
-    public String savePost(final MisRequestDTO params){
+    public RedirectView savePost(final MisRequestDTO params){
         Long id = missingService.save(params);
 
         List<MisFileRequest> files = fileUtils.uploadFiles(params.getFiles());
@@ -58,8 +60,7 @@ public class MisFileController {
         if(!files.isEmpty()){
             misFileService.saveFiles(id, files);
         }
-
-        return "redirect:/board/missing";
+        return new RedirectView("/board/missing") ;
     }
 
     //file

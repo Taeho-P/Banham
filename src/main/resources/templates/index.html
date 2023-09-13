@@ -497,6 +497,10 @@
 
 <!--    </div>-->
 
+<!--    <div style='height:20px;'><a href='/board/Notice/bno' text='board.boardTitle'></a></div>-->
+
+
+
     <div class="container notice">
         <div class="row ">
             <div class="col-lg-12 ">
@@ -677,21 +681,26 @@
 <!-- 공지사항 세로 롤링시작-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery-slider-rolling.js"></script>
-<script type="text/javascript">
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
     jQuery(function() {
 
+        let noticeList = [];
+
+        /*[# th:each="n : ${noticeList}"]*/
+
+        noticeList.push('[(${n})]');
+
+        /*[/]*/
+        console.log(noticeList);
 
 
 
+        //     "<div style='height:20px;'><a th:href=\"board/NoticeBoard\">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></div>",
+        //     "<div style='height:20px;'><a href=\"#\">[공지사항] 9월 21일 홈페이지 점검 안내</a></div>"
+        // ];
 
-        var data = [
-            // <tr th:each="board: ${noticeBoardList}">
-            // "<div th:each='board: ${noticeBoardList}'>",
-
-            "<div th:each='board: ${noticeBoardList}'><div style='height:20px;'><a th:href='@{|/board/Notice/${board.bno}|(page=${noticeBoardList.number + 1})}' th:text='${board.boardTitle}'></a></div></div>"
-            // "<div style='height:20px;'><a href=\"#\">[이벤트] 반함 홈페이지 리뉴얼 이벤트 </a></div>",
-            // "<div style='height:20px;'><a href=\"#\">[공지사항] 9월 21일 홈페이지 점검 안내</a></div>"
-        ];
 
 
         /*
@@ -716,7 +725,7 @@
 
         // 위아래 슬라이드 소스
         jQuery("#srolling2").srolling({
-            data : data,
+            data : noticeList,
             width : 500,
             height : 25,
             auto : true,
@@ -729,7 +738,7 @@
 
 
     });
-
+    /*]]>*/
 
 </script>
 <!--/롤링 끝-->

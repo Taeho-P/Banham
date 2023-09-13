@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>내새끼 자랑 게시판</title>
@@ -34,31 +34,29 @@
 <div th:replace="/header :: header"></div>
 <!--end Navbar-->
 
-<!-- Start MagazineBoard -->
+<!-- Start ProudBoard -->
 <section class="section position-relative overflow-hidden"
-         style=" top: 95px;">
-
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover;top: 95px;">
     <div class="content-wrapper container ">
         <div class="row mt-4">
             <div class="col-lg-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb default mb-0">
                         <li class="breadcrumb-item">
-                            <a href="index.html" class="text-muted">홈</a>
+                            <a href="/" class="text-muted">홈</a>
                         </li>
                         <li class="breadcrumb-item active text-primary" aria-current="page">내새끼 자랑 게시판</li>
                     </ol>
                 </nav>
             </div>
         </div>
-
     </div>
 </section>
-<section class="inner-blog section ">
-    <!-- start container -->
-    <div class="container">
-        <div class="row">
 
+<section class="inner-blog section position-relative overflow-hidden" style=" top: 90px; padding-bottom: 90px;">
+    <!-- start container -->
+    <div class="content-wrapper container">
+        <div class="row">
             <div class="col-lg-6">
                 <h2 class="fw-bold">내새끼 자랑 게시판</h2>
                 <p class="text-muted">매일매일 함께한 추억, 우리 반려동물들의 일상 이야기 📷🐶🐱🐾 </p>
@@ -74,8 +72,8 @@
                 </select>
                 <input id="searchKeyword" name="searchKeyword" title="검색어 입력" class="q1" type="text"
                        placeholder="검색어 입력"/>
-                <button onclick="searchBoard();" class="btn btn-sm btn-outline-dark">검색</button>
-                <button onclick="saveReq()" class="btn btn-sm">글쓰기</button>
+                <button onclick="searchBoard();" class="btn btn-sm btn-secondary">검색</button>
+                <button onclick="saveReq()" class="btn btn-sm btn-primary">글쓰기</button>
                 <br>
             </div>
         </section>
@@ -93,8 +91,10 @@
                             <div class="blog-image position-relative">
                                 <a th:href="@{|/board/proud/${board.bno}|(page=${boardList.number + 1})}">
                                     <th:block th:if="${board.hasFile==1}">
+
                                     <img th:src="@{|/upload/${board.repositoryFileName.get(0)}|}" alt=""
                                          class="img-fluid">
+
                                     </th:block>
                                     <th:block th:unless="${board.hasFile==1}">
                                         <img th:src="@{|/upload/no_image_file/no_image_file.jpg|}" alt=""
@@ -102,24 +102,24 @@
                                     </th:block>
                                     <div class="position-absolute top-0 end-0 mt-2 me-2 f-18">
 
-                  <span class="badge rounded-pill bg-white py-2 px-2 text-muted">
-                      <th:block th:if="${board.proudCommentDTOList!=null}">
-                      <span class="ms-2"> <i class="mdi mdi-message-text-outline align-middle"
-                                             th:text="${board.proudCommentDTOList.size()}"></i> </span>
-                      </th:block>
-                      <th:block th:unless="${board.proudCommentDTOList!=null}">
-                           <span class="ms-2"> <i class="mdi mdi-message-text-outline align-middle"
-                                                  th:text="0"></i> </span>
-                      </th:block>
-                      <span class="ms-2"> <i class="mdi mdi-eye align-middle" th:text="${board.hits}"></i> </span>
-                      <th:block th:if="${board.proudLikeDTOList!=null}">
-                      <span class="ms-2"> <i class="mdi mdi-heart"
-                                             th:text="${board.proudLikeDTOList.size()}"></i> </span>
-                          </th:block>
-                      <th:block th:unless="${board.proudLikeDTOList!=null}">
-                          <span class="ms-2"><i class="mdi mdi-heart" th:text="0"> </i></span>
-                      </th:block>
-                  </span>
+                                      <span class="badge rounded-pill bg-white py-2 px-2 text-muted">
+                                          <th:block th:if="${board.proudCommentDTOList!=null}">
+                                          <span class="ms-2"> <i class="mdi mdi-message-text-outline align-middle"
+                                                                 th:text="${board.proudCommentDTOList.size()}"></i> </span>
+                                          </th:block>
+                                          <th:block th:unless="${board.proudCommentDTOList!=null}">
+                                               <span class="ms-2"> <i class="mdi mdi-message-text-outline align-middle"
+                                                                      th:text="0"></i> </span>
+                                          </th:block>
+                                          <span class="ms-2"> <i class="mdi mdi-eye align-middle" th:text="${board.hits}"></i> </span>
+                                          <th:block th:if="${board.proudLikeDTOList!=null}">
+                                          <span class="ms-2"> <i class="mdi mdi-heart"
+                                                                 th:text="${board.proudLikeDTOList.size()}"></i> </span>
+                                              </th:block>
+                                          <th:block th:unless="${board.proudLikeDTOList!=null}">
+                                              <span class="ms-2"><i class="mdi mdi-heart" th:text="0"> </i></span>
+                                          </th:block>
+                                      </span>
                                     </div>
                                 </a>
                             </div>
