@@ -119,12 +119,49 @@
 
                     </div>
                 </div>
+
+                <!--댓글 영역---------------->
+                <div class="comment-box mt-5">
+                    <h4 class="fw-bold">댓글</h4>
+                    <div id="Comment-box-item mb-1 comment-write">
+                        <div class="forum-form mt-4 cm_write" >
+                            <div class="row d-flex align-items-center justify-content-start" th:if="${session.loginDTO != null}">
+                                <div class="col-sm-2 col-3">
+                                    <div class="avatar forum-profile">
+                                        <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" alt=""
+                                             class="img-fluid rounded-circle avatar-md">
+                                    </div>
+                                </div>
+                                <div class="col-xl-8 col-md-6 col-5 my-2">
+                                    <form>
+                                        <input type="hidden" id="cm_writer" name="cm_writer"
+                                               th:value="${session.loginDTO.getMemberNick()}">
+                                        <input type="hidden" id="cm_id" th:value="${session.loginDTO.getMno()}">
+                                        <!--                                            <input type="text" id="commentContents" placeholder="내용">-->
+                                        <!--                                            <input type="text" class="form-control" id="exampleFormControlInput1"-->
+                                        <!--                                                   placeholder="내용을 입력해주세요.">-->
+                                        <span><textarea class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="90" rows="2" placeholder="댓글을 입력해 주세요."></textarea></span>
+
+                                    </form>
+                                </div>
+                                <div class="col-2">
+                                    <!--                                        <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
+                                    <span><button id="comment-write-btn" class="btn btn-dark" onclick="saveComment();">댓글작성</button><i id="counter">0/300자</i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
             </div>
 
 
         </div>
     <!--/* 댓글 작성 */-->
-    <div class="cm_write" th:if="${session.loginDTO != null}">
+    <!--<div class="cm_write" th:if="${session.loginDTO != null}">
         <fieldset>
             <legend class="skipinfo">댓글 입력</legend>
             <div class="cm_writer">
@@ -136,9 +173,9 @@
                 <span><button type="button" class="btns" onclick="saveComment();">등 록</button> <i id="counter">0/300자</i></span>
             </div>
         </fieldset>
-    </div>
+    </div>-->
     <!--/* 댓글 렌더링 영역 */-->
-    <div class="cm_list">
+    <div class="cm_list" id="comment-list">
 
     </div>
 
@@ -483,7 +520,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>
+<!--                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>-->
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
@@ -500,7 +537,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>
+<!--                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>-->
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
