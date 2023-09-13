@@ -171,81 +171,21 @@
         </div>
 
         <div class="testi-slider" id="testi-slider">
-            <div class="item ">
+            <div class="item"  th:each="proudBoard:${proudBoardList}">
                 <div class="testi-box p-4 position-relative">
                     <div class="tab-image">
-                        <img src="/images/img-1.png" alt="" class="img-fluid">
+                        <img th:src="@{/upload/${proudBoard.repositoryFileName.get(0)}}" alt="" class="img-fluid">
                         <!-- <div class="avatar-xl">
                           <img src="images/img-1.png" alt=""
                               class="img-fluid rounded-circle border border-3 border-white">
                       </div> -->
                     </div>
                     <div class="mt-5 text-center">
-
                         <div class="slider-overtext">
-                            <h5 class="fw-bold slider-overtext ">아침산책이 넘좋아요</h5>
-                            <p class="text-muted slider-overtext">날씨도 선선해져서 산책이 넘 좋아지네요 알콩이도 기분좋아보여요💕💕</p>
+                            <h5 class="fw-bold slider-overtext"></h5>
+                            <p class="text-muted slider-overtext" th:text="${proudBoard.title}"></p>
                         </div>
-                        <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-
-                            구경하러가기
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- slider item -->
-
-            <div class="item">
-                <div class="testi-box p-4 position-relative">
-                    <div class="tab-image">
-                        <img src="/images/img-2.png" alt="" class="img-fluid">
-                        <!-- <div class="avatar-xl">
-                          <img src="images/img-2.png" alt=""
-                              class="img-fluid rounded-circle border border-3 border-white">
-                      </div> -->
-                    </div>
-                    <div class="mt-5 text-center">
-                        <h5 class="fw-bold slider-overtext">맥스는 평생 아가에요</h5>
-                        <p class="text-muted slider-overtext">자기 발로 품속에 안겨서 너무 사랑스러웠어요🥰</p>
-                        <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- slider item -->
-            <div class="item ">
-                <div class="testi-box p-4 position-relative">
-                    <div class="tab-image">
-                        <img src="/images/img-3.png" alt="" class="img-fluid">
-                        <!-- <div class="avatar-xl">
-                          <img src="images/img-3.png" alt=""
-                              class="img-fluid rounded-circle border border-3 border-white">
-                      </div> -->
-                    </div>
-                    <div class="mt-5 text-center">
-                        <h5 class="fw-bold slider-overtext">오늘도 미모 뿜뿜!</h5>
-                        <p class="text-muted slider-overtext">오늘도 너무 사랑스러운 미야랍니다 ~! </p>
-                        <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
-                            구경하러가기
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- slider item -->
-            <div class="item ">
-                <div class="testi-box p-4 position-relative">
-                    <div class="tab-image">
-                        <img src="/images/img-4.png" alt="" class="img-fluid">
-                        <!-- <div class="avatar-xl">
-                          <img src="images/img-4.png" alt=""
-                              class="img-fluid rounded-circle border border-3 border-white">
-                      </div> -->
-                    </div>
-                    <div class="mt-5 text-center">
-                        <h5 class="fw-bold slider-overtext">꽃보다두유🤍</h5>
-                        <p class="text-muted slider-overtext">두유가 꽃보다 더 이쁜거같죠?🫢🤍</p>
-                        <button class="btn btn-sm btn-primary"><i class="mdi mdi-plus f-16 align-middle"></i>
+                        <button class="btn btn-sm btn-primary" th:onclick="|location.href='@{/board/proud/${proudBoard.bno}}'|"><i class="mdi mdi-plus f-16 align-middle"></i>
                             구경하러가기
                         </button>
                     </div>

@@ -92,8 +92,14 @@
                         <div class="blog-item">
                             <div class="blog-image position-relative">
                                 <a th:href="@{|/board/proud/${board.bno}|(page=${boardList.number + 1})}">
+                                    <th:block th:if="${board.hasFile==1}">
                                     <img th:src="@{|/upload/${board.repositoryFileName.get(0)}|}" alt=""
                                          class="img-fluid">
+                                    </th:block>
+                                    <th:block th:unless="${board.hasFile==1}">
+                                        <img th:src="@{|/upload/no_image_file/no_image_file.jpg|}" alt=""
+                                             class="img-fluid">
+                                    </th:block>
                                     <div class="position-absolute top-0 end-0 mt-2 me-2 f-18">
 
                   <span class="badge rounded-pill bg-white py-2 px-2 text-muted">

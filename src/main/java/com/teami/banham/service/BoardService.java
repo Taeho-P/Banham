@@ -239,4 +239,18 @@ public class BoardService {
             return null;
         }
     }
+
+    @Transactional
+    public List<ProudBoardDTO> proudBoardToIndex(){
+        List<ProudBoardEntity> proudBoardEntities = proudBoardRepository.findTop9ProudBoardsByLikeCount();
+        List<ProudBoardDTO> proudBoardDTOList = new ArrayList<>();
+        if(proudBoardEntities!=null){
+            for(ProudBoardEntity proudBoardEntity : proudBoardEntities){
+                proudBoardDTOList.add(ProudBoardDTO.toBoardDTO(proudBoardEntity));
+            }
+            return proudBoardDTOList;
+        }else {
+            return null;
+        }
+    }
 }
