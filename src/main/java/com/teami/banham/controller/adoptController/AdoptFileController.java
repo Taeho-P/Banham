@@ -11,7 +11,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -28,7 +30,7 @@ public class AdoptFileController {
 
     //글 수정 file ver
     @PostMapping("/api/adopt/{id}")
-    public Long save(@PathVariable final Long id, final AdoptRequestDTO params){
+    public RedirectView save(@PathVariable final Long id, final AdoptRequestDTO params){
         List<AdoptFileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
         if(!uploadFiles.isEmpty()){
             adoptFileService.saveFiles(id, uploadFiles);
@@ -37,25 +39,25 @@ public class AdoptFileController {
         List<AdoptFileResponse> deleteFiles = adoptFileService.findAllFileByIds(params.getRemoveFileIds());
         fileUtils.deleteFiles(deleteFiles);
         adoptFileService.deleteAllFileByIds(params.getRemoveFileIds());
+        adoptService.update(id, params);
 
-
-        return adoptService.update(id, params);
+        return new RedirectView("/board/adopt") ;
     }
 
 
     //test file저장ver 글 생성
-    @PostMapping("/api/adopt/test")
-    public String savePost(final AdoptRequestDTO params){
-        Long id = adoptService.save(params);
 
+    @PostMapping("/api/adopt/test")
+    public RedirectView savePost(final AdoptRequestDTO params){
+
+        Long id = adoptService.save(params);
         List<AdoptFileRequest> files = fileUtils.uploadFiles(params.getFiles());
 //        System.out.println(files.get(0));
         if(!files.isEmpty()){
-            adoptFileService.saveFiles(id, files);
+           adoptFileService.saveFiles(id, files);
         }
-
-        return "redirect:/board/adopt";
-    }
+        return new RedirectView("/board/adopt") ;
+}
 
     //file
     // 파일 전체 조회
