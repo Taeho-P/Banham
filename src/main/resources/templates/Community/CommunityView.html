@@ -159,8 +159,8 @@
                                             </div>
                                             <span th:if="${session.loginDTO!=null}">
                                                 <th:block th:if="${session.loginDTO.memberId==comment.memberId}">
-                                                    <button class="btn comment-modify-btn" th:id="'modify-comment-btn-' + ${comment.cno}" th:onclick="'showCommentModification(' + ${comment.cno} + ')'">수정</button>
-                                                <button class="btn" th:id="'comment-delete-btn' + ${comment.cno}" th:onclick="'deleteComment('+ ${comment.cno} + ')'">삭제</button>
+                                                    <button class="btn btn-sm btn-dark" th:id="'modify-comment-btn-' + ${comment.cno}" th:onclick="'showCommentModification(' + ${comment.cno} + ')'">수정</button>
+                                                <button class="btn btn-sm btn-dark" th:id="'comment-delete-btn' + ${comment.cno}" th:onclick="'deleteComment('+ ${comment.cno} + ')'">삭제</button>
                                                 </th:block>
                                             </span>
                                         </div>

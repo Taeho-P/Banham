@@ -1,40 +1,165 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>EditProfile</title>
+    <title>회원정보 수정</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=""/>
+    <meta content="Pichforest" name="author"/>
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" id="bootstrap-style" />
+
+    <!-- Material Icon Css -->
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+
+    <!-- Unicon Css -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
+
     <!-- Ajax를 사용하기 위한 JQuery CDN 적용 -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
-<body>
-<h3>회원 정보 수정</h3>
-<form action="/member/EditProfile" method="post" onsubmit="return editCheck(this)">
-    <div>
-        <img id="selectImg" th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}"/><br>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
+<!--Start Navbar-->
+<div th:replace="/header :: header"></div>
+<!--end Navbar-->
+<section class="section position-relative overflow-hidden"
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover; top: 95px;">
+    <div class="content-wrapper container ">
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb default mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="/" class="text-muted">홈</a>
+                        </li>
+                        <li class="breadcrumb-item " aria-current="page"><a class="text-muted"  href="/member/MyPage">마이페이지</a></li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">회원정보수정</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
     </div>
-    <table>
-        <tr>        <!-- <img th:src="@{|/upload/${fileName}|}" alt=""> -->
-            <td><button type="button" onclick="select00()"><img th:src="@{/profile/00.png}" /></button></td>
-            <td><button type="button" onclick="select01()"><img th:src="@{/profile/01.png}" /></button></td>
-            <td><button type="button" onclick="select02()"><img th:src="@{/profile/02.png}" /></button></td>
-        </tr>
-        <tr>        <!-- <img th:src="@{|/upload/${fileName}|}" alt=""> -->
-            <td><button type="button" onclick="select03()"><img th:src="@{/profile/03.png}" /></button></td>
-            <td><button type="button" onclick="select04()"><img th:src="@{/profile/04.png}" /></button></td>
-        </tr>
-    </table>
-    <input type="hidden" id="profileImgNo" name="profileImgNo" th:value="${session.loginDTO.profileImgNo}">
-    <input id="defaultNick" name="defaultNick" th:value="${session.loginDTO.getMemberNick()}" style="display: none">
-    <input id="defaultMail" name="defaultMail"th:value="${session.loginDTO.getMemberMail()}" style="display: none">
-    <label for="memberId">아이디 : </label> <label id="memberId" name="memberId" th:text="${session.loginDTO.getMemberId()}"/> <br>
-    <label for="memberNick">닉네임 : </label> <input id="memberNick" name="memberNick" onblur="nickCheck()" th:value="${session.loginDTO.getMemberNick()}"> <br>
-    <p id="nick_check_result"></p>
-    <label for="memberMail">이메일 : </label> <input id="memberMail" name="memberMail" onblur="mailCheck()" th:value="${session.loginDTO.getMemberMail()}"> <button type="button" id="btnConfirm" disabled="disabled" onclick="mailConfirm2()">메일 인증</button> <br>
-    <p id="mail_check_result"></p>
-    <label for="mailConfirm">인증 코드 : </label> <input id="mailConfirm" name="mailConfirm" onblur="confirmCheck()">
-    <p id="confirm_check_result"></p>
-    <button type="submit" id="doEdit" name="doEdit">수정하기</button>
-</form>
+</section>
+<section class="section position-relative overflow-hidden"
+         style=" top: 50px; padding-bottom: 90px;">
+    <div class="content-wrapper container mt-5 ">
+        <form class="info-box" action="/member/EditProfile" method="post" onsubmit="return editCheck(this)">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="profile-item">
+                        <div class="avatar">
+                            <img id="selectImg" class="img-fluid rounded-circle avatar-xl" th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}"/>
+                            <input type="hidden" id="profileImgNo" name="profileImgNo" th:value="${session.loginDTO.profileImgNo}">
+                            <input id="defaultNick" name="defaultNick" th:value="${session.loginDTO.getMemberNick()}" style="display: none">
+                            <input id="defaultMail" name="defaultMail"th:value="${session.loginDTO.getMemberMail()}" style="display: none">
+                        </div>
+                        <p class=" mb-0 my-3 fw-bold">프로필사진 수정📷</p>
+
+                        <p class="mt-2">아래 귀여운 동물 사진들로 나만의 프로필을 완성해보세요🙌</p>
+                    </div>
+<!--                    <table>-->
+<!--                        <tr>        &lt;!&ndash; <img th:src="@{|/upload/${fileName}|}" alt=""> &ndash;&gt;-->
+<!--                            <td><button type="button" onclick="select00()"><img th:src="@{/profile/00.png}" /></button></td>-->
+<!--                            <td><button type="button" onclick="select01()"><img th:src="@{/profile/01.png}" /></button></td>-->
+<!--                            <td><button type="button" onclick="select02()"><img th:src="@{/profile/02.png}" /></button></td>-->
+<!--                        </tr>-->
+<!--                        <tr>        &lt;!&ndash; <img th:src="@{|/upload/${fileName}|}" alt=""> &ndash;&gt;-->
+<!--                            <td><button type="button" onclick="select03()"><img th:src="@{/profile/03.png}" /></button></td>-->
+<!--                            <td><button type="button" onclick="select04()"><img th:src="@{/profile/04.png}" /></button></td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+
+
+                    <div class="row align-items-center mt-5">
+                        <div class="col">
+                            <div class="text-center">
+                                <button class="btn-light" type="button" onclick="select00()"><img th:src="@{/profile/00.png}" /></button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="text-center">
+                                <button class="btn-light"type="button" onclick="select01()"><img th:src="@{/profile/01.png}" /></button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="text-center">
+                                <button class="btn-light"type="button" onclick="select02()"><img th:src="@{/profile/02.png}" /></button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="text-center">
+                                <button class="btn-light"type="button" onclick="select03()"><img th:src="@{/profile/03.png}" /></button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="text-center">
+                                <button class="btn-light"type="button" onclick="select04()"><img th:src="@{/profile/04.png}" /></button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 offset-lg-1">
+                    <h4 class="fw-bold mt-lg-0 mt-4">내 정보 수정 </h4>
+                    <div class=" mt-4">
+                        <div class="mt-3">
+                            <div class="Name">
+                                <label for="memberId" class="form-label fw-semibold">아이디 </label>
+                                <label id="memberId" name="memberId" th:text="${session.loginDTO.getMemberId()}"/> <br>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="Name">
+                                <label for="memberNick" class="form-label fw-semibold">닉네임</label>
+                                <input class="form-control" type="text" id="memberNick" onblur="nickCheck()" th:value="${session.loginDTO.getMemberNick()}">
+                                <p id="nick_check_result"></p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="Name">
+                                <label for="memberMail" class="form-label fw-semibold">이메일
+                                </label>
+                                <input type="text" class="form-control" id="memberMail"
+                                       onblur="mailCheck()" th:value="${session.loginDTO.getMemberMail()}">
+                                <button type="submit" class="btn btn-sm btn-primary mt-3" id="btnConfirm" disabled="disabled" onclick="mailConfirm2()">
+                                    메일인증</button>
+                                <p id="mail_check_result"></p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <div class="Name">
+                                <label for="mailConfirm" class="form-label fw-semibold">인증코드
+                                </label>
+                                <input type="text" class="form-control" id="mailConfirm" name="mailConfirm"onblur="confirmCheck()"
+                                       placeholder="인증코드를 적어주세요." required>
+                                <p id="confirm_check_result"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="submit-button ">
+                    <button class="btn btn-primary w-100" type="submit" id="doEdit" name="doEdit">수정하기</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
 </body>
 
 <script th:inline="javascript">
