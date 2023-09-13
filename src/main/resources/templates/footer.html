@@ -62,29 +62,47 @@
   <!--maker modal start-->
   <div class="modal" id="modal">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h7><strong>업체정보</strong></h7>
-          <button class="close_button" data-dismiss="modal">닫기</button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5><strong style="/* line-height: 1; */">업체정보</strong></h5>
+                <button class="close_button" data-dismiss="modal" style="/* font-variant: titling-caps; */">x
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="info">
+                    <dl>
+                        <dt id="category_name"></dt>
+                        <dd><strong id="place_title"></strong></dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_tel" style="font-weight: 800;font-size: 2vh;">
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_addr1"><i class="mdi mdi-map-marker"></i></dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_addr2"><i class="mdi mdi-cellphone-android"></i></dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_openTime"><i class="mdi mdi-menu-right"></i></dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_indoor"><i class="mdi mdi-menu-right"></i></dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_outdoor"><i class="mdi mdi-menu-right"></i></dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_parking"><i class="mdi mdi-earth"></i></dd>
+                    </dl>
+                    <dl>
+                        <dd id="place_homepage"><i class="mdi mdi-earth"></i></dd>
+                    </dl>
+                    #자세한 사항은 홈페이지나 해당시설에 연락하여 확인부탁드립니다.
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="info">
-            <dl>
-              <dt id="category_name"></dt>
-              <dd><strong id="place_name"></strong></dd>
-            </dl>
-            <dl>
-              <dt>이름 :</dt>
-              <dd id="place_phone"></dd>
-            </dl>
-            <dl>
-              <dt>주소 :</dt>
-              <dd id="place_addr"></dd>
-            </dl>
-
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>

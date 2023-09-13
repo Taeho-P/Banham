@@ -2,11 +2,13 @@ package com.teami.banham.controller;
 
 import com.teami.banham.api.LocalAPI;
 import com.teami.banham.dto.NoticeBoardDTO;
+import com.teami.banham.dto.ProudBoardDTO;
 import com.teami.banham.service.NoticeBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.teami.banham.service.BoardService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 public class HomeController {
 
     private final NoticeBoardService noticeBoardService;
+    private final BoardService proudBoardService;
 
     //기본페이지 요청 메소드
     @GetMapping("/")
@@ -35,6 +38,7 @@ public class HomeController {
 
 
         List<NoticeBoardDTO> noticeBoardDTOList = noticeBoardService.noticeIndexList();
+        List<ProudBoardDTO> proudBoardDTOList = proudBoardService.proudBoardToIndex();
 
         List<String> divHTMLList = new ArrayList<>();
 
@@ -46,7 +50,12 @@ public class HomeController {
         }
 
 
+
+        model.addAttribute("noticeBoardList", noticeBoardDTOList);
+        model.addAttribute("proudBoardList",proudBoardDTOList);
+
         model.addAttribute("noticeList", divHTMLList);
+
 
 
         return "index"; //index.html 찾아감
