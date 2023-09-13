@@ -56,7 +56,7 @@
             <div class="row grid-margin section">
               <div class="col-lg-12">
                 <textarea class="w-100" id="boardContents" name="boardContents"placeholder="내용을 입력하세요" ></textarea>
-                <input type="file" name="boardFile" onchange="readURL(this)" accept=".jpg, .png, .gif, .jpeg" multiple required/> <!-- 유미야 살려죠 -->
+                <input type="file" id="boardFile" name="boardFile" onchange="readURL(this)" accept=".jpg, .png, .gif, .jpeg" multiple required/> <!-- 유미야 살려죠 -->
                 <img id="preview"/>
                 <!--                                <input type="submit" value="글작성"/>-->
               </div>
@@ -99,6 +99,7 @@
     const boardTitle = document.querySelector("#boardTitle").value; //제목 input 입력값
     const boardContents = document.querySelector("#boardContents").value;// 내용 textarea 입력값
     const boardLocal = document.querySelector("#boardLocal").value; //지역 input 입력값
+    const boardFile = document.getElementById('boardFile').value;
 
     if(boardLocal == '' || boardTitle == null) {
       alert("지역을 입력해주세요.");
@@ -111,6 +112,10 @@
     }
     if(boardContents == '' || boardContents == null) {
       alert("내용을 입력해주세요.");
+      return;
+    }
+    if(boardFile == '' || boardFile == null) {
+      alert("이미지 파일을 꼭 첨부해주세요.");
       return;
     }
     document.editorBoardForm.submit(); //editorBoardForm 폼을 submit한다.
