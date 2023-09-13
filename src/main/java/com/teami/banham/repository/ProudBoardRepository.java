@@ -41,16 +41,14 @@ public interface ProudBoardRepository extends JpaRepository<ProudBoardEntity,Lon
     @Query("select b from ProudBoardEntity b where b.memberId=:memberId and b.delete_ck=0 order by b.bno desc")
     List<ProudBoardEntity> findAllList(@Param("memberId") String memberId);
 
-    @Query(value = "SELECT p.*, l.likeCount, f.* " +
-            "FROM PROUD_BOARD_TABLE p " +
-            "LEFT JOIN ( " +
-            "    SELECT bno, COUNT(bno) AS likeCount " +
-            "    FROM PROUD_LIKE_TABLE " +
-            "    GROUP BY bno " +
-            ") l ON p.bno = l.bno " +
-            "LEFT JOIN PROUD_BOARD_FILE_TABLE f ON p.bno = f.PROUD_bno " +
-            "WHERE p.delete_ck = 0 " +
-            "ORDER BY l.likeCount " +
-            "FETCH FIRST 9 ROWS ONLY",nativeQuery = true)
+    @Query (value = "SELECT * " +
+            "FROM ( " +
+            "    SELECT p.*, " +
+            "           (SELECT COUNT(*) FROM PROUD_LIKE_TABLE l WHERE l.bno = p.bno) AS likeCount " +
+            "    FROM PROUD_BOARD_TABLE p " +
+            "    WHERE p.delete_ck = 0 " +
+            "    ORDER BY likeCount DESC " +
+            ") " +
+            "WHERE ROWNUM <= 9", nativeQuery = true)
     List<ProudBoardEntity> findTop9ProudBoardsByLikeCount();
 }

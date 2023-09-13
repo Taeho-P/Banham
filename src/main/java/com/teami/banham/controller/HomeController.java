@@ -53,7 +53,11 @@ public class HomeController {
             divHTMLList.add(divHTML);
         }
 
-        
+
+
+        model.addAttribute("noticeBoardList", noticeBoardDTOList);
+
+
         model.addAttribute("proudBoardList",proudBoardDTOList);
         model.addAttribute("editorBoardList",editorBoardDTOList);
 
