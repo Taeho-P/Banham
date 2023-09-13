@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>입양게시판</title>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
-
 
     <!--css add-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,22 +38,22 @@
 
     <title>입양 게시판</title>
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 <!--Start Navbar-->
 <div th:replace="/header :: header"></div>
 <!--end Navbar-->
 <!--add-->
 <section class="section position-relative overflow-hidden"
-         style=" top: 95px;">
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover;top: 95px;">
     <div class="content-wrapper container ">
         <div class="row mt-4">
             <div class="col-lg-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb default mb-0">
                         <li class="breadcrumb-item">
-                            <a href="index.html" class="text-muted">홈</a>
+                            <a href="/" class="text-muted">홈</a>
                         </li>
-                        <li class="breadcrumb-item active text-primary" aria-current="page">입양게시판</li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">입양 게시판</li>
                     </ol>
                 </nav>
             </div>
@@ -61,15 +61,13 @@
     </div>
 </section>
 
-
-
 <!--Start Board-->
-<section class="section position-relative overflow-hidden"
-         style=" top: 95px; padding-bottom: 90px;">
+<section class="inner-blog section position-relative overflow-hidden" style=" top: 90px; padding-bottom: 90px;">
+    <!-- start container -->
     <div class="content-wrapper container ">
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="fw-bold">입양게시판</h2>
+                <h2 class="fw-bold">입양 게시판</h2>
                 <p class="text-muted">입양을 통해 동물들의 삶을 바꿔주세요</p>
             </div>
         </div>

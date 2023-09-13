@@ -34,7 +34,7 @@
 .page_tits .path > strong + span:before {display:none;}
 
 /* 컨텐츠 간격 */
-section {margin-top:80px;}
+/*section {margin-top:80px;}*/
 section:first-child, #tabmenu + section {margin-top:0;}
 
 /* 탭메뉴 */
