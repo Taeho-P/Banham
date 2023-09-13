@@ -150,8 +150,8 @@ public class EditorBoardService {
 
         for(EditorBoardEntity editorBoardEntity : editorBoardEntities) {
             EditorBoardFileEntity test = editorBoardEntity.getEditorBoardFileEntityList().get(0);
-            System.out.println("여기는 있나?-------------------------------" + test.getStoredFileName());
-            EditorBoardDTO editorBoardDTO = new EditorBoardDTO(editorBoardEntity.getBno(), editorBoardEntity.getBoardWriter(), editorBoardEntity.getBoardTitle(), editorBoardEntity.getBoardHits(), editorBoardEntity.getCreatedTime(), editorBoardEntity.getEditorBoardFileEntityList());
+
+            EditorBoardDTO editorBoardDTO = new EditorBoardDTO(editorBoardEntity.getBno(), editorBoardEntity.getBoardWriter(), editorBoardEntity.getBoardTitle(), editorBoardEntity.getBoardHits(), editorBoardEntity.getCreatedTime(), editorBoardEntity.getEditorBoardFileEntityList(), editorBoardEntity.getBoardLocal());
 
             editorBoardDTOList.add(editorBoardDTO);
         }

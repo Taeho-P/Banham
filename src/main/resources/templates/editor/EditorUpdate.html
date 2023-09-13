@@ -41,7 +41,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
-          <h2 class="fw-bold">공지사항 수정</h2>
+          <h2 class="fw-bold">에디터 수정</h2>
         </div>
       </div>
       <hr class="my-4">
@@ -55,6 +55,7 @@
             <input type="hidden" name="isDelete" th:value="${editorBoardUpdate.isDelete}">
             <input style="outline: none" id="boardWriter" name="boardWriter" th:value="${session.loginDTO.memberNick}" type="hidden">
             <input type="text" id="boardTitle" name="boardTitle" placeholder="제목을 입력하세요" class="form-control form-control-uniform" th:value="${editorBoardUpdate.boardTitle}">
+            <input type="text" id="boardLocal" name="boardLocal" placeholder="지역을 입력하세요" class="form-control form-control-uniform" th:value="${editorBoardUpdate.boardLocal}">
             <div class="row grid-margin section">
               <div class="col-lg-12">
                 <textarea class="w-100" id="boardContents" name="boardContents"placeholder="내용을 입력하세요" th:text="${editorBoardUpdate.boardContents}"></textarea>
@@ -83,9 +84,16 @@
   const editorBoardUpdate = () => {
     const boardTitle = document.querySelector("#boardTitle").value; //수정하기위해 입력한 제목 값
     const boardContents = document.querySelector("#boardContents").value; //수정하기위해 입력한 본문 값
+    const boardLocal = document.querySelector("#boardLocal").value; //수정하기위해 입력한 지역 값
+
+
 
     if(boardTitle == '' || boardTitle == null) {
       alert("제목을 입력해주세요.")
+      return;
+    }
+    if(boardLocal == '' || boardLocal == null) {
+      alert("지역을 입력해주세요.")
       return;
     }
     if (boardContents == '' || boardContents == null) {

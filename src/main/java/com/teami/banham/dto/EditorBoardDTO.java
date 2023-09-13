@@ -24,6 +24,7 @@ public class EditorBoardDTO {
     private String boardContents; //게시글 내용
     private int boardHits; //게시글 조회수
     private String isDelete; //게시글 삭제 여부
+    private String boardLocal; //추천 지역 정보
     private LocalDateTime boardCreatedTime; //게시글 생성 시간
     private LocalDateTime boardUpdatedTime; //게시글 수정 시간
 
@@ -67,13 +68,13 @@ public class EditorBoardDTO {
         this.boardCreatedTime = boardCreatedTime;
     }
 
-    public EditorBoardDTO(Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime, List<EditorBoardFileEntity> boardFile) {
+    public EditorBoardDTO(Long bno, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime, List<EditorBoardFileEntity> boardFile, String boardLocal) {
         this.bno = bno;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
         this.boardHits = boardHits;
         this.boardCreatedTime = boardCreatedTime;
-        System.out.println("이거없음? --------------" + boardFile.get(0).getStoredFileName());
+        this.boardLocal = boardLocal;
 
         this.storedFile = new ArrayList<>();
         storedFile.add(boardFile.get(0).getStoredFileName());
@@ -96,6 +97,7 @@ public class EditorBoardDTO {
 
         editorBoardDTO.setBno(editorBoardEntity.getBno());
         editorBoardDTO.setWriterMno(editorBoardEntity.getWriterMno());
+        editorBoardDTO.setBoardLocal(editorBoardEntity.getBoardLocal());
         editorBoardDTO.setBoardWriter(editorBoardEntity.getBoardWriter());
         editorBoardDTO.setBoardTitle(editorBoardEntity.getBoardTitle());
         editorBoardDTO.setBoardContents(editorBoardEntity.getBoardContents());

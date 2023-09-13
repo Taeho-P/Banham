@@ -226,8 +226,8 @@
                         <div class="card">
                             <img class="card-img" th:src="@{|/upload/${board.storedFile.get(0)}|}" alt="editor-img1">
                             <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
-                                <h6 class="card-subtitle" ><a th:href="@{|/board/Editor/${board.bno}|}" th:text="${board.boardTitle}"></a></h6>
-<!--                                <h3 class="card-title">하늘지기</h3>-->
+                                <h6 class="card-subtitle" th:text="${board.boardLocal}"></h6>
+                                <h3 class="card-title" ><a th:href="@{|/board/Editor/${board.bno}|}" th:text="${board.boardTitle}"></a></h3>
                                 <div class="d-flex justify-content-between align-items-center">
 <!--                                    <div class="ratings">-->
 <!--                                        <i class="mdi mdi-star rating-color"></i>-->

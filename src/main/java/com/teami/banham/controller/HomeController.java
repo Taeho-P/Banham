@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.teami.banham.service.BoardService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +51,19 @@ public class HomeController {
         List<String> divHTMLList = new ArrayList<>();
 
         for(NoticeBoardDTO testNoticeBoardDTO : noticeBoardDTOList) {
-            String divHTML = "\"<div style='height:20px;'><a href='/board/Notice/" + testNoticeBoardDTO.getBno() + "' >" + testNoticeBoardDTO.getBoardTitle() + "</a></div>\"";
+            String eorN = "";
+
+            LocalDateTime credatedDate = testNoticeBoardDTO.getBoardCreatedTime();
+
+            String createdDateStr = credatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            if(testNoticeBoardDTO.getEorN().equals("E")) {
+                eorN = "[이벤트]  ";
+            } else {
+                eorN = "[공지사항]  ";
+            }
+
+            String divHTML = "\"<div style='height:20px;'><a href='/board/Notice/" + testNoticeBoardDTO.getBno() + "' >" + eorN + testNoticeBoardDTO.getBoardTitle() + "</a><div>" + createdDateStr + "</div></div>\"";
             divHTMLList.add(divHTML);
         }
 
