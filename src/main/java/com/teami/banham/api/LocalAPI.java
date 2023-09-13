@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+@Component
 public class LocalAPI {
 
     @Getter
@@ -29,6 +31,7 @@ public class LocalAPI {
     private ArrayList<LocalPointDataDTO> medicalList = new ArrayList<>();
     @Getter
     private ArrayList<LocalPointDataDTO> hotelList = new ArrayList<>();
+
 
     public void apiParserSearchAsync() {
         List<CompletableFuture<Void>> futures = new ArrayList<>();

@@ -43,6 +43,8 @@ dependencies {
 	// spring mail 이메일 인증을 위한 빌드 (태호)
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
+	//캐시
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 
 }
 
