@@ -120,4 +120,16 @@
         where delete_yn = 0 and writer = #{writer}
 
     </select>
+
+    <!--입양 인덱스 띄우기-->
+    <select id="findAdoptIndex" resultType="com.teami.banham.dto.adoptDTO.AdoptIndex">
+        SELECT DISTINCT tab.id, tab.title, tab.CONTENT , taf.STORE_NAME, tab.hits
+        FROM tb_adopt_file taf, tb_adopt_board tab
+        WHERE tab.DELETE_YN = 0
+        AND tab.id = taf.board_id
+        AND REGEXP_LIKE(taf.STORE_NAME, 'jpg|png|jpeg|svg|bmp')
+        AND rownum <![CDATA[<=]]> 6 ORDER BY tab.hits DESC
+    </select>
+
+
 </mapper>

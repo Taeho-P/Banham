@@ -353,19 +353,40 @@
                     <button class="btn-dark twosliderbtn">더보기</button>
                 </div>
                 <div class="client-slider clients-slider">
+                    <!--입양 롤링-->
+                    <th:block th:each="adopt : ${adoptIndexList}">
                     <div class="item">
                         <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
+                            <img th:src="@{|/upload/${adopt.storeName}|}" alt="logo-img" class="img-fluid">
                             <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
+                                <h5 class="fw-bold" th:text="${adopt.title}"></h5>
+                                <p class="mb-2" th:text="${adopt.content}"></p>
+                                 <button class="btn btn-sm btn-primary">
+                                     <a th:href="@{|/board/adopt/view/${adopt.id}|}">
+                                         확인하기
+                                     </a>
+                                  </button>
                             </div>
                         </div>
                     </div>
+                    </th:block>
+                    <!--/입양 롤링-->
+
+
                     <!-- slider item -->
+                   <!-- <div class="item">
+                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
+                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
+                            <div class="card-body slider-content position-relative">
+                                <p class="mb-2">귀여운 발바닥이 매력적</p>
+                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
+                                <button class="btn btn-sm btn-primary">
+                                    확인하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    &lt;!&ndash; slider item &ndash;&gt;
                     <div class="item">
                         <div class="card position-relative overflow-hidden m-2 m-lg-0">
                             <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
@@ -378,7 +399,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- slider item -->
+                    &lt;!&ndash; slider item &ndash;&gt;
                     <div class="item">
                         <div class="card position-relative overflow-hidden m-2 m-lg-0">
                             <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
@@ -390,20 +411,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <!-- slider item -->
-                    <div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    </div>-->
                     <!-- slider item -->
                 </div>
                 <!-- End slider -->
@@ -417,19 +425,38 @@
                     <button class="btn-dark twosliderbtn">더보기</button>
                 </div>
                 <div class="client-slider2" id="clients-slider">
-                    <div class="item">
+                    <!--입양 롤링-->
+                    <th:block th:each="missing : ${misIndexList}">
+                        <div class="item">
+                            <div class="card position-relative overflow-hidden m-2 m-lg-0">
+                                <img th:src="@{|/upload/${missing.storeName}|}" alt="logo-img" class="img-fluid">
+                                <div class="card-body slider-content position-relative">
+                                    <h5 class="fw-bold" th:text="${missing.title}"></h5>
+                                    <p class="mb-2" th:text="${missing.content}"></p>
+                                    <button class="btn btn-sm btn-primary">
+                                        <a th:href="@{|/board/missing/view/${missing.id}|}">
+                                            확인하기
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <!--/입양 롤링-->
+                    <!-- slider item -->
+                    <!--<div class="item">
                         <div class="card position-relative overflow-hidden m-2 m-lg-0">
                             <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
                             <div class="card-body slider-content position-relative">
-                                <p class="mb-2">경기도 남양주시</p>
-                                <h5 class="fw-bold">복돌이를 찾아주세요</h5>
+                                <p class="mb-2">귀여운 발바닥이 매력적</p>
+                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
                                 <button class="btn btn-sm btn-primary">
                                     확인하기
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <!-- slider item -->
+                    &lt;!&ndash; slider item &ndash;&gt;
                     <div class="item">
                         <div class="card position-relative overflow-hidden m-2 m-lg-0">
                             <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
@@ -442,7 +469,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- slider item -->
+                    &lt;!&ndash; slider item &ndash;&gt;
                     <div class="item">
                         <div class="card position-relative overflow-hidden m-2 m-lg-0">
                             <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
@@ -454,20 +481,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <!-- slider item -->
-                    <div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    </div>-->
                     <!-- slider item -->
                 </div>
                 <!-- End slider -->
