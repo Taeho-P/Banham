@@ -167,7 +167,7 @@ h4 + .search_box {margin-top:10px;}
 .paging .prev, .paging .last {margin-left:-1px;}
 
 /* 댓글 */
-.cm_write {margin:4% 0 15px 0;}
+/*.cm_write {margin:4% 0 15px 0;}
 .cm_write input[type="text"], .cm_write input[type="password"], .cm_write textarea, .cm_list .cm_re_input textarea {padding:10px;}
 .cm_write .cm_writer {margin-bottom:5px;}
 .cm_write .cm_writer label {color:#111; margin-right:10px;}
@@ -181,7 +181,7 @@ h4 + .search_box {margin-top:10px;}
 .cm_write .cm_input > span {display:block; text-align:right; position:relative;}
 .cm_write .cm_input > span i {position:absolute; top:11px; left:10px; font-size:13px; color:#999;}
 .cm_input textarea {width:100%; height:90px; background:#f9f9f9; border:0; border-bottom:1px solid #ccc;}
-.cm_input .btns {width:76px; height:40px; line-height:38px; background:#139dc8; border-radius:0; color:#fff; padding:0; margin:0; font-size:15px; position:relative; right:-1px;}
+.cm_input .btns {width:76px; height:40px; line-height:38px; background:#139dc8; border-radius:0; color:#fff; padding:0; margin:0; font-size:15px; position:relative; right:-1px;}*/
 /* 댓글리스트 */
 .cm_list {border-bottom:1px solid #ddd; font-size:14px;}
 .cm_list > div {overflow:hidden; border-top:1px solid #e0e0e0; padding:15px 0; position:relative;}
