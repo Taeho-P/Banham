@@ -29,13 +29,13 @@ public interface ProudBoardRepository extends JpaRepository<ProudBoardEntity,Lon
     @Query("select b from ProudBoardEntity b where b.bno=:bno")
     ProudBoardEntity findbyforLikeBno(@Param("bno") Long bno);
 
-    @Query("select b from ProudBoardEntity b where b.title like %:searchKeyword% and b.delete_ck=0")
+    @Query("select b from ProudBoardEntity b where (b.title like %:searchKeyword%) and b.delete_ck=0")
     Page<ProudBoardEntity> findAllByTitle(Pageable pageable,@Param("searchKeyword") String searchKeyword);
 
-    @Query("select b from ProudBoardEntity b where b.title like %:searchKeyword% or b.contents like %:searchKeyword% and b.delete_ck=0")
+    @Query("select b from ProudBoardEntity b where (b.title like %:searchKeyword% or b.contents like %:searchKeyword%) and b.delete_ck=0")
     Page<ProudBoardEntity> findAllByContents(Pageable pageable,@Param("searchKeyword") String searchKeyword);
 
-    @Query("select b from ProudBoardEntity b where b.writer like %:searchKeyword% and b.delete_ck=0")
+    @Query("select b from ProudBoardEntity b where (b.writer like %:searchKeyword%) and b.delete_ck=0")
     Page<ProudBoardEntity> findallbyWriter(Pageable pageable, @Param("searchKeyword") String searchKeyword);
 
     @Query("select b from ProudBoardEntity b where b.memberId=:memberId and b.delete_ck=0 order by b.bno desc")
