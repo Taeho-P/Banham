@@ -370,10 +370,15 @@
         location.href = "/board/proud/modify/" + bno;
     }
     const deleteReq = () => {
-        alert("정말 삭제 하시겠습니까?");
-        console.log("삭제 요청");
-        const bno = [[${board.bno}]];
-        location.href = "/board/proud/delete/" + bno;
+        if(confirm("정말 삭제 하시겠습니까?")) {
+            console.log("삭제 요청");
+            const bno = [[${board.bno}]];
+            location.href = "/board/proud/delete/" + bno;
+        }
+        // alert("정말 삭제 하시겠습니까?");
+        // console.log("삭제 요청");
+        // const bno = [[${board.bno}]];
+        // location.href = "/board/proud/delete/" + bno;
     }
     const commentWrite = () => {
         const sessionId = [[${session.loginDTO != null ? session.loginDTO.memberId : ''}]];
