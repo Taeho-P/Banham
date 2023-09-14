@@ -153,13 +153,13 @@
       },
       success : function(data){
         alert("해당 이메일로 아이디 발송이 완료되었습니다.")
-        console.log("data : "+data);
+
         location.href = "/member/login";
 
       },
       error : function (data) {
         alert("아이디 발송 도중 에러 발생" + data);
-        console.log("data : " + data);
+
       }
     })
   } // 아이디 발송 메소드 end
