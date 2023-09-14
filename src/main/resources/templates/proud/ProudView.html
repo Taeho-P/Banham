@@ -73,7 +73,7 @@
                         <div class="info">
                             <dl>
                                 <dt>작성자</dt>
-                                <dd th:text="${board.writer}"></dd>
+                                <dd class="mr-10" th:text="${board.writer}"></dd>
                             </dl>
                             <dl>
                                 <dt class="th-h">조회수</dt>
@@ -98,8 +98,8 @@
                         </dl>
                         <ul class="file-list">
                             <li th:each="file:${board.fileList}">
-                                <a class="icon icon-paperclip-1" href="#none" data-action="downloadFile"
-                                   style="cursor: pointer;" th:text="${file.getOriginalFilename()}"></a>
+                                <a class="icon icon-paperclip-1" th:href="@{|/upload/${board.repositoryFileName}|}" data-action="downloadFile"
+                                   style="cursor: pointer;" th:text="${file.originalFilename}"></a>
                             </li>
                         </ul>
                         <div id="like_check" class="heart-button text-center" onclick="likeClick()" style="cursor: pointer;"> <!-- 좋아요 버튼 -->
