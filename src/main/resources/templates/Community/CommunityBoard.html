@@ -107,7 +107,7 @@
                                     <span class="" th:each="board:${boardList}"><!-- board 글목록 반복출력코드 -->
                                         <input type="hidden" th:value="${board.bno}"/>
                                         <tr><!-- 글 번호 -->
-                                            <td>
+                                            <td class="d-flex">
                                                 <a class="slider-overtext" th:href="@{|/board/community/${board.bno}|}" th:text="${board.title}"  style="cursor: pointer;" ></a>
                                                 <span th:if="${board.communityCommentDTOList!=null}" class="text-center"> <!-- 댓글리스트 -->
                                                 [<span th:text="${board.communityCommentDTOList.size()}" class="text-center"></span>]<!-- 댓글수-->

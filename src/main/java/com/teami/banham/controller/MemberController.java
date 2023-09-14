@@ -96,7 +96,7 @@ public class MemberController {
 
     //넘겨받은 정보로 로그인 처리 (08.31 수정)
     @PostMapping("/member/login")
-    public ResponseEntity loginDTO (@RequestBody MemberDTO memberDTO, HttpSession session) {
+    public ResponseEntity loginDTO (@RequestBody MemberDTO memberDTO, HttpSession session, Model model) {
         MemberDTO loginDTO = memberService.login(memberDTO);
         if(loginDTO != null) {
             //로그인 성공
