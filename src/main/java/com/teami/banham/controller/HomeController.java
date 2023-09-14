@@ -85,7 +85,7 @@ public class HomeController {
                 eorN = "[공지사항]  ";
             }
 
-            String divHTML = "\"<div style='height:20px;'><a href='/board/Notice/" + testNoticeBoardDTO.getBno() + "' >" + eorN + testNoticeBoardDTO.getBoardTitle() + "</a><div>" + createdDateStr + "</div></div>\"";
+            String divHTML = "\"<div class='d-flex' ><a class='notice-rolling' href='/board/Notice/" + testNoticeBoardDTO.getBno() + "' >" + eorN + testNoticeBoardDTO.getBoardTitle() + "</a><div class='notice-date'>" + createdDateStr + "</div></div>\"";
             divHTMLList.add(divHTML);
         }
 
