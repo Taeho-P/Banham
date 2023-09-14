@@ -41,6 +41,7 @@ public class AdoptPagination {
 
         // 첫 페이지 번호 계산
         startPage = ((params.getPage() - 1) / params.getPageSize()) * params.getPageSize() + 1;
+        System.out.println("startPage : "+startPage);
 
         // 끝 페이지 번호 계산
         endPage = startPage + params.getPageSize() - 1;
@@ -56,7 +57,7 @@ public class AdoptPagination {
         System.out.println("limitstart" + limitStart);
         // 이전 페이지 존재 여부 확인
         existPrevPage = startPage != 1;
-
+        System.out.println("existPrevPage " + existPrevPage);
         // 다음 페이지 존재 여부 확인
         existNextPage = (endPage * params.getRecordPerPage()) < totalRecordCount;
     }

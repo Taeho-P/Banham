@@ -360,7 +360,7 @@
                             <img th:src="@{|/upload/${adopt.storeName}|}" alt="logo-img" class="img-fluid">
                             <div class="card-body slider-content position-relative">
                                 <h5 class="fw-bold" th:text="${adopt.title}"></h5>
-                                <p class="mb-2" th:text="${adopt.content}"></p>
+                                <p class="mb-2 slider-overtext" th:text="${adopt.content}"></p>
                                  <button class="btn btn-sm btn-primary">
                                      <a th:href="@{|/board/adopt/view/${adopt.id}|}">
                                          확인하기
@@ -432,7 +432,7 @@
                                 <img th:src="@{|/upload/${missing.storeName}|}" alt="logo-img" class="img-fluid">
                                 <div class="card-body slider-content position-relative">
                                     <h5 class="fw-bold" th:text="${missing.title}"></h5>
-                                    <p class="mb-2" th:text="${missing.content}"></p>
+                                    <p class="mb-2 slider-overtext" th:text="${missing.content}"></p>
                                     <button class="btn btn-sm btn-primary">
                                         <a th:href="@{|/board/missing/view/${missing.id}|}">
                                             확인하기
