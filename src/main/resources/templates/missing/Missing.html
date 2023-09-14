@@ -220,7 +220,7 @@
         const params = {
             page: page
             , recordPerPage: 10
-            , pageSize: 10
+            , pageSize: 5
             , searchType: form.searchType.value
             , keyword: form.keyword.value
         }
@@ -256,7 +256,7 @@
 
                 html += `
                                 <tr id="bno${obj.id}">
-    							    <td class="imgTd" ><img class="imgs" src="/images/binimg.png" style="width: 130px; height: 130px; display: block; object-fit: cover; border:0;"></td>
+    							    <td class="imgTd" ><img class="imgs" src="/images/binimg.png" style="width: 160px; height: 160px; display: block; object-fit: cover;  border-radius: 10%; border:0;"></td>
 
                                     <td class="text-left">
                                         ` + aniHtml + `<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>

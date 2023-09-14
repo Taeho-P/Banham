@@ -216,7 +216,7 @@
         const form = document.getElementById('searchForm');
         const params = {
             page: page
-            , recordPerPage: 8
+            , recordPerPage: 10
             , pageSize: 5
             , searchType: form.searchType.value
             , keyword: form.keyword.value
@@ -345,7 +345,7 @@
 
         let html = '';
         const pagination = params.adoptPagination;
-        console.table(pagination);
+       
         // 첫 페이지, 이전 페이지
         if (pagination.existPrevPage) {
             html += `
