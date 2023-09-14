@@ -51,10 +51,10 @@
                     <form action="/board/proud/save" method="post" enctype="multipart/form-data"> <!--실제 파일이 넘어감-->
                     <input type="hidden" name="memberId" th:value="${session.loginDTO.memberId}" >
                     <input style="outline: none" name="writer" th:value="${session.loginDTO.memberNick}" type="hidden"/>
-                    <input type="text" name="title" placeholder="제목을 입력하세요" class="form-control form-control-uniform">
+                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" class="form-control form-control-uniform">
                         <div class="row grid-margin section">
                             <div class="col-lg-12">
-                                <textarea class="w-100" name="contents"placeholder="내용을 입력하세요" ></textarea>
+                                <textarea class="w-100" id="contents" name="contents"placeholder="내용을 입력하세요" ></textarea>
                                 <input type="file" name="fileList" onchange="readURL(this)" accept=".jpg, .png, .gif, .jpeg" multiple>
                                 <img id="preview"/>
 <!--                                <input type="submit" value="글작성"/>-->
@@ -63,7 +63,7 @@
                             <div class="section">
                                 <div class="modal-footer justify-content-end ">
                                     <button type="button" class="btn btn-none btn-sm cursor" onclick="history.back()">취소</button>
-                                    <button class="btn btn-primary btn-sm cursor" type="submit" value="글작성">작성</button>
+                                    <button class="btn btn-primary btn-sm cursor" onclick="check()" type="submit" value="글작성">작성</button>
                                 </div>
                             </div>
                     </form>
@@ -98,6 +98,21 @@
 <!-- end footer-->
 </body>
 <script>
+
+    function check(){
+        let title = document.getElementById('title').value;
+        let contents = document.getElementById('content').value;
+
+        if(title == '' || title == null) {
+            alert("제목을 입력해주세요.");
+            return;
+        }
+        if(content == '' || content == null) {
+            alert("내용을 입력해주세요.");
+            return;
+        }
+    }
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();

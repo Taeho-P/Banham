@@ -32,7 +32,6 @@ public class CommunityBoardService {
 
     //자랑 게시판 게시글 작성시 저장 메소드
     public Long communitySave(CommunityBoardDTO communityBoardDTO) throws IOException {
-        System.out.println("serviceDTO = " + communityBoardDTO);
 
         if (communityBoardDTO.getFileList().stream().anyMatch(MultipartFile::isEmpty)) {
             // 파일 첨부 없을시
@@ -60,12 +59,11 @@ public class CommunityBoardService {
     @Transactional
     public Page<CommunityBoardDTO> communityFindAll(Pageable pageable) {
         int page = pageable.getPageNumber() - 1; //spring JPA에서 page는 0부터 시작하기때문
-        int pageLimit = 2; // 한페이지에 보여줄 글 갯수
+        int pageLimit = 30; // 한페이지에 보여줄 글 갯수
         // 한 페이지 당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0부터 시작
         Page<CommunityBoardEntity> communityBoardEntities =                                                   //Entity에 들어있는 값 기준
                 communityBoardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")));
-        System.out.println("communityBoard"+communityBoardEntities);
         Page<CommunityBoardDTO> boardDTOS = communityBoardEntities.map(board -> new CommunityBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getCommunityBoardFileEntityList(),board.getCommunityCommentEntityList()));
         return boardDTOS;
     }
@@ -82,7 +80,6 @@ public class CommunityBoardService {
         if (optionalCommunityBoardEntity.isPresent()) {
             CommunityBoardEntity communityBoardEntity = optionalCommunityBoardEntity.get();
             CommunityBoardDTO communityBoardDTO = CommunityBoardDTO.toBoardDTO(communityBoardEntity);
-            System.out.println("findById======>>>>>    " + communityBoardDTO);
             return communityBoardDTO;
         } else {
             return null;
@@ -94,7 +91,6 @@ public class CommunityBoardService {
     //게시글 수정
     @Transactional
     public CommunityBoardDTO communityUpdate(CommunityBoardDTO communityBoardDTO) throws IOException {
-        System.out.println("service update DTO =====>  " + communityBoardDTO);
         CommunityBoardDTO board = communityFindById(communityBoardDTO.getBno());
         if (board.getHasFile()==0) { // 수정하려는 게시글에 기존 첨부파일이 없을시
             if (communityBoardDTO.getFileList().stream().anyMatch(MultipartFile::isEmpty)) {
@@ -110,7 +106,7 @@ public class CommunityBoardService {
                 for (MultipartFile communityBoardFileList : communityBoardDTO.getFileList()) {
                     String originalFileName = communityBoardFileList.getOriginalFilename();
                     String repositoryFileName = System.currentTimeMillis() + "" + ((int) (Math.random() * 1000)) + "_" + originalFileName;
-                    String savePath = "C:/banham_img/" + repositoryFileName;
+                    String savePath = "C:/banham_files/" + repositoryFileName;
                     communityBoardFileList.transferTo(new File(savePath)); // 경로에 이름변경한 파일을 저장
 
                     CommunityBoardFileEntity communityBoardFileEntity = CommunityBoardFileEntity.toCommunityBoardFileEntity(communityBoard, originalFileName, repositoryFileName);
@@ -120,7 +116,7 @@ public class CommunityBoardService {
             }
         } else { // 수정하려는 게시글에 기존 첨부파일이 있었을시
             communityBoardFileRepository.deleteCommunityBoardFileEntitiesByByBno(communityBoardDTO.getBno());
-            String path="C:/banham_img/";
+            String path="C:/banham_files/";
             if (communityBoardDTO.getFileList().stream().anyMatch(MultipartFile::isEmpty)) {
                 // 수정할때 파일 첨부 없을시
                 CommunityBoardEntity communityBoardEntity = CommunityBoardEntity.toSaveEntity(communityBoardDTO);
@@ -134,7 +130,7 @@ public class CommunityBoardService {
                 for (MultipartFile communityBoardFileList : communityBoardDTO.getFileList()) {
                     String originalFileName = communityBoardFileList.getOriginalFilename();
                     String repositoryFileName = System.currentTimeMillis() + "" + ((int) (Math.random() * 1000)) + "_" + originalFileName;
-                    String savePath = "C:/banham_img/" + repositoryFileName;
+                    String savePath = "C:/banham_files/" + repositoryFileName;
                     communityBoardFileList.transferTo(new File(savePath)); // 경로에 이름변경한 파일을 저장
 
                     CommunityBoardFileEntity communityBoardFileEntity = CommunityBoardFileEntity.toCommunityBoardFileEntity(communityBoard, originalFileName, repositoryFileName);
@@ -161,5 +157,30 @@ public class CommunityBoardService {
         return communityBoardDTOList;
     }
 
+
+    public Page<CommunityBoardDTO> communitySearch(Pageable pageable,String searchType,String searchKeyword){
+        int page = pageable.getPageNumber() - 1; //spring JPA에서 page는 0부터 시작하기때문
+        int pageLimit = 2; // 한페이지에 보여줄 글 갯수
+        // 한 페이지 당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
+        // page 위치에 있는 값은 0부터 시작
+        if(searchType.equals("title")){ // 검색 키워드가 제목일경우
+            Page<CommunityBoardEntity> communityBoardEntities =                                                   //Entity에 들어있는 값 기준
+                    communityBoardRepository.findAllByTitle(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+            Page<CommunityBoardDTO> boardDTOS = communityBoardEntities.map(board -> new CommunityBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getCommunityBoardFileEntityList(),board.getCommunityCommentEntityList()));
+            return boardDTOS;
+        } else if(searchType.equals("contents")){
+            Page<CommunityBoardEntity> communityBoardEntities =                                                   //Entity에 들어있는 값 기준
+                    communityBoardRepository.findAllByContents(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+            Page<CommunityBoardDTO> boardDTOS = communityBoardEntities.map(board -> new CommunityBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getCommunityBoardFileEntityList(),board.getCommunityCommentEntityList()));
+            return boardDTOS;
+        } else if (searchType.equals("writer")){
+            Page<CommunityBoardEntity> communityBoardEntities =                                                   //Entity에 들어있는 값 기준
+                    communityBoardRepository.findallbyWriter(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")),searchKeyword);
+            Page<CommunityBoardDTO> boardDTOS = communityBoardEntities.map(board -> new CommunityBoardDTO(board.getBno(), board.getTitle(), board.getContents(), board.getHits(), board.getWriter(), board.getMemberId(), board.getCreatedTime(), board.getUpdatedTime(), board.getHasFile(), board.getCommunityBoardFileEntityList(),board.getCommunityCommentEntityList()));
+            return boardDTOS;
+        } else {
+            return null;
+        }
+    }
 
 }

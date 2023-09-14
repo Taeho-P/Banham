@@ -19,15 +19,30 @@
     <input type="hidden" name="memberId" th:value="${session.loginDTO.memberId}">
     <input type="hidden" name="hits" th:value="${boardUpdate.hits}">
     작성자 <input type="text" name="writer" th:value="${session.loginDTO.memberNick}" readonly/><br>
-    제목 <input type="text" name="title" th:value="${boardUpdate.title}"/><br>
-    <textarea name="contents" cols="30" rows="10" th:text="${boardUpdate.contents}"></textarea><br>
-    <input type="file" name="fileList" onchange="readURL(this)"  accept=".jpg, .png, .gif, .jpeg" multiple><br>
+    제목 <input type="text" id="title" name="title" th:value="${boardUpdate.title}"/><br>
+    <textarea name="contents" id="content" cols="30" rows="10" th:text="${boardUpdate.contents}"></textarea><br>
+    <input type="file" name="fileList" onclick="check()" onchange="readURL(this)"  accept=".jpg, .png, .gif, .jpeg" multiple><br>
     <img id="preview"/><br>
     <input type="submit" value="글작성"/>
 
 </form>
 </body>
 <script>
+
+    function check(){
+        let title = document.getElementById('title').value;
+        let contents = document.getElementById('content').value;
+
+        if(title == '' || title == null) {
+            alert("제목을 입력해주세요.");
+            return;
+        }
+        if(content == '' || content == null) {
+            alert("내용을 입력해주세요.");
+            return;
+        }
+    }
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();

@@ -3,6 +3,7 @@ package com.teami.banham.controller;
 
 import com.teami.banham.dto.CommunityBoardDTO;
 import com.teami.banham.dto.CommunityCommentDTO;
+import com.teami.banham.dto.ProudBoardDTO;
 import com.teami.banham.service.CommunityBoardService;
 import com.teami.banham.service.CommunityCommentService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,7 @@ public class CommunityBoardController {
     private final CommunityBoardService communityBoardService;
     private final CommunityCommentService communityCommentService;
 
-    // 자랑 게시판 목록 (9/4)
+    // 자유 게시판 목록 (9/4)
     @GetMapping("/community")
     public String findAll(@PageableDefault(page=1) Pageable pageable, Model model){
         int nowPage=pageable.getPageNumber();
@@ -39,13 +41,13 @@ public class CommunityBoardController {
         return "/Community/CommunityBoard";
     }
 
-    // 자랑 게시판 글쓰기 (9/4)
+    // 자유 게시판 글쓰기 (9/4)
     @GetMapping("/community/save")
     public String communitySaveForm() {
         return "/Community/CommunitySave";
     }
 
-    // 자랑 게시판 글쓰기 (9/4)
+    // 자유 게시판 글쓰기 (9/4)
     @PostMapping("/community/save")
     public String communitySave(@ModelAttribute CommunityBoardDTO communityBoardDTO) throws IOException {
         System.out.println("community Save ===>>> " + communityBoardDTO);
@@ -53,7 +55,7 @@ public class CommunityBoardController {
         return "redirect:/board/community";
     }
 
-    // 자랑게시판 게시글 보기 (9/4)
+    // 자유  게시글 보기 (9/4)
     @GetMapping("/community/{bno}")
     public String findById(@PathVariable Long bno, Model model, @PageableDefault(page=1) Pageable pageable){
         communityBoardService.communityUpdateHits(bno);
@@ -87,5 +89,37 @@ public class CommunityBoardController {
     public String communityDeleteForm(@PathVariable Long bno){
         communityBoardService.communityDelete(bno);
         return "redirect:/board/community";
+    }
+
+    @Transactional
+    @RequestMapping(value = "/community/search", method = RequestMethod.GET)
+    public String proudSearch(@PageableDefault(page = 1) Pageable pageable, @RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model) {
+        int nowPage = pageable.getPageNumber();
+        Page<CommunityBoardDTO> communityBoardDTO = communityBoardService.communitySearch(pageable, searchType, searchKeyword);
+        int blockLimit = 2;
+        int startPage = (((int) (Math.ceil((double) nowPage / blockLimit))) - 1) * blockLimit + 1; //1,6,11 ...
+        int endPage = ((startPage + blockLimit - 1) < communityBoardDTO.getTotalPages()) ? startPage + blockLimit - 1 : communityBoardDTO.getTotalPages();
+
+        model.addAttribute("boardList", communityBoardDTO);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "/Community/CommunityBoard :: #board_list";
+    }
+
+    @Transactional
+    @RequestMapping(value = "/community/search/page", method = RequestMethod.POST)
+    public String proudSearchPage(@PageableDefault(page = 1) Pageable pageable, @RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model) {
+        int nowPage = pageable.getPageNumber();
+        Page<CommunityBoardDTO> communityBoardDTO = communityBoardService.communitySearch(pageable, searchType, searchKeyword);
+        int blockLimit = 5;
+        int startPage = (((int) (Math.ceil((double) nowPage / blockLimit))) - 1) * blockLimit + 1; //1,6,11 ...
+        int endPage = ((startPage + blockLimit - 1) < communityBoardDTO.getTotalPages()) ? startPage + blockLimit - 1 : communityBoardDTO.getTotalPages();
+
+        model.addAttribute("boardList", communityBoardDTO);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "/Community/CommunityBoard :: #page_list";
     }
 }

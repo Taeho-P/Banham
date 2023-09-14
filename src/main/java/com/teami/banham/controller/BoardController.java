@@ -139,7 +139,6 @@ public class BoardController {
     // 자랑 게시판 글쓰기 (9/4)
     @PostMapping("/proud/save")
     public String proudSave(@ModelAttribute ProudBoardDTO proudBoardDTO) throws IOException {
-        System.out.println("Proud Save ===>>> " + proudBoardDTO);
         boardService.proudSave(proudBoardDTO);
         return "redirect:/board/proud";
     }
@@ -180,7 +179,7 @@ public class BoardController {
         return "redirect:/board/proud";
     }
 
-    // 자랑게시판 검색 기능 구현 중 -- -- - ---
+    // 자랑게시판 검색 기능 구현 완료
     @Transactional
     @RequestMapping(value = "/proud/search", method = RequestMethod.GET)
     public String proudSearch(@PageableDefault(page = 1) Pageable pageable, @RequestParam("searchType") String searchType, @RequestParam("searchKeyword") String searchKeyword, Model model) {

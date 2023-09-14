@@ -21,7 +21,6 @@ public class LocalPointScheduledConfig {
 //    @Scheduled(fixedRate = 600000)
     public void apiParserSearchAsync() {
         localData.apiParserSearchAsync();
-        System.out.println("왁악!!!!" + localData.getFoodList().size());
         localPointService.foodDataDeleteAll();
         localPointService.serviceDataDeleteAll();
         localPointService.hotelDataDeleteAll();
@@ -72,6 +71,6 @@ public class LocalPointScheduledConfig {
             }
         }
 
-        System.out.println("data 추가 완료..!");
+        System.out.println("API DATA ADD SUCCESS!");
     }
 }
