@@ -1,10 +1,14 @@
 package com.teami.banham.controller;
 
 import com.teami.banham.dto.*;
+import com.teami.banham.dto.MissingDTO.MisCommentResponse;
 import com.teami.banham.dto.MissingDTO.MisResponseDto;
+import com.teami.banham.dto.adoptDTO.AdoptCommentResponse;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
 import com.teami.banham.service.*;
+import com.teami.banham.service.MissingService.MisCommentService;
 import com.teami.banham.service.MissingService.MissingService;
+import com.teami.banham.service.adoptService.AdoptCommentService;
 import com.teami.banham.service.adoptService.AdoptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +37,8 @@ public class MemberController {
 
     private final AdoptService adoptService;
     private final MissingService missingService;
+    private final AdoptCommentService adoptCommentService;
+    private final MisCommentService misCommentService;
 
     //회원가입 페이지 출력 요청
     @GetMapping("/signUp")
@@ -220,6 +226,7 @@ public class MemberController {
         return "WriteList";
     }
 
+    /**마이페이지 내 댓글 보기**/
     @Transactional
     @GetMapping("/CommentList")
     public String commentListForm(HttpSession session, Model model){
@@ -228,8 +235,17 @@ public class MemberController {
         List<ProudCommentDTO> proudCommentDTOList = proudCommentService.proudCommentFindByMemberId(loginDTO.getMemberId());
         model.addAttribute("proudCommentList",proudCommentDTOList);
 
+        List<AdoptCommentResponse> adoptList = adoptCommentService.findAdoptComment(loginDTO.getMno());
+        model.addAttribute("adoptList", adoptList);
+
+        List<MisCommentResponse> missingList = misCommentService.findMisComment(loginDTO.getMno());
+        model.addAttribute("missingList", missingList);
+
+
         return "CommentList";
     }
+
+
 
     @Transactional
     @GetMapping("/LikeList")

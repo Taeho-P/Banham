@@ -6,6 +6,7 @@ import com.teami.banham.dto.MissingDTO.MisSearchDto;
 import com.teami.banham.dto.MissingDTO.misPaging.MisPagination;
 import com.teami.banham.dto.MissingDTO.misPaging.MisPagingResponse;
 
+import com.teami.banham.dto.adoptDTO.AdoptCommentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MisCommentService {
     private final MisCommentMapper commentMapper;
+
+    /**유저의 입양게시판 댓글 찾기 **/
+    public List<MisCommentResponse> findMisComment (long memberId){
+        return commentMapper.findMisComment(memberId);
+    }
 
     /**
      * 댓글 저장

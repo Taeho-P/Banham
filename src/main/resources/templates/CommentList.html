@@ -95,6 +95,70 @@
         </div>
     </div>
 </section>
+<section class="flexbox pb-3">
+    <div class="container">
+        <h4>입양 게시판 댓글 목록</h4>
+        <div class="container mt-3">
+            <div class="demo-wrapper content-block pb-0">
+                <div class="table data-table">
+                    <table class="table table-responsive">
+                        <colgroup>
+                            <col width="13.33%"/>
+                            <col width="60%"/>
+                            <col width="13.33%"/>
+                        </colgroup>
+                        <thead class="bgl-gray-light">
+                        <tr>
+                            <th class="text-center">작성자</th>
+                            <th class="text-center">작성 내용</th>
+                            <th class="text-center">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="adopt: ${adoptList}">
+                            <td  class="text-center" th:text="${adopt.writer}"></td>
+                            <td><a th:href="@{|/board/adopt/view/${adopt.boardId}|}" th:text="${adopt.content}"></a></td>
+                            <td  class="text-center"th:text="*{#temporals.format(adopt.createdDate, 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="flexbox pb-3">
+    <div class="container">
+        <h4>실종 게시판 댓글 목록</h4>
+        <div class="container mt-3">
+            <div class="demo-wrapper content-block pb-0">
+                <div class="table data-table">
+                    <table class="table table-responsive">
+                        <colgroup>
+                            <col width="13.33%"/>
+                            <col width="60%"/>
+                            <col width="13.33%"/>
+                        </colgroup>
+                        <thead class="bgl-gray-light">
+                        <tr>
+                            <th class="text-center">작성자</th>
+                            <th class="text-center">작성 내용</th>
+                            <th class="text-center">작성일</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="missing: ${missingList}">
+                            <td  class="text-center" th:text="${missing.writer}"></td>
+                            <td><a th:href="@{|/board/adopt/view/${missing.boardId}|}" th:text="${missing.content}"></a></td>
+                            <td  class="text-center"th:text="*{#temporals.format(missing.createdDate, 'yyyy-MM-dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Start footer-->
 <div th:replace="/footer :: footer"></div>
 <!-- end footer-->

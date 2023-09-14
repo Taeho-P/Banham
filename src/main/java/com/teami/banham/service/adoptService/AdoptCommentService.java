@@ -17,6 +17,12 @@ import java.util.List;
 public class AdoptCommentService {
     private final AdoptCommentMapper commentMapper;
 
+    /**유저의 입양게시판 댓글 찾기 **/
+    public List<AdoptCommentResponse> findAdoptComment (long memberId){
+        return commentMapper.findAdoptComment(memberId);
+    }
+
+
     /**
      * 댓글 저장
      * @param params - 댓글 정보
