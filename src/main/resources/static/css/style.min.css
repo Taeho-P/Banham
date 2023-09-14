@@ -5653,7 +5653,12 @@ body[data-layout-mode=dark] .footer .logo .logo-light
 {
     margin-top:0
 }
-
+.sch-cont select {
+    /*height:30px;*/
+}
+.sch-cont .form-control{
+    /*height: 45px;*/
+}
 .blog_right_sidebar .search_widget .form-control
 {
     height:50px;

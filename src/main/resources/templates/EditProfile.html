@@ -79,32 +79,49 @@
 
 
                     <div class="row align-items-center mt-5">
-                        <div class="col">
+                        <div class="col mt-1">
                             <div class="text-center">
                                 <button class="btn-light" type="button" onclick="select00()"><img th:src="@{/profile/00.png}" /></button>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col mt-1">
                             <div class="text-center">
                                 <button class="btn-light"type="button" onclick="select01()"><img th:src="@{/profile/01.png}" /></button>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col mt-1">
                             <div class="text-center">
                                 <button class="btn-light"type="button" onclick="select02()"><img th:src="@{/profile/02.png}" /></button>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col mt-1">
                             <div class="text-center">
                                 <button class="btn-light"type="button" onclick="select03()"><img th:src="@{/profile/03.png}" /></button>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col mt-1">
                             <div class="text-center">
                                 <button class="btn-light"type="button" onclick="select04()"><img th:src="@{/profile/04.png}" /></button>
                             </div>
                         </div>
 
+                        <div class="col mt-1">
+                            <div class="text-center">
+                                <button class="btn-light"type="button" onclick="select05()"><img th:src="@{/profile/05.png}" /></button>
+                            </div>
+                        </div>
+
+                        <div class="col mt-1">
+                            <div class="text-center">
+                                <button class="btn-light"type="button" onclick="select06()"><img th:src="@{/profile/06.png}" /></button>
+                            </div>
+                        </div>
+
+                        <div class="col mt-1">
+                            <div class="text-center">
+                                <button class="btn-light"type="button" onclick="select07()"><img th:src="@{/profile/07.png}" /></button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -205,6 +222,30 @@
 
         document.querySelector("#selectImg").src = "/profile/04.png";
         profileImgNo.value = "04";
+    }
+
+    const select05 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/05.png";
+        profileImgNo.value = "05";
+    }
+
+    const select06 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/06.png";
+        profileImgNo.value = "06";
+    }
+
+    const select07 = () => {
+
+        const profileImgNo = document.querySelector("#profileImgNo");
+
+        document.querySelector("#selectImg").src = "/profile/07.png";
+        profileImgNo.value = "07";
     }
     const nickCheck = () => {   // 입력한 닉네임의 유효 검사 및 중복 검사 메소드
 
