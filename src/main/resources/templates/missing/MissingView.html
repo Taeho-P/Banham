@@ -52,7 +52,7 @@
                             <a href="/" class="text-muted">홈</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="/board/adopt" class="text-muted">실종 게시판</a>
+                            <a href="/board/missing" class="text-muted">실종 게시판</a>
                         </li>
                         <li class="breadcrumb-item active text-primary" aria-current="page">글보기</li>
                     </ol>
@@ -132,7 +132,7 @@
                                              class="img-fluid-comment rounded-circle avatar-md">
                                     </div>
                                 </div>
-                                <div class="col-xl-8 col-md-6 col-5 my-2">
+                                <div class="my-2">
                                     <form>
                                         <input type="hidden" id="cm_writer" name="cm_writer"
                                                th:value="${session.loginDTO.getMemberNick()}">
@@ -140,7 +140,7 @@
                                         <!--                                            <input type="text" id="commentContents" placeholder="내용">-->
                                         <!--                                            <input type="text" class="form-control" id="exampleFormControlInput1"-->
                                         <!--                                                   placeholder="내용을 입력해주세요.">-->
-                                        <span><textarea class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="90" rows="2" placeholder="댓글을 입력해 주세요."></textarea></span>
+                                        <span><textarea style="height: 30px" class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="90" placeholder="댓글을 입력해 주세요."></textarea></span>
 
                                     </form>
                                 </div>

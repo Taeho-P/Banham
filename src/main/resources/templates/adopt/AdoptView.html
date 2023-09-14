@@ -135,7 +135,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-xl-8 col-md-6 col-5 my-2">
+                                <div class="my-2">
                                     <form>
                                         <input type="hidden" id="cm_writer" name="cm_writer"
                                                th:value="${session.loginDTO.getMemberNick()}">
@@ -143,7 +143,7 @@
                                         <!--                                            <input type="text" id="commentContents" placeholder="내용">-->
                                         <!--                                            <input type="text" class="form-control" id="exampleFormControlInput1"-->
                                         <!--                                                   placeholder="내용을 입력해주세요.">-->
-                                        <span><textarea class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="120" rows="3" style="resize: none;" placeholder="댓글을 입력해 주세요."></textarea></span>
+                                        <span><textarea style="height: 30px" class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="90" placeholder="댓글을 입력해 주세요."></textarea></span>
 
                                     </form>
                                 </div>
