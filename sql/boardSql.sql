@@ -15,7 +15,8 @@ create table tb_adopt_comment
  delete_yn number(1,0) CHECK (delete_yn IN (1, 0)),
  created_date DATE  DEFAULT sysdate NOT NULL,
  modified_date DATE,
- member_id number(10,0));
+ member_id number(10,0),
+ member_profile varchar2(255));
 
 ----입양파일----생성되어있는걸 지우고 실행 check
 CREATE TABLE tb_adopt_file (
@@ -55,7 +56,8 @@ create table tb_missing_comment
  delete_yn number(1,0) CHECK (delete_yn IN (1, 0)),
  created_date DATE  DEFAULT sysdate NOT NULL,
  modified_date DATE,
- member_id number(10,0));
+ member_id number(10,0),
+ member_profile varchar2(255));
 
 ----실종 파일----check
 CREATE TABLE tb_missing_file (
