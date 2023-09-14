@@ -110,13 +110,20 @@
                 <div class="demo-wrapper content-block pb-0">
                     <div class="table data-table">
                         <table class="table table-responsive">
+                            <colgroup>
+                                <col width="20%">
+                                <col width="50%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="10%">
+                            </colgroup>
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>등록일</th>
-                                <th>조회 수</th>
+                                <th style="text-align: center">제목</th>
+                                <th style="text-align: center" >작성자</th>
+                                <th style="text-align: center">등록일</th>
+                                <th style="text-align: center">조회 수</th>
 
                             </tr>
                             </thead>
@@ -213,7 +220,7 @@
         const params = {
             page: page
             , recordPerPage: 10
-            , pageSize: 10
+            , pageSize: 5
             , searchType: form.searchType.value
             , keyword: form.keyword.value
         }
@@ -249,16 +256,16 @@
 
                 html += `
                                 <tr id="bno${obj.id}">
-    							    <td class="imgTd" ><img class="imgs" src="/images/binimg.png" style="width: 130px; height: 130px; display: block; object-fit: cover; border:0;"></td>
+    							    <td class="imgTd" ><img class="imgs" src="/images/binimg.png" style="width: 160px; height: 160px; display: block; object-fit: cover;  border-radius: 10%; border:0;"></td>
 
                                     <td class="text-left">
                                         ` + aniHtml + `<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
                                         <br>
                                         <p style="white-space: normal; overflow: hidden; text-overflow: ellipsis; ">${obj.content}</p >
                                     </td>
-                                    <td>${obj.memNick}</td>
-                                    <td>${moment(obj.createdDate).format('YYYY-MM-DD')}</td>
-                                    <td>${obj.hits}</td>
+                                    <td  style="text-align: center">${obj.memNick}</td>
+                                    <td  style="text-align: center">${moment(obj.createdDate).format('YYYY-MM-DD')}</td>
+                                    <td  style="text-align: center">${obj.hits}</td>
 							</tr>
 						`;
             });

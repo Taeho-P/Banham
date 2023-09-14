@@ -264,7 +264,7 @@ public class BoardController {
         model.addAttribute("id", id);
         if (memberDTO != null) {
 //            return "adopt/AdoptWrite";
-            return "AdoptWrite";
+            return "adopt/AdoptWrite";
         } else return "adopt/Adopt";
     }
 
