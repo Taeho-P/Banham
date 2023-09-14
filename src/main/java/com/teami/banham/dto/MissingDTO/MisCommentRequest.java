@@ -11,4 +11,5 @@ public class MisCommentRequest {
     private String content;
     private String writer;
     private Long memberId;
+    private String memberProfile;
 }

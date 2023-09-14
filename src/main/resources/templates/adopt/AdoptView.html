@@ -140,6 +140,7 @@
                                         <input type="hidden" id="cm_writer" name="cm_writer"
                                                th:value="${session.loginDTO.getMemberNick()}">
                                         <input type="hidden" id="cm_id" th:value="${session.loginDTO.getMno()}">
+                                        <input type="hidden" id="cm_profile" th:value="${session.loginDTO.profileImgNo}">
                                         <!--                                            <input type="text" id="commentContents" placeholder="내용">-->
                                         <!--                                            <input type="text" class="form-control" id="exampleFormControlInput1"-->
                                         <!--                                                   placeholder="내용을 입력해주세요.">-->
@@ -204,10 +205,11 @@
         <tbody>
         <tr th:if="${session.loginDTO != null}">
           <input type="hidden" id="modalWriter" name="modalWriter" th:value="${session.loginDTO.getMemberNick()}" />
+          <input type="hidden" id="modalProfile" name="modalProfile" th:value="${session.loginDTO.profileImgNo}" />
         </tr>
         <tr>
           <th scope="row">내용<span class="es">필수 입력</span></th>
-          <td><textarea id="modalContent" name="modalContent" cols="90" rows="10" placeholder="수정할 내용을 입력해 주세요." style="white-space: pre-wrap;"></textarea></td>
+          <td><textarea id="modalContent" name="modalContent" cols="90" rows="3" placeholder="수정할 내용을 입력해 주세요." style="white-space: pre-wrap;"></textarea></td>
         </tr>
         </tbody>
       </table>
@@ -322,7 +324,9 @@
                 return false;
             }
 
-            fetch(`/api/adopt/${id}`, {
+            fetch(`/api/adopt/${id
+
+            }`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
 
@@ -389,9 +393,11 @@
         // 댓글 저장
         function saveComment() {
             const memberId = document.getElementById('cm_id');
-            console.log('memid '+ memberId);
+            // console.log('memid '+ memberId);
             const memNick = document.getElementById('cm_writer');
+            const memberProfile = document.getElementById('cm_profile');
             const content = document.getElementById('comment');
+
             isValid(content, '댓글');
 
             const boardId =  /*[[ ${id} ]]*/;
@@ -401,7 +407,8 @@
                 boardId : boardId,
                 content : content.value,
                 writer : memNick.value,
-                memberId : memberId.value
+                memberId : memberId.value,
+                memberProfile : memberProfile.value
             }
 
             //function.js callApi로 ajax 연결!!
@@ -470,6 +477,7 @@
             // const memNick = document.getElementById('cm_writer').value;
             document.getElementById('modalWriter').value = response.writer;
             document.getElementById('modalContent').value = response.content;
+            // document.getElementById('modalProfile').value = response.memberProfile;
             document.getElementById('commentUpdateBtn').setAttribute('onclick', `updateComment(${id})`);
             layerPop('commentUpdatePopup')
         }
@@ -488,6 +496,8 @@
 
             const writer = document.getElementById('modalWriter');
             const content = document.getElementById('modalContent');
+            const memberProfile = document.getElementById('modalProfile');
+
             isValid(writer, '작성자');
             isValid(content, '수정할 내용');
 
@@ -498,7 +508,8 @@
                 id : id,
                 boardId : boardId,
                 content : content.value,
-                writer : writer.value
+                writer : writer.value,
+                memberProfile : memberProfile.value
             }
 
             callApi(uri, 'patch', params);
@@ -523,7 +534,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-                    <span class="writer_img"><img src="/images/binimg.png" width="30px" height="30px" /></span>
+                    <span class="writer_img"><img src="/profile/${row.memberProfile}.png" width="30px" height="30px" /></span>
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
@@ -540,7 +551,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-                    <span class="writer_img"><img src="/images/binimg.png" width="30px" height="30px" /></span>
+                    <span class="writer_img"><img src="/profile/${row.memberProfile}.png" width="30px" height="30px" /></span>
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
