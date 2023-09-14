@@ -31,7 +31,7 @@
 <div th:replace="/header :: header"></div>
 <!--end Navbar-->
 <section class="section position-relative overflow-hidden"
-         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover; top: 95px;">
+         style="background-image: url(/images/login_bg.png); background-repeat: no-repeat; background-size: cover; top: 95px;margin-bottom: 95px;">
     <div class="content-wrapper container ">
         <div class="row mt-4">
             <div class="col-lg-12">
@@ -56,7 +56,7 @@
                 <div class="col-lg-5">
                     <div class="profile-item">
                         <div class="avatar">
-                            <img id="selectImg" class="img-fluid rounded-circle avatar-xl" th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}"/>
+                            <img id="selectImg" class="img-fluid-comment rounded-circle avatar-xl" th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}"/>
                             <input type="hidden" id="profileImgNo" name="profileImgNo" th:value="${session.loginDTO.profileImgNo}">
                             <input id="defaultNick" name="defaultNick" th:value="${session.loginDTO.getMemberNick()}" style="display: none">
                             <input id="defaultMail" name="defaultMail"th:value="${session.loginDTO.getMemberMail()}" style="display: none">
