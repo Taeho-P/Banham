@@ -110,13 +110,20 @@
                 <div class="demo-wrapper content-block pb-0">
                     <div class="table data-table">
                         <table class="table table-responsive">
+                            <colgroup>
+                                <col width="20%">
+                                <col width="50%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="10%">
+                            </colgroup>
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>등록일</th>
-                                <th>조회 수</th>
+                                <th style="text-align: center">제목</th>
+                                <th style="text-align: center" >작성자</th>
+                                <th style="text-align: center">등록일</th>
+                                <th style="text-align: center">조회 수</th>
 
                             </tr>
                             </thead>
@@ -256,9 +263,9 @@
                                         <br>
                                         <p style="white-space: normal; overflow: hidden; text-overflow: ellipsis; ">${obj.content}</p >
                                     </td>
-                                    <td>${obj.memNick}</td>
-                                    <td>${moment(obj.createdDate).format('YYYY-MM-DD')}</td>
-                                    <td>${obj.hits}</td>
+                                    <td  style="text-align: center">${obj.memNick}</td>
+                                    <td  style="text-align: center">${moment(obj.createdDate).format('YYYY-MM-DD')}</td>
+                                    <td  style="text-align: center">${obj.hits}</td>
 							</tr>
 						`;
             });
