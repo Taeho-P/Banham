@@ -81,7 +81,7 @@ public class NoticeBoardService {
         spec = spec.and(NoticeBoardSpecification.equalIsDelete("N"));
 
         int page = pageable.getPageNumber() - 1;  //요청이 들어오면 1, 2, 3.. 순으로 들어오는데 첫페이지의 실제 인덱스는 0부터 시작이기 때문에 1을 뺌
-        int pageLimit = 3; //한 페이지당 보여줄 게시글 수
+        int pageLimit = 30; //한 페이지당 보여줄 게시글 수
         Page<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findAll(spec, PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "bno")));
 
         // 리스트에서 보여줄 목록 : bno(상세 게시글 조회를 위해), EorN, boardTitle, boardWriter, createdTime, boardHits
