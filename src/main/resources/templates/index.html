@@ -226,8 +226,8 @@
                         <div class="card">
                             <img class="card-img" th:src="@{|/upload/${board.storedFile.get(0)}|}" alt="editor-img1">
                             <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
-                                <h6 class="card-subtitle" th:text="${board.boardLocal}"></h6>
-                                <h3 class="card-title" th:href="@{|/board/Editor/${board.bno}|}" th:text="${board.boardTitle}"></h3>
+                                <h6 class="card-subtitle slider-overtext" th:text="${board.boardLocal}"></h6>
+                                <h3 class="card-title slider-overtext" th:href="@{|/board/Editor/${board.bno}|}" th:text="${board.boardTitle}"></h3>
                                 <div class="link d-flex">
                                    <a th:href="@{|/board/Editor/${board.bno}|}" class="card-link btn btn-sm btn-primary">추천글 더보기</a>
                                 </div>
@@ -235,91 +235,6 @@
                         </div>
                     </div>
                 </th:block>
-
-<!--                <div class="swiper-slide">-->
-<!--                    <div class="card">-->
-<!--                        <img class="card-img" src="/images/editor-img2.png" alt="editor-img2">-->
-<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
-<!--                            <h6 class="card-subtitle">경기도 가평군</h6>-->
-<!--                            <h3 class="card-title">스위트몽</h3>-->
-<!--                            <div class="d-flex justify-content-between align-items-center">-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="link d-flex">-->
-<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="swiper-slide">-->
-<!--                    <div class="card">-->
-<!--                        <img class="card-img" src="/images/editor-img3.png" alt="editor-img3">-->
-<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
-<!--                            <h6 class="card-subtitle">충정남도 태안군</h6>-->
-<!--                            <h3 class="card-title">바다가쓴시</h3>-->
-<!--                            <div class="d-flex justify-content-between align-items-center">-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="link d-flex">-->
-<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="swiper-slide">-->
-<!--                    <div class="card">-->
-<!--                        <img class="card-img" src="/images/editor-img4.png" alt="editor-img4">-->
-<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
-<!--                            <h6 class="card-subtitle">충남 아산시 </h6>-->
-<!--                            <h3 class="card-title">포시즌발리</h3>-->
-<!--                            <div class="d-flex justify-content-between align-items-center">-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="link d-flex">-->
-<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="swiper-slide">-->
-<!--                    <div class="card">-->
-<!--                        <img class="card-img" src="/images/editor-img5.png" alt="editor-img5">-->
-<!--                        <div class="card-img-overlay text-white d-flex flex-column justify-content-end">-->
-<!--                            <h6 class="card-subtitle">충청남도 태안군</h6>-->
-<!--                            <h3 class="card-title">하늘지기</h3>-->
-<!--                            <div class="d-flex justify-content-between align-items-center">-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star rating-color"></i>-->
-<!--                                    <i class="mdi mdi-star"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="link d-flex">-->
-<!--                                &lt;!&ndash;                                <a href="#" class="card-link text-warning">구경하러가기</a>&ndash;&gt;-->
-
-
-
-
             </div>
             <div class="pt-5">
                 <div class="swiper-pagination"></div>
@@ -394,46 +309,7 @@
                         </div>
                     </th:block>
                     <!--/입양 롤링-->
-                    <!-- slider item -->
-                    <!--<div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    &lt;!&ndash; slider item &ndash;&gt;
-                    <div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    &lt;!&ndash; slider item &ndash;&gt;
-                    <div class="item">
-                        <div class="card position-relative overflow-hidden m-2 m-lg-0">
-                            <img src="/images/img-1.png" alt="logo-img" class="img-fluid">
-                            <div class="card-body slider-content position-relative">
-                                <p class="mb-2">귀여운 발바닥이 매력적</p>
-                                <h5 class="fw-bold">너무귀엽고 귀엽다</h5>
-                                <button class="btn btn-sm btn-primary">
-                                    확인하기
-                                </button>
-                            </div>
-                        </div>
-                    </div>-->
-                    <!-- slider item -->
+
                 </div>
                 <!-- End slider -->
             </div>
