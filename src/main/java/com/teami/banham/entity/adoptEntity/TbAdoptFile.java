@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class TbAdoptFile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // PK
 
     @ManyToOne

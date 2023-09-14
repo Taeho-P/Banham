@@ -5,13 +5,7 @@ import com.teami.banham.dto.*;
 import com.teami.banham.service.BoardService;
 import com.teami.banham.service.CommentService;
 
-import com.teami.banham.dto.adoptDTO.AdoptFileRequest;
-import com.teami.banham.dto.adoptDTO.AdoptRequestDTO;
-import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
-import com.teami.banham.service.MemberService;
-import com.teami.banham.service.adoptService.AdoptFileService;
 import com.teami.banham.service.adoptService.AdoptService;
-import com.teami.banham.service.adoptService.FileUtils;
 
 import com.teami.banham.service.EditorBoardService;
 import com.teami.banham.service.NoticeBoardService;
@@ -28,18 +22,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
-
-import java.io.IOException;
-import java.util.Map;
 
 
 @Controller
@@ -279,7 +265,7 @@ public class BoardController {
         model.addAttribute("id", id);
         if (memberDTO != null) {
 //            return "adopt/AdoptWrite";
-            return "adopt/testwrite";
+            return "AdoptWrite";
         } else return "adopt/Adopt";
     }
 

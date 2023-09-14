@@ -129,7 +129,7 @@
                                 <div class="col-sm-2 col-3">
                                     <div class="avatar forum-profile">
                                         <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" alt=""
-                                             class="img-fluid rounded-circle avatar-md">
+                                             class="img-fluid rounded-circle avatar-md" style='width: 50px; height: 50px; object-fit: cover;'>
                                     </div>
                                 </div>
                                 <div class="col-xl-8 col-md-6 col-5 my-2">
@@ -140,7 +140,7 @@
                                         <!--                                            <input type="text" id="commentContents" placeholder="내용">-->
                                         <!--                                            <input type="text" class="form-control" id="exampleFormControlInput1"-->
                                         <!--                                                   placeholder="내용을 입력해주세요.">-->
-                                        <span><textarea class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="90" rows="2" placeholder="댓글을 입력해 주세요."></textarea></span>
+                                        <span><textarea class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="120" rows="3" style="resize: none;" placeholder="댓글을 입력해 주세요."></textarea></span>
 
                                     </form>
                                 </div>
@@ -420,8 +420,8 @@
 
             const params = {
                 page : page,
-                recordSize : 5,
-                pageSize : 10,
+                recordSize : 10,
+                pageSize : 5,
                 boardId : boardId,
             }
 
@@ -520,7 +520,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-<!--                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>-->
+                    <span class="writer_img"><img src="/images/binimg.png" width="30px" height="30px" /></span>
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
@@ -537,7 +537,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-<!--                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>-->
+                    <span class="writer_img"><img src="/images/binimg.png" width="30px" height="30px" /></span>
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
