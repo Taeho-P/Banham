@@ -22,6 +22,6 @@ public interface ProudLikeRepository extends JpaRepository<ProudLikeEntity,Long>
     @Query("delete from ProudLikeEntity l where l.proudBoardEntity.bno=:bno and l.memberId=:memberId")
     void deleteByLike(@Param("bno") Long bno,@Param("memberId")  String memberId);
 
-    @Query("select l from ProudLikeEntity l where l.memberId=:memberId")
+    @Query("select l from ProudLikeEntity l where l.memberId=:memberId and l.proudBoardEntity.delete_ck=0")
     List<ProudLikeEntity> findAllMemberId(@Param("memberId") String memberId);
 }

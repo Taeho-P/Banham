@@ -9,6 +9,8 @@
     <meta name="keywords" content=""/>
     <meta content="Pichforest" name="author"/>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
     <!-- Bootstrap css -->
     <link rel="shortcut icon" href="images/favicon.ico">
 
@@ -62,13 +64,13 @@
             <div class="container">
                 <section class="notice d-flex">
                     <div class="sch-cont">
-                        <select class="">
+                        <select id="search_select"  class="">
                             <option value="title">제목</option>
+                            <option value="contents">제목+내용</option>
                             <option value="writer">작성자</option>
-                            <option value="create_date">작성일</option>
                         </select>
                         <input id="searchKeyword" name="searchKeyword" title="검색어 입력" class="q1" type="text" placeholder="검색어 입력" />
-                        <a href="#none" onclick="fnCmdSearch();" class="btn btn-sm btn-secondary">검색</a>
+                        <a href="#none" onclick="searchBoard()" class="btn btn-sm btn-secondary">검색</a>
                         <button onclick="saveReq()" class="btn btn-sm btn-primary">글쓰기</button><br>
                     </div>
                 </section>
@@ -86,6 +88,7 @@
             <div class="container mt-3">
                 <div class="demo-wrapper content-block pb-0">
                     <div class="table data-table">
+                        <div class="row" id="board_list"> <!--게시판 목록 start-->
                         <table class="table table-responsive">
                             <colgroup>
                                 <col width="60%"/>
@@ -103,6 +106,7 @@
                             </tr>
                             </thead>
                             <tbody>
+
                                 <th:block th:unless="${boardList.isEmpty()}"><!-- 비어있지않으면 block으로 싸서 출력 -->
                                     <span class="" th:each="board:${boardList}"><!-- board 글목록 반복출력코드 -->
                                         <input type="hidden" th:value="${board.bno}"/>
@@ -110,19 +114,15 @@
                                             <td class="d-flex">
                                                 <a class="slider-overtext" th:href="@{|/board/community/${board.bno}|}" th:text="${board.title}"  style="cursor: pointer;" ></a>
                                                 <span th:if="${board.communityCommentDTOList!=null}" class="text-center"> <!-- 댓글리스트 -->
-                                                [<span th:text="${board.communityCommentDTOList.size()}" class="text-center"></span>]<!-- 댓글수-->
+                                                 [<span th:text="${board.communityCommentDTOList.size()}" class="text-center"></span>]<!-- 댓글수-->
                                             </span>
                                             </td><!-- 제목-->
                                             <td class="text-center" th:text="${board.writer}"></td> <!-- 글쓴이 (닉네임)-->
-
-
-                                            <td th:text="${#temporals.format(board.createDate,'yyyy-MM-dd')}"class="text-center"></td><!-- 작성일-->
+                                            <td th:text="${#temporals.format(board.createDate,'yyyy-MM-dd')}" class="text-center"></td><!-- 작성일-->
                                             <td class="text-center" th:text="${board.getHits()}"></td>
                                         </tr>
                                     </span>
                                 </th:block>
-
-
                             </tbody>
                         </table>
                     </div>
@@ -131,6 +131,7 @@
                             게시물이 없어요!
                         </th:block>
                     </div>
+                </div>
                     <hr class="my-3">
                     <div class="pagination-block">
                         <nav aria-label="navigation">
@@ -193,10 +194,10 @@
 <!-- end footer-->
         </body>
 <script th:inline="javascript">
+
+    //글쓰기 버튼 스크립트
     const saveReq = () => {
         const nick = document.querySelector("#memberNick").value;
-
-        alert(nick);
         if(nick == '' || nick == null){
             alert("로그인 후 이용 가능합니다.");
             location.href="/member/login";
@@ -204,7 +205,60 @@
             location.href="/board/community/save"
         }
     }
+
+
+    function searchBoard() {
+        let searchType = document.getElementById("search_select").value;
+        let searchKeyword = document.getElementById("searchKeyword").value;
+
+        $.ajax({
+            type: "GET",
+            url: "/board/community/search",
+            data: {
+                "searchType": searchType,
+                "searchKeyword": searchKeyword,
+            },
+            success: function (data) {
+                console
+                console.log("검색 성공");
+            },
+            error: function () {
+                console.log("검색 실패");
+            }
+        })
+            .done(function (fragment) {
+                console.log(fragment);
+                $('#board_list').replaceWith(fragment);
+            });
+        searchBoardPage();
+    }
+
+    function searchBoardPage() {
+        let searchType = document.getElementById("search_select").value;
+        let searchKeyword = document.getElementById("searchKeyword").value;
+
+        $.ajax({
+            type: "POST",
+            url: "/board/community/search/page",
+            data: {
+                "searchType": searchType,
+                "searchKeyword": searchKeyword,
+            },
+            success: function (data) {
+                console.log("검색 성공");
+            },
+            error: function () {
+                console.log("검색 실패");
+            }
+        })
+            .done(function (fragment) {
+                console.log(fragment);
+                $('#page_list').replaceWith(fragment);
+            });
+    }
+
 </script>
+
 <!--Bootstrap Js-->
 <script src="/js/bootstrap.bundle.min.js"></script>
 

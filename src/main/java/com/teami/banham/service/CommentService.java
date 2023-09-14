@@ -56,7 +56,6 @@ public class CommentService {
         if (optionalCommentEntity.isPresent()) {
             ProudCommentEntity proudCommentEntity = optionalCommentEntity.get();
             ProudCommentDTO commentDTO = ProudCommentDTO.toCommentDTO(proudCommentEntity);
-            System.out.println("commentDTO findById======>>>>>    " + commentDTO);
             return commentDTO.getCno();
         } else {
             return null;

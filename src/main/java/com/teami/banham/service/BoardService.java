@@ -38,7 +38,6 @@ public class BoardService {
 
     //자랑 게시판 게시글 작성시 저장 메소드
     public Long proudSave(ProudBoardDTO proudBoardDTO) throws IOException {
-        System.out.println("serviceDTO = " + proudBoardDTO);
 
         if (proudBoardDTO.getFileList().stream().anyMatch(MultipartFile::isEmpty)) {
             // 파일 첨부 없을시
@@ -66,7 +65,7 @@ public class BoardService {
     @Transactional
     public Page<ProudBoardDTO> proudFindAll(Pageable pageable) {
         int page = pageable.getPageNumber() - 1; //spring JPA에서 page는 0부터 시작하기때문
-        int pageLimit = 15; // 한페이지에 보여줄 글 갯수
+        int pageLimit = 12; // 한페이지에 보여줄 글 갯수
         // 한 페이지 당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0부터 시작
         Page<ProudBoardEntity> proudBoardEntities =                                                   //Entity에 들어있는 값 기준
@@ -87,7 +86,6 @@ public class BoardService {
         if (optionalProudBoardEntity.isPresent()) {
             ProudBoardEntity proudBoardEntity = optionalProudBoardEntity.get();
             ProudBoardDTO proudBoardDTO = ProudBoardDTO.toBoardDTO(proudBoardEntity);
-            System.out.println("findById======>>>>>    " + proudBoardDTO);
             return proudBoardDTO;
         } else {
             return null;
@@ -107,7 +105,6 @@ public class BoardService {
     //게시글 수정
     @Transactional
     public ProudBoardDTO proudUpdate(ProudBoardDTO proudBoardDTO) throws IOException {
-        System.out.println("service update DTO =====>  " + proudBoardDTO);
         ProudBoardDTO board = proudFindById(proudBoardDTO.getBno());
         if (board.getHasFile()==0) { // 수정하려는 게시글에 기존 첨부파일이 없을시
             if (proudBoardDTO.getFileList().stream().anyMatch(MultipartFile::isEmpty)) {

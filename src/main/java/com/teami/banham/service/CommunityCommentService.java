@@ -55,7 +55,6 @@ public class CommunityCommentService {
         if (optionalCommentEntity.isPresent()) {
             CommunityCommentEntity communityCommentEntity = optionalCommentEntity.get();
             CommunityCommentDTO commentDTO = CommunityCommentDTO.toCommentDTO(communityCommentEntity);
-            System.out.println("commentDTO findById======>>>>>    " + commentDTO);
             return commentDTO.getCno();
         } else {
             return null;

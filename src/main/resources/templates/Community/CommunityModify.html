@@ -27,6 +27,7 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="/css/style.min.css" type="text/css" />
 </head>
+
 <body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 <!--Start Navbar-->
 <div th:replace="/header :: header"></div>
@@ -90,8 +91,22 @@
 <!-- start footer -->
 <div th:replace="/footer :: footer"></div>
 <!-- end footer-->
+
 </body>
 <script>
+    function check(){
+        let title = document.getElementById('title').value;
+        let contents = document.getElementById('content').value;
+
+        if(title == '' || title == null) {
+            alert("제목을 입력해주세요.");
+            return;
+        }
+        if(content == '' || content == null) {
+            alert("내용을 입력해주세요.");
+            return;
+        }
+    }
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();
