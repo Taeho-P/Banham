@@ -29,7 +29,7 @@
         , #{content}
         , #{writer}
         , 0
-        , to_date(sysdate,'yyyy.mm.dd hh24:mi')
+        , sysdate
         , NULL
         , #{memberId}
         )
@@ -51,7 +51,7 @@
     <update id="update" parameterType="com.teami.banham.dto.adoptDTO.AdoptCommentRequest">
         UPDATE tb_adopt_comment
         SET
-            modified_date = to_date(sysdate,'yyyy.mm.dd hh24:mi')
+            modified_date = sysdate
           , content = #{content}
           , writer = #{writer}
         WHERE
@@ -92,6 +92,18 @@
         id DESC
         offset #{adoptPagination.limitStart} ROWS FETCH NEXT #{recordPerPage} ROWS ONLY
 
+    </select>
+
+    <!--유저의 입양 댓글 목록-->
+    <select id="findAdoptComment" parameterType="long" resultType="com.teami.banham.dto.adoptDTO.AdoptCommentResponse">
+        select
+        <include refid="commentColumns" />
+        from
+        tb_adopt_comment
+        where
+        delete_yn =0
+        and member_id = #{value}
+        order by created_date desc
     </select>
 
 </mapper>

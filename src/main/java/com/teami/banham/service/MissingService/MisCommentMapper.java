@@ -5,12 +5,16 @@ import com.teami.banham.dto.MissingDTO.MisCommentResponse;
 import com.teami.banham.dto.MissingDTO.MisSearchDto;
 
 
+import com.teami.banham.dto.adoptDTO.AdoptCommentResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface MisCommentMapper {
+    /**유저의 입양게시판 댓글 찾기**/
+    List<MisCommentResponse> findMisComment(Long memberId);
+
     /**
      * 댓글 저장
      * @param params - 댓글 정보

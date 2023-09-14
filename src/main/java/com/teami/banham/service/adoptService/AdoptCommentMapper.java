@@ -9,6 +9,10 @@ import java.util.List;
 
 @Mapper
 public interface AdoptCommentMapper {
+
+    /**유저의 입양게시판 댓글 찾기**/
+    List<AdoptCommentResponse> findAdoptComment(Long memberId);
+
     /**
      * 댓글 저장
      * @param params - 댓글 정보

@@ -1,7 +1,9 @@
 package com.teami.banham;
 
+import com.teami.banham.dto.adoptDTO.AdoptCommentResponse;
 import com.teami.banham.dto.adoptDTO.AdoptIndex;
 import com.teami.banham.dto.adoptDTO.AdoptResponseDto;
+import com.teami.banham.service.adoptService.AdoptCommentService;
 import com.teami.banham.service.adoptService.AdoptService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,11 @@ class BanhamApplicationTests {
 	@Autowired
 	private final AdoptService adoptService;
 	@Autowired
-	BanhamApplicationTests(AdoptService adoptService) {
+	private final AdoptCommentService commentService;
+	@Autowired
+	BanhamApplicationTests(AdoptService adoptService, AdoptCommentService commentService) {
 		this.adoptService = adoptService;
+		this.commentService = commentService;
 	}
 
 
@@ -34,5 +39,10 @@ class BanhamApplicationTests {
 	void indextest() {
 		List<AdoptIndex> list = adoptService.findAdoptIndex();
 		System.out.println(list);
+	}
+	@Test
+	void i(){
+		List<AdoptCommentResponse> f = commentService.findAdoptComment(1L);
+
 	}
 }

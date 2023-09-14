@@ -29,7 +29,7 @@
         , #{content}
         , #{writer}
         , 0
-        , to_date(sysdate,'yyyy.mm.dd hh24:mi')
+        , sysdate
         , NULL
         , #{memberId}
         )
@@ -51,7 +51,7 @@
     <update id="update" parameterType="com.teami.banham.dto.MissingDTO.MisCommentRequest">
         UPDATE tb_missing_comment
         SET
-            modified_date = to_date(sysdate,'yyyy.mm.dd hh24:mi')
+            modified_date = sysdate
           , content = #{content}
           , writer = #{writer}
         WHERE
@@ -94,4 +94,15 @@
 
     </select>
 
+    <!--유저의 입양 댓글 목록-->
+    <select id="findMisComment" parameterType="long" resultType="com.teami.banham.dto.MissingDTO.MisCommentResponse">
+        select
+        <include refid="commentColumns" />
+        from
+        tb_missing_comment
+        where
+        delete_yn =0
+        and member_id = #{value}
+        order by created_date desc
+    </select>
 </mapper>
