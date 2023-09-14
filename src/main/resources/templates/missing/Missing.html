@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>실종 게시판</title>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
 
     <!--css add-->
-    <meta charset="UTF-8">
-    <title>실종 게시판</title>
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content=" "/>
@@ -34,7 +39,7 @@
 
     <title>실종 게시판</title>
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar-navlist" data-bs-offset="71">
 <!--Start Navbar-->
 <div th:replace="/header :: header"></div>
 <!--end Navbar-->
@@ -60,7 +65,8 @@
 
 
 <!--Start Board-->
-<section class="section position-relative overflow-hidden"style=" top: 90px; padding-bottom: 90px;">
+<section class="inner-blog section position-relative overflow-hidden" style=" top: 90px; padding-bottom: 90px;">
+    <!-- start container -->
     <div class="content-wrapper container ">
         <div class="row">
             <div class="col-lg-6">
@@ -106,7 +112,7 @@
                         <table class="table table-responsive">
                             <thead>
                             <tr>
-                                <!--                <th></th>-->
+                                <th></th>
                                 <th>제목</th>
                                 <th>작성자</th>
                                 <th>등록일</th>
@@ -132,8 +138,8 @@
                     <!--페이지네이션-->
                     <div class="pagination-block">
                         <!-- 페이지네이션 Rendering 영역 -->
-                        <nav aria-label="Page navigation" class="text-center">
-                            <ul class="pagination">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination page_list justify-content-center">
 
                             </ul>
                         </nav>
@@ -145,8 +151,9 @@
     </div>
 </section>
 <!-- start footer -->
+<footer>
     <div th:replace="/footer :: footer"></div>
-
+</footer>
 <!-- end footer-->
 </body>
 
@@ -242,7 +249,7 @@
 
                 html += `
                                 <tr id="bno${obj.id}">
-<!--    							<td>${num--}</td>-->
+    							    <td class="imgTd" ><img class="imgs" style="width: 130px; height: 130px; display: block; object-fit: cover;"></td>
 
                                     <td class="text-left">
                                         ` + aniHtml + `<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
@@ -270,20 +277,29 @@
         let imgHtml = '';
         console.table(imgRes);
         imgRes.forEach(row => {
-            let imgTd = document.createElement("TD");
-            if (CheckImagefiles(`${row.storeName}`)) {
-                imgHtml = `<img id="ino${row.boardId}" class="imgs" src="/upload/${row.storeName}" alt="" style="width: 130px; height: 130px; display: block; object-fit: cover;" />`;
+            // if (CheckImagefiles(`${row.storeName}`)){
+            //
+            // }
 
-            } else {
-                imgHtml = '';
-            }
-            imgTd.innerHTML = imgHtml;
-            console.log("imgTd: " + imgHtml);
-            if (document.getElementById(`bno${row.boardId}`) != null) {
+            // let imgTd = document.createElement("imgTD");
+            // if (CheckImagefiles(`${row.storeName}`)) {
+            //     imgHtml = `<img id="ino${row.boardId}" class="imgs" src="/upload/${row.storeName}" alt="" style="width: 130px; height: 130px; display: block; object-fit: cover;" />`;
+            //
+            // } else {
+            //     imgHtml = '';
+            // }
+            // imgTd.innerHTML = imgHtml;
+            // console.log("imgTd: " + imgHtml);
+            let imgName = "/upload/"+`${row.storeName}`;
+            console.log(imgName);
+            if (document.getElementById(`bno${row.boardId}`) != null && CheckImagefiles(`${row.storeName}`)){
                 const parentElement = document.getElementById(`bno${row.boardId}`);
-                const firstChild = parentElement.firstChild;
+                console.log("pe"+parentElement.id);
+                let firstChild= parentElement.querySelector("img");
+                // const firstChild = parentElement.firstChild.firstChild;
                 // document.getElementById(`bno${row.boardId}`).insertBefore(imgTd, firstChild);
-                parentElement.insertBefore(imgTd, firstChild);
+                // parentElement.insertBefore(imgTd, firstChild);
+                firstChild.src = imgName;
             }
 
         })
@@ -329,22 +345,22 @@
         // 첫 페이지, 이전 페이지
         if (pagination.existPrevPage) {
             html += `
- 				<li><a href="javascript:void(0)" onclick="findAll(1);" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
- 				<li><a href="javascript:void(0)" onclick="findAll(${pagination.startPage - 1});" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+ 				<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="findAll(1);" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+ 				<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="findAll(${pagination.startPage - 1});" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
  			`;
         }
 
         // 페이지 번호
         for (let i = pagination.startPage; i <= pagination.endPage; i++) {
             const active = (i === params.page) ? 'class="active"' : '';
-            html += `<li ${active}><a href="javascript:void(0)" onclick="findAll(${i})">${i}</a></li>`;
+            html += `<li class="page-item" ${active}><a class="page-link" href="javascript:void(0)" onclick="findAll(${i})">${i}</a></li>`;
         }
 
         // 다음 페이지, 마지막 페이지
         if (pagination.existNextPage) {
             html += `
- 				<li><a href="javascript:void(0)" onclick="findAll(${pagination.endPage + 1});" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a></li>
- 				<li><a href="javascript:void(0)" onclick="findAll(${pagination.totalPageCount});" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+ 				<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="findAll(${pagination.endPage + 1});" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a></li>
+ 				<li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="findAll(${pagination.totalPageCount});" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
  			`;
         }
 

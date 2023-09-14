@@ -49,9 +49,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb default mb-0">
                         <li class="breadcrumb-item">
-                            <a href="index.html" class="text-muted">홈</a>
+                            <a href="/" class="text-muted">홈</a>
                         </li>
-                        <li class="breadcrumb-item active text-primary" aria-current="page">입양게시판</li>
+                        <li class="breadcrumb-item">
+                            <a href="/board/adopt" class="text-muted">실종 게시판</a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">글보기</li>
                     </ol>
                 </nav>
             </div>
@@ -63,62 +66,102 @@
     <div class="content-wrapper container ">
     <div class="row">
         <div class="col-lg-6">
-            <h2 class="fw-bold">자유게시판</h2>
+            <h2 class="fw-bold">실종 게시판</h2>
         </div>
     </div>
     <hr class="my-4">
     <section class="artical flexbox pb-3">
-    <div class="card-content">
-        <form class="form-horizontal form-view">
-            <div class="form-group">
-                <label  class="col-sm-2 control-label">제목</label>
-                <div class="col-sm-10"><img id="animal_icon"><span id="title" class="form-control"></span></div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">작성자</label>
-                <div class="col-sm-10"><p id="memNick" class="form-control"></p></div>
-            </div>
-
-            <div class="form-group">
-                <label  class="col-sm-2 control-label"></label>
-                <div class="col-sm-10">
-                    <div id="img-files"></div>
-                    <p id="content" class="form-control"></p>
+        <div class="container">
+            <div class="board-post">
+                <img id="animal_icon"><!--icon-->
+                <h3  class="post-title" id="title"> </h3><!--제목-->
+                <div class="post-header">
+                    <div class="info">
+                        <dl>
+                            <dt>작성자 </dt>
+                            <dd id="memNick"></dd>
+                        </dl>
+                        <dl>
+                            <dt class="th-h">조회수 </dt>
+                            <dd class="th-h" id="hits"></dd>
+                        </dl>
+                        <dl>
+                            <dt>작성일</dt>
+                            <dd id="createdDate"></dd>
+                        </dl>
+                    </div>
                 </div>
+                <div class="post-body">
+                    <dl class="file-list2">
+                        <dd>
+                            <div id="img-files"></div>
+                            <span id="content" style="white-space: pre-wrap"> </span>
+                        </dd>
+
+                    </dl>
+
+                    <table class="file-list">
+                        <tr>
+                            <th scope="row">첨부파일</th>
+                            <td id="files" colspan="3">
+
+
+                            </td>
+
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="row">
+                    <div class="adoptedit">
+
+                        <button class="col-2 btn btn-list float-right"  onclick="goList();" >목록</button>
+
+                    </div>
+                </div>
+
+                <!--댓글 영역---------------->
+                <div class="comment-box mt-5">
+                    <h4 class="fw-bold">댓글</h4>
+                    <div id="Comment-box-item mb-1 comment-write">
+                        <div class="forum-form mt-4 cm_write" >
+                            <div class="row d-flex align-items-center justify-content-start" th:if="${session.loginDTO != null}">
+                                <div class="col-sm-2 col-3">
+                                    <div class="avatar forum-profile">
+                                        <img th:src="@{|/profile/${session.loginDTO.profileImgNo}.png|}" alt=""
+                                             class="img-fluid rounded-circle avatar-md">
+                                    </div>
+                                </div>
+                                <div class="col-xl-8 col-md-6 col-5 my-2">
+                                    <form>
+                                        <input type="hidden" id="cm_writer" name="cm_writer"
+                                               th:value="${session.loginDTO.getMemberNick()}">
+                                        <input type="hidden" id="cm_id" th:value="${session.loginDTO.getMno()}">
+                                        <!--                                            <input type="text" id="commentContents" placeholder="내용">-->
+                                        <!--                                            <input type="text" class="form-control" id="exampleFormControlInput1"-->
+                                        <!--                                                   placeholder="내용을 입력해주세요.">-->
+                                        <span><textarea class="form-control" id="comment" name="content" onkeyup="countingLength(this);" cols="90" rows="2" placeholder="댓글을 입력해 주세요."></textarea></span>
+
+                                    </form>
+                                </div>
+                                <div class="col-2">
+                                    <!--                                        <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
+                                    <span><button id="comment-write-btn" class="btn btn-dark" onclick="saveComment();">댓글작성</button><i id="counter">0/300자</i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
             </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label">등록일</label>
-                <div class="col-sm-10"><p id="createdDate" class="form-control"></p></div>
-            </div>
 
-            <div class="form-group">
-                <label  class="col-sm-2 control-label">조회 수</label>
-                <div class="col-sm-10"><p id="hits" class="form-control"></p></div>
-            </div>
-        </form>
-        <div><!--첨부파일 영역-->
-            <table>
-                <tr>
-                    <th scope="row">첨부파일</th>
-                    <td id="files" colspan="3">
-
-
-                    </td>
-
-                </tr>
-            </table>
         </div>
-        <div class="img-file"></div><!--이미지 파일-->
-        <div class="adoptedit"><!--작성자 시 수정/삭제 표출-->
-
-
-            <a href="javascript: void(0);" onclick="goList();" class="btn btn-default waves-effect waves-light">목록</a>
-        </div>
-    </div>
     <!--/* 댓글 작성 */-->
-    <div class="cm_write" th:if="${session.loginDTO != null}">
+    <!--<div class="cm_write" th:if="${session.loginDTO != null}">
         <fieldset>
             <legend class="skipinfo">댓글 입력</legend>
             <div class="cm_writer">
@@ -130,9 +173,9 @@
                 <span><button type="button" class="btns" onclick="saveComment();">등 록</button> <i id="counter">0/300자</i></span>
             </div>
         </fieldset>
-    </div>
+    </div>-->
     <!--/* 댓글 렌더링 영역 */-->
-    <div class="cm_list">
+    <div class="cm_list" id="comment-list">
 
     </div>
 
@@ -244,8 +287,8 @@
         //로그인 시 수정삭제버튼 보여주기
         function showEdit(){
             let edithtml = '';
-            edithtml += '<div> <a href="javascript: void(0);" onclick="goWrite();" class="btn btn-primary waves-effect waves-light">수정하기</a>' +
-                '<button type="button" onclick="deleteBoard();" class="btn btn-danger waves-effect waves-light">삭제하기</button></div>';
+            edithtml += '<div> <button href="javascript: void(0);" onclick="goWrite();" class="col-2 btn btn-list float-right">수정하기</button>' +
+                '<button type="button" onclick="deleteBoard();" class="col-2 btn btn-list float-right">삭제하기</button></div>';
 
             const editElem = document.querySelector('.adoptedit');
             editElem.innerHTML = edithtml;
@@ -477,7 +520,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>
+<!--                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>-->
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
@@ -494,7 +537,7 @@
                 list.forEach(row => {
                     commentHtml += `
                 <div>
-                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>
+<!--                    <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>-->
                     <p class="writer">
                         <em>${row.writer}</em>
                         <span class="date">${moment(row.createdDate).format('YYYY-MM-DD HH:mm')}</span>
