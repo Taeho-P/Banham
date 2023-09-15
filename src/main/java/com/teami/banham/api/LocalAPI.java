@@ -143,7 +143,7 @@ public class LocalAPI {
                 localPointData.setIndoor(indoor);
 
                 // 10.반려동물 동반 가능(실외) 처리
-                String outdoor = Optional.ofNullable(parseData.get("장소(실외) 여부"))
+                String outdoor = Optional.ofNullable(parseData.get("장소(실외)여부"))
                         .map(Object::toString)
                         .orElse("");
                 localPointData.setOutdoor(outdoor);
@@ -224,7 +224,7 @@ public class LocalAPI {
                 localPointData.setIndoor(indoor);
 
                 // 10.반려동물 동반 가능(실외) 처리
-                String outdoor = Optional.ofNullable(parseData.get("장소(실외) 여부"))
+                String outdoor = Optional.ofNullable(parseData.get("장소(실외)여부"))
                         .map(Object::toString)
                         .orElse("");
                 localPointData.setOutdoor(outdoor);
@@ -304,7 +304,7 @@ public class LocalAPI {
                 localPointData.setIndoor(indoor);
 
                 // 10.반려동물 동반 가능(실외) 처리
-                String outdoor = Optional.ofNullable(parseData.get("장소(실외) 여부"))
+                String outdoor = Optional.ofNullable(parseData.get("장소(실외)여부"))
                         .map(Object::toString)
                         .orElse("");
                 localPointData.setOutdoor(outdoor);
@@ -383,7 +383,7 @@ public class LocalAPI {
                 localPointData.setIndoor(indoor);
 
                 // 10.반려동물 동반 가능(실외) 처리
-                String outdoor = Optional.ofNullable(parseData.get("장소(실외) 여부"))
+                String outdoor = Optional.ofNullable(parseData.get("장소(실외)여부"))
                         .map(Object::toString)
                         .orElse("");
                 localPointData.setOutdoor(outdoor);
@@ -461,7 +461,7 @@ public class LocalAPI {
                 localPointData.setIndoor(indoor);
 
                 // 10.반려동물 동반 가능(실외) 처리
-                String outdoor = Optional.ofNullable(parseData.get("장소(실외) 여부"))
+                String outdoor = Optional.ofNullable(parseData.get("장소(실외)여부"))
                         .map(Object::toString)
                         .orElse("");
                 localPointData.setOutdoor(outdoor);
@@ -539,7 +539,7 @@ public class LocalAPI {
                 localPointData.setIndoor(indoor);
 
                 // 10.반려동물 동반 가능(실외) 처리
-                String outdoor = Optional.ofNullable(parseData.get("장소(실외) 여부"))
+                String outdoor = Optional.ofNullable(parseData.get("장소(실외)여부"))
                         .map(Object::toString)
                         .orElse("");
                 localPointData.setOutdoor(outdoor);

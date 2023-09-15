@@ -236,6 +236,10 @@
     function searchBoard() {
         let searchType = document.getElementById("search_select").value;
         let searchKeyword = document.getElementById("searchKeyword").value;
+        if(searchKeyword == '' || searchKeyword == null){
+            alert("검색어를 입력 해주세요!");
+            return;
+        }
 
         $.ajax({
             type: "GET",
