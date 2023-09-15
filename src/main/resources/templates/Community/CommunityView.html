@@ -108,8 +108,12 @@
                         <button class="col-2 btn btn-list float-right" onclick="listReq()">목록</button>
                         <th:block th:if="${session.loginDTO!=null}">
                             <th:block th:if="${board.memberId==session.loginDTO.memberId}">
-                                <button class="col-2 btn btn-list float-right" onclick="updateReq()" value="수정">수정</button>
-                                <button class="col-2 btn btn-list float-right" onclick="deleteReq()" value="삭제">삭제</button>
+                                <button class="col-2 btn btn-list float-right" onclick="updateReq()" value="수정">수정
+                                </button>
+                            </th:block>
+                            <th:block th:if="${board.memberId==session.loginDTO.memberId || session.loginDTO.memberId == 'banham' }">
+                                <button class="col-2 btn btn-list float-right" onclick="deleteReq()" value="삭제">삭제
+                                </button>
                             </th:block>
                         </th:block>
                     </div>

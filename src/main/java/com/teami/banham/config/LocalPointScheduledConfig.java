@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 @Configuration
-//@EnableScheduling
+@EnableScheduling
 public class LocalPointScheduledConfig {
     private final LocalAPI localData;
     private final LocalPointService localPointService;
@@ -18,7 +19,13 @@ public class LocalPointScheduledConfig {
         this.localPointService = localPointService;
     }
 
-//    @Scheduled(fixedRate = 600000)  //첫 서버오픈시 API에서 시설정보를 DB에 저장하는 메소드
+//    @Scheduled(cron = "0/3 * * * * *")
+//    public void test(){
+//        System.out.println("3초");
+//    }
+
+    //디비에 저장해야됨
+    @Scheduled(cron = "0 0 0 1 * *") // 초 분 시 일 월 순, 매월 1일 0시 0분 0초에 작업 시작하라는 뜻.
     public void apiParserSearchAsync() {
         localData.apiParserSearchAsync();
         if(localData.getTravelList()!=null){
