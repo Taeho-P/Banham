@@ -111,7 +111,7 @@
                                 <button class="col-2 btn btn-list float-right" onclick="updateReq()" value="수정">수정
                                 </button>
                             </th:block>
-                            <th:block th:if="${board.memberId==session.loginDTO.memberId || session.loginDTO.memberId == 'banham' }">
+                            <th:block th:if="${board.memberId==session.loginDTO.memberId || session.loginDTO.memberId == 'banham'}">
                                 <button class="col-2 btn btn-list float-right" onclick="deleteReq()" value="삭제">삭제
                                 </button>
                             </th:block>
@@ -250,6 +250,7 @@
     const updateReq = () => {
         console.log("수정 요청");
         const bno = [[${board.bno}]];
+        console.log("나와라ㅓ라라ㅏ라랄", bno);
         location.href = "/board/community/modify/" + bno;
     }
     const deleteReq = () => {
