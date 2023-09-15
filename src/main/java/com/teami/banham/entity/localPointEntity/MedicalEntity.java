@@ -55,7 +55,7 @@ public class MedicalEntity {
     @Column
     private String parking; //주차 가능 여부
 
-    @Column
+    @Column(length = 500)
     private String homepage; //홈페이지
 
     public static MedicalEntity toSaveMedicalEntity(LocalPointDataDTO localPointDataDTO){
@@ -72,7 +72,7 @@ public class MedicalEntity {
         medicalEntity.setIndoor(localPointDataDTO.getIndoor());
         medicalEntity.setOutdoor(localPointDataDTO.getOutdoor());
         medicalEntity.setParking(localPointDataDTO.getParking());
-        medicalEntity.setHomepage(localPointDataDTO.getParking());
+        medicalEntity.setHomepage(localPointDataDTO.getHomepage());
 
         return medicalEntity;
     }

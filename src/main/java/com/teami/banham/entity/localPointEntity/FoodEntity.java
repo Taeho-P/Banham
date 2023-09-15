@@ -55,7 +55,7 @@ public class FoodEntity {
     @Column
     private String parking; //주차 가능 여부
 
-    @Column
+    @Column(length = 500)
     private String homepage; //홈페이지
 
 
@@ -73,7 +73,7 @@ public class FoodEntity {
         foodEntity.setIndoor(localPointDataDTO.getIndoor());
         foodEntity.setOutdoor(localPointDataDTO.getOutdoor());
         foodEntity.setParking(localPointDataDTO.getParking());
-        foodEntity.setHomepage(localPointDataDTO.getParking());
+        foodEntity.setHomepage(localPointDataDTO.getHomepage());
 
         return foodEntity;
     }
