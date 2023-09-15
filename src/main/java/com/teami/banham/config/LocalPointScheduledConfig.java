@@ -21,13 +21,14 @@ public class LocalPointScheduledConfig {
 //    @Scheduled(fixedRate = 600000)  //첫 서버오픈시 API에서 시설정보를 DB에 저장하는 메소드
     public void apiParserSearchAsync() {
         localData.apiParserSearchAsync();
-        localPointService.foodDataDeleteAll();
-        localPointService.serviceDataDeleteAll();
-        localPointService.hotelDataDeleteAll();
-        localPointService.medicalDataDeleteAll();
-        localPointService.shoppingDataDeleteAll();
-        localPointService.travelDataDeleteAll();
-
+        if(localData.getTravelList()!=null){
+            localPointService.foodDataDeleteAll();
+            localPointService.serviceDataDeleteAll();
+            localPointService.hotelDataDeleteAll();
+            localPointService.medicalDataDeleteAll();
+            localPointService.shoppingDataDeleteAll();
+            localPointService.travelDataDeleteAll();
+        }
         for (int i = 0; i < localData.getFoodList().size(); i++) {
             if (localData.getFoodList().get(i) != null) {
                 localPointService.foodDataSave(localData.getFoodList().get(i));
