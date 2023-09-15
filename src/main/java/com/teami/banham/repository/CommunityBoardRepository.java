@@ -31,13 +31,13 @@ public interface CommunityBoardRepository extends JpaRepository<CommunityBoardEn
     @Query("select b from CommunityBoardEntity b where b.memberId=:memberId and b.delete_ck=0 order by b.bno desc")
     List<CommunityBoardEntity> findAllList(@Param("memberId")String memberId);
 
-    @Query("select b from CommunityBoardEntity b where b.title like %:searchKeyword%")
+    @Query("select b from CommunityBoardEntity b where (b.title like %:searchKeyword%) and b.delete_ck=0")
     Page<CommunityBoardEntity> findAllByTitle(Pageable pageable,@Param("searchKeyword") String searchKeyword);
 
-    @Query("select b from CommunityBoardEntity b where b.title like %:searchKeyword% or b.contents like %:searchKeyword%")
+    @Query("select b from CommunityBoardEntity b where (b.title like %:searchKeyword% or b.contents like %:searchKeyword%) and b.delete_ck=0")
     Page<CommunityBoardEntity> findAllByContents(Pageable pageable,@Param("searchKeyword") String searchKeyword);
 
-    @Query("select b from CommunityBoardEntity b where b.writer like %:searchKeyword%")
+    @Query("select b from CommunityBoardEntity b where (b.writer like %:searchKeyword%) and b.delete_ck=0")
     Page<CommunityBoardEntity> findallbyWriter(Pageable pageable, @Param("searchKeyword") String searchKeyword);
 
 }
