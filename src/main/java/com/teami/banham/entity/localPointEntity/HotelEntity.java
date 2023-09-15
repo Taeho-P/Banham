@@ -55,7 +55,7 @@ public class HotelEntity {
     @Column
     private String parking; //주차 가능 여부
 
-    @Column
+    @Column(length = 500)
     private String homepage; //홈페이지
 
     public static HotelEntity toSaveHotelEntity(LocalPointDataDTO localPointDataDTO){
@@ -72,7 +72,7 @@ public class HotelEntity {
         hotelEntity.setIndoor(localPointDataDTO.getIndoor());
         hotelEntity.setOutdoor(localPointDataDTO.getOutdoor());
         hotelEntity.setParking(localPointDataDTO.getParking());
-        hotelEntity.setHomepage(localPointDataDTO.getParking());
+        hotelEntity.setHomepage(localPointDataDTO.getHomepage());
 
         return hotelEntity;
     }

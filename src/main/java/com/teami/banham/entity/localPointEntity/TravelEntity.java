@@ -55,7 +55,7 @@ public class TravelEntity {
     @Column
     private String parking; //주차 가능 여부
 
-    @Column
+    @Column(length = 500)
     private String homepage; //홈페이지
 
     public static TravelEntity toSaveTravelEntity(LocalPointDataDTO localPointDataDTO){
@@ -72,7 +72,7 @@ public class TravelEntity {
         travelEntity.setIndoor(localPointDataDTO.getIndoor());
         travelEntity.setOutdoor(localPointDataDTO.getOutdoor());
         travelEntity.setParking(localPointDataDTO.getParking());
-        travelEntity.setHomepage(localPointDataDTO.getParking());
+        travelEntity.setHomepage(localPointDataDTO.getHomepage());
 
         return travelEntity;
     }

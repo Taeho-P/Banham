@@ -55,7 +55,7 @@ public class ShoppingEntity {
     @Column
     private String parking; //주차 가능 여부
 
-    @Column
+    @Column(length = 500)
     private String homepage; //홈페이지
 
     public static ShoppingEntity toSaveShoppingEntity(LocalPointDataDTO localPointDataDTO){
@@ -72,7 +72,7 @@ public class ShoppingEntity {
         shoppingEntity.setIndoor(localPointDataDTO.getIndoor());
         shoppingEntity.setOutdoor(localPointDataDTO.getOutdoor());
         shoppingEntity.setParking(localPointDataDTO.getParking());
-        shoppingEntity.setHomepage(localPointDataDTO.getParking());
+        shoppingEntity.setHomepage(localPointDataDTO.getHomepage());
 
         return shoppingEntity;
     }
