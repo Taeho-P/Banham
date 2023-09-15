@@ -475,7 +475,7 @@
             const uri = `/adopt/${boardId}/comments/${id}`;
             const response = getJson(uri);
             // const memNick = document.getElementById('cm_writer').value;
-            document.getElementById('modalWriter').value = response.writer;
+            // document.getElementById('modalWriter').value = response.writer;
             document.getElementById('modalContent').value = response.content;
             // document.getElementById('modalProfile').value = response.memberProfile;
             document.getElementById('commentUpdateBtn').setAttribute('onclick', `updateComment(${id})`);

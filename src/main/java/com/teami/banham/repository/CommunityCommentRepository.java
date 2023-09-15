@@ -5,6 +5,7 @@ import com.teami.banham.entity.CommunityCommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface CommunityCommentRepository extends JpaRepository<CommunityComme
     void deleteById(Long cno);
 
     @Query("select c from CommunityCommentEntity c where c.delete_ck=0 and c.communityBoardEntity=:communityBoardEntity order by c.cno desc")
-    List<CommunityCommentEntity> findAllByCommunityBoardEntityOrderByCnoDesc(CommunityBoardEntity communityBoardEntity);
+    List<CommunityCommentEntity> findAllByCommunityBoardEntityOrderByCnoDesc(@Param("communityBoardEntity") CommunityBoardEntity communityBoardEntity);
 
 
     @Query("select c from CommunityCommentEntity c where c.cno=:cno and c.delete_ck=0")
