@@ -1,11 +1,15 @@
 package com.teami.banham.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Getter
+@Setter
 @Table(name = "notice_board_file")
 @SequenceGenerator(
         name = "SEQ_NOTICE_FILE_GEN",

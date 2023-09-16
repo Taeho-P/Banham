@@ -2,6 +2,8 @@ package com.teami.banham.entity;
 
 import com.teami.banham.dto.EditorBoardDTO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Data
+@Getter
+@Setter
 @Table (name = "editor_board")
 @SequenceGenerator(
         name = "SEQ_EDITOR_BOARD_GEN",

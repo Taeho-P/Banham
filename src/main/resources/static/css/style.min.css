@@ -2447,6 +2447,18 @@ body[data-layout-mode=dark] .breadcrumb
 {
     background-image:url(../images/bg.png)
 }
+.bg-whether-image
+{
+    background-image:url(../images/whether_bg.png)
+}
+.bg-foot-image
+{
+    background-image:url(../images/foot-bg.png)
+}
+.bg-footer-image
+{
+    background-image:url(../images/footer-bg.png)
+}
 
 .home
 {
