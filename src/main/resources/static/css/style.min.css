@@ -2451,9 +2451,13 @@ body[data-layout-mode=dark] .breadcrumb
 {
     background-image:url(../images/whether_bg.png)
 }
-.bg-foot-image
+.bg-foot-image1
+ {
+     background-image:url(../images/foot-bg1.png)
+ }
+.bg-foot-image2
 {
-    background-image:url(../images/foot-bg.png)
+    background-image:url(../images/foot-bg2.png)
 }
 .bg-footer-image
 {
