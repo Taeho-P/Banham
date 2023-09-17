@@ -259,9 +259,9 @@
     							    <td class="imgTd" ><img class="imgs" src="/images/binimg.png" style="width: 160px; height: 160px; display: block; object-fit: cover;  border-radius: 10%; border:0;"></td>
 
                                     <td class="text-left">
-                                        ` + aniHtml + `<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
+                                        ` + aniHtml + `<a class="slider-overtext" href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
                                         <br>
-                                        <p style="white-space: normal; overflow: hidden; text-overflow: ellipsis; ">${obj.content}</p >
+                                        <p class="slider-overtext2" style="color:#a5a5a5; white-space: normal; overflow: hidden; text-overflow: ellipsis; ">${obj.content}</p >
                                     </td>
                                     <td  style="text-align: center">${obj.memNick}</td>
                                     <td  style="text-align: center">${moment(obj.createdDate).format('YYYY-MM-DD')}</td>
